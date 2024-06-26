@@ -4,9 +4,9 @@ import Carousel from './Carousel'
 
 const Hero = () => {
   return (
-    <section className='max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row'>
+    <section className='max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row h-full'>
       {/* <div className='hero-map' /> */}
-      <div className='relative z-20 flex flex-1 flex-col xl:w-1/2'>
+      <div className='relative z-20 flex flex-1 flex-col justify-center xl:w-1/2'>
         {/* <Image
           src='/pineapple_4.svg'
           alt='camp'
@@ -50,12 +50,7 @@ const Hero = () => {
 
         <div className='flex flex-col w-full gap-3 sm:flex-row'>
           <Button type='button' title='Get in touch' variant='btn_green' />
-          <Button
-            type='button'
-            title='Gallery'
-            icon='/play.svg'
-            variant='btn_white_text'
-          />
+          <Button type='button' title='Find Out More' variant='btn_green' />
         </div>
       </div>
 
