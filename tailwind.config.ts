@@ -49,5 +49,19 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [require('daisyui')],
+  // Override daisyUI's default settings if necessary
+  daisyui: {
+    // Add any daisyUI specific configurations here
+    themes: [
+      {
+        mytheme: {
+          // Replace 'mytheme' with your desired theme name
+          primary: '#30AF5B',
+          'primary-focus': '#292C27'
+          // Define other colors and configurations as needed
+        }
+      }
+    ]
+  }
 }
