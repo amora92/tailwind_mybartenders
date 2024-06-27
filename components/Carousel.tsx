@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = 4 // Make sure this matches the actual number of slides
+  const totalSlides = 9 // Update this to the actual number of slides
   const slideInterval = 3000 // Change slide every 3 seconds
 
   useEffect(() => {
@@ -26,14 +26,14 @@ const Carousel = () => {
       >
         <div className='w-full flex-shrink-0'>
           <img
-            src='/IMG-20240224-WA0004.jpg'
+            src='/IMG-20240224-WA0034.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
             alt='Slide 1'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
-            src='/cocktail_glass_berries.jpg'
+            src='/IMG-20240224-WA0057.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
             alt='Slide 2'
           />
@@ -47,9 +47,44 @@ const Carousel = () => {
         </div>
         <div className='w-full flex-shrink-0'>
           <img
-            src='/cocktail1_spritzer.jpg'
+            src='/IMG-20240224-WA0058.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
             alt='Slide 4'
+          />
+        </div>
+        <div className='w-full flex-shrink-0'>
+          <img
+            src='/IMG-20240224-WA0047.jpg'
+            className='w-4/5 mx-auto rounded-lg overflow-hidden'
+            alt='Slide 5'
+          />
+        </div>
+        <div className='w-full flex-shrink-0'>
+          <img
+            src='/IMG-20240224-WA0043.jpg'
+            className='w-4/5 mx-auto rounded-lg overflow-hidden'
+            alt='Slide 6'
+          />
+        </div>
+        <div className='w-full flex-shrink-0'>
+          <img
+            src='/IMG-20240224-WA0053.jpg'
+            className='w-4/5 mx-auto rounded-lg overflow-hidden'
+            alt='Slide 7'
+          />
+        </div>
+        <div className='w-full flex-shrink-0'>
+          <img
+            src='/IMG-20240224-WA0054.jpg'
+            className='w-4/5 mx-auto rounded-lg overflow-hidden'
+            alt='Slide 8'
+          />
+        </div>
+        <div className='w-full flex-shrink-0'>
+          <img
+            src='/cocktail1_spritzer.jpg'
+            className='w-4/5 mx-auto rounded-lg overflow-hidden'
+            alt='Slide 9'
           />
         </div>
       </div>
@@ -74,3 +109,5 @@ const Carousel = () => {
 }
 
 export default Carousel
+
+// color scheme https://colorhunt.co/palette/ff8f8feef2969ade7b508d69
