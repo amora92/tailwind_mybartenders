@@ -2,101 +2,80 @@ import React from 'react'
 
 const Hero_Cta_Left = () => {
   return (
-    <ul className='timeline timeline-vertical'>
-      <li>
-        <div className='timeline-start timeline-box'>Email, Call or Text</div>
-        <div className='timeline-middle'>
+    <section className='relative overflow-hidden bg-gradient-to-b from-blue-50 via-transparent to-transparent pb-12 pt-20 sm:pb-16 sm:pt-32 lg:pb-24'>
+      <div className='relative z-10'>
+        <div className='absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]'>
           <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            className='text-primary h-5 w-5'
+            className='h-[60rem] w-[100rem] flex-none stroke-blue-600 opacity-20'
+            aria-hidden='true'
           >
-            <path
-              fillRule='evenodd'
-              d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z'
-              clipRule='evenodd'
-            />
+            <defs>
+              <pattern
+                id='e9033f3e-f665-41a6-84ef-756f6778e6fe'
+                width='200'
+                height='200'
+                x='50%'
+                y='50%'
+                patternUnits='userSpaceOnUse'
+                patternTransform='translate(-100 0)'
+              >
+                <path d='M.5 200V.5H200' fill='none'></path>
+              </pattern>
+            </defs>
+            <svg x='50%' y='50%' className='overflow-visible fill-blue-50'>
+              <path
+                d='M-300 0h201v201h-201Z M300 200h201v201h-201Z'
+                strokeWidth='0'
+              ></path>
+            </svg>
+            <rect
+              width='100%'
+              height='100%'
+              strokeWidth='0'
+              fill='url(#e9033f3e-f665-41a6-84ef-756f6778e6fe)'
+            ></rect>
           </svg>
         </div>
-        <hr className='bg-primary' />
-      </li>
-      <li>
-        <hr className='bg-primary' />
-        <div className='timeline-middle'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            className='text-primary h-5 w-5'
-          >
-            <path
-              fillRule='evenodd'
-              d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z'
-              clipRule='evenodd'
-            />
-          </svg>
+      </div>
+      <div className='relative z-20 mx-auto max-w-7xl px-6 lg:px-8'>
+        <div className='mx-auto max-w-2xl text-center'>
+          <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
+            Cocktail bartender hire, mobile bar, weddings, parties,
+            masterclasses:
+            <span className='text-blue-600'> Free Quote</span>
+          </h1>
+          <h2 className='mt-6 text-lg leading-8 text-gray-600'>
+            ooking to elevate your next event with top-notch bartending
+            services? Our professional cocktail bartenders are perfect for
+            weddings, parties, and special occasions. We offer a fully equipped
+            mobile bar and engaging masterclasses to add a touch of class and
+            fun to your gathering. Whether you need a bartender for a private
+            event or a complete bar setup, we tailor our services to meet your
+            specific needs.
+          </h2>
+          <div className='mt-10 flex items-center justify-center gap-x-6'>
+            <a
+              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+              href='/login'
+            >
+              Contact Us
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-4 w-4'
+                viewBox='0 0 20 20'
+                fill='currentColor'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                  clipRule='evenodd'
+                ></path>
+              </svg>
+            </a>
+          </div>
         </div>
-        <div className='timeline-end timeline-box'>Confirm all details</div>
-        <hr className='bg-primary' />
-      </li>
-      <li>
-        <hr className='bg-primary' />
-        <div className='timeline-start timeline-box'>Receive a quote</div>
-        <div className='timeline-middle'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            className='text-primary h-5 w-5'
-          >
-            <path
-              fillRule='evenodd'
-              d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z'
-              clipRule='evenodd'
-            />
-          </svg>
-        </div>
-        <hr />
-      </li>
-      <li>
-        <hr />
-        <div className='timeline-middle'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            className='h-5 w-5'
-          >
-            <path
-              fillRule='evenodd'
-              d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z'
-              clipRule='evenodd'
-            />
-          </svg>
-        </div>
-        <div className='timeline-end timeline-box'>Confirm the job</div>
-        <hr />
-      </li>
-      <li>
-        <hr />
-        <div className='timeline-start timeline-box'>Enjoy our service</div>
-        <div className='timeline-middle'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            className='h-5 w-5'
-          >
-            <path
-              fillRule='evenodd'
-              d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z'
-              clipRule='evenodd'
-            />
-          </svg>
-        </div>
-      </li>
-    </ul>
+      </div>
+    </section>
   )
 }
 
