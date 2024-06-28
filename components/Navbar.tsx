@@ -13,8 +13,8 @@ const Navbar = () => {
   }
 
   return (
-    <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md mb-5'>
-      <div className='max-container flex items-center justify-between py-5'>
+    <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
+      <div className='max-container flex items-center justify-between py-2'>
         <Link href='/'>
           <Image src='/pineapple.svg' alt='logo' width={74} height={29} />
         </Link>
@@ -37,18 +37,18 @@ const Navbar = () => {
             alt='menu'
             width={32}
             height={32}
-            className='cursor-pointer'
+            className='cursor-pointer mr-6' // Add right margin here
             onClick={toggleMenu}
           />
         </div>
       </div>
 
       {isMenuOpen && (
-        <div className='absolute top-full left-0 right-0 bg-white lg:hidden shadow-md'>
-          <ul
-            className='flex flex-col items-center gap-4 py-4'
-            style={{ paddingRight: '10px' }}
-          >
+        <div
+          className='absolute top-full left-0 right-0 bg-white lg:hidden shadow-md'
+          style={{ paddingRight: '10px', paddingLeft: '10px' }}
+        >
+          <ul className='flex flex-col items-center gap-4 py-4'>
             {NAV_LINKS.map(link => (
               <Link
                 href={link.href}
