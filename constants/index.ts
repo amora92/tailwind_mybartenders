@@ -1,12 +1,12 @@
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Home' },
-  { href: '/', key: 'about_us', label: 'About-Us' },
-  { href: '/', key: 'gallery', label: 'Gallery' },
-  { href: '/', key: 'articles', label: 'Articles' },
-  { href: '/', key: 'services', label: 'Services' },
-  { href: '/', key: 'pricing ', label: 'Pricing ' },
-  { href: '/', key: 'contact_us', label: 'Contact Us' }
+  { href: '/aboutus', key: 'about_us', label: 'About-Us' },
+  { href: '/gallery', key: 'gallery', label: 'Gallery' },
+  { href: '/articles', key: 'articles', label: 'Articles' },
+  { href: '/services', key: 'services', label: 'Services' },
+  { href: '/pricing', key: 'pricing', label: 'Pricing' },
+  { href: '/contact_us', key: 'contact_us', label: 'Contact Us' }
 ]
 
 // CAMP SECTION
@@ -54,10 +54,8 @@ export const FOOTER_LINKS = [
   {
     title: 'Learn More',
     links: [
-      'About Hilink',
-      'Press Releases',
-      'Environment',
-      'Jobs',
+      'About Mybartenders.co.uk',
+      'Terms & Conditions',
       'Privacy Policy',
       'Contact Us'
     ]
@@ -71,8 +69,8 @@ export const FOOTER_LINKS = [
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
   links: [
-    { label: 'Admin Officer', value: '123-456-7890' },
-    { label: 'Email Officer', value: 'hilink@akinthil.com' }
+    { label: 'Call us', value: '123-456-7890' },
+    { label: 'Email Us', value: 'contact@mybartenders.co.uk' }
   ]
 }
 

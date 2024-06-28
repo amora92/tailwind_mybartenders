@@ -18,7 +18,7 @@ const Cta_Features = () => {
             </p>
             <a
               href='#'
-              className='flex flex-row items-center justify-center gap-2 text-base font-semibold text-indigo-600 lg:justify-start hover:text-indigo-700'
+              className='flex flex-row items-center justify-center gap-2 text-base font-semibold text-green-400 lg:justify-start hover:text-green-500'
             >
               Ideas for your party!{' '}
               <img src='/idea.svg' alt='Idea Icon' width='30' height='30' />
