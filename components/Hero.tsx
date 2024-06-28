@@ -6,7 +6,7 @@ import Button_Get_In_Touch from './Button_Get_In_Touch'
 
 const Hero = () => {
   return (
-    <section className='max-container padding-container flex flex-col gap-20 py-5 md:gap-28  xl:flex-row h-full'>
+    <section className='max-container pt-20 padding-container flex flex-col gap-20 py-5 md:gap-28 mt-8 xl:flex-row h-full'>
       <div className='relative z-20 flex flex-1 flex-col justify-center items-center xl:w-1/2 h-full'>
         <Hero_Cta_Left />
       </div>
