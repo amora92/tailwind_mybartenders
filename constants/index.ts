@@ -54,10 +54,8 @@ export const FOOTER_LINKS = [
   {
     title: 'Learn More',
     links: [
-      'About Hilink',
-      'Press Releases',
-      'Environment',
-      'Jobs',
+      'About Mybartenders.co.uk',
+      'Terms & Conditions',
       'Privacy Policy',
       'Contact Us'
     ]
@@ -71,8 +69,8 @@ export const FOOTER_LINKS = [
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
   links: [
-    { label: 'Admin Officer', value: '123-456-7890' },
-    { label: 'Email Officer', value: 'hilink@akinthil.com' }
+    { label: 'Call us', value: '123-456-7890' },
+    { label: 'Email Us', value: 'contact@mybartenders.co.uk' }
   ]
 }
 

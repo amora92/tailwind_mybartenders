@@ -42,7 +42,7 @@ const Hero_Cta_Left = () => {
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
             Cocktail bartender hire, mobile bar, weddings, parties,
             masterclasses:
-            <span className='text-blue-600'> Free Quote</span>
+            <span className='text-lime-400'> Free Quote</span>
           </h1>
           <h2 className='mt-6 text-lg leading-8 text-gray-600'>
             ooking to elevate your next event with top-notch bartending
@@ -55,7 +55,7 @@ const Hero_Cta_Left = () => {
           </h2>
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <a
-              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-lime-400 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
               href='/contact_us'
             >
               Contact Us

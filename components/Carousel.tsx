@@ -90,7 +90,7 @@ const Carousel = () => {
       </div>
       <div className='absolute left-5 right-5 top-1/2 flex justify-between transform -translate-y-1/2'>
         <button
-          className='btn btn-circle bg-blue-500 hover:bg-blue-600 text-white'
+          className='btn btn-circle bg-lime-400 hover:bg-lime-600 text-white'
           onClick={() =>
             goToSlide((currentSlide - 1 + totalSlides) % totalSlides)
           }
@@ -98,7 +98,7 @@ const Carousel = () => {
           ❮
         </button>
         <button
-          className='btn btn-circle bg-blue-500 hover:bg-blue-600 text-white'
+          className='btn btn-circle bg-lime-400 hover:bg-lime-500 text-white'
           onClick={() => goToSlide((currentSlide + 1) % totalSlides)}
         >
           ❯
