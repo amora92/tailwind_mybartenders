@@ -19,7 +19,7 @@ const Navbar = () => {
           <Link href='/'>
             <Image src='/pineapple.svg' alt='logo' width={74} height={29} />
           </Link>
-          <p className='ml-2 text-green-500 font-semibold text-lg'>
+          <p className='ml-2 text-lime-400 font-semibold text-lg'>
             mybartenders.co.uk
           </p>
         </div>
