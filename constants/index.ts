@@ -62,8 +62,7 @@ export const FOOTER_LINKS = [
   },
   {
     title: 'Our Community',
-    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X'],
-    links: ['CALL US - 123-456-7890', 'TikTok', 'X']
+    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X']
   }
 ]
 
