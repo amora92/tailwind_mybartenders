@@ -13,42 +13,44 @@ const Footer = () => {
           </Link>
 
           <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1 text-yellow-500'>
-            {FOOTER_LINKS.map(columns => (
-              <FooterColumn title={columns.title}>
+            {FOOTER_LINKS.map((columns, index) => (
+              <FooterColumn key={index} title={columns.title}>
                 <ul className='regular-14 flex flex-col gap-4 text-yellow-400'>
-                  {columns.links.map(link => (
-                    <Link href='/' key={link}>
-                      {link}
-                    </Link>
+                  {columns.links.map((link, idx) => (
+                    <li key={idx}>
+                      <Link href='/' passHref>
+                        <span className='hover:text-yellow-600 transition-colors duration-300 cursor-pointer'>
+                          {link}
+                        </span>
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </FooterColumn>
             ))}
 
             <div className='flex flex-col gap-5'>
-              <FooterColumn title={FOOTER_CONTACT_INFO.title}>
-                {FOOTER_CONTACT_INFO.links.map(link => (
-                  <Link
-                    href='/'
-                    key={link.label}
-                    className='flex gap-4 md:flex-col lg:flex-row'
-                  >
-                    <p className='whitespace-nowrap'>{link.label}:</p>
-                    <p className='medium-14 whitespace-nowrap text-yellow-500'>
-                      {link.value}
-                    </p>
-                  </Link>
-                ))}
-              </FooterColumn>
-            </div>
-
-            <div className='flex flex-col gap-5 '>
               <FooterColumn title={SOCIALS.title}>
-                <ul className='regular-14 flex gap-4 text-gray-30'>
-                  {SOCIALS.links.map(link => (
-                    <Link href='/' key={link}>
-                      <Image src={link} alt='logo' width={24} height={24} />
-                    </Link>
+                <ul className='flex-row gap-6 text-gray-30'>
+                  {SOCIALS.links.map((social, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={social.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='flex items-center gap-6 hover:text-yellow-600 transition-colors duration-300'
+                      >
+                        <Image
+                          src={social.icon}
+                          alt={`${social.label} icon`}
+                          width={32}
+                          height={32}
+                        />
+                        <span className='whitespace-nowrap text-yellow-500'>
+                          {social.label}
+                        </span>
+                      </a>
+                    </li>
                   ))}
                 </ul>
               </FooterColumn>
@@ -56,8 +58,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='border bg-gray-20' />
-        <p className='regular-14 w-full text-center text-gray-30'>
+        <p className='regular-14 w-full text-center text-gray-30 hover:text-yellow-600 transition-colors duration-300'>
           2024 Mybartenders.co.uk | All rights reserved
         </p>
       </div>
@@ -73,7 +74,9 @@ type FooterColumnProps = {
 const FooterColumn = ({ title, children }: FooterColumnProps) => {
   return (
     <div className='flex flex-col gap-5'>
-      <h4 className='bold-18 whitespace-nowrap'>{title}</h4>
+      <h4 className='bold-18 whitespace-nowrap hover:text-yellow-600 transition-colors duration-300'>
+        {title}
+      </h4>
       {children}
     </div>
   )

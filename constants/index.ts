@@ -62,7 +62,8 @@ export const FOOTER_LINKS = [
   },
   {
     title: 'Our Community',
-    links: ['Climbing xixixi', 'Hiking hilink', 'Hilink kinthill']
+    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X'],
+    links: ['CALL US - 123-456-7890', 'TikTok', 'X']
   }
 ]
 
@@ -77,10 +78,30 @@ export const FOOTER_CONTACT_INFO = {
 export const SOCIALS = {
   title: 'Social',
   links: [
-    '/facebook.svg',
-    '/instagram.svg',
-    '/twitter.svg',
-    '/youtube.svg',
-    '/wordpress.svg'
+    {
+      label: 'Facebook',
+      icon: '/facebook.svg',
+      url: 'https://facebook.com/mybartenders.co.uk'
+    },
+    {
+      label: 'Instagram',
+      icon: '/instagram.svg',
+      url: 'https://instagram.com/mybartenders.co.uk'
+    },
+    {
+      label: 'Twitter',
+      icon: '/twitter.svg',
+      url: 'https://twitter.com/mybartenders'
+    },
+    {
+      label: 'YouTube',
+      icon: '/youtube.svg',
+      url: 'https://youtube.com/mybartenders'
+    },
+    {
+      label: 'WordPress',
+      icon: '/wordpress.svg',
+      url: 'https://wordpress.com/mybartenders'
+    }
   ]
 }
