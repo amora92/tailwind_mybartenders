@@ -15,9 +15,14 @@ const Navbar = () => {
   return (
     <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
       <div className='max-container flex items-center justify-between py-2'>
-        <Link href='/'>
-          <Image src='/pineapple.svg' alt='logo' width={74} height={29} />
-        </Link>
+        <div className='flex items-center'>
+          <Link href='/'>
+            <Image src='/pineapple.svg' alt='logo' width={74} height={29} />
+          </Link>
+          <p className='ml-2 text-green-500 font-semibold text-lg'>
+            mybartenders.co.uk
+          </p>
+        </div>
 
         <div className='hidden lg:flex gap-12'>
           {NAV_LINKS.map(link => (
