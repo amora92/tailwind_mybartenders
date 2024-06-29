@@ -11,7 +11,7 @@ const Hero = () => {
         <Hero_Cta_Left />
       </div>
 
-      <div className='relative flex flex-1 h-full mx-11'>
+      <div className='relative flex flex-1 h-full'>
         <Carousel />
       </div>
     </section>
