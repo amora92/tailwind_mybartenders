@@ -62,7 +62,8 @@ export const FOOTER_LINKS = [
   },
   {
     title: 'Our Community',
-    links: ['Climbing xixixi', 'Hiking hilink', 'Hilink kinthill']
+    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X'],
+    links: ['CALL US - 123-456-7890', 'TikTok', 'X']
   }
 ]
 
