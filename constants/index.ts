@@ -62,7 +62,7 @@ export const FOOTER_LINKS = [
   },
   {
     title: 'Our Community',
-    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X/Twitter']
+    links: ['EMAIL US - Contact@mybartenders.co.uk', 'TikTok', 'X/Twitter']
   }
 ]
 
