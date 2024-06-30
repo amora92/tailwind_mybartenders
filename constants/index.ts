@@ -62,7 +62,7 @@ export const FOOTER_LINKS = [
   },
   {
     title: 'Our Community',
-    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X']
+    links: ['EMAIL US - CONTACT@MYBARTENDERS.CO.UK', 'TikTok', 'X/Twitter']
   }
 ]
 
@@ -98,9 +98,9 @@ export const SOCIALS = {
       url: 'https://youtube.com/mybartenders'
     },
     {
-      label: 'WordPress',
+      label: 'TikTok',
       icon: '/wordpress.svg',
-      url: 'https://wordpress.com/mybartenders'
+      url: 'https://www.tiktok.com/@mybartenders.co.uk?_t=8ncydLcTqe8&_r=1'
     }
   ]
 }

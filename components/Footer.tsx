@@ -38,7 +38,8 @@ const Footer = () => {
                         href={social.url}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='flex items-center gap-6 hover:text-yellow-600 transition-colors duration-300'
+                        className='flex items-center gap-6 hover:text-yellow-600 transition-colors duration-300 yellow-icon'
+                        // Add yellow-icon class here
                       >
                         <Image
                           src={social.icon}
@@ -46,7 +47,7 @@ const Footer = () => {
                           width={32}
                           height={32}
                         />
-                        <span className='whitespace-nowrap text-yellow-500'>
+                        <span className='whitespace-nowrap'>
                           {social.label}
                         </span>
                       </a>
@@ -58,7 +59,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <p className='regular-14 w-full text-center text-gray-30 hover:text-yellow-600 transition-colors duration-300'>
+        <p className='regular-14 w-full text-center text-yellow-400 hover:text-yellow-600 transition-colors duration-300'>
           2024 Mybartenders.co.uk | All rights reserved
         </p>
       </div>
