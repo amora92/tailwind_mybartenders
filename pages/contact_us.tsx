@@ -1,11 +1,11 @@
-// pages/contactus.js
+// pages/contactus.tsx
 
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
 import '../app/globals.css'
 
-const ContactUs = () => {
+const ContactUs: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -20,9 +20,9 @@ const ContactUs = () => {
     requirements: ''
   })
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const form = event.target
+    const form = event.target as HTMLFormElement
     const formData = new FormData(form)
     formData.append('eventDetails', JSON.stringify(eventDetails))
 
@@ -41,7 +41,11 @@ const ContactUs = () => {
       } else {
         const data = await response.json()
         if (data.hasOwnProperty('errors')) {
-          setStatusMessage(data.errors.map(error => error.message).join(', '))
+          setStatusMessage(
+            data.errors
+              .map((error: { message: string }) => error.message)
+              .join(', ')
+          )
         } else {
           setStatusMessage('Oops! There was a problem submitting your form')
         }
@@ -51,7 +55,9 @@ const ContactUs = () => {
     }
   }
 
-  const handleChange = e => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
     setEventDetails(prevState => ({
       ...prevState,
@@ -128,7 +134,7 @@ const ContactUs = () => {
                 name='message'
                 value={message}
                 onChange={e => setMessage(e.target.value)}
-                rows='4'
+                rows={4}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               ></textarea>
@@ -254,7 +260,7 @@ const ContactUs = () => {
                 name='requirements'
                 value={eventDetails.requirements}
                 onChange={handleChange}
-                rows='4'
+                rows={4}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               ></textarea>
