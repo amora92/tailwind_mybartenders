@@ -2,13 +2,61 @@
 
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { useState } from 'react'
 import '../app/globals.css'
 
 const ContactUs = () => {
-  const handleSubmit = event => {
+  const [statusMessage, setStatusMessage] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [eventDetails, setEventDetails] = useState({
+    attendees: '',
+    eventDate: '',
+    location: '',
+    startTime: '',
+    finishTime: '',
+    budget: '',
+    requirements: ''
+  })
+
+  const handleSubmit = async event => {
     event.preventDefault()
-    // Handle form submission logic here
-    alert('Form submitted!')
+    const form = event.target
+    const formData = new FormData(form)
+    formData.append('eventDetails', JSON.stringify(eventDetails))
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        setStatusMessage('Thanks for your submission!')
+        form.reset()
+      } else {
+        const data = await response.json()
+        if (data.hasOwnProperty('errors')) {
+          setStatusMessage(data.errors.map(error => error.message).join(', '))
+        } else {
+          setStatusMessage('Oops! There was a problem submitting your form')
+        }
+      }
+    } catch (error) {
+      setStatusMessage('Oops! There was a problem submitting your form')
+    }
+  }
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    setEventDetails(prevState => ({
+      ...prevState,
+      [name]: value
+    }))
   }
 
   return (
@@ -25,7 +73,13 @@ const ContactUs = () => {
             possible.
           </p>
 
-          <form onSubmit={handleSubmit}>
+          {/* Formspree form */}
+          <form
+            id='my-form'
+            action='https://formspree.io/f/xyyoygpk'
+            method='POST'
+            onSubmit={handleSubmit}
+          >
             <div className='mb-4'>
               <label
                 htmlFor='name'
@@ -37,6 +91,8 @@ const ContactUs = () => {
                 type='text'
                 id='name'
                 name='name'
+                value={name}
+                onChange={e => setName(e.target.value)}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               />
@@ -53,6 +109,8 @@ const ContactUs = () => {
                 type='email'
                 id='email'
                 name='email'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               />
@@ -68,6 +126,134 @@ const ContactUs = () => {
               <textarea
                 id='message'
                 name='message'
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                rows='4'
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              ></textarea>
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='attendees'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Number of Attendees
+              </label>
+              <input
+                type='number'
+                id='attendees'
+                name='attendees'
+                value={eventDetails.attendees}
+                onChange={handleChange}
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='eventDate'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Event Date
+              </label>
+              <input
+                type='date'
+                id='eventDate'
+                name='eventDate'
+                value={eventDetails.eventDate}
+                onChange={handleChange}
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='location'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Location
+              </label>
+              <input
+                type='text'
+                id='location'
+                name='location'
+                value={eventDetails.location}
+                onChange={handleChange}
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='startTime'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Start Time
+              </label>
+              <input
+                type='time'
+                id='startTime'
+                name='startTime'
+                value={eventDetails.startTime}
+                onChange={handleChange}
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='finishTime'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Finish Time
+              </label>
+              <input
+                type='time'
+                id='finishTime'
+                name='finishTime'
+                value={eventDetails.finishTime}
+                onChange={handleChange}
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='budget'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Budget
+              </label>
+              <input
+                type='text'
+                id='budget'
+                name='budget'
+                value={eventDetails.budget}
+                onChange={handleChange}
+                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                required
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label
+                htmlFor='requirements'
+                className='block text-gray-700 font-semibold mb-2'
+              >
+                Requirements
+              </label>
+              <textarea
+                id='requirements'
+                name='requirements'
+                value={eventDetails.requirements}
+                onChange={handleChange}
                 rows='4'
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
@@ -80,6 +266,7 @@ const ContactUs = () => {
             >
               Submit
             </button>
+            <p className='mt-2'>{statusMessage}</p>
           </form>
         </section>
 
