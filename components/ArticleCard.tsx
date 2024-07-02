@@ -1,9 +1,18 @@
-// components/ArticleCard.js
+// components/ArticleCard.tsx
 
 import React from 'react'
 import Link from 'next/link'
 
-const ArticleCard = ({ article }) => {
+interface ArticleType {
+  id: string
+  title: string
+  image: string
+  author: string
+  date: string
+  excerpt: string
+}
+
+const ArticleCard = ({ article }: { article: ArticleType }) => {
   return (
     <div className='bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 ease-in-out'>
       <img
