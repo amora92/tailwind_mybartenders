@@ -1,4 +1,4 @@
-// pages/articles/[id].tsx (or .jsx for JavaScript)
+// pages/articles/[id].tsx
 
 import React from 'react'
 import { useRouter } from 'next/router'
@@ -14,8 +14,6 @@ const ArticlePage: React.FC = () => {
   if (!article) {
     return <div>Article not found</div>
   }
-
-  console.log('Article:', article) // Log article to check content
 
   return (
     <div className='container mx-auto px-6 lg:px-20 py-12'>
@@ -33,7 +31,7 @@ const ArticlePage: React.FC = () => {
                 <h2 className='text-2xl font-semibold mb-4'>
                   {section.heading}
                 </h2>
-                <div dangerouslySetInnerHTML={{ __html: section.text }} />
+                <div dangerouslySetInnerHTML={{ __html: section.text || '' }} />
               </div>
             )}
             {section.type === 'recipe' && (
@@ -41,7 +39,7 @@ const ArticlePage: React.FC = () => {
                 <h2 className='text-2xl font-semibold mb-4'>
                   {section.heading}
                 </h2>
-                <div dangerouslySetInnerHTML={{ __html: section.text }} />
+                <div dangerouslySetInnerHTML={{ __html: section.text || '' }} />
               </div>
             )}
             {section.type === 'image' && (
@@ -55,7 +53,7 @@ const ArticlePage: React.FC = () => {
                 <h2 className='text-2xl font-semibold mb-4'>
                   {section.heading}
                 </h2>
-                <div dangerouslySetInnerHTML={{ __html: section.text }} />
+                <div dangerouslySetInnerHTML={{ __html: section.text || '' }} />
               </div>
             )}
             {/* Add more conditions for other section types as needed */}
