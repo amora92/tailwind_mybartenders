@@ -1,8 +1,6 @@
 import Image from 'next/image'
-import Button_Find_Out_More from './Button_Find_Out_More'
 import Carousel from './Carousel'
 import Hero_Cta_Left from './Hero_Cta_Left'
-import Button_Get_In_Touch from './Button_Get_In_Touch'
 
 const Hero = () => {
   return (
