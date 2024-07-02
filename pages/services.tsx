@@ -122,13 +122,11 @@ const Services = () => {
           <div className='bg-white rounded-lg shadow-md p-6'>
             <h2 className='text-2xl font-bold mb-4'>Additional Information</h2>
             <p className='text-gray-600'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              We offer a range of customizable packages to suit your specific
+              needs and preferences. From classic cocktails to innovative
+              creations, our bartenders use only the finest ingredients to
+              deliver top-notch drinks. We also handle all the setup and
+              cleanup, so you can relax and enjoy your event without any hassle.
             </p>
           </div>
         </section>
