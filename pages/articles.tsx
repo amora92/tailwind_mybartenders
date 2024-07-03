@@ -45,7 +45,7 @@ const Articles: React.FC = () => {
   }, [])
 
   return (
-    <div className='min-h-screen bg-gray-100'>
+    <div className='min-h-screen'>
       <Navbar />
       <main className='container mx-auto px-6 lg:px-20 py-12'>
         <h1 className='text-4xl font-bold mb-8 text-center'>Articles</h1>

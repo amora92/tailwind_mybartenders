@@ -66,7 +66,7 @@ const ContactUs: React.FC = () => {
   }
 
   return (
-    <div className='bg-gray-100'>
+    <div>
       <Navbar />
 
       <main className='container mx-auto px-4 py-8'>
@@ -268,9 +268,9 @@ const ContactUs: React.FC = () => {
 
             <button
               type='submit'
-              className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md'
+              className='bg-lime-400 hover:bg-lime-500 text-white py-2 px-4 rounded-md'
             >
-              Submit
+              Send
             </button>
             <p className='mt-2'>{statusMessage}</p>
           </form>
@@ -289,13 +289,13 @@ const ContactUs: React.FC = () => {
                 contact@mybartenders.co.uk
               </a>
             </li>
-            <li className='mb-2'>
+            {/* <li className='mb-2'>
               <span className='font-semibold'>Phone:</span> +1 234 567 890
             </li>
             <li className='mb-2'>
               <span className='font-semibold'>Address:</span> 123 Main St, City,
               Country
-            </li>
+            </li> */}
           </ul>
         </section>
       </main>
