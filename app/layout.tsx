@@ -8,8 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title:
-    'MYBARTENDERS.CO.UK, Cocktails, Mobile Mixology / Bartending, Weddings & More',
-  description: 'A private cocktail bartender hire, mobile bar, event hire.'
+    'MYBARTENDERS.CO.UK, Mobile Bar Hire Northampton, Mixology , Weddings & More',
+  description:
+    'Mobile bar hire in Northampton, Cocktails, Weddings, Private Parties'
 }
 
 export default function RootLayout ({
