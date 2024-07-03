@@ -6,89 +6,104 @@ import '../app/globals.css'
 
 const Pricing = () => {
   return (
-    <div className='bg-gray-100'>
+    <div>
       <Navbar />
 
-      <main className='container mx-auto px-4 py-8'>
+      <main className='container mx-auto px-4 py-8 lg:mt-20'>
         <h1 className='text-3xl font-bold text-center mb-8'>
           Our Pricing Plans
         </h1>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center'>
           {/* Pricing Card 1 */}
-          <div className='bg-white rounded-lg shadow-md p-6'>
+          <div className='bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg'>
             <h2 className='text-xl font-semibold mb-2'>Standard Package</h2>
             <p className='text-gray-600 mb-4'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Portable bar hire, bartender, setup & dismantling, standard menu.
             </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>$100</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Choose Plan
-              </button>
+            <div className='flex justify-center items-center mt-4'>
+              <span className='text-gray-700 font-semibold'>from £9pp</span>
+              <a
+                href='https://www.mybartenders.co.uk/contact_us'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='bg-lime-400 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
+              >
+                Contact Us
+              </a>
             </div>
           </div>
 
           {/* Pricing Card 2 */}
-          <div className='bg-white rounded-lg shadow-md p-6'>
+          <div className='bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg'>
             <h2 className='text-xl font-semibold mb-2'>Premium Package</h2>
             <p className='text-gray-600 mb-4'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Our Premium Package offers full-service mobile bartending with a
+              stocked bar, professional bartenders, custom drink menus, themes,
+              setup/cleanup, and event coordination, ensuring a hassle-free,
+              luxurious experience for your event.
             </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>$200</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Choose Plan
-              </button>
+            <div className='flex justify-center items-center mt-4'>
+              <span className='text-gray-700 font-semibold'>from £13pp</span>
+              <a
+                href='https://www.mybartenders.co.uk/contact_us'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='bg-lime-400 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
+              >
+                Contact Us
+              </a>
             </div>
           </div>
 
           {/* Pricing Card 3 */}
-          <div className='bg-white rounded-lg shadow-md p-6'>
-            <h2 className='text-xl font-semibold mb-2'>Enterprise Package</h2>
+          <div className='bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg'>
+            <h2 className='text-xl font-semibold mb-2'>Platinum Package</h2>
             <p className='text-gray-600 mb-4'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Tailored for large events, our Platinum Package ensures all needs
+              are met. We provide comprehensive bartending services, customized
+              to perfection{' '}
             </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>$300</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Choose Plan
-              </button>
+            <div className='flex justify-center items-center mt-4'>
+              <span className='text-gray-700 font-semibold'>Free Quote</span>
+              <a
+                href='https://www.mybartenders.co.uk/contact_us'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='bg-lime-400 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
+              >
+                Contact Us
+              </a>
             </div>
           </div>
         </div>
 
-        <section className='mt-12'>
-          <h2 className='text-2xl font-bold mb-4'>Features Included</h2>
-          <ul className='list-disc list-inside'>
+        <section className='mt-12 bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg'>
+          <h2 className='text-2xl font-bold mb-4'>Why us?</h2>
+          <ul className='list-disc list-inside text-center'>
+            <li className='text-gray-600'>Award winning service!</li>
             <li className='text-gray-600'>
-              Feature 1: Lorem ipsum dolor sit amet
+              Highly experienced, professional staff.
             </li>
-            <li className='text-gray-600'>
-              Feature 2: Consectetur adipiscing elit
-            </li>
-            <li className='text-gray-600'>
-              Feature 3: Sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua
-            </li>
+            <li className='text-gray-600'>Reliable</li>
           </ul>
         </section>
 
-        <section className='mt-12'>
-          <div className='bg-white rounded-lg shadow-md p-6'>
+        <section className='mt-12 lg:pb-20'>
+          <div className='bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg'>
             <h2 className='text-2xl font-bold mb-4'>Customize Your Plan</h2>
             <p className='text-gray-600'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Have specific requirements? Contact us for custom plan options
+              tailored to your needs.
             </p>
-            <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mt-4 rounded'>
+            <a
+              href='https://www.mybartenders.co.uk/contact_us'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='bg-lime-400 hover:bg-lime-500 text-white py-2 px-4 mt-4 rounded inline-block'
+            >
               Contact Us
-            </button>
+            </a>
           </div>
         </section>
       </main>

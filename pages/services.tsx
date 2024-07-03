@@ -6,139 +6,126 @@ import '../app/globals.css'
 
 const Services = () => {
   return (
-    <div className='bg-gray-100'>
+    <div>
       <Navbar />
 
       <main className='container mx-auto px-4 py-8'>
-        <h1 className='text-3xl font-bold text-center mb-8'>Our Services</h1>
+        {/* Service Overview Section */}
+        <section className='mb-12'>
+          <h2 className='text-3xl font-semibold text-center mb-8'>
+            Our Services
+          </h2>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+            {/* Service Details */}
+            <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
+              <h3 className='text-xl font-semibold mb-2'>
+                Event Planning & Coordination
+              </h3>
+              <p className='text-gray-600 mb-4'>
+                From concept to execution, we handle every detail of your event
+                to ensure perfection.
+              </p>
+            </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {/* Service Card 1 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Basic Bar Package</h2>
-            <p className='text-gray-600 mb-4'>
-              Perfect for small gatherings, our Basic Bar Package includes a
-              selection of classic cocktails, mocktails, and a professional
-              bartender.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£100</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
+            <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
+              <h3 className='text-xl font-semibold mb-2'>
+                Customized Menus & Catering
+              </h3>
+              <p className='text-gray-600 mb-4'>
+                Crafted menus featuring exquisite dishes and drinks tailored to
+                your preferences.
+              </p>
+            </div>
+
+            <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
+              <h3 className='text-xl font-semibold mb-2'>
+                Professional Bartending Services
+              </h3>
+              <p className='text-gray-600 mb-4'>
+                Expert bartenders delivering exceptional service with a variety
+                of beverages and cocktails.
+              </p>
+            </div>
+
+            <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
+              <h3 className='text-xl font-semibold mb-2'>
+                Mobile Bar Setup & Rentals
+              </h3>
+              <p className='text-gray-600 mb-4'>
+                Complete mobile bar solutions for any venue, ensuring
+                convenience and style.
+              </p>
+            </div>
+
+            <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
+              <h3 className='text-xl font-semibold mb-2'>
+                Venue Decoration & Styling
+              </h3>
+              <p className='text-gray-600 mb-4'>
+                Transforming spaces into captivating settings with our creative
+                decor solutions.
+              </p>
+            </div>
+
+            <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
+              <h3 className='text-xl font-semibold mb-2'>
+                Entertainment & Event Staffing
+              </h3>
+              <p className='text-gray-600 mb-4'>
+                Providing entertainment options and experienced staffing to
+                enhance your event atmosphere.
+              </p>
             </div>
           </div>
+        </section>
 
-          {/* Service Card 2 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Premium Bar Package</h2>
-            <p className='text-gray-600 mb-4'>
-              Upgrade your event with our Premium Bar Package, featuring an
-              extensive cocktail menu, premium spirits, and personalized
-              service.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£200</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
-          </div>
+        {/* Testimonials/Gallery Section */}
+        <section className='bg-gray-100 mb-12 py-8'>
+          <h2 className='text-3xl font-semibold text-center mb-8'>Gallery</h2>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            {/* Event 1 */}
+            <img
+              src='https://images.pexels.com/photos/434295/pexels-photo-434295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt='Event 1'
+              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
+            />
 
-          {/* Service Card 3 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Luxury Bar Package</h2>
-            <p className='text-gray-600 mb-4'>
-              Experience the ultimate luxury with our Luxury Bar Package, which
-              includes a bespoke cocktail menu, high-end spirits, and a
-              dedicated bar team.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£300</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
-          </div>
+            {/* Event 2 */}
+            <img
+              src='https://images.pexels.com/photos/16408/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt='Event 2'
+              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
+            />
 
-          {/* Service Card 4 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105 hidden md:block'>
-            <h2 className='text-xl font-semibold mb-2'>Custom Bar Package</h2>
-            <p className='text-gray-600 mb-4'>
-              Tailor your event to perfection with our Custom Bar Package.
-              Choose your preferred drinks, theme, and more for a personalized
-              experience.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£Custom</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
-          </div>
+            {/* Event 3 */}
+            <img
+              src='https://plus.unsplash.com/premium_photo-1681841634786-3f887cd2659d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTd8fGV2ZW50fGVufDB8fDB8fHww'
+              alt='Event 3'
+              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
+            />
 
-          {/* Service Card 5 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Cocktail Masterclass</h2>
-            <p className='text-gray-600 mb-4'>
-              Learn the art of cocktail making with our Cocktail Masterclass.
-              Perfect for team building or a fun night with friends.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£150</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
-          </div>
+            {/* Event 4 */}
+            <img
+              src='https://images.pexels.com/photos/1304540/pexels-photo-1304540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt='Event 4'
+              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
+            />
 
-          {/* Service Card 6 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Cocktail Tastings</h2>
-            <p className='text-gray-600 mb-4'>
-              Sample a range of expertly crafted cocktails with our Cocktail
-              Tastings package, guided by a professional mixologist.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£120</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
-          </div>
+            {/* Event 5 */}
+            <img
+              src='https://images.pexels.com/photos/6314327/pexels-photo-6314327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt='Event 5'
+              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
+            />
 
-          {/* Service Card 7 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Corporate Events</h2>
-            <p className='text-gray-600 mb-4'>
-              Make your corporate events memorable with our bespoke cocktail
-              services. Ideal for office parties, product launches, and client
-              entertaining.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£250</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
+            {/* Event 6 */}
+            <img
+              src='https://images.pexels.com/photos/2466320/pexels-photo-2466320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt='Event 6'
+              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
+            />
           </div>
-
-          {/* Service Card 8 */}
-          <div className='bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105'>
-            <h2 className='text-xl font-semibold mb-2'>Private Events</h2>
-            <p className='text-gray-600 mb-4'>
-              Whether it's a wedding, birthday, or any private event, our
-              professional bartenders will make it unforgettable with custom
-              cocktails and top-notch service.
-            </p>
-            <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>£220</span>
-              <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded'>
-                Book Now
-              </button>
-            </div>
-          </div>
-        </div>
+        </section>
       </main>
 
       <Footer />
