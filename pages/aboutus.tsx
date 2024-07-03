@@ -12,7 +12,7 @@ const AboutUs = () => {
   return (
     <div className={`${inter.className} `}>
       <Navbar />
-      <main className='container mx-auto px-6 py-12'>
+      <main className='container mx-auto px-6 py-12 mt-20'>
         <section className='text-center mb-12'>
           <p className='text-lg text-gray-600'>
             Discover our mission, history, services, and meet our dedicated
