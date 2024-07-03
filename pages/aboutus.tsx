@@ -117,7 +117,7 @@ const AboutUs = () => {
                 alt='Team Member 2'
                 className='w-32 h-32 rounded-full mb-4 object-cover'
               />
-              <h3 className='text-xl font-bold text-gray-800'>Jane Smith</h3>
+              <h3 className='text-xl font-bold text-gray-800'>L.V.</h3>
               <p className='text-gray-600'>Event Coordinator</p>
             </div>
             <div className='flex flex-col items-center p-4  rounded-lg shadow-sm hover:shadow-md transition-shadow'>
@@ -126,7 +126,7 @@ const AboutUs = () => {
                 alt='Team Member 3'
                 className='w-32 h-32 rounded-full mb-4 object-cover'
               />
-              <h3 className='text-xl font-bold text-gray-800'>Michael Brown</h3>
+              <h3 className='text-xl font-bold text-gray-800'>M.B.</h3>
               <p className='text-gray-600'>Mixologist</p>
             </div>
           </div>
