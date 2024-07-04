@@ -17,7 +17,12 @@ const Navbar = () => {
       <div className='max-container flex items-center justify-between py-2'>
         <div className='flex items-center'>
           <Link href='/'>
-            <Image src='/pineapple.svg' alt='logo' width={74} height={29} />
+            <Image
+              src='/mybartenders.co.uk_logo_svg.svg'
+              alt='logo'
+              width={29}
+              height={40}
+            />
           </Link>
           <p className='ml-2 text-grey-800 font-semibold'>mybartenders</p>
         </div>
