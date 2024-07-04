@@ -16,7 +16,8 @@ const Navbar = () => {
     <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
       <div className='max-container flex items-center justify-between py-2'>
         <div className='flex items-center'>
-          <Link href='/'>
+          <Link href='/' className='ml-4 md:ml-6 sm:ml-6.0'>
+            {/* Add margin-left class here */}
             <Image
               src='/mybartenders.co.uk_logo_svg.svg'
               alt='logo'
