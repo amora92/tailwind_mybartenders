@@ -8,15 +8,6 @@ const Footer = () => {
     <footer className='flexCenter mb-24'>
       <div className='padding-container max-container flex w-full flex-col gap-14'>
         <div className='flex flex-col items-start justify-center gap-[10%] md:flex-row'>
-          <Link href='/' className='mb-10'>
-            <Image
-              src='mybartenders.co.uk_logo_svg.svg'
-              alt='logo'
-              width={29}
-              height={40}
-            />
-          </Link>
-
           <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1 text-yellow-600'>
             {FOOTER_LINKS.map((columns, index) => (
               <FooterColumn key={index} title={columns.title}>
