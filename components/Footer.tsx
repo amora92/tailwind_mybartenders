@@ -64,7 +64,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <p className='regular-14 w-full text-center text-yellow-400 hover:text-yellow-600 transition-colors duration-300'>
+        <p className='regular-14 w-full text-center text-yellow-500 hover:text-yellow-600 transition-colors duration-300'>
           2024 Mybartenders.co.uk | All rights reserved
         </p>
       </div>
