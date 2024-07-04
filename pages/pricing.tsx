@@ -62,7 +62,7 @@ const Pricing = () => {
             <p className='text-gray-600 mb-4'>
               Tailored for large events, our Platinum Package ensures all needs
               are met. We provide comprehensive bartending services, customized
-              to perfection{' '}
+              to perfection. Anything is possible.
             </p>
             <div className='flex justify-center items-center mt-4'>
               <span className='text-gray-700 font-semibold'>Free Quote</span>
