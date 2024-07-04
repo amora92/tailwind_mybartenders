@@ -59,7 +59,7 @@ const Hero_Cta_Left = () => {
             masterclasses:
           </h1>
           <div className='mt-2 text-4xl font-bold text-lime-400 sm:text-6xl'>
-            Free Quote
+            Free Quote.
           </div>
           <h2 className='mt-4 text-lg font-semibold leading-8 text-gray-600'>
             Looking to elevate your next event with top-notch bartending
