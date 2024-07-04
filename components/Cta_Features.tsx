@@ -17,7 +17,7 @@ const Cta_Features = () => {
               to your requirements
             </p>
             <a
-              href='#'
+              href='https://www.mybartenders.co.uk/gallery'
               className='flex flex-row items-center justify-center gap-2 text-base font-semibold text-green-400 lg:justify-start hover:text-green-500'
             >
               Ideas for your party!{' '}
