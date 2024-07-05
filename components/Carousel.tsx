@@ -28,63 +28,63 @@ const Carousel = () => {
           <img
             src='/IMG-20240224-WA0034.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 1'
+            alt='Absinthe Fountain Cocktail'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/IMG-20240224-WA0057.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 2'
+            alt='Layered Cinnamon White Russian'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/cocktail_purple.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 3'
+            alt='Purple Cocktail'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/IMG-20240224-WA0058.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 4'
+            alt='White Russian'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/IMG-20240224-WA0047.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 5'
+            alt='Absinthe Fountain Water Drop'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/IMG-20240224-WA0043.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 6'
+            alt='Absinthe Fountain Water '
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/IMG-20240224-WA0053.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 7'
+            alt='White Russian Cocktail'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/IMG-20240224-WA0054.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 8'
+            alt='White Russian Cocktail Fire'
           />
         </div>
         <div className='w-full flex-shrink-0'>
           <img
             src='/cocktail1_spritzer.jpg'
             className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Slide 9'
+            alt='Sharing Cocktails'
           />
         </div>
       </div>

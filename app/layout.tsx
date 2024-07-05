@@ -8,10 +8,9 @@ import { GoogleTagManager } from '@next/third-parties/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title:
-    'MYBARTENDERS.CO.UK, Mobile Bar Hire Northampton, Mixology , Weddings & More',
+  title: 'Hire Mobile Bartenders Northampton, National, Mixologist, Wedding',
   description:
-    'Mobile bar hire in Northampton, Cocktails, Weddings, Private Parties'
+    'Hire mobile bartenders and bars for weddings or events in Northampton or nationwide? Our mixologists are skilled in the art of mixology and ready to serve your guests with style.'
 }
 
 export default function RootLayout ({
