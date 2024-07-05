@@ -20,7 +20,7 @@ const Navbar = () => {
             {/* Add margin-left class here */}
             <Image
               src='/mybartenders.co.uk_logo_svg.svg'
-              alt='logo'
+              alt='logo mybartenders.co.uk'
               width={29}
               height={40}
             />

@@ -35,9 +35,9 @@ const Cta_Features = () => {
                 height='40'
               />
             </div>
-            <h4 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
+            <h3 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
               Here to help!
-            </h4>
+            </h3>
             <p className='text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white'>
               Experienced, professional team which can help you with any
               enquiry.
@@ -47,9 +47,9 @@ const Cta_Features = () => {
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
               <img src='/award.svg' alt='Award Icon' width='40' height='40' />
             </div>
-            <h4 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
+            <h3 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
               We take pride in our service
-            </h4>
+            </h3>
             <p className='text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white'>
               We are award winning industry experts, with decades of combined
               experience.
@@ -59,9 +59,9 @@ const Cta_Features = () => {
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
               <img src='/fresh.svg' alt='Fresh Icon' width='40' height='40' />
             </div>
-            <h4 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
+            <h3 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
               Responsibly sourced, fresh ingredients{' '}
-            </h4>
+            </h3>
             <p className='text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white'>
               We have access to a wide range of suppliers with a long history of
               working with them.
@@ -76,9 +76,9 @@ const Cta_Features = () => {
                 height='40'
               />
             </div>
-            <h4 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
+            <h3 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
               Timeless cocktails
-            </h4>
+            </h3>
             <p className='text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white'>
               Our selection of drinks and service packages makes any occasion
               special. We've done it all.

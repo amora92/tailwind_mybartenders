@@ -86,42 +86,42 @@ const Services = () => {
             {/* Event 1 */}
             <img
               src='https://images.pexels.com/photos/434295/pexels-photo-434295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Event 1'
+              alt='Blueberry Smoothie'
               className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
             />
 
             {/* Event 2 */}
             <img
               src='https://images.pexels.com/photos/16408/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Event 2'
+              alt='Prosecco Service'
               className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
             />
 
             {/* Event 3 */}
             <img
-              src='https://plus.unsplash.com/premium_photo-1681841634786-3f887cd2659d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTd8fGV2ZW50fGVufDB8fDB8fHww'
-              alt='Event 3'
+              src='https://images.pexels.com/photos/4959831/pexels-photo-4959831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt='Table Decorations'
               className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
             />
 
             {/* Event 4 */}
             <img
               src='https://images.pexels.com/photos/1304540/pexels-photo-1304540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Event 4'
+              alt='Gin Campari Vermouth Orange Slice'
               className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
             />
 
             {/* Event 5 */}
             <img
               src='https://images.pexels.com/photos/6314327/pexels-photo-6314327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Event 5'
+              alt='Sours Cocktails'
               className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
             />
 
             {/* Event 6 */}
             <img
               src='https://images.pexels.com/photos/2466320/pexels-photo-2466320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Event 6'
+              alt='Boba Tea Cocktails'
               className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
             />
           </div>
