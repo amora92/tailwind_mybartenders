@@ -16,7 +16,7 @@ const AboutUs = () => {
         <section className='text-center mb-12'>
           <p className='text-lg text-gray-600'>
             Discover our mission, history, services, and meet our dedicated
-            team.
+            team. Currently not taking new clients.
           </p>
         </section>
 
