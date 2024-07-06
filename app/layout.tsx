@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +19,6 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang='en'>
-      <GoogleTagManager gtmId='GTM-XYZ' />
       <body>
         <Navbar />
         <main className='relative overflow-hidden'>{children}</main>

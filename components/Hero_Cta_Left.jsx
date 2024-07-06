@@ -38,7 +38,7 @@ const HeroCtaLeft = () => {
           </ul>
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <a
-              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-lime-400 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-main_buttons_1 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
               href='/contact_us'
             >
               Contact Us
