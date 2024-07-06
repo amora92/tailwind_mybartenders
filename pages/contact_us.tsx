@@ -268,7 +268,7 @@ const ContactUs: React.FC = () => {
 
             <button
               type='submit'
-              className='bg-lime-400 hover:bg-lime-500 text-white py-2 px-4 rounded-md'
+              className=' bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded-md'
             >
               Send
             </button>

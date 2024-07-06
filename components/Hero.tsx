@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Carousel from './Carousel'
 import Hero_Cta_Left from './Hero_Cta_Left'
 
