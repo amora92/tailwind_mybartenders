@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '../app/globals.css'
+import Services_Info from '@/components/Services_Info'
 
 const Services = () => {
   return (
@@ -10,7 +11,7 @@ const Services = () => {
       <Navbar />
 
       <main className='container mx-auto px-4 py-8'>
-        {/* Service Overview Section */}
+        <Services_Info />
         <section className='mb-12'>
           <h2 className='text-3xl font-semibold text-center mb-8'>
             Our Services

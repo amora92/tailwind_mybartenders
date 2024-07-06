@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Inter } from 'next/font/google'
 import '../app/globals.css'
+import Masonry_Grid from '@/components/Masonry_Grid'
 
 // Import the Inter font
 const inter = Inter({ subsets: ['latin'] })
@@ -115,6 +116,7 @@ const Gallery = () => {
               />
             </div>
           </div>
+          <Masonry_Grid />
         </section>
       </main>
       <Footer />

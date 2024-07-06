@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '../app/globals.css'
+import Pricing_Cta from '@/components/Pricing_Cta'
 
 const Pricing = () => {
   return (
@@ -104,6 +105,7 @@ const Pricing = () => {
             >
               Contact Us
             </a>
+            <Pricing_Cta />
           </div>
         </section>
       </main>
