@@ -1,3 +1,5 @@
+// components/Carousel.tsx
+
 'use client'
 
 import React, { useEffect, useState } from 'react'
@@ -18,75 +20,36 @@ const Carousel = () => {
     setCurrentSlide(index)
   }
 
+  const images = [
+    { src: '/IMG-20240224-WA0034.webp', alt: 'Absinthe Fountain Cocktail' },
+    { src: '/IMG-20240224-WA0057.webp', alt: 'Layered Cinnamon White Russian' },
+    { src: '/cocktail_purple.webp', alt: 'Purple Cocktail' },
+    { src: '/IMG-20240224-WA0058.webp', alt: 'White Russian' },
+    { src: '/IMG-20240224-WA0047.webp', alt: 'Absinthe Fountain Water Drop' },
+    { src: '/IMG-20240224-WA0043.webp', alt: 'Absinthe Fountain Water' },
+    { src: '/IMG-20240224-WA0053.webp', alt: 'White Russian Cocktail' },
+    { src: '/IMG-20240224-WA0054.webp', alt: 'White Russian Cocktail Fire' },
+    { src: '/cocktail1_spritzer.webp', alt: 'Sharing Cocktails' }
+  ]
+
   return (
     <div className='relative overflow-hidden'>
       <div
         className='flex transition-transform duration-500'
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0034.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Absinthe Fountain Cocktail'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0057.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Layered Cinnamon White Russian'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/cocktail_purple.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Purple Cocktail'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0058.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='White Russian'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0047.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Absinthe Fountain Water Drop'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0043.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Absinthe Fountain Water '
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0053.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='White Russian Cocktail'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/IMG-20240224-WA0054.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='White Russian Cocktail Fire'
-          />
-        </div>
-        <div className='w-full flex-shrink-0'>
-          <img
-            src='/cocktail1_spritzer.jpg'
-            className='w-4/5 mx-auto rounded-lg overflow-hidden'
-            alt='Sharing Cocktails'
-          />
-        </div>
+        {images.map((image, index) => (
+          <div key={index} className='w-full flex-shrink-0'>
+            <img
+              src={image.src}
+              className='w-4/5 mx-auto rounded-lg overflow-hidden'
+              alt={image.alt}
+              loading='lazy' // Defer loading until near viewport
+              width={800} // Example width attribute
+              height={600} // Example height attribute
+            />
+          </div>
+        ))}
       </div>
       <div className='absolute left-5 right-5 top-1/2 flex justify-between transform -translate-y-1/2'>
         <button
@@ -109,5 +72,3 @@ const Carousel = () => {
 }
 
 export default Carousel
-
-// color scheme https://colorhunt.co/palette/ff8f8feef2969ade7b508d69

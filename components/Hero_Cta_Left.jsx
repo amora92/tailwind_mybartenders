@@ -1,58 +1,10 @@
 import React from 'react'
 
-const Hero_Cta_Left = () => {
+const HeroCtaLeft = () => {
   return (
     <section className='relative overflow-hidden bg-gradient-to-b from-lime-50 via-transparent to-transparent pb-12 pt-10 sm:pb-16 lg:pb-24'>
-      <div className='relative z-10'>
-        <div className='absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]'>
-          <svg
-            className='h-[60rem] w-[100rem] flex-none stroke-lime-400 opacity-20'
-            aria-hidden='true'
-          >
-            <defs>
-              <pattern
-                id='padded-pattern'
-                width='100'
-                height='100'
-                patternUnits='userSpaceOnUse'
-                patternTransform='rotate(45)'
-              >
-                <rect
-                  width='100'
-                  height='100'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                ></rect>
-                <line
-                  x1='0'
-                  y1='0'
-                  x2='100'
-                  y2='100'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                ></line>
-                <line
-                  x1='100'
-                  y1='0'
-                  x2='0'
-                  y2='100'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                ></line>
-              </pattern>
-            </defs>
-            <rect
-              width='100%'
-              height='100%'
-              strokeWidth='0'
-              fill='url(#padded-pattern)'
-            ></rect>
-          </svg>
-        </div>
-      </div>
-
-      <div className='relative z-20 mx-auto max-w-7xl px-6 lg:px-8'>
+      {/* Remove or optimize large SVG if possible */}
+      <div className='relative z-10 mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto max-w-2xl text-center'>
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
             Cocktail bartender hire, mobile bar, weddings, parties,
@@ -110,4 +62,4 @@ const Hero_Cta_Left = () => {
   )
 }
 
-export default Hero_Cta_Left
+export default HeroCtaLeft
