@@ -7,7 +7,7 @@ const Getting_In_Touch = () => {
         <div className='mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
           <div className='max-w-3xl'>
             <h2 className='text-3xl font-bold sm:text-4xl'>
-              Thank you for exploring our cocktail offerings!
+              We would like to hear from you!
             </h2>
           </div>
 
@@ -23,20 +23,17 @@ const Getting_In_Touch = () => {
             <div className='lg:py-16'>
               <article className='space-y-4 text-gray-600'>
                 <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut
-                  qui hic atque tenetur quis eius quos ea neque sunt,
-                  accusantium soluta minus veniam tempora deserunt? Molestiae
-                  eius quidem quam repellat.
+                  Thank you for taking the time to explore our services. We look
+                  forward to connecting with you soon!
                 </p>
 
                 <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolorum explicabo quidem voluptatum voluptas illo accusantium
-                  ipsam quis, vel mollitia? Vel provident culpa dignissimos
-                  possimus, perferendis consectetur odit accusantium dolorem
-                  amet voluptates aliquid, ducimus tempore incidunt quas.
-                  Veritatis molestias tempora distinctio voluptates sint! Itaque
-                  quasi corrupti, sequi quo odit illum impedit!
+                  We're thrilled that you've discovered our services! At
+                  mybartenders.co.uk, we're passionate about delivering
+                  exceptional experiences. Whether you're seeking innovative
+                  solutions, reliable support, or simply have questions, we're
+                  here to exceed your expectations. Reach out today and let's
+                  embark on a journey of excellence together.
                 </p>
               </article>
             </div>

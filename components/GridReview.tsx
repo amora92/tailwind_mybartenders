@@ -98,20 +98,19 @@ const GridReview = () => {
 
                 <div className='mt-4'>
                   <p className='text-2xl font-bold text-rose-600 sm:text-3xl'>
-                    Stayin' Alive
+                    Heckin' Deeelish!
                   </p>
 
                   <p className='mt-4 leading-relaxed text-gray-700'>
-                    No, Rose, they are not breathing. And they have no arms or
-                    legs … Where are they? You know what? If we come across
-                    somebody with no arms or legs, do we bother resuscitating
-                    them? I mean, what quality of life do we have there?
+                    Exceptional mixology skills! Their cocktails are pure magic,
+                    crafted with precision and creativity, setting a new
+                    standard in cocktail bartending. Simply outstanding!
                   </p>
                 </div>
               </div>
 
               <footer className='mt-4 text-sm font-medium text-gray-700 sm:mt-6'>
-                &mdash; Michael Scott
+                &mdash; Jeff D.
               </footer>
             </blockquote>
 
@@ -166,20 +165,21 @@ const GridReview = () => {
 
                 <div className='mt-4'>
                   <p className='text-2xl font-bold text-rose-600 sm:text-3xl'>
-                    Stayin' Alive
+                    As Good As It Gets.
                   </p>
 
                   <p className='mt-4 leading-relaxed text-gray-700'>
-                    No, Rose, they are not breathing. And they have no arms or
-                    legs … Where are they? You know what? If we come across
-                    somebody with no arms or legs, do we bother resuscitating
-                    them? I mean, what quality of life do we have there?
+                    The cocktails that night were simply exceptional, each one a
+                    masterpiece of flavor and presentation. From classics to
+                    inventive creations, every sip was a delightful journey
+                    through expertly crafted mixology. A truly unforgettable
+                    experience
                   </p>
                 </div>
               </div>
 
               <footer className='mt-4 text-sm font-medium text-gray-700 sm:mt-6'>
-                &mdash; Michael Scott
+                &mdash; Rick L.
               </footer>
             </blockquote>
 
@@ -234,20 +234,20 @@ const GridReview = () => {
 
                 <div className='mt-4'>
                   <p className='text-2xl font-bold text-rose-600 sm:text-3xl'>
-                    Stayin' Alive
+                    Best, best, best.
                   </p>
 
                   <p className='mt-4 leading-relaxed text-gray-700'>
-                    No, Rose, they are not breathing. And they have no arms or
-                    legs … Where are they? You know what? If we come across
-                    somebody with no arms or legs, do we bother resuscitating
-                    them? I mean, what quality of life do we have there?
+                    The mixology masterclass was an absolute delight! From
+                    learning the art of crafting perfect cocktails to tasting
+                    our creations, every moment was educational and enjoyable.
+                    Highly recommended for both beginners and enthusiasts alike
                   </p>
                 </div>
               </div>
 
               <footer className='mt-4 text-sm font-medium text-gray-700 sm:mt-6'>
-                &mdash; Michael Scott
+                &mdash; Karen G.
               </footer>
             </blockquote>
           </div>

@@ -23,7 +23,7 @@ const Pricing = () => {
               Portable bar hire, bartender, setup & dismantling, standard menu.
             </p>
             <div className='flex justify-center items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>from £9pp</span>
+              <span className='text-gray-700 font-semibold'>from £BCpp</span>
               <a
                 href='https://www.mybartenders.co.uk/contact_us'
                 target='_blank'
@@ -45,7 +45,7 @@ const Pricing = () => {
               luxurious experience for your event.
             </p>
             <div className='flex justify-center items-center mt-4'>
-              <span className='text-gray-700 font-semibold'>from £13pp</span>
+              <span className='text-gray-700 font-semibold'>from £ABpp</span>
               <a
                 href='https://www.mybartenders.co.uk/contact_us'
                 target='_blank'

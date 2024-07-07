@@ -9,7 +9,7 @@ const GridImageL = () => {
             <div className='relative h-64 sm:h-80 lg:h-full'>
               <img
                 alt=''
-                src='https://images.pexels.com/photos/6542662/pexels-photo-6542662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                src='https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                 className='absolute inset-0 h-full w-full object-cover'
               />
             </div>
@@ -25,15 +25,16 @@ const GridImageL = () => {
               </h2>
 
               <p className='mt-4 text-gray-600'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Aliquid, molestiae! Quidem est esse numquam odio deleniti,
-                beatae, magni dolores provident quaerat totam eos, aperiam
-                architecto eius quis quibusdam fugiat dicta.
+                Experience impeccable wine service and the elegance of champagne
+                towers at our events. From expertly curated wine lists to
+                stunning displays, we ensure every pour is a celebration.
+                Elevate your occasion with our refined selection and seamless
+                hospitality. Cheers to unforgettable moments!
               </p>
 
               <a
                 href='#'
-                className='mt-8 inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500'
+                className='mt-8 inline-block rounded border bg-main_buttons_1 px-12 py-3 text-sm font-medium text-white hover:bg-lime-500 hover:text-white focus:outline-none focus:ring active:text-indigo-500'
               >
                 Get in Touch
               </a>

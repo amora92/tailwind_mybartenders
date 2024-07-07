@@ -8,44 +8,21 @@ const Masonry_Grid = () => {
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg'
+              src='https://images.pexels.com/photos/265920/pexels-photo-265920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg'
+              src='https://images.pexels.com/photos/1813496/pexels-photo-1813496.jpeg?auto=compress&cs=tinysrgb&w=600'
               alt=''
             />
           </div>
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg'
-              alt=''
-            />
-          </div>
-        </div>
-        <div className='grid gap-4'>
-          <div>
-            <img
-              className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg'
-              alt=''
-            />
-          </div>
-          <div>
-            <img
-              className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg'
-              alt=''
-            />
-          </div>
-          <div>
-            <img
-              className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg'
+              src='https://images.pexels.com/photos/313715/pexels-photo-313715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
@@ -54,21 +31,21 @@ const Masonry_Grid = () => {
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg'
+              src='https://images.pexels.com/photos/2306281/pexels-photo-2306281.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg'
+              src='https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg'
+              src='https://images.pexels.com/photos/587741/pexels-photo-587741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
@@ -77,21 +54,44 @@ const Masonry_Grid = () => {
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg'
+              src='https://images.pexels.com/photos/57980/pexels-photo-57980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg'
+              src='https://images.pexels.com/photos/1616113/pexels-photo-1616113.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>
           <div>
             <img
               className='h-auto max-w-full rounded-lg'
-              src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg'
+              src='https://images.pexels.com/photos/2788488/pexels-photo-2788488.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt=''
+            />
+          </div>
+        </div>
+        <div className='grid gap-4'>
+          <div>
+            <img
+              className='h-auto max-w-full rounded-lg'
+              src='https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt=''
+            />
+          </div>
+          <div>
+            <img
+              className='h-auto max-w-full rounded-lg'
+              src='https://images.pexels.com/photos/1345574/pexels-photo-1345574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              alt=''
+            />
+          </div>
+          <div>
+            <img
+              className='h-auto max-w-full rounded-lg'
+              src='https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               alt=''
             />
           </div>

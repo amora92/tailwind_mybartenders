@@ -10,7 +10,7 @@ const FreqQ = () => {
         >
           <summary className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'>
             <h2 className='text-lg font-medium'>
-              Lorem ipsum dolor sit amet consectetur adipisicing?
+              How long will it take for you to get a response?
             </h2>
 
             <span className='relative size-5 shrink-0'>
@@ -47,17 +47,15 @@ const FreqQ = () => {
           </summary>
 
           <p className='mt-4 leading-relaxed text-gray-700'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic
-            veritatis molestias culpa in, recusandae laboriosam neque aliquid
-            libero nesciunt voluptate dicta quo officiis explicabo consequuntur
-            distinctio corporis earum similique!
+            As is this service is not searching for clients, we will get back to
+            you as soon as conveniently possible.
           </p>
         </details>
 
         <details className='group p-6 [&_summary::-webkit-details-marker]:hidden'>
           <summary className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'>
             <h2 className='text-lg font-medium'>
-              Lorem ipsum dolor sit amet consectetur adipisicing?
+              Why is it currently not searching for clients?
             </h2>
 
             <span className='relative size-5 shrink-0'>
@@ -94,10 +92,7 @@ const FreqQ = () => {
           </summary>
 
           <p className='mt-4 leading-relaxed text-gray-700'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic
-            veritatis molestias culpa in, recusandae laboriosam neque aliquid
-            libero nesciunt voluptate dicta quo officiis explicabo consequuntur
-            distinctio corporis earum similique!
+            Under construction.
           </p>
         </details>
       </div>

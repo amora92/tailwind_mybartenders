@@ -116,7 +116,9 @@ const Gallery = () => {
               />
             </div>
           </div>
-          <Masonry_Grid />
+          <div className='mt-10'>
+            <Masonry_Grid />
+          </div>
         </section>
       </main>
       <Footer />
