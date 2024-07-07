@@ -10,7 +10,7 @@ const HeroCtaLeft = () => {
             Cocktail bartender hire, mobile bar, weddings, parties,
             masterclasses:
           </h1>
-          <div className='mt-2 text-4xl font-bold text-lime-400 sm:text-6xl'>
+          <div className='mt-2 text-4xl font-bold text-lime-500 sm:text-6xl'>
             Free Quote.
           </div>
           <h2 className='mt-4 text-lg font-semibold leading-8 text-gray-600'>

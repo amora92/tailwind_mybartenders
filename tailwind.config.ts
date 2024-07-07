@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main_buttons_1: '#004225', // Define your custom color,
+        main_buttons_1: '#508D4E', // Define your custom color,
         nav_color_1: '#FFB000',
         green: {
           50: '#30AF5B',

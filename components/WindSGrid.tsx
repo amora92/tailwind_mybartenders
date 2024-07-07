@@ -8,7 +8,7 @@ const WindSGrid = () => {
           <div>
             <h1 className='text-4xl font-semibold tracking-tighter text-gray-900 lg:text-6xl text-balance'>
               Adventurous & Unique Mixtures,
-              <span className='text-gray-600'>wherever and anywhere</span>
+              <span className='text-lime-500'>wherever and anywhere</span>
             </h1>
             <p className='mt-4 text-base font-medium text-gray-500 text-balance'>
               Embark on a mixology masterclass and unlock the secrets of
@@ -25,6 +25,15 @@ const WindSGrid = () => {
                     <h2 className='font-medium text-gray-900'>
                       Don't compromise.
                     </h2>
+                    <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
+                      Premium alcohol offers unparalleled quality, crafted with
+                      meticulous attention to detail and superior ingredients.
+                      Its refined taste, smooth finish, and distinctive
+                      character elevate any drinking experience. From nuanced
+                      flavors to exceptional craftsmanship, premium alcohol
+                      ensures an indulgent and memorable journey for
+                      connoisseurs.
+                    </p>
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       Premium alcohol offers unparalleled quality, crafted with
                       meticulous attention to detail and superior ingredients.
