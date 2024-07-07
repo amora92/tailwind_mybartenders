@@ -3,6 +3,8 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '../app/globals.css'
+import Services_Info from '@/components/Services_Info'
+import Service_Daisy from '@/components/Service_Daisy'
 
 const Services = () => {
   return (
@@ -10,7 +12,8 @@ const Services = () => {
       <Navbar />
 
       <main className='container mx-auto px-4 py-8'>
-        {/* Service Overview Section */}
+        <Service_Daisy />
+        <Services_Info />
         <section className='mb-12'>
           <h2 className='text-3xl font-semibold text-center mb-8'>
             Our Services
@@ -80,52 +83,6 @@ const Services = () => {
         </section>
 
         {/* Testimonials/Gallery Section */}
-        <section className='bg-gray-100 mb-12 py-8'>
-          <h2 className='text-3xl font-semibold text-center mb-8'>Gallery</h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {/* Event 1 */}
-            <img
-              src='https://images.pexels.com/photos/434295/pexels-photo-434295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Blueberry Smoothie'
-              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
-            />
-
-            {/* Event 2 */}
-            <img
-              src='https://images.pexels.com/photos/16408/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Prosecco Service'
-              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
-            />
-
-            {/* Event 3 */}
-            <img
-              src='https://images.pexels.com/photos/4959831/pexels-photo-4959831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Table Decorations'
-              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
-            />
-
-            {/* Event 4 */}
-            <img
-              src='https://images.pexels.com/photos/1304540/pexels-photo-1304540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Gin Campari Vermouth Orange Slice'
-              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
-            />
-
-            {/* Event 5 */}
-            <img
-              src='https://images.pexels.com/photos/6314327/pexels-photo-6314327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Sours Cocktails'
-              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
-            />
-
-            {/* Event 6 */}
-            <img
-              src='https://images.pexels.com/photos/2466320/pexels-photo-2466320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-              alt='Boba Tea Cocktails'
-              className='w-full h-72 object-cover rounded-lg shadow-md mb-4 hover:shadow-lg'
-            />
-          </div>
-        </section>
       </main>
 
       <Footer />

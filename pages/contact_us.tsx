@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
 import '../app/globals.css'
+import Getting_In_Touch from '@/components/Getting_In_Touch'
+import FreqQ from '@/components/FreqQ'
 
 const ContactUs: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState('')
@@ -68,8 +70,13 @@ const ContactUs: React.FC = () => {
   return (
     <div>
       <Navbar />
-
       <main className='container mx-auto px-4 py-8'>
+        <div className='bg-white rounded-lg shadow-md p-6 mb-8'>
+          <Getting_In_Touch />
+        </div>
+        <div className='bg-white rounded-lg shadow-md p-6 mb-8'>
+          <FreqQ />
+        </div>
         <h1 className='text-3xl font-bold text-center mb-8'>Contact Us</h1>
 
         <section className='bg-white rounded-lg shadow-md p-6 mb-8'>

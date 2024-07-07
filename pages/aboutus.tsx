@@ -3,6 +3,7 @@
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import About_Us_Media from '@/components/About_Us_Media'
 import '../app/globals.css'
 
 // Import the Inter font
@@ -12,26 +13,11 @@ const AboutUs = () => {
   return (
     <div className={`${inter.className} `}>
       <Navbar />
-      <main className='container mx-auto px-6 py-12 mt-20'>
-        <section className='text-center mb-12'>
-          <p className='text-lg text-gray-600'>
-            Discover our mission, history, services, and meet our dedicated
-            team. Currently not taking new clients.
-          </p>
-        </section>
 
+      <main className='container mx-auto px-6 py-12 mt-20'>
         <section className='grid gap-12 mb-12'>
           <div className='bg-white p-6 rounded-lg shadow-lg'>
-            <h2 className='text-2xl font-semibold text-gray-800 mb-4'>
-              Our Mission
-            </h2>
-            <p className='text-lg text-gray-600'>
-              At MYBARTENDERS.CO.UK, our mission is to provide top-notch
-              bartending services that elevate your events and create
-              unforgettable experiences. We specialize in mobile mixology,
-              cocktail crafting, and bartending for weddings and special
-              occasions.
-            </p>
+            <About_Us_Media />
           </div>
 
           <div className='bg-white p-6 rounded-lg shadow-lg'>
