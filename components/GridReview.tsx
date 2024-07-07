@@ -25,7 +25,7 @@ const GridReview = () => {
 
             <a
               href='#'
-              className='mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border border-rose-600 px-5 py-3 text-rose-600 transition hover:bg-rose-600 hover:text-white md:mt-0'
+              className='mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border bg-main_buttons_1 px-5 py-3 text-white transition hover:bg-lime-500 hover:text-white md:mt-0'
             >
               <span className='font-medium'> Read all reviews </span>
 
@@ -97,7 +97,7 @@ const GridReview = () => {
                 </div>
 
                 <div className='mt-4'>
-                  <p className='text-2xl font-bold text-rose-600 sm:text-3xl'>
+                  <p className='text-2xl font-bold text-nav_color_1 sm:text-3xl'>
                     Heckin' Deeelish!
                   </p>
 
@@ -164,7 +164,7 @@ const GridReview = () => {
                 </div>
 
                 <div className='mt-4'>
-                  <p className='text-2xl font-bold text-rose-600 sm:text-3xl'>
+                  <p className='text-2xl font-bold text-nav_color_1 sm:text-3xl'>
                     As Good As It Gets.
                   </p>
 
@@ -233,7 +233,7 @@ const GridReview = () => {
                 </div>
 
                 <div className='mt-4'>
-                  <p className='text-2xl font-bold text-rose-600 sm:text-3xl'>
+                  <p className='text-2xl font-bold text-nav_color_1 sm:text-3xl'>
                     Best, best, best.
                   </p>
 
