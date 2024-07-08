@@ -10,10 +10,10 @@ const HeroCtaLeft = () => {
             Cocktail bartender hire, mobile bar, weddings, parties,
             masterclasses:
           </h1>
-          <div className='mt-2 text-4xl font-bold text-lime-500 sm:text-6xl'>
+          <div className='mt-2 text-4xl font-bold  text-lime-500 sm:text-6xl'>
             Free Quote.
           </div>
-          <h2 className='mt-4 text-lg font-semibold leading-8 text-gray-600'>
+          <h2 className='mt-4 text-lg font-semibold leading-8 text-center text-gray-600'>
             Looking to elevate your next event with top-notch bartending
             services? Our professional cocktail bartenders are perfect for
             weddings, parties, and special occasions. We offer a fully equipped
@@ -22,7 +22,7 @@ const HeroCtaLeft = () => {
             event or a complete bar setup, we tailor our services to meet your
             specific needs.
           </h2>
-          <ul className='mt-4 list-disc list-inside text-left text-gray-600'>
+          <ul className='mt-4 list-disc list-inside text-center text-gray-600'>
             <li>
               Professional Bartenders: Expertly trained mixologists to craft and
               serve signature cocktails.

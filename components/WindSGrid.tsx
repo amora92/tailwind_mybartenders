@@ -34,22 +34,13 @@ const WindSGrid = () => {
                       ensures an indulgent and memorable journey for
                       connoisseurs.
                     </p>
-                    <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
-                      Premium alcohol offers unparalleled quality, crafted with
-                      meticulous attention to detail and superior ingredients.
-                      Its refined taste, smooth finish, and distinctive
-                      character elevate any drinking experience. From nuanced
-                      flavors to exceptional craftsmanship, premium alcohol
-                      ensures an indulgent and memorable journey for
-                      connoisseurs.
-                    </p>
                   </div>
                 </div>
               </div>
               <div className='lg:col-span-2'>
                 <div className='relative h-full p-2 overflow-hidden border rounded-3xl'>
                   <img
-                    src='/cocktail_red_fine.jpg'
+                    src='/cocktail_red_fine.webp'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
                     alt='Placeholder'
                   />
@@ -76,7 +67,7 @@ const WindSGrid = () => {
               <div className='lg:col-start-1 lg:col-span-2'>
                 <div className='relative h-full p-2 overflow-hidden border rounded-3xl'>
                   <img
-                    src='/cocktail_color_fine.jpg'
+                    src='/cocktail_color_fine.webp'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
                     alt='Placeholder'
                   />
@@ -102,7 +93,7 @@ const WindSGrid = () => {
               <div className='lg:col-span-2'>
                 <div className='relative h-full p-2 overflow-hidden border rounded-3xl'>
                   <img
-                    src='/cocktail_foam.jpg'
+                    src='/cocktail_foam.webp'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
                     alt='Placeholder'
                   />

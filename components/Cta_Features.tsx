@@ -17,7 +17,7 @@ const Cta_Features = () => {
               to your requirements
             </p>
             <a
-              href='https://www.mybartenders.co.uk/gallery'
+              href='https://www.mybartenders.co.uk/services'
               className='flex flex-row items-center justify-center gap-2 text-base font-semibold text-green-400 lg:justify-start hover:text-green-500'
             >
               Ideas for your party!{' '}
@@ -57,7 +57,7 @@ const Cta_Features = () => {
           </div>
           <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-green-600'>
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
-              <img src='/fresh.svg' alt='Fresh Icon' width='40' height='40' />
+              <img src='/leaf5.svg' alt='Fresh Icon' width='40' height='40' />
             </div>
             <h3 className='text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white'>
               Responsibly sourced, fresh ingredients{' '}
