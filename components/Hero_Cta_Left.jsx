@@ -22,20 +22,49 @@ const HeroCtaLeft = () => {
             event or a complete bar setup, we tailor our services to meet your
             specific needs.
           </h2>
-          <ul className='mt-4 list-disc list-inside text-center text-gray-600'>
-            <li>
-              Professional Bartenders: Expertly trained mixologists to craft and
-              serve signature cocktails.
+
+          <h2 class='mb-2 text-lg font-semibold text-gray-900 dark:text-black'>
+            Password requirements:
+          </h2>
+          <ul class='max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400'>
+            <li class='flex items-center'>
+              <svg
+                class='w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0'
+                aria-hidden='true'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+              >
+                <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
+              </svg>
+              At least 10 characters
             </li>
-            <li>
-              Customizable Drink Menus: Personalized drink options tailored to
-              your event theme and preferences.
+            <li class='flex items-center'>
+              <svg
+                class='w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0'
+                aria-hidden='true'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+              >
+                <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
+              </svg>
+              At least one lowercase character
             </li>
-            <li>
-              Fully Equipped Mobile Bar: Portable bar setup including all
-              necessary tools and ingredients.
+            <li class='flex items-center'>
+              <svg
+                class='w-3.5 h-3.5 me-2 text-gray-500 dark:text-gray-400 flex-shrink-0'
+                aria-hidden='true'
+                xmlns='http://www.w3.org/2000/svg'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+              >
+                <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
+              </svg>
+              At least one special character, e.g., ! @ # ?
             </li>
           </ul>
+
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <a
               className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-main_buttons_1 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'

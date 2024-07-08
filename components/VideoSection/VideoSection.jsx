@@ -22,7 +22,7 @@ const VideoSection = () => {
             <span className='text-white'> Northampton & Nationwide</span>
           </h1>
           <p className='w-1/2 mx-auto mt-4 lg:pt-5 lg:pb-5 text-base font-medium text-white text-balance'>
-            We cater to all drinks events.
+            We cater to all drink events.
           </p>
           <h3 className='font-light text-3xl'>
             Fine Cocktails & Bespoke Event Solutions
