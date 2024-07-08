@@ -7,63 +7,231 @@ const HeroCtaLeft = () => {
       <div className='relative z-10 mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto max-w-2xl text-center'>
           <h1 className='text-4xl font-bold tracking-tighter text-gray-900 sm:text-6xl'>
-            Cocktail bartender hire, mobile bar, weddings, parties,
-            masterclasses:
+            Mobile Bar Hire, Themed Menu's, Cocktail Bartending Masterclass
           </h1>
-          <div className='mt-2 text-4xl font-bold  text-lime-500 sm:text-6xl'>
+          <div className='mt-5 text-4xl font-bold text-lime-500 sm:text-6xl'>
             Free Quote.
           </div>
-          <h2 className='mt-4 text-lg font-semibold leading-8 text-center text-gray-600'>
-            Looking to elevate your next event with top-notch bartending
-            services? Our professional cocktail bartenders are perfect for
-            weddings, parties, and special occasions. We offer a fully equipped
-            mobile bar and engaging masterclasses to add a touch of class and
-            fun to your gathering. Whether you need a bartender for a private
-            event or a complete bar setup, we tailor our services to meet your
-            specific needs.
+          <div className='mt-5'>
+            <h2 className='mt-4 text-lg font-semibold leading-8 text-center text-gray-600'>
+              Looking to elevate your next event with custom made, finest
+              cocktails?
+            </h2>
+          </div>
+          <h2 className='mb-2 mt-5 text-lg font-semibold text-gray-900 dark:text-black'>
+            We can help you with:
           </h2>
-
-          <h2 class='mb-2 text-lg font-semibold text-gray-900 dark:text-black'>
-            Password requirements:
-          </h2>
-          <ul class='max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400'>
-            <li class='flex items-center'>
-              <svg
-                class='w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0'
-                aria-hidden='true'
-                xmlns='http://www.w3.org/2000/svg'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
-              </svg>
-              At least 10 characters
-            </li>
-            <li class='flex items-center'>
-              <svg
-                class='w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0'
-                aria-hidden='true'
-                xmlns='http://www.w3.org/2000/svg'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
-              </svg>
-              At least one lowercase character
-            </li>
-            <li class='flex items-center'>
-              <svg
-                class='w-3.5 h-3.5 me-2 text-gray-500 dark:text-gray-400 flex-shrink-0'
-                aria-hidden='true'
-                xmlns='http://www.w3.org/2000/svg'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
-              </svg>
-              At least one special character, e.g., ! @ # ?
-            </li>
-          </ul>
+          <div className='flex justify-center gap-10 mt-5'>
+            <ul className='space-y-4 text-left text-gray-500 dark:text-gray-400'>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>Planning the event</span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>Making sure all requirements are met</span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>Choosing and customising drinks </span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>
+                  Legal:{' '}
+                  <span className='font-semibold text-gray-900 dark:text-black'>
+                    Licencing
+                  </span>
+                </span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>
+                  Catering to all needs:{' '}
+                  <span className='font-semibold text-gray-900 dark:text-black'>
+                    No & Low Alc
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <ul className='space-y-4 text-left text-gray-500 dark:text-gray-400'>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>Cocktail Party Themes</span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span></span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>
+                  Team size:{' '}
+                  <span className='font-semibold text-gray-900 dark:text-black'>
+                    1 developer
+                  </span>
+                </span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>
+                  Premium support:{' '}
+                  <span className='font-semibold text-gray-900 dark:text-black'>
+                    6 months
+                  </span>
+                </span>
+              </li>
+              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
+                <svg
+                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 16 12'
+                >
+                  <path
+                    stroke='currentColor'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M1 5.917 5.724 10.5 15 1.5'
+                  />
+                </svg>
+                <span>
+                  Free updates:{' '}
+                  <span className='font-semibold text-gray-900 dark:text-black'>
+                    6 months
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
 
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <a

@@ -17,13 +17,10 @@ const VideoSection = () => {
       </div>
       <div className='absolute inset-0 flex items-center justify-center z-10'>
         <div className='text-center space-y-2'>
-          <h1 className='text-4xl font-semibold tracking-tighter text-white lg:text-5xl text-balance'>
-            Mobile Bar Hire, Mixology, Weddings, Masterclass -
+          <h1 className='text-4xl mb-10 font-semibold tracking-tighter text-white lg:text-5xl text-balance'>
+            Mobile Bar Hire, Mixology, Weddings, Masterclasses -
             <span className='text-white'> Northampton & Nationwide</span>
           </h1>
-          <p className='w-1/2 mx-auto mt-4 lg:pt-5 lg:pb-5 text-base font-medium text-white text-balance'>
-            We cater to all drink events.
-          </p>
           <h3 className='font-light text-3xl'>
             Fine Cocktails & Bespoke Event Solutions
           </h3>
