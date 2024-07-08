@@ -11,6 +11,7 @@ const Pricing = () => {
       <Navbar />
 
       <main className='container mx-auto px-4 py-8 lg:mt-20'>
+        <Pricing_Cta />
         <h1 className='text-3xl font-bold text-center mb-8'>
           Our Pricing Plans
         </h1>
@@ -105,7 +106,6 @@ const Pricing = () => {
             >
               Contact Us
             </a>
-            <Pricing_Cta />
           </div>
         </section>
       </main>
