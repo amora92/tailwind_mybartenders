@@ -19,10 +19,10 @@ const VideoSection = () => {
         <div className='text-center space-y-2'>
           <h1 className='text-4xl font-semibold tracking-tighter text-white lg:text-5xl text-balance'>
             Mobile Bar Hire, Mixology, Weddings, Masterclass -
-            <span className='text-white'> Nationwide</span>
+            <span className='text-white'> Northampton & Nationwide</span>
           </h1>
           <p className='w-1/2 mx-auto mt-4 lg:pt-5 lg:pb-5 text-base font-medium text-white text-balance'>
-            Award Winning Service, Highly Experienced Staff
+            We cater to all drinks events.
           </p>
           <h3 className='font-light text-3xl'>
             Fine Cocktails & Bespoke Event Solutions
