@@ -6,7 +6,7 @@ const HeroCtaLeft = () => {
       {/* Remove or optimize large SVG if possible */}
       <div className='relative z-10 mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto max-w-2xl text-center'>
-          <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
+          <h1 className='text-4xl font-bold tracking-tighter text-gray-900 sm:text-6xl'>
             Cocktail bartender hire, mobile bar, weddings, parties,
             masterclasses:
           </h1>
