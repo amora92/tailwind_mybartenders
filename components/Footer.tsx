@@ -1,12 +1,12 @@
+import React from 'react'
 import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className='flexCenter mb-24'>
-      <div className='padding-container max-container flex w-full flex-col gap-14'>
+    <footer className='flexCenter mb-24 mt-10'>
+      <div className='container mx-auto px-2 md:px-4 lg:px-6 flex w-full flex-col gap-14'>
         <div className='flex flex-col items-start justify-center gap-[10%] md:flex-row'>
           <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1 text-nav_color_1'>
             {FOOTER_LINKS.map((columns, index) => (

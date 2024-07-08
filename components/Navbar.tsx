@@ -14,10 +14,9 @@ const Navbar = () => {
 
   return (
     <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
-      <div className='max-container flex items-center justify-between py-2'>
+      <div className='container mx-auto flex items-center justify-between py-2 px-2 md:px-4 lg:px-6'>
         <div className='flex items-center'>
-          <Link href='/' className='ml-4 md:ml-6 sm:ml-6.0'>
-            {/* Add margin-left class here */}
+          <Link href='/'>
             <Image
               src='/mybartenders.co.uk_logo_svg.svg'
               alt='logo mybartenders.co.uk'
@@ -28,7 +27,7 @@ const Navbar = () => {
           <p className='ml-2 text-grey-800 font-semibold'>mybartenders</p>
         </div>
 
-        <div className='hidden lg:flex gap-12'>
+        <div className='hidden lg:flex gap-6'>
           {NAV_LINKS.map(link => (
             <Link
               href={link.href}
@@ -40,23 +39,20 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className='inline-block lg:hidden'>
+        <div className='lg:hidden'>
           <Image
             src='/menu.svg'
             alt='menu'
             width={32}
             height={32}
-            className='cursor-pointer mr-6' // Add right margin here
+            className='cursor-pointer'
             onClick={toggleMenu}
           />
         </div>
       </div>
 
       {isMenuOpen && (
-        <div
-          className='absolute top-full left-0 right-0 bg-white lg:hidden shadow-md'
-          style={{ paddingRight: '10px', paddingLeft: '10px' }}
-        >
+        <div className='absolute top-full left-0 right-0 bg-white lg:hidden shadow-md px-4'>
           <ul className='flex flex-col items-center gap-4 py-4'>
             {NAV_LINKS.map(link => (
               <Link
