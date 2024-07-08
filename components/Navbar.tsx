@@ -42,7 +42,7 @@ const Navbar = () => {
         <div>
           <a
             className='group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[1px] sm:p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75'
-            href='/contactus'
+            href='/contact_us'
           >
             <span className='block rounded-full bg-white px-4 py-2 text-xs sm:px-8 sm:py-3 sm:text-sm font-medium group-hover:bg-transparent'>
               Get A Quote
