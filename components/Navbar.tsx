@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
-      <div className='container mx-auto flex items-center justify-between py-2 px-2 md:px-4 lg:px-6'>
+      <div className='container mx-auto flex items-center justify-between py-2 px-4 md:px-6 lg:px-8'>
         <div className='flex items-center'>
           <Link href='/'>
             <Image
@@ -27,7 +27,7 @@ const Navbar = () => {
           <p className='ml-2 text-grey-800 font-semibold'>mybartenders</p>
         </div>
 
-        <div className='hidden lg:flex gap-6'>
+        <div className='hidden lg:flex justify-center gap-6 flex-grow'>
           {NAV_LINKS.map(link => (
             <Link
               href={link.href}
@@ -37,6 +37,16 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
+        </div>
+        <div>
+          <a
+            class='group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75'
+            href='contactus'
+          >
+            <span class='block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent'>
+              Get A Quote
+            </span>
+          </a>
         </div>
 
         <div className='lg:hidden'>
