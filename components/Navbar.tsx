@@ -24,7 +24,7 @@ const Navbar = () => {
               height={40}
             />
           </Link>
-          <p className='ml-2 text-grey-800 font-semibold'>mybartenders</p>
+          <p className='ml-2 text-gray-800 font-semibold'>mybartenders</p>
         </div>
 
         <div className='hidden lg:flex justify-center gap-6 flex-grow'>
@@ -38,12 +38,13 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+
         <div>
           <a
-            class='group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75'
-            href='contactus'
+            className='group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75'
+            href='/contactus'
           >
-            <span class='block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent'>
+            <span className='block rounded-full bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent'>
               Get A Quote
             </span>
           </a>
