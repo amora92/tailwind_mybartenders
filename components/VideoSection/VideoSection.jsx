@@ -34,7 +34,7 @@ const VideoSection = () => {
           <h2 className='lg:text-4xl md:text-4xl font-medium leading-tight'>
             Bringing You the Best Cocktail Experience
           </h2>
-          <h3 className='font-light md:text-3xl lg:text-4xl leading-snug'>
+          <h3 className='font-light text-3xl lg:text-4xl leading-snug'>
             Fine Cocktails & Bespoke Event Solutions
           </h3>
         </div>
@@ -42,7 +42,7 @@ const VideoSection = () => {
           <p className='text-2xl font-light lg:text-3xl leading-relaxed'>
             Elevate Your Event with Our Professional Bartending Services
           </p>
-          <p className='lg:mt-4 text-xl lg:text-2xl leading-relaxed'>
+          <p className='mt-4 text-xl lg:text-2xl leading-relaxed'>
             Contact Us Today for a Free Quote
           </p>
         </div>
