@@ -42,9 +42,6 @@ const VideoSection = () => {
           <p className='text-2xl font-light lg:text-3xl leading-relaxed'>
             Elevate Your Event with Our Professional Bartending Services
           </p>
-          <p className='mt-4 text-xl lg:text-2xl leading-relaxed'>
-            Contact Us Today for a Free Quote
-          </p>
         </div>
         <div className='absolute bottom-8 flex items-center justify-center w-full'>
           <button
