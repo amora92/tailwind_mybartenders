@@ -27,19 +27,19 @@ const VideoSection = () => {
       </div>
       <div className='absolute inset-0 flex flex-col items-center justify-center z-10 lg:space-y-8 p-8'>
         <div className='max-w-5xl text-center space-y-4'>
-          <h1 className='text-4xl mb-6 font-semibold tracking-tighter text-white lg:text-7xl leading-tight'>
+          <h1 className='md:text-4xl sm:3xl lg:mb-6 font-semibold tracking-tighter text-white lg:text-7xl leading-tight'>
             Mobile Bar Hire, Mixology, Weddings, Masterclasses -
             <span className='text-yellow-400'> Northampton & Nationwide</span>
           </h1>
           <h2 className='lg:text-4xl md:text-4xl font-medium leading-tight'>
             Bringing You the Best Cocktail Experience
           </h2>
-          <h3 className='font-light text-3xl lg:text-4xl leading-snug'>
+          <h3 className='font-light md:text-3xl lg:text-4xl leading-snug'>
             Fine Cocktails & Bespoke Event Solutions
           </h3>
         </div>
         <div className='lg:mt-12 text-center'>
-          <p className='text-2xl font-light lg:text-3xl leading-relaxed'>
+          <p className='md:text-2xl font-light lg:text-3xl leading-relaxed'>
             Elevate Your Event with Our Professional Bartending Services
           </p>
         </div>
