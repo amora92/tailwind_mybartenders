@@ -34,7 +34,7 @@ const GridImageL = () => {
 
               <a
                 href='#'
-                className='mt-8 inline-block rounded border bg-main_buttons_1 px-12 py-3 text-sm font-medium text-white hover:bg-lime-500 hover:text-white focus:outline-none focus:ring active:text-indigo-500'
+                className='mt-8 inline-block rounded border bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-12 py-3 text-sm font-medium text-white hover:bg-lime-500 hover:text-white focus:outline-none focus:ring active:text-indigo-500'
               >
                 Get in Touch
               </a>

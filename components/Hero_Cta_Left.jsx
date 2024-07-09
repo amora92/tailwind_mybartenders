@@ -2,16 +2,16 @@ import React from 'react'
 
 const HeroCtaLeft = () => {
   return (
-    <section className='relative overflow-hidden bg-gradient-to-b from-lime-50 via-transparent to-transparent pb-12 pt-10 sm:pb-16 lg:pb-24'>
+    <section
+      id='next-section'
+      className='relative overflow-hidden bg-gradient-to-b from-lime-50 via-transparent to-transparent pb-12 pt-10 sm:pb-16 lg:pb-24'
+    >
       {/* Remove or optimize large SVG if possible */}
       <div className='relative z-10 mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto max-w-2xl text-center'>
           <h1 className='text-4xl font-bold tracking-tighter text-gray-900 sm:text-6xl'>
             Mobile Bar Hire, Themed Menu's, Cocktail Bartending Masterclass
           </h1>
-          <div className='mt-5 text-4xl font-bold text-lime-500 sm:text-6xl'>
-            Free Quote.
-          </div>
           <div className='mt-5'>
             <h2 className='mt-4 text-lg font-semibold leading-8 text-center text-gray-600'>
               Looking to elevate your next event with custom made, finest
@@ -235,7 +235,7 @@ const HeroCtaLeft = () => {
 
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <a
-              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-main_buttons_1 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+              className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
               href='/contact_us'
             >
               Contact Us
