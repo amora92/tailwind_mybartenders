@@ -26,7 +26,7 @@ const Cta_Features = () => {
           </div>
         </div>
         <div className='flex justify-center items-center gap-x-5 gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8'>
-          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-green-600'>
+          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'>
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
               <img
                 src='/emotion-happy-line.svg'
@@ -43,7 +43,7 @@ const Cta_Features = () => {
               enquiry.
             </p>
           </div>
-          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-green-600'>
+          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'>
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
               <img src='/award.svg' alt='Award Icon' width='40' height='40' />
             </div>
@@ -55,7 +55,7 @@ const Cta_Features = () => {
               experience.
             </p>
           </div>
-          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-green-600'>
+          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'>
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
               <img src='/leaf5.svg' alt='Fresh Icon' width='40' height='40' />
             </div>
@@ -67,7 +67,7 @@ const Cta_Features = () => {
               working with them.
             </p>
           </div>
-          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-green-600'>
+          <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'>
             <div className='bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14'>
               <img
                 src='/cocktail.svg'

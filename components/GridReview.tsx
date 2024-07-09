@@ -25,7 +25,7 @@ const GridReview = () => {
 
             <a
               href='#'
-              className='mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border bg-main_buttons_1 px-5 py-3 text-white transition hover:bg-lime-500 hover:text-white md:mt-0'
+              className='mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-5 py-3 text-white transition hover:bg-lime-500 hover:text-white md:mt-0'
             >
               <span className='font-medium'> Read all reviews </span>
 
