@@ -229,8 +229,8 @@ const HeroCtaLeft = () => {
             </h2>
             <div className='mt-4 text-lg text-gray-600'>
               <p>
-                We specialize in creating memorable experiences through
-                exceptional cocktails and professional service.
+                Our PortABar fits and looks great everywhere and you don't have
+                to worry about wide door access.
               </p>
               <p>
                 Our team is dedicated to making your event a success with
@@ -238,7 +238,7 @@ const HeroCtaLeft = () => {
               </p>
               <div className='mt-8'>
                 <h2 className='text-2xl font-semibold text-gray-900 dark:text-black'>
-                  Eqnuire today!
+                  Enquire today!
                 </h2>
               </div>
             </div>
