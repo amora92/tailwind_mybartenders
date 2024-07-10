@@ -236,6 +236,11 @@ const HeroCtaLeft = () => {
                 Our team is dedicated to making your event a success with
                 personalized menus and innovative bar setups.
               </p>
+              <div className='mt-8'>
+                <h2 className='text-2xl font-semibold text-gray-900 dark:text-black'>
+                  Eqnuire today!
+                </h2>
+              </div>
             </div>
           </div>
 
