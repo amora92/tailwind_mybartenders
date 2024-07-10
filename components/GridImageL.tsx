@@ -20,16 +20,19 @@ const GridImageL = () => {
 
             <div className='p-8 sm:p-16 lg:p-24'>
               <h2 className='text-2xl font-bold sm:text-3xl'>
-                From milestones to gatherings, a private bartender ensures
-                safety and pure enjoyment.
+                From milestone celebrations to gatherings, a private bartender
+                elevates every moment with expert mixology, delivering exquisite
+                flavors that captivate the palate and elevate the experience.
               </h2>
 
               <p className='mt-4 text-gray-600'>
-                Experience impeccable wine service and the elegance of champagne
-                towers at our events. From expertly curated wine lists to
-                stunning displays, we ensure every pour is a celebration.
-                Elevate your occasion with our refined selection and seamless
-                hospitality. Cheers to unforgettable moments!
+                Experience the artistry of cocktail craftsmanship and the
+                sophistication of mixology excellence at our events. From
+                meticulously crafted cocktail menus to stunning bar setups, we
+                ensure every sip is a celebration. Elevate your occasion with
+                our curated selection of signature cocktails and seamless
+                service. Here's to unforgettable moments and the perfect pour!
+                Cheers!
               </p>
 
               <a
