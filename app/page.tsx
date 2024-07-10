@@ -6,6 +6,7 @@ export default function Home () {
   return (
     <>
       <VideoSection />
+      <ServicesSection />
       <Hero />
       <Camp />
     </>
