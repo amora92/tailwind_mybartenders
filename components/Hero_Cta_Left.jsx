@@ -33,9 +33,9 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
@@ -51,9 +51,9 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
@@ -69,9 +69,9 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
@@ -87,9 +87,9 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
@@ -110,9 +110,9 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
@@ -135,9 +135,9 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
@@ -153,13 +153,13 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
-                <span></span>
+                <span>Masterclasses</span>
               </li>
               <li className='flex items-center space-x-3 rtl:space-x-reverse'>
                 <svg
@@ -171,16 +171,16 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
                 <span>
-                  Team size:{' '}
+                  Corporate Events:{' '}
                   <span className='font-semibold text-gray-900 dark:text-black'>
-                    1 developer
+                    Teambuilding
                   </span>
                 </span>
               </li>
@@ -194,18 +194,13 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
-                <span>
-                  Premium support:{' '}
-                  <span className='font-semibold text-gray-900 dark:text-black'>
-                    6 months
-                  </span>
-                </span>
+                <span>Bespoke Menus </span>
               </li>
               <li className='flex items-center space-x-3 rtl:space-x-reverse'>
                 <svg
@@ -217,20 +212,31 @@ const HeroCtaLeft = () => {
                 >
                   <path
                     stroke='currentColor'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M1 5.917 5.724 10.5 15 1.5'
                   />
                 </svg>
-                <span>
-                  Free updates:{' '}
-                  <span className='font-semibold text-gray-900 dark:text-black'>
-                    6 months
-                  </span>
-                </span>
+                <span>Tasting Sessions</span>
               </li>
             </ul>
+          </div>
+
+          <div className='mt-8'>
+            <h2 className='text-2xl font-semibold text-gray-900 dark:text-black'>
+              Why Choose Us?
+            </h2>
+            <div className='mt-4 text-lg text-gray-600'>
+              <p>
+                We specialize in creating memorable experiences through
+                exceptional cocktails and professional service.
+              </p>
+              <p>
+                Our team is dedicated to making your event a success with
+                personalized menus and innovative bar setups.
+              </p>
+            </div>
           </div>
 
           <div className='mt-10 flex items-center justify-center gap-x-6'>
