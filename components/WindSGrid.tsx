@@ -8,7 +8,7 @@ const WindSGrid = () => {
           <div>
             <h1 className='text-4xl font-semibold tracking-tighter text-gray-900 lg:text-6xl text-balance'>
               Adventurous & Unique Mixtures,
-              <span className='text-lime-500'>wherever and anywhere</span>
+              <span className='text-lime-500'> wherever and anywhere</span>
             </h1>
             <p className='mt-4 text-base font-medium text-gray-500 text-balance'>
               Embark on a mixology masterclass and unlock the secrets of
@@ -41,8 +41,8 @@ const WindSGrid = () => {
                 <div className='relative h-full p-2 overflow-hidden border rounded-3xl'>
                   <img
                     src='/cocktail_red_fine.webp'
+                    alt='Red Cocktail with Fine Details'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
-                    alt='Placeholder'
                   />
                 </div>
               </div>
@@ -68,8 +68,8 @@ const WindSGrid = () => {
                 <div className='relative h-full p-2 overflow-hidden border rounded-3xl'>
                   <img
                     src='/cocktail_color_fine.webp'
+                    alt='Colorful Cocktail with Fine Details'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
-                    alt='Placeholder'
                   />
                 </div>
               </div>
@@ -94,8 +94,8 @@ const WindSGrid = () => {
                 <div className='relative h-full p-2 overflow-hidden border rounded-3xl'>
                   <img
                     src='/cocktail_foam.webp'
+                    alt='Foamy Cocktail'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
-                    alt='Placeholder'
                   />
                 </div>
               </div>
@@ -104,21 +104,21 @@ const WindSGrid = () => {
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
                   src='https://images.unsplash.com/photo-1506802913710-40e2e66339c9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                  alt='Placeholder'
+                  alt='Blended Drinks'
                   className='w-full h-full mx-auto rounded-2xl'
                 />
               </div>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
                   src='https://images.unsplash.com/photo-1481671703460-040cb8a2d909?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                  alt='Placeholder'
+                  alt='Themed Solutions'
                   className='w-full h-full mx-auto rounded-2xl'
                 />
               </div>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
                   src='https://images.unsplash.com/photo-1560179304-6fc1d8749b23?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                  alt='Placeholder'
+                  alt='Collaboration'
                   className='w-full h-full mx-auto rounded-2xl'
                 />
               </div>
