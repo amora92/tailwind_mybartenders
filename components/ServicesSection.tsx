@@ -121,6 +121,7 @@ const ServicesSection = () => {
             <button
               className='absolute left-4 md:left-0 top-1/2 transform -translate-y-1/2 bg-transparent text-white px-3 py-1 rounded-l-md hover:text-yellow-400 focus:outline-none animate-bounce'
               onClick={handlePrevService}
+              aria-label='Scroll to previous'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -140,6 +141,7 @@ const ServicesSection = () => {
             <button
               className='absolute right-4 md:right-0 top-1/2 transform -translate-y-1/2 bg-transparent text-white px-3 py-1 rounded-r-md hover:text-yellow-400 focus:outline-none animate-bounce'
               onClick={handleNextService}
+              aria-label='Scroll to next'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

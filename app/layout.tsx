@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default function RootLayout ({
         <main className='relative overflow-hidden'>{children}</main>
         <Footer />
       </body>
+      <GoogleAnalytics gaId='G-F9CJ3VRL5N' />
     </html>
   )
 }
