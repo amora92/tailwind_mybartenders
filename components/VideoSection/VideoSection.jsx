@@ -15,7 +15,7 @@ const VideoSection = () => {
     <section className='relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white'>
       <div className={styles.videoContainer}>
         <video
-          src='/Branding_video_2.mp4'
+          src='/Branding_Video_2.mp4'
           type='video/mp4'
           autoPlay
           muted
