@@ -47,6 +47,7 @@ const VideoSection = () => {
           <button
             onClick={scrollToNextSection}
             className='animate-bounce text-white hover:text-yellow-400 focus:outline-none'
+            aria-label='Scroll to next section'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
