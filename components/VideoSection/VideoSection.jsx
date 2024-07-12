@@ -1,4 +1,4 @@
-'use client' // This marks the component as a Client Component
+'use client'
 
 import React, { useCallback, useEffect } from 'react'
 import styles from './VideoSection.module.css'
@@ -33,7 +33,8 @@ const VideoSection = () => {
           muted
           loop
           playsInline
-          preload='metadata'
+          preload='auto'
+          poster='poster_image.png' // Add a poster image
           className='object-cover w-full h-full'
         ></video>
       </div>
