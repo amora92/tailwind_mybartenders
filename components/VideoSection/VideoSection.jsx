@@ -50,11 +50,6 @@ const VideoSection = () => {
             Fine Cocktails & Bespoke Event Solutions
           </h3>
         </div>
-        <div className='lg:mt-12 text-center'>
-          <p className='md:text-2xl font-light lg:text-3xl leading-relaxed'>
-            Elevate Your Event with Our Professional Bartending Services
-          </p>
-        </div>
         <div className='absolute bottom-8 flex items-center justify-center w-full'>
           <button
             onClick={scrollToNextSection}
