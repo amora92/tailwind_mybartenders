@@ -22,9 +22,9 @@ const Pricing = () => {
       <Navbar />
       <main className='container mx-auto px-4 py-8 lg:mt-20'>
         <Pricing_Cta />
-        <h1 className='text-3xl font-bold text-center mb-8'>
+        <h3 className='text-3xl font-bold text-center mb-8'>
           Our Pricing Plans
-        </h1>
+        </h3>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center'>
           {/* Pricing Card 1 */}
