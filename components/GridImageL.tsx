@@ -8,8 +8,8 @@ const GridImageL = () => {
           <div className='relative z-10 lg:py-16'>
             <div className='relative h-64 sm:h-80 lg:h-full'>
               <img
-                alt=''
-                src='https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                alt='Custom Cocktails'
+                src='fine_cocktail.webp'
                 className='absolute inset-0 h-full w-full object-cover'
               />
             </div>
