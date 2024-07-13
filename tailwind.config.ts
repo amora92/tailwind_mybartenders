@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main_buttons_1: '#508D4E', // Define your custom color,
+        main_buttons_1: '#508D4E', // Define your custom color
         nav_color_1: '#FFB000',
         green: {
           50: '#30AF5B',
@@ -52,16 +52,12 @@ module.exports = {
     }
   },
   plugins: [require('daisyui')],
-  // Override daisyUI's default settings if necessary
   daisyui: {
-    // Add any daisyUI specific configurations here
     themes: [
       {
         mytheme: {
-          // Replace 'mytheme' with your desired theme name
           primary: '#30AF5B',
           'primary-focus': '#292C27'
-          // Define other colors and configurations as needed
         }
       }
     ]
