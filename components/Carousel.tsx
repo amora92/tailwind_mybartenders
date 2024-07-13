@@ -41,11 +41,11 @@ const Carousel = () => {
           <div key={index} className='w-full flex-shrink-0'>
             <Image
               src={image.src}
-              className='w-4/5 mx-auto rounded-lg overflow-hidden'
+              className='w-full h-auto rounded-lg'
               alt={image.alt}
               loading='lazy' // Defer loading until near viewport
-              width={800} // Example width attribute
-              height={600} // Example height attribute
+              width={800} // Use actual image width
+              height={600} // Use actual image height
             />
           </div>
         ))}
