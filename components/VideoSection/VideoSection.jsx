@@ -21,7 +21,6 @@ const VideoSection = () => {
           muted
           loop
           playsInline
-          preload='auto'
           className='object-cover w-full h-full'
         ></video>
       </div>
