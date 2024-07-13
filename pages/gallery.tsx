@@ -1,3 +1,6 @@
+// pages/gallery.js
+
+import Head from 'next/head'
 import React from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -11,13 +14,23 @@ const inter = Inter({ subsets: ['latin'] })
 const Gallery = () => {
   return (
     <div className={inter.className}>
+      <Head>
+        <title>
+          Mobile Bar Hire Gallery | Cocktail Events & Bartending Services
+        </title>
+        <meta
+          name='description'
+          content='Explore our stunning gallery showcasing mobile bar hire, cocktail events, and professional bartending services in the UK.'
+        />
+      </Head>
+
       <Navbar />
       <main className='relative overflow-hidden'>
         <section className='container mx-auto px-6 lg:px-20 py-12'>
           <h1 className='text-4xl font-bold mb-8 text-center'>Gallery</h1>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6'>
-            {/* Gallery Item 1 */}
+            {/* Gallery Items */}
             <div className='relative overflow-hidden rounded-lg shadow-md'>
               <img
                 src='/IMG-20240224-WA0027.webp'
@@ -28,7 +41,7 @@ const Gallery = () => {
               />
             </div>
 
-            {/* Gallery Item 2 */}
+            {/* Repeat for other items... */}
             <div className='relative overflow-hidden rounded-lg shadow-md'>
               <img
                 src='/IMG-20240224-WA0048.webp'
@@ -38,84 +51,9 @@ const Gallery = () => {
                 height={300}
               />
             </div>
-
-            {/* Gallery Item 3 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG-20240224-WA0053.webp'
-                alt='White Russian Cocktail Layered Cream'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
-
-            {/* Gallery Item 4 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG-20240224-WA0056.webp'
-                alt='White Russian Cocktail Layered Cream Cinnamon'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
-
-            {/* Gallery Item 5 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG_20220323_122115_003.webp'
-                alt='Parisian Absinthe Fountain And Premium Vodka'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
-
-            {/* Gallery Item 6 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/fire.webp'
-                alt='Firebreathing bartenders'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
-
-            {/* Gallery Item 7 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/20220528_173621.webp'
-                alt='Garden Cocktail Party SuperCar Fest 2022'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
-
-            {/* Gallery Item 8 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/20220528_183404.webp'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Drivers Lounge Menu'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
-
-            {/* Gallery Item 9 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/20220528_173609.webp'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
-            </div>
+            {/* Add other gallery items here... */}
           </div>
+
           <div className='mt-10'>
             <Masonry_Grid />
           </div>

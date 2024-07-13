@@ -1,5 +1,6 @@
 // pages/pricing.js
 
+import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '../app/globals.css'
@@ -8,8 +9,17 @@ import Pricing_Cta from '@/components/Pricing_Cta'
 const Pricing = () => {
   return (
     <div>
-      <Navbar />
+      <Head>
+        <title>
+          Mobile Bar Hire Pricing Plans | Affordable Cocktail Services
+        </title>
+        <meta
+          name='description'
+          content='Discover our competitive pricing plans for mobile bar hire, cocktail bartending services, and custom packages tailored to your event needs.'
+        />
+      </Head>
 
+      <Navbar />
       <main className='container mx-auto px-4 py-8 lg:mt-20'>
         <Pricing_Cta />
         <h1 className='text-3xl font-bold text-center mb-8'>
@@ -29,7 +39,7 @@ const Pricing = () => {
                 href='https://www.mybartenders.co.uk/contact_us'
                 target='_blank'
                 rel='noopener noreferrer'
-                className=' bg-main_buttons_1 hover:bg-lime-600 text-white py-2 px-4 rounded ml-4 inline-block'
+                className='bg-main_buttons_1 hover:bg-lime-600 text-white py-2 px-4 rounded ml-4 inline-block'
               >
                 Contact Us
               </a>
@@ -51,7 +61,7 @@ const Pricing = () => {
                 href='https://www.mybartenders.co.uk/contact_us'
                 target='_blank'
                 rel='noopener noreferrer'
-                className=' bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
+                className='bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
               >
                 Contact Us
               </a>
@@ -72,7 +82,7 @@ const Pricing = () => {
                 href='https://www.mybartenders.co.uk/contact_us'
                 target='_blank'
                 rel='noopener noreferrer'
-                className=' bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
+                className='bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
               >
                 Contact Us
               </a>
@@ -102,7 +112,7 @@ const Pricing = () => {
               href='https://www.mybartenders.co.uk/contact_us'
               target='_blank'
               rel='noopener noreferrer'
-              className=' bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 mt-4 rounded inline-block'
+              className='bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 mt-4 rounded inline-block'
             >
               Contact Us
             </a>
