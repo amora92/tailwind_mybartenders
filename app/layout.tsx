@@ -11,7 +11,11 @@ export const metadata = {
     'Hire mobile bartenders and bars for weddings or events in Northampton or nationwide? Our mixologists are skilled in the art of mixology and ready to serve your guests with style.'
 }
 
-export default function RootLayout ({ children }) {
+export default function RootLayout ({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang='en'>
       <head>
