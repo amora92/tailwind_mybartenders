@@ -106,7 +106,7 @@ const WindSGrid = () => {
             <div className='grid gap-2 mt-2 text-center md:grid-cols-3'>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
-                  src='https://images.unsplash.com/photo-1506802913710-40e2e66339c9?q=80&w=800&auto=format&fit=crop'
+                  src='cocktail_webp.webp'
                   alt='Blended Drinks'
                   className='w-full h-full mx-auto rounded-2xl'
                   width={800} // Set the width
@@ -116,7 +116,7 @@ const WindSGrid = () => {
               </div>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
-                  src='https://images.unsplash.com/photo-1481671703460-040cb8a2d909?q=80&w=800&auto=format&fit=crop'
+                  src='cocktail_webp_2.webp'
                   alt='Themed Solutions'
                   className='w-full h-full mx-auto rounded-2xl'
                   width={800} // Set the width
@@ -126,7 +126,7 @@ const WindSGrid = () => {
               </div>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
-                  src='https://images.unsplash.com/photo-1560179304-6fc1d8749b23?q=80&w=800&auto=format&fit=crop'
+                  src='cocktail_webp_3.webp'
                   alt='Collaboration'
                   className='w-full h-full mx-auto rounded-2xl'
                   width={800} // Set the width
