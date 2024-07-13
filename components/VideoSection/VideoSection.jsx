@@ -15,18 +15,19 @@ const VideoSection = () => {
     <section className='relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white'>
       <div className={styles.videoContainer}>
         <video
-          src='/Branding_Video_2.mp4'
+          src='/Branding_Video_2.compressed.mp4'
           type='video/mp4'
           autoPlay
           muted
           loop
           playsInline
+          preload='auto' // Use 'auto' for better loading behavior
           className='object-cover w-full h-full'
-        ></video>
+        />
       </div>
       <div className='absolute inset-0 flex flex-col items-center justify-center z-10 lg:space-y-8 p-8'>
         <div className='max-w-5xl text-center space-y-4'>
-          <h1 className='md:text-4xl s lg:mb-6 font-semibold tracking-tighter text-white lg:text-7xl leading-tight'>
+          <h1 className='md:text-4xl lg:mb-6 font-semibold tracking-tighter text-white lg:text-7xl leading-tight'>
             Mobile Bar Hire, Mixology, Weddings, Masterclasses -
             <span className='text-yellow-400'> Northampton & Nationwide</span>
           </h1>
