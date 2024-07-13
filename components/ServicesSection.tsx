@@ -8,8 +8,7 @@ const ServicesSection = () => {
       title: 'Masterclass',
       description:
         'Join our masterclass to learn the art of cocktail making from experienced mixologists. Perfect for enthusiasts and professionals alike.',
-      image:
-        'https://images.unsplash.com/photo-1509710398975-6454dcdf049f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      image: 'masterclass.webp',
       price: '£ Custom',
       additionalInfo: 'Includes all necessary equipment and ingredients.',
       capacity: 'Up to 50 participants',
@@ -19,8 +18,7 @@ const ServicesSection = () => {
       title: 'Wedding',
       description:
         'Make your special day even more memorable with our bespoke wedding cocktail service. Tailored drinks that match your theme and style.',
-      image:
-        'https://images.pexels.com/photos/22086472/pexels-photo-22086472/free-photo-of-tables-at-a-wedding-outdoors.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      image: 'wedding.webp',
       price: '£ Custom',
       additionalInfo: 'Customized cocktail menu and professional bartenders.',
       capacity: 'Up to 250 guests',
@@ -30,8 +28,7 @@ const ServicesSection = () => {
       title: 'Tasting Session',
       description:
         'Experience a variety of exquisite cocktails through our guided tasting sessions. Discover new flavors and enjoy the perfect sip.',
-      image:
-        'https://images.pexels.com/photos/17494020/pexels-photo-17494020/free-photo-of-close-up-of-fruit-cocktail.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      image: 'closeup.webp',
       price: '£ Custom',
       additionalInfo: 'Guided tasting with a selection of premium cocktails.',
       capacity: 'Up to 30 participants',
@@ -41,8 +38,7 @@ const ServicesSection = () => {
       title: 'Private Party',
       description:
         'Elevate your private party with custom cocktails and professional bartending service. Enjoy a unique and unforgettable experience.',
-      image:
-        'https://images.pexels.com/photos/12645180/pexels-photo-12645180.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      image: 'party_cocktails.webp',
       price: '£ Custom',
       additionalInfo: 'Personalized cocktail menu and dedicated bartender.',
       capacity: 'Up to 250 guests',
@@ -52,8 +48,7 @@ const ServicesSection = () => {
       title: 'Birthday Bash',
       description:
         'Celebrate your birthday with our exclusive cocktail service. Choose from a range of birthday themed cocktails and enjoy the party!',
-      image:
-        'https://images.pexels.com/photos/5947092/pexels-photo-5947092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      image: 'birthday.webp',
       price: '£ Custom',
       additionalInfo:
         'Tailored cocktails for your birthday theme. A huge shot menu to choose from.',
@@ -64,8 +59,7 @@ const ServicesSection = () => {
       title: 'Corporate Event',
       description:
         'Enhance your corporate event with our professional cocktail catering. Impress your guests with our premium selection, brand the offering, decorations and the bar for maximum impact!',
-      image:
-        'https://images.pexels.com/photos/6405771/pexels-photo-6405771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      image: 'corporate.webp',
       price: '£ Custom',
       additionalInfo:
         'Customized cocktail menu, corporate branding, branded menu development.',
