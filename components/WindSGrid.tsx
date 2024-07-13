@@ -28,11 +28,6 @@ const WindSGrid = () => {
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       Premium alcohol offers unparalleled quality, crafted with
                       meticulous attention to detail and superior ingredients.
-                      Its refined taste, smooth finish, and distinctive
-                      character elevate any drinking experience. From nuanced
-                      flavors to exceptional craftsmanship, premium alcohol
-                      ensures an indulgent and memorable journey for
-                      connoisseurs.
                     </p>
                   </div>
                 </div>
@@ -43,10 +38,14 @@ const WindSGrid = () => {
                     src='/cocktail_red_fine.webp'
                     alt='Red Cocktail with Fine Details'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
+                    width={800} // Set the width
+                    height={600} // Set the height
+                    loading='lazy'
                   />
                 </div>
               </div>
             </div>
+
             <div className='grid gap-2 lg:grid-flow-col-dense lg:max-w-7xl lg:mx-auto lg:grid lg:grid-cols-3'>
               <div className='max-w-lg min-w-full mx-auto lg:col-start-3'>
                 <div className='flex h-full'>
@@ -56,10 +55,7 @@ const WindSGrid = () => {
                     </h2>
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       We pride ourselves on using the finest, freshest, and
-                      naturally sourced ingredients in our offerings. Our
-                      commitment to quality ensures that every sip reflects the
-                      best choice for flavor, sustainability, and customer
-                      satisfaction.
+                      naturally sourced ingredients in our offerings.
                     </p>
                   </div>
                 </div>
@@ -70,10 +66,14 @@ const WindSGrid = () => {
                     src='/cocktail_color_fine.webp'
                     alt='Colorful Cocktail with Fine Details'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
+                    width={800} // Set the width
+                    height={600} // Set the height
+                    loading='lazy'
                   />
                 </div>
               </div>
             </div>
+
             <div className='grid gap-2 lg:grid-flow-col-dense lg:max-w-7xl lg:mx-auto lg:grid lg:grid-cols-3'>
               <div className='max-w-lg min-w-full mx-auto'>
                 <div className='flex h-full'>
@@ -84,8 +84,7 @@ const WindSGrid = () => {
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       Our mocktails and smoothies blend vibrant flavors with
                       health-conscious ingredients, offering a refreshing
-                      alternative. Crafted with care, each sip delivers a burst
-                      of taste and vitality, perfect for any occasion.
+                      alternative.
                     </p>
                   </div>
                 </div>
@@ -96,47 +95,57 @@ const WindSGrid = () => {
                     src='/cocktail_foam.webp'
                     alt='Foamy Cocktail'
                     className='object-cover h-full border shadow-2xl rounded-2xl'
+                    width={800} // Set the width
+                    height={600} // Set the height
+                    loading='lazy'
                   />
                 </div>
               </div>
             </div>
+
             <div className='grid gap-2 mt-2 text-center md:grid-cols-3'>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
-                  src='https://images.unsplash.com/photo-1506802913710-40e2e66339c9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                  src='https://images.unsplash.com/photo-1506802913710-40e2e66339c9?q=80&w=800&auto=format&fit=crop'
                   alt='Blended Drinks'
                   className='w-full h-full mx-auto rounded-2xl'
+                  width={800} // Set the width
+                  height={600} // Set the height
+                  loading='lazy'
                 />
               </div>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
-                  src='https://images.unsplash.com/photo-1481671703460-040cb8a2d909?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                  src='https://images.unsplash.com/photo-1481671703460-040cb8a2d909?q=80&w=800&auto=format&fit=crop'
                   alt='Themed Solutions'
                   className='w-full h-full mx-auto rounded-2xl'
+                  width={800} // Set the width
+                  height={600} // Set the height
+                  loading='lazy'
                 />
               </div>
               <div className='p-2 overflow-hidden border rounded-3xl'>
                 <img
-                  src='https://images.unsplash.com/photo-1560179304-6fc1d8749b23?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                  src='https://images.unsplash.com/photo-1560179304-6fc1d8749b23?q=80&w=800&auto=format&fit=crop'
                   alt='Collaboration'
                   className='w-full h-full mx-auto rounded-2xl'
+                  width={800} // Set the width
+                  height={600} // Set the height
+                  loading='lazy'
                 />
               </div>
               <div className='mt-4'>
                 <p className='font-medium text-gray-900'>Blended drinks</p>
                 <p className='mt-2 text-sm text-gray-500'>
                   Blended drinks offer a refreshing fusion of flavors, combining
-                  fruits, ice, and spirits into a smooth, enjoyable concoction
-                  perfect for any occasion.
+                  fruits, ice, and spirits into a smooth, enjoyable concoction.
                 </p>
               </div>
               <div className='px-8 mt-4'>
                 <p className='font-medium text-gray-900'>Themed Solutions</p>
                 <p className='mt-2 text-sm text-gray-500'>
                   Themed drinks are crafted with meticulous attention to detail,
-                  tailored precisely to your preferences and occasion. Each sip
-                  promises a unique and unforgettable experience, perfectly
-                  suited to elevate any gathering.
+                  tailored precisely to your preferences and occasion.
                 </p>
               </div>
               <div className='px-8 mt-4'>
@@ -144,8 +153,7 @@ const WindSGrid = () => {
                 <p className='mt-2 text-sm text-gray-500'>
                   Collaborating with other food operators enriches our offerings
                   with diverse flavors and expertise, ensuring a culinary
-                  experience that transcends expectations. Together, we create
-                  memorable occasions that delight and inspire.
+                  experience that transcends expectations.
                 </p>
               </div>
             </div>
