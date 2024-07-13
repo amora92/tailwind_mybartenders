@@ -20,10 +20,9 @@ export default function RootLayout ({
     <html lang='en'>
       <head>
         <link
-          rel='stylesheet'
+          rel='preload'
           href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
-          media='print'
-          onLoad="this.media='all'; this.onload=null;"
+          as='style'
         />
         <noscript>
           <link
