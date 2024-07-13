@@ -1,8 +1,7 @@
-// components/Carousel.tsx
-
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -40,7 +39,7 @@ const Carousel = () => {
       >
         {images.map((image, index) => (
           <div key={index} className='w-full flex-shrink-0'>
-            <img
+            <Image
               src={image.src}
               className='w-4/5 mx-auto rounded-lg overflow-hidden'
               alt={image.alt}
@@ -61,7 +60,7 @@ const Carousel = () => {
           ❮
         </button>
         <button
-          className='btn btn-circle  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:bg-lime-600 text-white'
+          className='btn btn-circle bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:bg-lime-600 text-white'
           onClick={() => goToSlide((currentSlide + 1) % totalSlides)}
         >
           ❯
