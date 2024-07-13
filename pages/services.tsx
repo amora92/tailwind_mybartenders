@@ -1,5 +1,6 @@
 // pages/services.js
 
+import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '../app/globals.css'
@@ -9,6 +10,16 @@ import Service_Daisy from '@/components/Service_Daisy'
 const Services = () => {
   return (
     <div>
+      <Head>
+        <title>
+          Mobile Bar Hire & Mixology Services | Hire Professional Bartenders
+        </title>
+        <meta
+          name='description'
+          content='Explore our mobile bar hire services, including professional bartending, cocktail hire, and event bar solutions in the UK.'
+        />
+      </Head>
+
       <Navbar />
 
       <main className='container mx-auto px-4 py-8'>

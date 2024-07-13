@@ -1,5 +1,6 @@
 // pages/contactus.tsx
 
+import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
@@ -69,6 +70,14 @@ const ContactUs: React.FC = () => {
 
   return (
     <div>
+      <Head>
+        <title>Contact Us | Mobile Bartending Services</title>
+        <meta
+          name='description'
+          content='Get in touch with MYBARTENDERS.CO.UK for inquiries, bookings, or custom bartending services. Fill out our contact form for quick assistance.'
+        />
+      </Head>
+
       <Navbar />
       <main className='container mx-auto px-4 py-8'>
         <div className='bg-white rounded-lg shadow-md p-6 mb-8'>

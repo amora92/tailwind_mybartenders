@@ -1,5 +1,6 @@
 // pages/aboutus.tsx
 
+import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -11,7 +12,15 @@ const inter = Inter({ subsets: ['latin'] })
 
 const AboutUs = () => {
   return (
-    <div className={`${inter.className} `}>
+    <div className={`${inter.className}`}>
+      <Head>
+        <title>About Us | Premier Mobile Bartending Services</title>
+        <meta
+          name='description'
+          content='Learn about MYBARTENDERS.CO.UK, our history, services, and dedicated team of professional bartenders committed to making your events unforgettable.'
+        />
+      </Head>
+
       <Navbar />
 
       <main className='container mx-auto px-6 py-12 mt-20'>
@@ -106,7 +115,7 @@ const AboutUs = () => {
               <h3 className='text-xl font-bold text-gray-800'>L.V.</h3>
               <p className='text-gray-600'>Event Coordinator</p>
             </div>
-            <div className='flex flex-col items-center p-4  rounded-lg shadow-sm hover:shadow-md transition-shadow'>
+            <div className='flex flex-col items-center p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow'>
               <img
                 src='/pineapple_4.svg'
                 alt='Team Member 3'
