@@ -6,6 +6,9 @@ const About_Us_Media = () => {
       <section className='bg-white text-black'>
         <div className=' px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16'>
           <div>
+            <h1 className='text-3xl font-bold text-gray-800 mb-6'>
+              About Our Mobile Bar Hire and Cocktail Bartender Services
+            </h1>
             <h2 className='text-3xl font-bold sm:text-4xl'>
               What makes us special
             </h2>

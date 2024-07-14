@@ -76,6 +76,10 @@ const ContactUs: React.FC = () => {
           name='description'
           content='Get in touch with MYBARTENDERS.CO.UK for inquiries, bookings, or custom bartending services. Fill out our contact form for quick assistance.'
         />
+        <link
+          rel='canonical'
+          href='https://www.mybartenders.co.uk/contact_us'
+        />
       </Head>
 
       <Navbar />

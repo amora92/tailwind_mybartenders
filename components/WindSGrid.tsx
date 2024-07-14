@@ -6,10 +6,10 @@ const WindSGrid = () => {
       <section>
         <div className='px-8 py-24 mx-auto md:px-12 lg:px-32'>
           <div>
-            <h1 className='text-4xl font-semibold tracking-tighter text-gray-900 lg:text-6xl text-balance'>
+            <h2 className='text-4xl font-semibold tracking-tighter text-gray-900 lg:text-6xl text-balance'>
               Adventurous & Unique Mixtures,
               <span className='text-lime-500'> wherever and anywhere</span>
-            </h1>
+            </h2>
             <p className='mt-4 text-base font-medium text-gray-500 text-balance'>
               Embark on a mixology masterclass and unlock the secrets of
               crafting exquisite cocktails. Elevate your bartending skills and

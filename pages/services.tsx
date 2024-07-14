@@ -11,18 +11,20 @@ const Services = () => {
   return (
     <div>
       <Head>
-        <title>
-          Mobile Bar Hire & Mixology Services | Hire Professional Bartenders
-        </title>
+        <title>Mobile Bar Hire & Mixology | Hire Bartenders</title>
         <meta
           name='description'
           content='Explore our mobile bar hire services, including professional bartending, cocktail hire, and event bar solutions in the UK.'
         />
+        <link rel='canonical' href='https://www.mybartenders.co.uk/services' />
       </Head>
 
       <Navbar />
 
       <main className='container mx-auto px-4 py-8'>
+        <h1 className='text-4xl font-bold text-center mb-8 lg:mt-20 md:mt-20 mt-20'>
+          Professional Mobile Bar Hire & Mixology Services in the UK
+        </h1>
         <Service_Daisy />
         <Services_Info />
         <section className='mb-12'>
