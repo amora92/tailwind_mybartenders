@@ -19,6 +19,7 @@ const AboutUs = () => {
           name='description'
           content='Learn about MYBARTENDERS.CO.UK, our history, services, and dedicated team of professional bartenders committed to making your events unforgettable.'
         />
+        <link rel='canonical' href='https://mybartenders.co.uk/aboutus' />
       </Head>
 
       <Navbar />
