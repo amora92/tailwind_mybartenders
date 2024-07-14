@@ -87,14 +87,14 @@ const ServicesSection = () => {
       id='next-section'
       className='container mx-auto px-2 md:px-4 lg:px-6 relative flex flex-col'
     >
-      <div className='max-w-full p-4'>
-        <div className='flex flex-wrap justify-center space-around xl:mt-5 xl:mb-10 gap-4 md:gap-8 md:mb-5 sm:mb-5 '>
+      <div className='max-w-full p-4 mt-8'>
+        <div className='flex flex-wrap justify-center space-around xl:mb-10 gap-4 md:gap-8 md:mb-5 sm:mb-5 mb-8'>
           {services.map((service, index) => (
             <button
               key={index}
               className={`group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[1px] sm:p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75 ${
                 index === selectedServiceIndex
-                  ? 'bg-opacity-100'
+                  ? 'bg-opacity-100 shadow-lg shadow-gold transition duration-300' // Highlight effect with gold shadow
                   : 'bg-opacity-50'
               }`}
               onClick={() => setSelectedServiceIndex(index)}
