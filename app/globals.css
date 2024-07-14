@@ -20,6 +20,9 @@ body {
   .btn_white {
     @apply border-white bg-white px-8 py-3 text-green-50;
   }
+  .shadow-gold {
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5); /* Gold color shadow */
+  }
   .btn_white_text {
     @apply border-white bg-white px-8 py-3 text-gray-90;
   }

@@ -13,9 +13,7 @@ const Gallery = () => {
   return (
     <div className={inter.className}>
       <Head>
-        <title>
-          Mobile Bar Hire Gallery | Cocktail Events & Bartending Services
-        </title>
+        <title>Mobile Bar Hire Gallery | Cocktail Events & Services</title>
         <meta
           name='description'
           content='Explore our stunning gallery showcasing mobile bar hire, cocktail events, and professional bartending services in the UK.'
