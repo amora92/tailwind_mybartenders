@@ -87,7 +87,7 @@ const ServicesSection = () => {
       id='next-section'
       className='container mx-auto px-2 md:px-4 lg:px-6 relative flex flex-col'
     >
-      <div className='px-6 flex items-center mt-20 md:mt-10'>
+      <div className='px-6 flex items-center mt-16 md:mt-10'>
         <div className='flex-grow border-b border-gray-300'></div>
         <span className='mx-4 text-lg font-semibold'>What We Do</span>
         <div className='flex-grow border-b border-gray-300'></div>
@@ -115,7 +115,7 @@ const ServicesSection = () => {
             <img
               src={selectedService.image}
               alt={selectedService.title}
-              className='w-full h-full object-cover'
+              className='w-full h-full object-contain'
             />
             <button
               className='absolute left-4 md:left-0 top-1/2 transform -translate-y-1/2 bg-transparent text-white px-3 py-1 rounded-l-md hover:text-yellow-400 focus:outline-none animate-bounce'
