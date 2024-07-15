@@ -158,14 +158,14 @@ const ServicesSection = () => {
               </svg>
             </button>
           </div>
-          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100  flex items-center'>
-            <div className='w-full'>
+          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 flex items-center'>
+            <div className='w-full md:ml-10'>
               <h3 className='text-xl font-bold mb-2'>
                 {selectedService.title}
               </h3>
               <p className='text-lg mb-2'>{selectedService.description}</p>
               <div className='my-4'>
-                <h3 className='text-lg font-semibold'>Details:</h3>
+                <h3 className='text-lg font-semibold mb-2'>Details:</h3>
                 <p>{selectedService.additionalInfo}</p>
                 <p>
                   <strong>Price:</strong> {selectedService.price}
