@@ -111,7 +111,7 @@ const ServicesSection = () => {
           ))}
         </div>
         <div className='flex flex-col md:flex-row'>
-          <div className='relative w-full md:w-1/2 h-[50vh] bg-gray-300 flex items-center justify-center'>
+          <div className='relative w-full md:w-1/2 h-[50vh] bg-gray-300 flex items-center justify-center mb-5 md:mb-0'>
             <img
               src={selectedService.image}
               alt={selectedService.title}
@@ -158,7 +158,7 @@ const ServicesSection = () => {
               </svg>
             </button>
           </div>
-          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 p-8  flex items-center'>
+          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100  flex items-center'>
             <div className='w-full'>
               <h3 className='text-xl font-bold mb-2'>
                 {selectedService.title}
