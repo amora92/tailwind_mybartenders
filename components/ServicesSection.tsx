@@ -58,7 +58,7 @@ const ServicesSection = () => {
     {
       title: 'Corporate Event',
       description:
-        'Enhance your corporate event with our professional cocktail catering. Impress your guests with our premium selection, brand the offering, decorations and the bar for maximum impact!',
+        'Enhance your corporate event with our professional cocktails. Impress your guests with our premium selection, branding, decorations and the bar for maximum impact!',
       image: 'corporate.webp',
       price: '£ Custom',
       additionalInfo:
@@ -87,7 +87,12 @@ const ServicesSection = () => {
       id='next-section'
       className='container mx-auto px-2 md:px-4 lg:px-6 relative flex flex-col'
     >
-      <div className='max-w-full p-4 mt-8'>
+      <div className='px-6 flex items-center mt-20 md:mt-10'>
+        <div className='flex-grow border-b border-gray-300'></div>
+        <span className='mx-4 text-lg font-semibold'>What We Do</span>
+        <div className='flex-grow border-b border-gray-300'></div>
+      </div>
+      <div className='max-w-full p-4'>
         <div className='flex flex-wrap justify-center space-around xl:mb-10 gap-4 md:gap-8 md:mb-5 sm:mb-5 mb-8'>
           {services.map((service, index) => (
             <button
@@ -106,7 +111,7 @@ const ServicesSection = () => {
           ))}
         </div>
         <div className='flex flex-col md:flex-row'>
-          <div className='relative w-full md:w-1/2 h-[80vh] bg-gray-300 flex items-center justify-center'>
+          <div className='relative w-full md:w-1/2 h-[50vh] bg-gray-300 flex items-center justify-center'>
             <img
               src={selectedService.image}
               alt={selectedService.title}
@@ -153,7 +158,7 @@ const ServicesSection = () => {
               </svg>
             </button>
           </div>
-          <div className='w-full md:w-1/2 h-[80vh] bg-gray-100 p-8 flex items-center'>
+          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 p-8 flex items-center'>
             <div className='w-full'>
               <h2 className='text-2xl font-bold mb-4'>
                 {selectedService.title}
