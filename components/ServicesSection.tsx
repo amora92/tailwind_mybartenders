@@ -160,9 +160,9 @@ const ServicesSection = () => {
           </div>
           <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 p-8 mt-10 flex items-center'>
             <div className='w-full'>
-              <h2 className='text-2xl font-bold mb-4'>
+              <h3 className='text-2xl font-bold mb-2'>
                 {selectedService.title}
-              </h2>
+              </h3>
               <p className='text-lg mb-2'>{selectedService.description}</p>
               <div className='my-4'>
                 <h3 className='text-lg font-semibold'>Details:</h3>
