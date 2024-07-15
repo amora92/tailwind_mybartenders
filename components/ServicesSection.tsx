@@ -158,7 +158,7 @@ const ServicesSection = () => {
               </svg>
             </button>
           </div>
-          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 p-8 mt-10 flex items-center'>
+          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 p-8  flex items-center'>
             <div className='w-full'>
               <h3 className='text-xl font-bold mb-2'>
                 {selectedService.title}
