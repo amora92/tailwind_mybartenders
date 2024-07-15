@@ -157,12 +157,12 @@ const ServicesSection = () => {
               </svg>
             </button>
           </div>
-          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 flex items-center p-6 rounded-lg'>
+          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 flex items-center p-4 md:p-6 rounded-lg'>
             <div className='w-full font-sans'>
-              <h3 className='text-2xl font-bold mb-2 text-pink-600'>
+              <h3 className='text-xl md:text-2xl font-bold mb-2 text-pink-600'>
                 {selectedService.title}
               </h3>
-              <p className='text-lg mb-2 text-gray-700'>
+              <p className='text-base md:text-lg mb-2 text-gray-700'>
                 {selectedService.description}
               </p>
               <div className='my-4'>
