@@ -1,4 +1,3 @@
-// components/ServicesSection.tsx
 'use client'
 import React, { useState } from 'react'
 
@@ -99,7 +98,7 @@ const ServicesSection = () => {
               key={index}
               className={`group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[1px] sm:p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75 ${
                 index === selectedServiceIndex
-                  ? 'bg-opacity-100 shadow-lg shadow-gold transition duration-300' // Highlight effect with gold shadow
+                  ? 'bg-opacity-100 shadow-lg shadow-gold transition duration-300'
                   : 'bg-opacity-50'
               }`}
               onClick={() => setSelectedServiceIndex(index)}
@@ -111,7 +110,7 @@ const ServicesSection = () => {
           ))}
         </div>
         <div className='flex flex-col md:flex-row'>
-          <div className='relative w-full md:w-1/2 h-[50vh] bg-gray-300 flex items-center justify-center mb-5 md:mb-0'>
+          <div className='relative w-full md:w-1/2 h-[50vh] bg-gray-300 flex items-center justify-center mb-5 md:mb-0 rounded-lg overflow-hidden'>
             <img
               src={selectedService.image}
               alt={selectedService.title}
@@ -158,24 +157,34 @@ const ServicesSection = () => {
               </svg>
             </button>
           </div>
-          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 flex items-center'>
-            <div className='w-full md:ml-10'>
-              <h3 className='text-xl font-bold mb-2'>
+          <div className='w-full md:w-1/2 h-[50vh] bg-gray-100 flex items-center p-6 rounded-lg'>
+            <div className='w-full font-sans'>
+              <h3 className='text-2xl font-bold mb-2 text-pink-600'>
                 {selectedService.title}
               </h3>
-              <p className='text-lg mb-2'>{selectedService.description}</p>
+              <p className='text-lg mb-2 text-gray-700'>
+                {selectedService.description}
+              </p>
               <div className='my-4'>
-                <h3 className='text-lg font-semibold mb-2'>Details:</h3>
-                <p>{selectedService.additionalInfo}</p>
-                <p>
-                  <strong>Price:</strong> {selectedService.price}
+                <h4 className='text-lg font-semibold text-red-500'>Details:</h4>
+                <p className='mb-1'>
+                  <span className='font-bold text-yellow-600'>Price:</span>{' '}
+                  {selectedService.price}
+                </p>
+                <p className='mb-1'>
+                  <span className='font-bold text-yellow-600'>Capacity:</span>{' '}
+                  {selectedService.capacity}
                 </p>
                 <p>
-                  <strong>Capacity:</strong> {selectedService.capacity}
-                </p>
-                <p>
-                  <strong>Length of Service:</strong>{' '}
+                  <span className='font-bold text-yellow-600'>
+                    Length of Service:
+                  </span>{' '}
                   {selectedService.lengthOfService}
+                </p>
+                <p className='mt-4'>
+                  <span className='text-sm text-gray-500'>
+                    {selectedService.additionalInfo}
+                  </span>
                 </p>
               </div>
             </div>
