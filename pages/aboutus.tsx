@@ -27,19 +27,23 @@ const AboutUs = () => {
       <main className='container mx-auto px-6 py-12 mt-20'>
         <section className='grid gap-12 mb-12'>
           <div className='bg-white p-6 rounded-lg shadow-lg'>
+            <div className='bg-white p-6 rounded-lg shadow-lg'>
+              <h2 className='text-2xl font-semibold text-gray-800 mb-4'>
+                Our Story
+              </h2>
+              <p className='text-lg text-gray-600'>
+                Mybartenders.co.uk has grown from a small team of passionate
+                bartenders to a renowned service provider in the event industry.
+                Our journey began back in 2009 with a love for everything
+                hospitality related and a commitment to quality, which continues
+                to drive us today. After decades of combined experience, we came
+                to a realization that we provide something really special,
+                something that we can not rely on others to provide. We gathered
+                the best staff we could find and decided to work towards one
+                goal - provide the highest level hospitality services we can.
+              </p>
+            </div>
             <About_Us_Media />
-          </div>
-
-          <div className='bg-white p-6 rounded-lg shadow-lg'>
-            <h2 className='text-2xl font-semibold text-gray-800 mb-4'>
-              Our History
-            </h2>
-            <p className='text-lg text-gray-600'>
-              Founded in 2024, MYBARTENDERS.CO.UK has grown from a small team of
-              passionate bartenders to a renowned service provider in the event
-              industry. Our journey began with a love for cocktails and a
-              commitment to quality, which continues to drive us today.
-            </p>
           </div>
 
           <div className='bg-white p-6 rounded-lg shadow-lg'>
