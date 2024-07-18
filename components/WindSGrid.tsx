@@ -25,7 +25,7 @@ const WindSGrid = () => {
                     <h2 className='font-semibold text-gray-900'>
                       Only the best spirits.
                     </h2>
-                    <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
+                    <p className='mt-2 text-sm font-medium text-gray-500 text-pretty'>
                       Premium alcohol offers unparalleled quality, crafted with
                       meticulous attention to detail and superior ingredients.
                     </p>
