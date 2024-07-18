@@ -47,8 +47,8 @@ const FreqQ = () => {
           </summary>
 
           <p className='mt-4 leading-relaxed text-gray-700'>
-            As is this service is not searching for clients, we will get back to
-            you as soon as conveniently possible.
+            As is this service is not searching for new clients, we will get
+            back to you as soon as conveniently possible.
           </p>
         </details>
 
@@ -92,7 +92,7 @@ const FreqQ = () => {
           </summary>
 
           <p className='mt-4 leading-relaxed text-gray-700'>
-            Under construction.
+            We are working on this project behind the scenes.
           </p>
         </details>
       </div>
