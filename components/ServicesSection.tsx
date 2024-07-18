@@ -9,6 +9,8 @@ const ServicesSection = () => {
         'Join our masterclass to learn the art of cocktail making from experienced mixologists. Perfect for enthusiasts and professionals alike.',
       image: 'masterclass.webp',
       price: '£ Custom',
+      options:
+        'Prohibition Style Cocktails, Modern Cocktails, Party Cocktails, Spirits Masterclass, Shots, Vodka & Caviar, Cocktail History & More',
       additionalInfo: 'Includes all necessary equipment and ingredients.',
       capacity: 'Up to 50 participants',
       lengthOfService: 'Minimum 1 hour'
@@ -19,6 +21,8 @@ const ServicesSection = () => {
         'Make your special day even more memorable with our bespoke wedding cocktail service. Tailored drinks that match your theme and style.',
       image: 'wedding.webp',
       price: '£ Custom',
+      options:
+        'Champagne Tower, Her & His Bespoke Cocktails, Custom Menu for the evening.',
       additionalInfo: 'Customized cocktail menu and professional bartenders.',
       capacity: 'Up to 250 guests',
       lengthOfService: 'Flexible duration'
@@ -29,6 +33,7 @@ const ServicesSection = () => {
         'Experience a variety of exquisite cocktails through our guided tasting sessions. Discover new flavors and enjoy the perfect sip.',
       image: 'closeup.webp',
       price: '£ Custom',
+      options: 'A flight of cocktails, Spirit & Shot Tasting, Mocktails',
       additionalInfo: 'Guided tasting with a selection of premium cocktails.',
       capacity: 'Up to 30 participants',
       lengthOfService: 'Minimum 3 hours'
@@ -39,6 +44,7 @@ const ServicesSection = () => {
         'Elevate your private party with custom cocktails and professional bartending service. Enjoy a unique and unforgettable experience.',
       image: 'party_cocktails.webp',
       price: '£ Custom',
+      options: 'From Welcome Drinks to Shots, Sharers & fine Cocktails.',
       additionalInfo: 'Personalized cocktail menu and dedicated bartender.',
       capacity: 'Up to 250 guests',
       lengthOfService: 'Minimum 4 hours'
@@ -49,6 +55,7 @@ const ServicesSection = () => {
         'Celebrate your birthday with our exclusive cocktail service. Choose from a range of birthday themed cocktails and enjoy the party!',
       image: 'birthday.webp',
       price: '£ Custom',
+      options: 'Themed and custom menu, celebratory concotions.',
       additionalInfo:
         'Tailored cocktails for your birthday theme. A huge shot menu to choose from.',
       capacity: 'Up to 200 guests',
@@ -60,6 +67,7 @@ const ServicesSection = () => {
         'Enhance your corporate event with our professional cocktails. Impress your guests with our premium selection, branding, decorations and the bar for maximum impact!',
       image: 'corporate.webp',
       price: '£ Custom',
+      options: 'Branded drinks & presentation, custom bar decorations.',
       additionalInfo:
         'Customized cocktail menu, corporate branding, branded menu development.',
       capacity: 'Up to 200 guests',
@@ -170,6 +178,10 @@ const ServicesSection = () => {
                 <p className='mb-1'>
                   <span className='font-bold text-yellow-600'>Price:</span>{' '}
                   {selectedService.price}
+                </p>
+                <p className='mb-1'>
+                  <span className='font-bold text-yellow-600'>Options:</span>{' '}
+                  {selectedService.options}
                 </p>
                 <p className='mb-1'>
                   <span className='font-bold text-yellow-600'>Capacity:</span>{' '}

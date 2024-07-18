@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' })
 export const metadata = {
   title: 'Portable Bar Hire Northampton, Cocktails, Mixology, Weddings',
   description:
-    'Hire mobile bartenders and bars for weddings or events in Northampton or nationwide? Our mixologists are skilled in the art of mixology and ready to serve your guests with style.'
+    'Private hire bartenders and bars for weddings or events in Northampton or nationwide? Our mixologists are skilled in the art of mixology and ready to serve your guests with style.'
 }
 
 export default function RootLayout ({
