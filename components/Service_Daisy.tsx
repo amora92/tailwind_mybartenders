@@ -7,7 +7,7 @@ const Service_Daisy = () => {
         <div className='py-8 px-4 mx-auto pt-10 mt-20 mb-20 max-w-screen-xl sm:py-16 lg:px-6'>
           <div className='max-w-screen-md mb-8 lg:mb-16'>
             <h2 className='mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-black'>
-              Designed for hospitality teams like yours
+              We are the one stop event solution.
             </h2>
             <p className='text-black sm:text-xl dark:text-black'>
               At mybartenders.co.uk, we focus on providing exceptional services
@@ -35,9 +35,8 @@ const Service_Daisy = () => {
                 Event Planning
               </h3>
               <p className='text-black dark:text-black'>
-                Plan, coordinate, and execute your events seamlessly. Our tools
-                help ensure every detail is perfect, so your guests leave with
-                lasting impressions.
+                We will help you plan, coordinate and arrange an unforgettable
+                experience for your guests.
               </p>
             </div>
             <div>
@@ -52,12 +51,11 @@ const Service_Daisy = () => {
                 </svg>
               </div>
               <h3 className='mb-2 text-xl font-bold dark:text-black'>
-                Legal Compliance
+                Event Licencing
               </h3>
               <p className='text-black dark:text-black'>
-                Ensure your hospitality business remains compliant with all
-                regulations and standards, protecting your reputation and
-                operations.
+                Take away the stress of event legal compliance & let us take
+                care of it.
               </p>
             </div>
             <div>
@@ -77,11 +75,12 @@ const Service_Daisy = () => {
                 </svg>
               </div>
               <h3 className='mb-2 text-xl font-bold dark:text-black'>
-                Operations Management
+                Masterclass
               </h3>
               <p className='text-black dark:text-black'>
-                Streamline your operations with customizable workflows designed
-                to enhance efficiency and guest satisfaction.
+                Whether it's a thrilling team-building exercise or a expert led
+                seminar about a topic of your choice, we will deliver what you
+                require.
               </p>
             </div>
             <div>
@@ -101,11 +100,10 @@ const Service_Daisy = () => {
                 </svg>
               </div>
               <h3 className='mb-2 text-xl font-bold dark:text-black'>
-                Financial Management
+                Let us save you money
               </h3>
               <p className='text-black dark:text-black'>
-                Manage your financial operations with audit-proof software
-                designed for critical tasks like budgeting and monthly closing.
+                Let us check if our suppliers can beat your quotes!
               </p>
             </div>
             <div>
@@ -120,7 +118,7 @@ const Service_Daisy = () => {
                 </svg>
               </div>
               <h3 className='mb-2 text-xl font-bold dark:text-black'>
-                Hospitality Design
+                Brand Launch / Advertising
               </h3>
               <p className='text-black dark:text-black'>
                 Create beautiful, welcoming environments for your guests,
@@ -148,7 +146,7 @@ const Service_Daisy = () => {
               </h3>
               <p className='text-black dark:text-black'>
                 Enhance your guests' experience with customized services,
-                ensuring every stay is unique and memorable.
+                ensuring every part of the service is unique and memorable.
               </p>
             </div>
           </div>

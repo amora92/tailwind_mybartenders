@@ -49,7 +49,7 @@ const Pricing_Cta = () => {
                   <span className='text-lg font-medium text-black'>Basic</span>
                   <div className='mt-4'>
                     <span className='text-xl text-black'>
-                      {wetHire ? '£ABCDe' : '£ABCD'}
+                      {wetHire ? '£ Get a Quote' : '£ Get a Quote'}
                     </span>
                     <span className='text-sm font-medium text-gray-500'>
                       /event
@@ -94,7 +94,7 @@ const Pricing_Cta = () => {
                   </span>
                   <div className='mt-4'>
                     <span className='text-xl text-black'>
-                      {wetHire ? '£ABCD' : '£ABCDe'}
+                      {wetHire ? '£ Get a Quote' : '£ Get a Quote'}
                     </span>
                     <span className='text-sm font-medium text-gray-500'>
                       /event
@@ -143,7 +143,7 @@ const Pricing_Cta = () => {
                   </span>
                   <div className='mt-4'>
                     <span className='text-xl text-black'>
-                      {wetHire ? '£ABCDe' : '£ABCD'}
+                      {wetHire ? '£ Get a Quote' : '£ Get a Quote'}
                     </span>
                     <span className='text-sm font-medium text-gray-500'>
                       /event
