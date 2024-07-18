@@ -22,12 +22,28 @@ const WindSGrid = () => {
               <div className='max-w-lg min-w-full mx-auto'>
                 <div className='flex h-full'>
                   <div className='flex flex-col justify-center p-8 border bg-gray-10 rounded-3xl max-w-none'>
-                    <h2 className='font-medium text-gray-900'>
-                      Don't compromise.
+                    <h2 className='font-semibold text-gray-900'>
+                      Only the best spirits.
                     </h2>
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       Premium alcohol offers unparalleled quality, crafted with
                       meticulous attention to detail and superior ingredients.
+                    </p>
+                    <h3 className='mt-4 font-semibold text-gray-800'>
+                      Quality Assurance
+                    </h3>
+                    <p className='text-sm text-gray-500'>
+                      We ensure every bottle meets our high standards of
+                      excellence. Our selection process guarantees only the
+                      finest spirits make it to your glass.
+                    </p>
+                    <h3 className='mt-4 font-semibold text-gray-800'>
+                      Superior Ingredients
+                    </h3>
+                    <p className='text-sm text-gray-500'>
+                      Using only the best ingredients, our premium alcohol is
+                      crafted to perfection. Experience the true essence of
+                      quality with every sip.
                     </p>
                   </div>
                 </div>
@@ -50,12 +66,27 @@ const WindSGrid = () => {
               <div className='max-w-lg min-w-full mx-auto lg:col-start-3'>
                 <div className='flex h-full'>
                   <div className='flex flex-col justify-center p-8 border bg-gray-10 rounded-3xl max-w-none'>
-                    <h2 className='font-medium text-gray-900'>
-                      Nutritionally balanced.
+                    <h2 className='font-semibold text-gray-900'>
+                      Real ingredients, real flavour!
                     </h2>
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       We pride ourselves on using the finest, freshest, and
                       naturally sourced ingredients in our offerings.
+                    </p>
+                    <h3 className='mt-4 font-semibold text-gray-800'>
+                      Health Conscious
+                    </h3>
+                    <p className='text-sm text-gray-500'>
+                      Every ingredient is selected for its health benefits,
+                      ensuring you get a drink that's not just tasty but also
+                      good for you.
+                    </p>
+                    <h3 className='mt-4 font-semibold text-gray-800'>
+                      Fresh Ingredients
+                    </h3>
+                    <p className='text-sm text-gray-500'>
+                      Our commitment to freshness means using only the best
+                      produce, enhancing flavor and nutritional value.
                     </p>
                   </div>
                 </div>
@@ -78,13 +109,28 @@ const WindSGrid = () => {
               <div className='max-w-lg min-w-full mx-auto'>
                 <div className='flex h-full'>
                   <div className='flex flex-col justify-center p-8 border bg-gray-10 rounded-3xl max-w-none'>
-                    <h2 className='font-medium text-gray-900'>
+                    <h2 className='font-semibold text-gray-900'>
                       All drink solutions.
                     </h2>
                     <p className='mt-4 text-sm font-medium text-gray-500 text-pretty'>
                       Our mocktails and smoothies blend vibrant flavors with
                       health-conscious ingredients, offering a refreshing
                       alternative.
+                    </p>
+                    <h3 className='mt-4 font-semibold text-gray-800'>
+                      Mocktails
+                    </h3>
+                    <p className='text-sm text-gray-500'>
+                      Delight in our handcrafted mocktails, where taste meets
+                      creativity. Perfect for any occasion and for those who
+                      prefer non-alcoholic options.
+                    </p>
+                    <h3 className='mt-4 font-semibold text-gray-800'>
+                      Smoothies
+                    </h3>
+                    <p className='text-sm text-gray-500'>
+                      Our smoothies are not just beverages; they're a blend of
+                      nutrition and flavor, ideal for a healthy lifestyle.
                     </p>
                   </div>
                 </div>
@@ -135,25 +181,49 @@ const WindSGrid = () => {
                 />
               </div>
               <div className='mt-4'>
-                <p className='font-medium text-gray-900'>Blended drinks</p>
+                <p className='font-semibold text-gray-900'>Blended drinks</p>
                 <p className='mt-2 text-sm text-gray-500'>
                   Blended drinks offer a refreshing fusion of flavors, combining
                   fruits, ice, and spirits into a smooth, enjoyable concoction.
                 </p>
+                <h3 className='mt-4 font-semibold text-gray-800'>
+                  Versatile Flavors
+                </h3>
+                <p className='text-sm text-gray-500'>
+                  Whether you crave something fruity, creamy, or a combination
+                  of both, our blended drinks are sure to satisfy your taste
+                  buds.
+                </p>
               </div>
               <div className='px-8 mt-4'>
-                <p className='font-medium text-gray-900'>Themed Solutions</p>
+                <p className='font-semibold text-gray-900'>Themed Solutions</p>
                 <p className='mt-2 text-sm text-gray-500'>
                   Themed drinks are crafted with meticulous attention to detail,
                   tailored precisely to your preferences and occasion.
                 </p>
+                <h3 className='mt-4 font-semibold text-gray-800'>
+                  Event-Specific Creations
+                </h3>
+                <p className='text-sm text-gray-500'>
+                  Our themed solutions include drinks specially designed for
+                  weddings, corporate events, and private parties, adding a
+                  unique touch to every gathering.
+                </p>
               </div>
               <div className='px-8 mt-4'>
-                <p className='font-medium text-gray-900'>Collaboration</p>
+                <p className='font-semibold text-gray-900'>Collaboration</p>
                 <p className='mt-2 text-sm text-gray-500'>
                   Collaborating with other food operators enriches our offerings
                   with diverse flavors and expertise, ensuring a culinary
                   experience that transcends expectations.
+                </p>
+                <h3 className='mt-4 font-semibold text-gray-800'>
+                  Innovative Partnerships
+                </h3>
+                <p className='text-sm text-gray-500'>
+                  By working with top chefs and mixologists, we bring you an
+                  innovative range of drinks that showcase the best of culinary
+                  and beverage arts.
                 </p>
               </div>
             </div>
