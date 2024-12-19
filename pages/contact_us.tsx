@@ -1,5 +1,3 @@
-// pages/contactus.tsx
-
 import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -8,12 +6,27 @@ import '../app/globals.css'
 import Getting_In_Touch from '@/components/Getting_In_Touch'
 import FreqQ from '@/components/FreqQ'
 
+interface FormData {
+  name: string
+  email: string
+  message: string
+  attendees: string
+  eventDate: string
+  location: string
+  startTime: string
+  finishTime: string
+  budget: string
+  requirements: string
+}
+
 const ContactUs: React.FC = () => {
-  const [statusMessage, setStatusMessage] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [eventDetails, setEventDetails] = useState({
+  const [statusMessage, setStatusMessage] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: '',
     attendees: '',
     eventDate: '',
     location: '',
@@ -23,49 +36,89 @@ const ContactUs: React.FC = () => {
     requirements: ''
   })
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.target as HTMLFormElement
-    const formData = new FormData(form)
-    formData.append('eventDetails', JSON.stringify(eventDetails))
-
-    try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: {
-          Accept: 'application/json'
-        }
-      })
-
-      if (response.ok) {
-        setStatusMessage('Thanks for your submission!')
-        form.reset()
-      } else {
-        const data = await response.json()
-        if (data.hasOwnProperty('errors')) {
-          setStatusMessage(
-            data.errors
-              .map((error: { message: string }) => error.message)
-              .join(', ')
-          )
-        } else {
-          setStatusMessage('Oops! There was a problem submitting your form')
-        }
-      }
-    } catch (error) {
-      setStatusMessage('Oops! There was a problem submitting your form')
-    }
-  }
-
+  // Unified change handler for all inputs
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target
-    setEventDetails(prevState => ({
-      ...prevState,
-      [name]: value
-    }))
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setStatusMessage('') // Clear previous status message
+    setLoading(true) // Set loading state
+
+    const {
+      name,
+      email,
+      message,
+      attendees,
+      eventDate,
+      location,
+      startTime,
+      finishTime,
+      budget,
+      requirements
+    } = formData
+
+    const eventDetails = {
+      attendees,
+      eventDate,
+      location,
+      startTime,
+      finishTime,
+      budget,
+      requirements
+    }
+
+    try {
+      // Send form data to the backend API for email processing
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          eventDetails
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setStatusMessage(
+          'Thanks for your submission! We will get back to you soon.'
+        )
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+          attendees: '',
+          eventDate: '',
+          location: '',
+          startTime: '',
+          finishTime: '',
+          budget: '',
+          requirements: ''
+        })
+      } else {
+        setStatusMessage(
+          data.error ||
+            'Oops! There was a problem submitting your form. Please try again later.'
+        )
+      }
+    } catch (error) {
+      setStatusMessage(
+        'Oops! There was a problem submitting your form. Please try again later.'
+      )
+    } finally {
+      setLoading(false) // Reset loading state
+    }
   }
 
   return (
@@ -99,13 +152,8 @@ const ContactUs: React.FC = () => {
             possible.
           </p>
 
-          {/* Formspree form */}
-          <form
-            id='my-form'
-            action='https://formspree.io/f/xyyoygpk'
-            method='POST'
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
+            {/* Name */}
             <div className='mb-4'>
               <label
                 htmlFor='name'
@@ -117,13 +165,14 @@ const ContactUs: React.FC = () => {
                 type='text'
                 id='name'
                 name='name'
-                value={name}
-                onChange={e => setName(e.target.value)}
+                value={formData.name}
+                onChange={handleChange}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               />
             </div>
 
+            {/* Email */}
             <div className='mb-4'>
               <label
                 htmlFor='email'
@@ -135,13 +184,14 @@ const ContactUs: React.FC = () => {
                 type='email'
                 id='email'
                 name='email'
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               />
             </div>
 
+            {/* Message */}
             <div className='mb-4'>
               <label
                 htmlFor='message'
@@ -152,122 +202,132 @@ const ContactUs: React.FC = () => {
               <textarea
                 id='message'
                 name='message'
-                value={message}
-                onChange={e => setMessage(e.target.value)}
+                value={formData.message}
+                onChange={handleChange}
                 rows={4}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
                 required
               ></textarea>
             </div>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='attendees'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Number of Attendees
-              </label>
-              <input
-                type='number'
-                id='attendees'
-                name='attendees'
-                value={eventDetails.attendees}
-                onChange={handleChange}
-                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
-                required
-              />
+            {/* Event Details */}
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+              {/* Attendees */}
+              <div>
+                <label
+                  htmlFor='attendees'
+                  className='block text-gray-700 font-semibold mb-2'
+                >
+                  Number of Attendees
+                </label>
+                <input
+                  type='number'
+                  id='attendees'
+                  name='attendees'
+                  value={formData.attendees}
+                  onChange={handleChange}
+                  className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                  required
+                />
+              </div>
+
+              {/* Event Date */}
+              <div>
+                <label
+                  htmlFor='eventDate'
+                  className='block text-gray-700 font-semibold mb-2'
+                >
+                  Event Date
+                </label>
+                <input
+                  type='date'
+                  id='eventDate'
+                  name='eventDate'
+                  value={formData.eventDate}
+                  onChange={handleChange}
+                  className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                  required
+                />
+              </div>
+
+              {/* Location */}
+              <div>
+                <label
+                  htmlFor='location'
+                  className='block text-gray-700 font-semibold mb-2'
+                >
+                  Location
+                </label>
+                <input
+                  type='text'
+                  id='location'
+                  name='location'
+                  value={formData.location}
+                  onChange={handleChange}
+                  className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                  required
+                />
+              </div>
+
+              {/* Start Time */}
+              <div>
+                <label
+                  htmlFor='startTime'
+                  className='block text-gray-700 font-semibold mb-2'
+                >
+                  Start Time
+                </label>
+                <input
+                  type='time'
+                  id='startTime'
+                  name='startTime'
+                  value={formData.startTime}
+                  onChange={handleChange}
+                  className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                  required
+                />
+              </div>
+
+              {/* Finish Time */}
+              <div>
+                <label
+                  htmlFor='finishTime'
+                  className='block text-gray-700 font-semibold mb-2'
+                >
+                  Finish Time
+                </label>
+                <input
+                  type='time'
+                  id='finishTime'
+                  name='finishTime'
+                  value={formData.finishTime}
+                  onChange={handleChange}
+                  className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                  required
+                />
+              </div>
+
+              {/* Budget */}
+              <div>
+                <label
+                  htmlFor='budget'
+                  className='block text-gray-700 font-semibold mb-2'
+                >
+                  Budget
+                </label>
+                <input
+                  type='text'
+                  id='budget'
+                  name='budget'
+                  value={formData.budget}
+                  onChange={handleChange}
+                  className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
+                  required
+                />
+              </div>
             </div>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='eventDate'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Event Date
-              </label>
-              <input
-                type='date'
-                id='eventDate'
-                name='eventDate'
-                value={eventDetails.eventDate}
-                onChange={handleChange}
-                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
-                required
-              />
-            </div>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='location'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Location
-              </label>
-              <input
-                type='text'
-                id='location'
-                name='location'
-                value={eventDetails.location}
-                onChange={handleChange}
-                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
-                required
-              />
-            </div>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='startTime'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Start Time
-              </label>
-              <input
-                type='time'
-                id='startTime'
-                name='startTime'
-                value={eventDetails.startTime}
-                onChange={handleChange}
-                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
-                required
-              />
-            </div>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='finishTime'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Finish Time
-              </label>
-              <input
-                type='time'
-                id='finishTime'
-                name='finishTime'
-                value={eventDetails.finishTime}
-                onChange={handleChange}
-                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
-                required
-              />
-            </div>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='budget'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Budget
-              </label>
-              <input
-                type='text'
-                id='budget'
-                name='budget'
-                value={eventDetails.budget}
-                onChange={handleChange}
-                className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
-                required
-              />
-            </div>
-
+            {/* Requirements */}
             <div className='mb-4'>
               <label
                 htmlFor='requirements'
@@ -278,7 +338,7 @@ const ContactUs: React.FC = () => {
               <textarea
                 id='requirements'
                 name='requirements'
-                value={eventDetails.requirements}
+                value={formData.requirements}
                 onChange={handleChange}
                 rows={4}
                 className='border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500'
@@ -286,36 +346,33 @@ const ContactUs: React.FC = () => {
               ></textarea>
             </div>
 
+            {/* Submit Button */}
             <button
               type='submit'
-              className=' bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded-md'
+              className={`bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded-md ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              disabled={loading}
             >
-              Send
+              {loading ? 'Sending...' : 'Send'}
             </button>
             <p className='mt-2'>{statusMessage}</p>
           </form>
         </section>
 
+        {/* Contact Information */}
         <section className='bg-white rounded-lg shadow-md p-6'>
           <h2 className='text-xl font-semibold mb-4'>Contact Information</h2>
           <p className='text-gray-600 mb-4'>
             For any inquiries, please contact us via the following methods:
           </p>
-
           <ul className='list-disc list-inside'>
-            <li className='mb-2'>
+            <li>
               <span className='font-semibold'>Email:</span>{' '}
               <a href='mailto:contact@mybartenders.co.uk'>
                 contact@mybartenders.co.uk
               </a>
             </li>
-            {/* <li className='mb-2'>
-              <span className='font-semibold'>Phone:</span> +1 234 567 890
-            </li>
-            <li className='mb-2'>
-              <span className='font-semibold'>Address:</span> 123 Main St, City,
-              Country
-            </li> */}
           </ul>
         </section>
       </main>
