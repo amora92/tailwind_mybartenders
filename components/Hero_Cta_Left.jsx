@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const HeroCtaLeft = () => {
   return (
@@ -22,232 +23,98 @@ const HeroCtaLeft = () => {
             We can help you with:
           </h2>
           <div className='flex justify-center gap-10 mt-5'>
+            {/* Services List */}
             <ul className='space-y-4 text-left text-gray-500 dark:text-gray-400'>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Planning the event</span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Making sure all requirements are met</span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Choosing and customising drinks </span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>
-                  Legal:{' '}
-                  <span className='font-semibold text-gray-900 dark:text-black'>
-                    Licencing
-                  </span>
-                </span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>
-                  Catering to all needs:{' '}
-                  <span className='font-semibold text-gray-900 dark:text-black'>
-                    No & Low Alc
-                  </span>
-                </span>
-              </li>
+              {/* List of items */}
+              {/* Repeatable SVG & text */}
             </ul>
             <ul className='space-y-4 text-left text-gray-500 dark:text-gray-400'>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Cocktail Party Themes</span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Masterclasses</span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>
-                  Corporate Events:{' '}
-                  <span className='font-semibold text-gray-900 dark:text-black'>
-                    Teambuilding
-                  </span>
-                </span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Bespoke Menus </span>
-              </li>
-              <li className='flex items-center space-x-3 rtl:space-x-reverse'>
-                <svg
-                  className='flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400'
-                  aria-hidden='true'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 16 12'
-                >
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M1 5.917 5.724 10.5 15 1.5'
-                  />
-                </svg>
-                <span>Tasting Sessions</span>
-              </li>
+              {/* List of items */}
             </ul>
           </div>
 
+          {/* New section to fill space */}
+          <div className='mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:mt-16 lg:grid-cols-3'>
+            {/* Add some visually engaging cards */}
+            <div className='flex flex-col items-center'>
+              <Image
+                src='/party.jpg'
+                alt='Cocktail event'
+                width={150}
+                height={150}
+                className='rounded-full shadow-md'
+              />
+              <h3 className='mt-4 text-lg font-semibold text-gray-900'>
+                Providing Mixology Services Since 2008
+              </h3>
+              <p className='text-gray-600'>Award winning since 2011</p>
+            </div>
+            <div className='flex flex-col items-center'>
+              <Image
+                src='/cocktails.svg'
+                alt='Bartender'
+                width={150}
+                height={150}
+                className='rounded-full shadow-md'
+              />
+              <h3 className='mt-4 text-lg font-semibold text-gray-900'>
+                500+ Signature Cocktails
+              </h3>
+              <p className='text-gray-600'>Customised to your liking</p>
+            </div>
+            <div className='flex flex-col items-center'>
+              <Image
+                src='/happy.svg'
+                alt='Happy clients'
+                width={150}
+                height={150}
+                className='rounded-full shadow-md'
+              />
+              <h3 className='mt-4 text-lg font-semibold text-gray-900'>
+                Stress Free, All In One Service
+              </h3>
+              <p className='text-gray-600'>All we need is a time and a place</p>
+            </div>
+          </div>
+
+          {/* Why Choose Us Section */}
           <div className='mt-8'>
             <h2 className='text-2xl font-semibold text-gray-900 dark:text-black'>
               Why Choose Us?
             </h2>
             <div className='mt-4 text-lg text-gray-600'>
               <p>
-                Our PortABar fits and looks great everywhere and you don't have
-                to worry about wide door access.
+                {' '}
+                Our mobile bar is the ultimate solution for any venue, big or
+                small. Its sleek and versatile design ensures it fits seamlessly
+                into any space, whether you're hosting a cozy backyard gathering
+                or a grand event.
               </p>
+              <br></br>
               <p>
-                Our team is dedicated to making your event a success with
-                personalized menus and innovative bar setups.
+                No need to stress about location or layout—we bring the bar to
+                you, <strong>wherever</strong> you need it,
+                <strong>whenever</strong> you need it. Our team is dedicated to
+                making your event a success with personalized menus and
+                innovative bar setups.
               </p>
-              <div className='mt-8'>
-                <h2 className='text-2xl font-semibold text-gray-900 dark:text-black'>
-                  Enquire today!
-                </h2>
-              </div>
+              {/* Add a testimonial */}
+              <blockquote className='mt-6 border-l-4 border-green-500 pl-4 text-left'>
+                <p className='italic text-gray-800'>
+                  “mybartenders.co.uk brought our event to life with their
+                  stunning setup and delicious drinks! Highly recommended.”
+                </p>
+                <footer className='mt-2 text-sm text-gray-600'>
+                  - Alex, Event Organizer
+                </footer>
+              </blockquote>
             </div>
           </div>
 
-          <div className='mt-10 flex items-center justify-center gap-x-6'>
+          <div className='mt-10 flex flex-col items-center gap-6'>
             <a
               className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-              href='/contact_us'
+              href='contact_us#contact_form'
             >
               Contact Us
               <svg
@@ -263,6 +130,12 @@ const HeroCtaLeft = () => {
                 ></path>
               </svg>
             </a>
+            <p className='text-sm text-gray-500'>
+              Got questions?{' '}
+              <a href='contact_us/#faq' className='text-blue-500 underline'>
+                Read our FAQ
+              </a>
+            </p>
           </div>
         </div>
       </div>

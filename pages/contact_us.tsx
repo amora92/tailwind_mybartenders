@@ -145,7 +145,10 @@ const ContactUs: React.FC = () => {
         </div>
         <h1 className='text-3xl font-bold text-center mb-8'>Contact Us</h1>
 
-        <section className='bg-white rounded-lg shadow-md p-6 mb-8'>
+        <section
+          id='contact_form'
+          className='bg-white rounded-lg shadow-md p-6 mb-8'
+        >
           <h2 className='text-xl font-semibold mb-4'>Get In Touch</h2>
           <p className='text-gray-600 mb-4'>
             Fill out the form below and we'll get back to you as soon as

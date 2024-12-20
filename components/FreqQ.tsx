@@ -8,7 +8,10 @@ const FreqQ = () => {
           className='group p-6 [&_summary::-webkit-details-marker]:hidden'
           open
         >
-          <summary className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'>
+          <summary
+            id='faq'
+            className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'
+          >
             <h2 className='text-lg font-medium'>
               How long will it take for you to get a response?
             </h2>
@@ -45,7 +48,6 @@ const FreqQ = () => {
               </svg>
             </span>
           </summary>
-
           <p className='mt-4 leading-relaxed text-gray-700'>
             As is this service is not searching for new clients, we will get
             back to you as soon as conveniently possible.
