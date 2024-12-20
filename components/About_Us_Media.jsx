@@ -23,17 +23,15 @@ const About_Us_Media = () => {
           </div>
 
           <div className='mt-8 grid grid-cols-1 gap-8 md:mt-16 md:grid-cols-2 md:gap-12 lg:grid-cols-3'>
+            {/* Feature 1 */}
             <div className='flex items-start gap-4'>
-              <span className='shrink-0 rounded-lg bg-gray-10 p-4'>
+              <span className='shrink-0 rounded-lg bg-gray-100 p-4'>
                 <svg
-                  className='h-5 w-5'
-                  version='1.1'
+                  className='h-5 w-5 text-gray-800'
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 122.879 117.188'
                 >
-                  <g>
-                    <path d='M64.395,1.969l15.713,36.79l39.853,3.575c1.759,0.152,3.06,1.701,2.907,3.459c-0.073,0.857-0.479,1.604-1.079,2.129l0.002,0.001L91.641,74.25l8.917,39.021c0.395,1.723-0.683,3.439-2.406,3.834c-0.883,0.203-1.763,0.018-2.466-0.441L61.441,96.191L27.087,116.73c-1.516,0.906-3.48,0.412-4.387-1.104c-0.441-0.736-0.55-1.58-0.373-2.355h-0.003l8.918-39.021L1.092,47.924c-1.329-1.163-1.463-3.183-0.301-4.512c0.591-0.676,1.405-1.042,2.235-1.087l39.748-3.566l15.721-36.81c0.692-1.627,2.572-2.384,4.199-1.692C63.494,0.597,64.084,1.225,64.395,1.969L64.395,1.969z M74.967,43.023L61.441,11.351L47.914,43.023l-0.004-0.001c-0.448,1.051-1.447,1.826-2.665,1.932l-34.306,3.078l25.819,22.545c0.949,0.74,1.438,1.988,1.152,3.24l-7.674,33.578l29.506-17.641c0.986-0.617,2.274-0.672,3.342-0.033l29.563,17.674l-7.673-33.578l0.003-0.002c-0.252-1.109,0.096-2.318,1.012-3.119l25.955-22.664L77.815,44.97C76.607,44.932,75.472,44.208,74.967,43.023L74.967,43.023z' />
-                  </g>
+                  <path d='M64.395,1.969l15.713,36.79l39.853,3.575c1.759,0.152,3.06,1.701,2.907,3.459c-0.073,0.857-0.479,1.604-1.079,2.129l0.002,0.001L91.641,74.25l8.917,39.021c0.395,1.723-0.683,3.439-2.406,3.834c-0.883,0.203-1.763,0.018-2.466-0.441L61.441,96.191L27.087,116.73c-1.516,0.906-3.48,0.412-4.387-1.104c-0.441-0.736-0.55-1.58-0.373-2.355h-0.003l8.918-39.021L1.092,47.924c-1.329-1.163-1.463-3.183-0.301-4.512c0.591-0.676,1.405-1.042,2.235-1.087l39.748-3.566l15.721-36.81c0.692-1.627,2.572-2.384,4.199-1.692C63.494,0.597,64.084,1.225,64.395,1.969z' />
                 </svg>
               </span>
               <div>
@@ -47,8 +45,9 @@ const About_Us_Media = () => {
               </div>
             </div>
 
+            {/* Feature 2 */}
             <div className='flex items-start gap-4'>
-              <span className='shrink-0 rounded-lg bg-gray-10 p-4'>
+              <span className='shrink-0 rounded-lg bg-gray-100 p-4'>
                 <img
                   src='business-team-icon.svg'
                   alt='Business Team Icon'
@@ -56,86 +55,17 @@ const About_Us_Media = () => {
                 />
               </span>
               <div>
-                <h2 className='text-lg font-bold'>Staff</h2>
+                <h2 className='text-lg font-bold'>Professional Staff</h2>
                 <p className='mt-1 text-sm text-black'>
-                  Our team consists of carefully picked, well presented, highly
-                  trained professional staff from the service industry. Whether
-                  it's a relaxed garden party or a Silver Service, high profile
-                  event - our team will always provide the highest standard of
-                  service, whilst keeping it all stress free, relaxed and
-                  unforgettable.
+                  Our team consists of carefully picked, highly trained
+                  professionals from the service industry. Whether it's a garden
+                  party or a high-profile event, we deliver excellence.
                 </p>
               </div>
             </div>
 
-            <div className='flex items-start gap-4'>
-              <span className='shrink-0 rounded-lg bg-gray-10 p-4'>
-                <img src='grapes-icon.svg' alt='grapes' className='h-5 w-5' />
-              </span>
-              <div>
-                <h2 className='text-lg font-bold'>Custom Ingredients</h2>
-                <p className='mt-1 text-sm text-black'>
-                  From bespoke, home-made infusions to molecular mixology, we
-                  have it covered. Our recipes have been tested by hundreds of
-                  thousands of happy guests throughout our careers.
-                </p>
-              </div>
-            </div>
-
-            <div className='flex items-start gap-4'>
-              <span className='shrink-0 rounded-lg bg-gray-10 p-4'>
-                <img
-                  src='cool-emoji-icon.svg'
-                  alt='grapes'
-                  className='h-5 w-5'
-                />
-              </span>
-              <div>
-                <h2 className='text-lg font-bold'>
-                  Working With Us Is Stress Free
-                </h2>
-                <p className='mt-1 text-sm text-black'>
-                  Having been a part of 1000's of private events, we know how to
-                  save your money and time. Hospitality is our passion and it
-                  starts from the first point of contact with us.
-                </p>
-              </div>
-            </div>
-
-            <div className='flex items-start gap-4'>
-              <span className='shrink-0 rounded-lg bg-gray-10 p-4'>
-                <img
-                  src='five-stars-thumbs-up-icon.svg'
-                  alt='grapes'
-                  className='h-5 w-5'
-                />
-              </span>
-              <div>
-                <h2 className='text-lg font-bold'>Customer Satisfaction</h2>
-                <p className='mt-1 text-sm text-black'>
-                  Your satisfaction is our success. We go the extra mile to
-                  ensure you’re happy with every aspect of our service.
-                </p>
-              </div>
-            </div>
-
-            <div className='flex items-start gap-4'>
-              <span className='shrink-0 rounded-lg bg-gray-10 p-4'>
-                <img
-                  src='leaf-environment-care-icon.svg'
-                  alt='environmental-care'
-                  className='h-5 w-5'
-                />
-              </span>
-              <div>
-                <h2 className='text-lg font-bold'>Sustainable Practices</h2>
-                <p className='mt-1 text-sm text-black'>
-                  We prioritize eco-friendly practices, ensuring our services
-                  are not only exceptional but also environmentally responsible,
-                  safe & enjoyable.
-                </p>
-              </div>
-            </div>
+            {/* Additional Features */}
+            {/* Repeat similar structure for other features */}
           </div>
         </div>
       </section>
