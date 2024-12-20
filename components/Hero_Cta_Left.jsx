@@ -114,7 +114,7 @@ const HeroCtaLeft = () => {
           <div className='mt-10 flex flex-col items-center gap-6'>
             <a
               className='isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-              href='contact_us#contact_form'
+              href='contact_us'
             >
               Contact Us
               <svg
@@ -132,7 +132,7 @@ const HeroCtaLeft = () => {
             </a>
             <p className='text-sm text-gray-500'>
               Got questions?{' '}
-              <a href='contact_us/#faq' className='text-blue-500 underline'>
+              <a href='#faq' className='text-blue-500 underline'>
                 Read our FAQ
               </a>
             </p>

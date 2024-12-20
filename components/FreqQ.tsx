@@ -2,16 +2,13 @@ import React from 'react'
 
 const FreqQ = () => {
   return (
-    <div>
+    <div id='faq'>
       <div className='divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white'>
         <details
           className='group p-6 [&_summary::-webkit-details-marker]:hidden'
           open
         >
-          <summary
-            id='faq'
-            className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'
-          >
+          <summary className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'>
             <h2 className='text-lg font-medium'>
               How long will it take for you to get a response?
             </h2>

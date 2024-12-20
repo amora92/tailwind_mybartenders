@@ -3,6 +3,7 @@ import Cta_Features from './Cta_Features'
 import GridImageL from './GridImageL'
 import GridReview from './GridReview'
 import WindSGrid from './WindSGrid'
+import FreqQ from './FreqQ'
 
 const Camp = () => {
   return (
@@ -10,6 +11,7 @@ const Camp = () => {
       <Cta_Features />
       <GridImageL />
       <GridReview />
+      <FreqQ />
       <WindSGrid />
     </section>
   )
