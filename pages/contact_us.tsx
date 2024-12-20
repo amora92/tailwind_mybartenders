@@ -136,14 +136,14 @@ const ContactUs: React.FC = () => {
       </Head>
 
       <Navbar />
-      <main className='container mx-auto px-4 py-8'>
-        <div className='bg-white rounded-lg shadow-md p-6 mb-8'>
+      <main className='container mx-auto px-4 py-24'>
+        {/* <div className='bg-white rounded-lg shadow-md p-6 mb-8'>
           <Getting_In_Touch />
-        </div>
-        <div className='bg-white rounded-lg shadow-md p-6 mb-8'>
+        </div> */}
+        {/* <div className='bg-white rounded-lg shadow-md p-6 mb-8'>
           <FreqQ />
         </div>
-        <h1 className='text-3xl font-bold text-center mb-8'>Contact Us</h1>
+        <h1 className='text-3xl font-bold text-center mb-8'>Contact Us</h1> */}
 
         <section
           id='contact_form'

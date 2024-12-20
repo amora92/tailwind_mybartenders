@@ -1,11 +1,11 @@
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Home' },
-  { href: '/aboutus', key: 'about_us', label: 'About-Us' },
+  // { href: '/aboutus', key: 'about_us', label: 'About-Us' },
   { href: '/gallery', key: 'gallery', label: 'Gallery' },
   // { href: '/articles', key: 'articles', label: 'Articles' },
-  { href: '/services', key: 'services', label: 'Services' },
-  { href: '/pricing', key: 'pricing', label: 'Pricing' },
+  // { href: '/services', key: 'services', label: 'Services' },
+  // { href: '/pricing', key: 'pricing', label: 'Pricing' },
   { href: '/contact_us', key: 'contact_us', label: 'Contact Us' }
 ]
 
