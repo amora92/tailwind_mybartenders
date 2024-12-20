@@ -96,7 +96,7 @@ const ServicesSection = () => {
     >
       <div className='px-6 flex items-center mt-16 md:mt-10'>
         <div className='flex-grow border-b border-gray-300'></div>
-        <span className='mx-4 text-lg font-semibold'>What We Do</span>
+        <span className='mx-4 text-lg font-semibold pt-16'>What We Do</span>
         <div className='flex-grow border-b border-gray-300'></div>
       </div>
       <div className='max-w-full p-4'>
