@@ -46,15 +46,15 @@ const FreqQ = () => {
             </span>
           </summary>
           <p className='mt-4 leading-relaxed text-gray-700'>
-            As is this service is not searching for new clients, we will get
-            back to you as soon as conveniently possible.
+            We are currently overhauling our services and are not actively
+            seeking for business, but our mailbox is open to enquiries.
           </p>
         </details>
 
         <details className='group p-6 [&_summary::-webkit-details-marker]:hidden'>
           <summary className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'>
             <h2 className='text-lg font-medium'>
-              Why is it currently not searching for clients?
+              Why are you currently not actively searching for clients?
             </h2>
 
             <span className='relative size-5 shrink-0'>
