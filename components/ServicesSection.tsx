@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import ImageRotator from '@/components/Image_Rotator'
 
 const ServicesSection = () => {
   const services = [
@@ -94,11 +95,13 @@ const ServicesSection = () => {
       id='next-section'
       className='container mx-auto px-2 md:px-4 lg:px-6 relative flex flex-col'
     >
-      <div className='px-6 flex items-center mt-16 md:mt-10'>
-        <div className='flex-grow border-b border-gray-300'></div>
-        <span className='mx-4 text-lg font-semibold pt-16'>What We Do</span>
-        <div className='flex-grow border-b border-gray-300'></div>
-      </div>
+      <section
+        id='next-section'
+        className='container mx-auto px-4 lg:px-6 py-16 flex flex-col items-center'
+      >
+        <ImageRotator />
+      </section>
+
       <div className='max-w-full p-4'>
         <div className='flex flex-wrap justify-center space-around xl:mb-10 gap-4 md:gap-8 md:mb-5 sm:mb-5 mb-8'>
           {services.map((service, index) => (
