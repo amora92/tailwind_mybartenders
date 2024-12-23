@@ -203,7 +203,7 @@ const ImageRotator = () => {
               <strong>
                 2. Get in touch!{' '}
                 <a
-                  href='tel:+44 7365 822959'
+                  href='tel:+44 7482612532'
                   className='text-blue-600 hover:text-blue-800'
                 >
                   +44 7365 822959
