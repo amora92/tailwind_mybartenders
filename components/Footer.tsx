@@ -56,7 +56,7 @@ const Footer = () => {
         </div>
 
         <p className='regular-14 w-full text-center text-nav_color_1 hover:text-yellow-600 transition-colors duration-300'>
-          2024 Mybartenders.co.uk | All rights reserved
+          2025 Mybartenders.co.uk | All rights reserved
         </p>
       </div>
     </footer>
