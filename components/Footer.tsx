@@ -1,5 +1,5 @@
 import React from 'react'
-import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/constants'
+import { FOOTER_LINKS, SOCIALS } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,9 +14,9 @@ const Footer = () => {
                 <ul className='regular-14 flex flex-col gap-4 text-nav_color_1'>
                   {columns.links.map((link, idx) => (
                     <li key={idx}>
-                      <Link href='/' passHref>
+                      <Link href={link.url} passHref>
                         <span className='hover:text-yellow-600 transition-colors duration-300 cursor-pointer'>
-                          {link}
+                          {link.name}
                         </span>
                       </Link>
                     </li>
@@ -35,7 +35,6 @@ const Footer = () => {
                         target='_blank'
                         rel='noopener noreferrer'
                         className='flex items-center gap-6 hover:text-yellow-600 transition-colors duration-300 yellow-icon'
-                        // Add yellow-icon class here
                       >
                         <Image
                           src={social.icon}

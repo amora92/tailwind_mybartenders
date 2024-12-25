@@ -39,8 +39,7 @@ const Cta_Features = () => {
             </h3>
             <p className='text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white'>
               Weddings, Hen or Stag Do's, Private Parties, Mixology
-              Masterclasses, we've done it all, ask and enquire about anything
-              and we will get back to you.
+              Masterclasses, we've done it all!
             </p>
           </div>
           <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'>
@@ -63,8 +62,7 @@ const Cta_Features = () => {
               Responsibly sourced, fresh ingredients{' '}
             </h3>
             <p className='text-sm font-normal text-gray-500 transition-all duration-500 leading-5 group-hover:text-white'>
-              We use the best ingredients we can get our hands on & have long
-              relationships across all suppliers.
+              We use the best ingredients we can get our hands on.
             </p>
           </div>
           <div className='group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:w-2/5 md:h-64 xl:p-7 xl:w-1/4 hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'>
