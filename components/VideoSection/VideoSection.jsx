@@ -38,7 +38,10 @@ const VideoSection = () => {
             Fine Cocktails & Bespoke Event Solutions
           </h3>
           <h3 className='font-light md:text-3xl lg:text-4xl leading-snug'>
-            <span className='text-yellow-400'>+44 7365 5822 959</span>
+            <span className='font-semibold'>Phone:</span>{' '}
+            <a className='text-yellow-400' href='tel:+4473655822959'>
+              +44 7365 5822 959
+            </a>
           </h3>
         </div>
         <div className='absolute bottom-8 flex items-center justify-center w-full'>
