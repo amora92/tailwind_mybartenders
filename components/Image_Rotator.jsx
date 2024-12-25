@@ -202,8 +202,8 @@ const ImageRotator = () => {
             <li>
               <strong>
                 2. Get in touch!{' '}
-                <a href='tel:+44 7482612532' className='text-pink-500'>
-                  +44 7482612532
+                <a href='tel:+4473655822959' className='text-pink-500'>
+                  +44 7365 5822 959
                 </a>
               </strong>{' '}
               Fill out our form or phone / text our dedicated party number!

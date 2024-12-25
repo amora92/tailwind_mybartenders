@@ -120,7 +120,7 @@ const Gallery = () => {
             {/* Gallery Item 8 */}
             <div className='relative overflow-hidden rounded-lg shadow-md'>
               <img
-                src='/20220528_183404.webp'
+                src='/20111.jpg'
                 alt='Garden Cocktail Party SuperCar Fest 2022 Drivers Lounge Menu'
                 className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
                 width={400}
@@ -131,16 +131,40 @@ const Gallery = () => {
             {/* Gallery Item 9 */}
             <div className='relative overflow-hidden rounded-lg shadow-md'>
               <img
-                src='/20220528_173609.webp'
+                src='/201111.jpg'
                 alt='Garden Cocktail Party SuperCar Fest 2022 Service'
                 className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
                 width={400}
                 height={300}
               />
             </div>
-          </div>
-          <div className='mt-10'>
-            <Masonry_Grid />
+            <div className='relative overflow-hidden rounded-lg shadow-md'>
+              <img
+                src='/2011.jpg'
+                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
+                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
+                width={400}
+                height={300}
+              />
+            </div>
+            <div className='relative overflow-hidden rounded-lg shadow-md'>
+              <img
+                src='/55555.jpg'
+                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
+                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
+                width={400}
+                height={300}
+              />
+            </div>
+            <div className='relative overflow-hidden rounded-lg shadow-md'>
+              <img
+                src='/aaaa.jpg'
+                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
+                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
+                width={400}
+                height={300}
+              />
+            </div>
           </div>
         </section>
       </main>
