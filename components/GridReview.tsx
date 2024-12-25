@@ -22,28 +22,6 @@ const GridReview = () => {
                 service and expertise!
               </p>
             </div>
-
-            <a
-              href='#'
-              className='mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-5 py-3 text-white transition hover:bg-lime-500 hover:text-white md:mt-0'
-            >
-              <span className='font-medium'> Read all reviews </span>
-
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='size-4 rtl:rotate-180'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M14 5l7 7m0 0l-7 7m7-7H3'
-                />
-              </svg>
-            </a>
           </div>
 
           <div className='mt-8 grid grid-cols-1 gap-4 md:grid-cols-3'>
