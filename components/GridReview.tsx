@@ -98,13 +98,12 @@ const GridReview = () => {
 
                 <div className='mt-4'>
                   <p className='text-2xl font-bold text-nav_color_1 sm:text-3xl'>
-                    Heckin' Deeelish!
+                    5 star service
                   </p>
 
                   <p className='mt-4 leading-relaxed text-gray-700'>
                     Exceptional mixology skills! Their cocktails are pure magic,
-                    crafted with precision and creativity, setting a new
-                    standard in cocktail bartending. Simply outstanding!
+                    crafted with precision and creativity. Simply outstanding!
                   </p>
                 </div>
               </div>
@@ -234,7 +233,7 @@ const GridReview = () => {
 
                 <div className='mt-4'>
                   <p className='text-2xl font-bold text-nav_color_1 sm:text-3xl'>
-                    Best, best, best.
+                    Best cocktails!
                   </p>
 
                   <p className='mt-4 leading-relaxed text-gray-700'>

@@ -93,12 +93,7 @@ export const SOCIALS = {
       url: 'https://twitter.com/mybartenders'
     },
     {
-      label: 'YouTube',
-      icon: '/youtube.svg',
-      url: 'https://youtube.com/mybartenders'
-    },
-    {
-      label: 'TikTok',
+      label: 'TikTok - Coming Soon',
       icon: '/wordpress.svg',
       url: 'https://www.tiktok.com/@mybartenders.co.uk?_t=8ncydLcTqe8&_r=1'
     }
