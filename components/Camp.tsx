@@ -12,7 +12,7 @@ const Camp = () => {
       <GridImageL />
       <GridReview />
       <FreqQ />
-      <WindSGrid />
+      {/* <WindSGrid /> */}
     </section>
   )
 }
