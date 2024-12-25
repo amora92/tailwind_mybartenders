@@ -54,15 +54,22 @@ export const FOOTER_LINKS = [
   {
     title: 'Learn More',
     links: [
-      'About Mybartenders.co.uk',
-      'Terms & Conditions',
-      'Privacy Policy',
-      'Contact Us'
+      { name: 'About Mybartenders.co.uk', url: '/contact_us' },
+      { name: 'Terms & Conditions', url: '/terms-and-conditions' },
+      { name: 'Privacy Policy', url: '/privacy-policy' },
+      { name: 'Contact Us', url: '/contact_us' }
     ]
   },
   {
     title: 'Our Community',
-    links: ['Email us - Contact@mybartenders.co.uk', 'TikTok', 'X/Twitter']
+    links: [
+      {
+        name: 'Email us - Contact@mybartenders.co.uk',
+        url: 'mailto:contact@mybartenders.co.uk'
+      },
+      { name: 'TikTok', url: 'https://www.tiktok.com/@mybartenders' },
+      { name: 'X/Twitter', url: 'https://twitter.com/mybartenders' }
+    ]
   }
 ]
 
