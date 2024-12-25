@@ -376,6 +376,10 @@ const ContactUs: React.FC = () => {
                 contact@mybartenders.co.uk
               </a>
             </li>
+            <li>
+              <span className='font-semibold'>Phone:</span>{' '}
+              <a href='tel:+4473655822959'>+44 7365 5822 959</a>
+            </li>
           </ul>
         </section>
       </main>
