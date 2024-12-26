@@ -59,7 +59,7 @@ const ArticlePage = () => {
             one to remember.
           </p>
           <a
-            href='/contact'
+            href='/contact_us'
             className='inline-block bg-white text-pastel-pink font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-200 transition'
           >
             Get Started
