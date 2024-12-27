@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { articles } from '../../data/articles' // Import the articles array
 
 const AdminPage = () => {
   const [title, setTitle] = useState('')
@@ -8,27 +7,54 @@ const AdminPage = () => {
   const [image, setImage] = useState('')
   const [slug, setSlug] = useState('')
   const [date, setDate] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     const newArticle = {
-      slug,
       title,
       description,
       content,
       image,
+      slug,
       date
     }
 
-    // You could push to the articles array here or ideally save to an API
-    articles.push(newArticle)
-    alert('Article added successfully!')
+    try {
+      const res = await fetch('/api/articles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newArticle)
+      })
+
+      const data = await res.json()
+
+      if (res.status === 201) {
+        setSuccess('Article added successfully')
+        setTitle('')
+        setDescription('')
+        setContent('')
+        setImage('')
+        setSlug('')
+        setDate('')
+      } else {
+        setError(data.error || 'Something went wrong')
+      }
+    } catch (error) {
+      console.error('Error while submitting:', error)
+      setError('Failed to add article')
+    }
   }
 
   return (
     <div className='max-w-2xl mx-auto py-16'>
       <h1 className='text-3xl font-bold mb-8'>Add New Article</h1>
+      {error && <p className='text-red-500'>{error}</p>}
+      {success && <p className='text-green-500'>{success}</p>}
       <form onSubmit={handleSubmit}>
         <div className='mb-4'>
           <label htmlFor='title' className='block text-gray-700'>
