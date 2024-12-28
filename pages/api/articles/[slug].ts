@@ -1,23 +1,27 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from '../../../lib/mongodb'
 
-export default async (req, res) => {
-  const { slug } = req.query // Extract the slug from the URL
+export default async function handler (
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: 'Method not allowed' })
+  }
 
-  if (req.method === 'GET') {
-    try {
-      const db = await connectToDatabase()
-      const article = await db.collection('articles').findOne({ slug }) // Find the article by slug in MongoDB
+  const { slug } = req.query
 
-      if (!article) {
-        return res.status(404).json({ error: 'Article not found' })
-      }
+  try {
+    const db = await connectToDatabase()
+    const article = await db.collection('articles').findOne({ slug })
 
-      return res.status(200).json(article) // Return the article data
-    } catch (error) {
-      console.error('Error fetching article:', error)
-      return res.status(500).json({ error: 'Internal server error' })
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' })
     }
-  } else {
-    return res.status(405).json({ error: 'Method Not Allowed' })
+
+    return res.status(200).json(article)
+  } catch (error) {
+    console.error('Error fetching article:', error)
+    return res.status(500).json({ message: 'Internal server error' })
   }
 }

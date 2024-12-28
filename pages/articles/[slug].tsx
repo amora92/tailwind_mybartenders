@@ -1,85 +1,148 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import '../../app/globals.css'
 
-const ArticleDetail = () => {
-  const [article, setArticle] = useState(null) // Initialize article state
+interface Article {
+  title: string
+  description: string
+  content: string
+  imageUrl: string
+  publishedAt: string
+  category: string
+  readTime?: string
+  author?: {
+    name: string
+    avatar: string
+  }
+}
+
+const ArticlePage = () => {
   const router = useRouter()
-  const { slug } = router.query // Get the slug from the URL
+  const { slug } = router.query
+  const [article, setArticle] = useState<Article | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if the slug is available (router is ready)
-    if (!slug) return
+    if (slug) {
+      fetchArticle()
+    }
+  }, [slug])
 
-    const fetchArticle = async () => {
+  const fetchArticle = async () => {
+    try {
       const response = await fetch(`/api/articles/${slug}`)
       const data = await response.json()
-
-      // Check if we have data
-      if (data) {
-        setArticle(data)
-      }
+      setArticle(data)
+    } catch (error) {
+      console.error('Error fetching article:', error)
+    } finally {
+      setLoading(false)
     }
+  }
 
-    fetchArticle()
-  }, [slug]) // Only run when slug changes
-
-  if (!article) return <p>Loading...</p> // Show loading message until data is fetched
-
-  return (
-    <div>
-      <Navbar />
-      <section className='px-6 py-12 mt-16'>
-        <div className='max-w-4xl mx-auto'>
-          {/* Title Card */}
-          <div className='bg-white p-6 rounded-lg shadow-lg mb-6'>
-            <h1 className='text-4xl font-extrabold text-gray-800'>
-              {article.title}
-            </h1>
-            <p className='text-gray-600 mt-2'>{article.description}</p>
-          </div>
-
-          {/* Image Card */}
-          <div className='bg-white rounded-lg shadow-lg mb-6'>
-            <img
-              src={article.image} // Assuming this is a URL to the image
-              alt={article.title}
-              className='w-full h-96 object-cover rounded-t-lg'
-            />
-          </div>
-
-          {/* Content Card */}
-          <div className='bg-white p-6 rounded-lg shadow-lg mb-6'>
-            <h2 className='text-2xl font-bold text-gray-800 mb-4'>Content</h2>
-            <p className='text-lg text-gray-700'>{article.content}</p>
-          </div>
-
-          {/* Date Card */}
-          <div className='bg-white p-6 rounded-lg shadow-lg mb-6'>
-            <h2 className='text-2xl font-bold text-gray-800 mb-4'>
-              Published On
-            </h2>
-            <p className='text-lg text-gray-700'>
-              {new Date(article.createdAt).toLocaleDateString()}
-            </p>
-          </div>
-
-          {/* CreatedAt Card */}
-          <div className='bg-white p-6 rounded-lg shadow-lg'>
-            <h2 className='text-2xl font-bold text-gray-800 mb-4'>
-              Created At
-            </h2>
-            <p className='text-lg text-gray-700'>
-              {new Date(article.createdAt).toLocaleString()}
-            </p>
+  if (loading) {
+    return (
+      <div className='min-h-screen bg-gray-50'>
+        <Navbar />
+        <div className='max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
+          <div className='animate-pulse'>
+            <div className='h-8 bg-gray-200 rounded w-3/4 mb-4'></div>
+            <div className='h-4 bg-gray-200 rounded w-1/2 mb-12'></div>
+            <div className='h-96 bg-gray-200 rounded-lg mb-8'></div>
+            <div className='space-y-4'>
+              <div className='h-4 bg-gray-200 rounded w-full'></div>
+              <div className='h-4 bg-gray-200 rounded w-5/6'></div>
+              <div className='h-4 bg-gray-200 rounded w-4/6'></div>
+            </div>
           </div>
         </div>
-      </section>
+        <Footer />
+      </div>
+    )
+  }
+
+  if (!article) {
+    return (
+      <div className='min-h-screen bg-gray-50'>
+        <Navbar />
+        <div className='max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
+          <h1 className='text-2xl font-bold text-gray-900'>
+            Article not found
+          </h1>
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
+  return (
+    <div className='min-h-screen bg-gray-50'>
+      <Navbar />
+
+      <article className='max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-20'>
+        {/* Article Header */}
+        <header className='mb-12'>
+          <div className='flex items-center space-x-2 mb-4'>
+            <span className='px-3 py-1 text-xs font-semibold bg-gold-100 text-gold-600 rounded-full'>
+              {article.category}
+            </span>
+            <span className='text-sm text-gray-500'>{article.readTime}</span>
+          </div>
+          <h1 className='text-4xl font-bold text-gray-900 mb-4'>
+            {article.title}
+          </h1>
+          <div className='flex items-center justify-between border-b border-gray-200 pb-6'>
+            <div className='flex items-center space-x-3'>
+              <img
+                src={article.author?.avatar || '/default-avatar.png'}
+                alt={article.author?.name}
+                className='w-10 h-10 rounded-full'
+              />
+              <div>
+                <p className='font-medium text-gray-900'>
+                  {article.author?.name || 'Anonymous'}
+                </p>
+                <time className='text-sm text-gray-500'>
+                  {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </time>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Featured Image */}
+        <div className='aspect-w-16 aspect-h-9 mb-12 rounded-lg overflow-hidden'>
+          <img
+            src={article.imageUrl}
+            alt={article.title}
+            className='object-cover w-full h-full'
+          />
+        </div>
+
+        {/* Article Description */}
+        <div className='prose prose-lg max-w-none mb-12 text-gray-600'>
+          <p className='lead'>{article.description}</p>
+        </div>
+
+        {/* Article Content */}
+        <div className='prose prose-lg max-w-none'>
+          {/* Split content by double newlines to create paragraphs */}
+          {article.content.split('\n\n').map((paragraph, index) => (
+            <p key={index} className='mb-6'>
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </article>
+
       <Footer />
     </div>
   )
 }
 
-export default ArticleDetail
+export default ArticlePage
