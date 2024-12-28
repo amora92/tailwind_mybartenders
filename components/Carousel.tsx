@@ -5,8 +5,8 @@ import Image from 'next/image'
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = 9 // Update this to the actual number of slides
-  const slideInterval = 3000 // Change slide every 3 seconds
+  const totalSlides = 9
+  const slideInterval = 3000
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,39 +32,88 @@ const Carousel = () => {
   ]
 
   return (
-    <div className='relative overflow-hidden'>
+    <div className='relative overflow-hidden group'>
       <div
-        className='flex transition-transform duration-500'
+        className='flex transition-transform duration-500 ease-out'
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {images.map((image, index) => (
           <div key={index} className='w-full flex-shrink-0'>
             <Image
               src={image.src}
-              className='w-full h-auto rounded-lg'
+              className='w-full h-auto rounded-2xl'
               alt={image.alt}
-              loading='lazy' // Defer loading until near viewport
-              width={800} // Use actual image width
-              height={600} // Use actual image height
+              width={800}
+              height={600}
+              {...(index === 0 ? { priority: true } : { loading: 'lazy' })}
             />
           </div>
         ))}
       </div>
-      <div className='absolute left-5 right-5 top-1/2 flex justify-between transform -translate-y-1/2'>
+
+      {/* Navigation Arrows */}
+      <div className='absolute inset-0 flex items-center justify-between p-4'>
         <button
-          className='btn btn-circle bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:bg-lime-600 text-white'
+          className='p-2 rounded-full bg-black/30 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/50'
           onClick={() =>
             goToSlide((currentSlide - 1 + totalSlides) % totalSlides)
           }
+          aria-label='Previous slide'
         >
-          ❮
+          <svg
+            className='w-6 h-6'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2.5}
+              d='M15 19l-7-7 7-7'
+            />
+          </svg>
         </button>
+
         <button
-          className='btn btn-circle bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:bg-lime-600 text-white'
+          className='p-2 rounded-full bg-black/30 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/50'
           onClick={() => goToSlide((currentSlide + 1) % totalSlides)}
+          aria-label='Next slide'
         >
-          ❯
+          <svg
+            className='w-6 h-6'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2.5}
+              d='M9 5l7 7-7 7'
+            />
+          </svg>
         </button>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className='absolute bottom-4 left-0 right-0'>
+        <div className='flex items-center justify-center gap-2'>
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                currentSlide === index
+                  ? 'bg-white w-4'
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

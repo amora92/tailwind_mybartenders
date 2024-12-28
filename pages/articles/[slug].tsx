@@ -21,6 +21,8 @@ interface Article {
   relatedArticles?: {
     slug: string
   }[]
+  secondaryImageUrl?: string
+  secondaryContent?: string
 }
 
 const ArticlePage = () => {
@@ -143,6 +145,25 @@ const ArticlePage = () => {
             }}
             className='prose prose-lg max-w-none'
           />
+
+          {article.secondaryImageUrl && (
+            <div className='aspect-w-16 aspect-h-9 my-12 rounded-lg overflow-hidden'>
+              <img
+                src={article.secondaryImageUrl}
+                alt={article.title}
+                className='object-cover w-full h-full'
+              />
+            </div>
+          )}
+
+          {article.secondaryContent && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: article.secondaryContent
+              }}
+              className='prose prose-lg max-w-none mt-12'
+            />
+          )}
         </div>
 
         {/* Related Articles */}

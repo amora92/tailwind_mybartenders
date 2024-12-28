@@ -302,10 +302,3 @@ body {
 html {
   height: 1px;
 }
-
-/* styles/globals.css */
-
-.yellow-icon {
-  filter: invert(73%) sepia(67%) saturate(339%) hue-rotate(2deg) brightness(97%)
-    contrast(95%);
-}

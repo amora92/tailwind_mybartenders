@@ -1,45 +1,54 @@
 import React from 'react'
+import Image from 'next/image'
 
 const GridImageL = () => {
   return (
-    <section>
+    <section className='bg-gradient-to-b from-white via-gray-50 to-white'>
       <div className='mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8'>
-        <div className='grid grid-cols-1 lg:h-screen lg:grid-cols-2'>
-          <div className='relative z-10 lg:py-16'>
-            <div className='relative h-64 sm:h-80 lg:h-full'>
-              <img
-                alt='Custom Cocktails'
-                src='fine_cocktail.webp'
-                className='absolute inset-0 h-full w-full object-cover'
-              />
-            </div>
+        <div className='grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16'>
+          <div className='relative h-64 overflow-hidden rounded-2xl sm:h-80 lg:order-last lg:h-full'>
+            <Image
+              alt='Professional Mixology Services'
+              src='/fine_cocktail.webp'
+              width={800}
+              height={600}
+              className='absolute inset-0 h-full w-full object-cover'
+              priority
+            />
           </div>
 
-          <div className='relative flex items-center bg-gray-100'>
-            <span className='hidden lg:absolute lg:inset-y-0 lg:-start-16 lg:block lg:w-16 lg:bg-gray-100'></span>
+          <div className='lg:py-24'>
+            <h2 className='text-4xl font-bold text-gray-900 sm:text-5xl'>
+              Crafting Unforgettable Moments Through Expert Mixology
+            </h2>
 
-            <div className='p-8 sm:p-16 lg:p-24'>
-              <h2 className='text-2xl font-bold sm:text-3xl'>
-                From milestone celebrations to gatherings, a private bartender
-                elevates every moment with expert mixology, delivering exquisite
-                flavors that captivate the palate and elevate the experience.
-              </h2>
+            <p className='mt-6 text-lg leading-relaxed text-gray-600'>
+              Experience the artistry of cocktail craftsmanship at its finest.
+              Our expert mixologists bring sophistication and creativity to
+              every event, transforming ordinary gatherings into extraordinary
+              celebrations.
+            </p>
 
-              <p className='mt-4 text-gray-600'>
-                Experience the artistry of cocktail craftsmanship and the
-                sophistication of mixology excellence at our events. From
-                meticulously crafted cocktail menus to stunning bar setups, we
-                ensure every sip is a celebration. Elevate your occasion with
-                our curated selection of signature cocktails and seamless
-                service. Here's to unforgettable moments and the perfect pour!
-                Cheers!
-              </p>
+            <p className='mt-4 text-lg leading-relaxed text-gray-600'>
+              From meticulously crafted signature drinks to stunning mobile bar
+              setups, we ensure every detail contributes to an unforgettable
+              experience. Let us elevate your next event with our premium
+              cocktail service.
+            </p>
 
+            <div className='mt-8 flex flex-col sm:flex-row sm:gap-4'>
               <a
                 href='contact_us'
-                className='mt-8 inline-block rounded border bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-12 py-3 text-sm font-medium text-white hover:bg-lime-500 hover:text-white focus:outline-none focus:ring active:text-indigo-500'
+                className='inline-flex items-center justify-center rounded-full bg-gray-900 px-8 py-3 text-lg font-medium text-white transition-all duration-200 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 sm:w-auto'
               >
-                Get in Touch
+                Book Your Event
+              </a>
+
+              <a
+                href='/gallery'
+                className='mt-4 sm:mt-0 inline-flex items-center justify-center rounded-full border border-gray-200 px-8 py-3 text-lg font-medium text-gray-900 transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 sm:w-auto'
+              >
+                View Gallery
               </a>
             </div>
           </div>

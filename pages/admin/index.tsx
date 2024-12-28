@@ -1,19 +1,57 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { withAuth } from '@/components/withAuth'
 import { AdminHeader } from '@/components/admin/Header'
+import Link from 'next/link'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 
+interface Article {
+  _id: string
+  title: string
+  slug: string
+  publishedAt: string
+}
+
 const AdminPage = () => {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [content, setContent] = useState('')
-  const [image, setImage] = useState('')
-  const [slug, setSlug] = useState('')
-  const [date, setDate] = useState('')
+  const [articles, setArticles] = useState<Article[]>([])
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+
+  useEffect(() => {
+    fetchArticles()
+  }, [])
+
+  const fetchArticles = async () => {
+    try {
+      const res = await fetch('/api/articles')
+      const data = await res.json()
+      setArticles(Array.isArray(data) ? data : [])
+    } catch (error) {
+      console.error('Error fetching articles:', error)
+      setArticles([])
+    }
+  }
+
+  const handleDelete = async (slug: string) => {
+    if (window.confirm('Are you sure you want to delete this article?')) {
+      try {
+        const res = await fetch(`/api/articles/${slug}`, {
+          method: 'DELETE'
+        })
+
+        if (res.ok) {
+          setArticles(articles.filter(article => article.slug !== slug))
+          setSuccess('Article deleted successfully')
+        } else {
+          setError('Failed to delete article')
+        }
+      } catch (error) {
+        console.error('Error deleting article:', error)
+        setError('Failed to delete article')
+      }
+    }
+  }
 
   const modules = {
     toolbar: [
@@ -61,7 +99,9 @@ const AdminPage = () => {
       title,
       description,
       content,
+      secondaryContent,
       imageUrl: image,
+      secondaryImageUrl: secondaryImage,
       slug,
       publishedAt: new Date(date).toISOString(),
       category: 'General',
@@ -88,9 +128,12 @@ const AdminPage = () => {
         setTitle('')
         setDescription('')
         setContent('')
+        setSecondaryContent('')
         setImage('')
+        setSecondaryImage('')
         setSlug('')
         setDate('')
+        fetchArticles()
       } else {
         setError(data.error || 'Something went wrong')
       }
@@ -101,97 +144,71 @@ const AdminPage = () => {
   }
 
   return (
-    <div>
+    <div className='min-h-screen bg-gray-50'>
       <AdminHeader />
-      <div className='max-w-2xl mx-auto py-16'>
-        <h1 className='text-3xl font-bold mb-8'>Add New Article</h1>
-        {error && <p className='text-red-500'>{error}</p>}
-        {success && <p className='text-green-500'>{success}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className='mb-4'>
-            <label htmlFor='title' className='block text-gray-700'>
-              Title
-            </label>
-            <input
-              type='text'
-              id='title'
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              className='w-full p-4 border border-gray-300 rounded-lg'
-              required
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='slug' className='block text-gray-700'>
-              Slug
-            </label>
-            <input
-              type='text'
-              id='slug'
-              value={slug}
-              onChange={e => setSlug(e.target.value)}
-              className='w-full p-4 border border-gray-300 rounded-lg'
-              required
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='description' className='block text-gray-700'>
-              Description
-            </label>
-            <textarea
-              id='description'
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              className='w-full p-4 border border-gray-300 rounded-lg'
-              required
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='content' className='block text-gray-700'>
-              Content
-            </label>
-            <ReactQuill
-              theme='snow'
-              value={content}
-              onChange={setContent}
-              modules={modules}
-              formats={formats}
-              className='h-[300px] mb-12'
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='image' className='block text-gray-700'>
-              Image URL
-            </label>
-            <input
-              type='text'
-              id='image'
-              value={image}
-              onChange={e => setImage(e.target.value)}
-              className='w-full p-4 border border-gray-300 rounded-lg'
-              required
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='date' className='block text-gray-700'>
-              Publication Date
-            </label>
-            <input
-              type='datetime-local'
-              id='date'
-              value={date}
-              onChange={e => setDate(e.target.value)}
-              className='w-full p-4 border border-gray-300 rounded-lg'
-              required
-            />
-          </div>
-          <button
-            type='submit'
+
+      <div className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>
+        <div className='flex justify-between items-center mb-8'>
+          <h1 className='text-3xl font-bold text-gray-900'>
+            Article Dashboard
+          </h1>
+          <Link
+            href='/admin/new-article'
             className='px-6 py-3 bg-gold-600 text-white font-semibold rounded-lg hover:bg-gold-700'
           >
-            Add Article
-          </button>
-        </form>
+            Create New Article
+          </Link>
+        </div>
+
+        {error && <p className='text-red-500 mb-4'>{error}</p>}
+        {success && <p className='text-green-500 mb-4'>{success}</p>}
+
+        <div className='bg-white shadow overflow-hidden sm:rounded-md'>
+          <ul className='divide-y divide-gray-200'>
+            {Array.isArray(articles) && articles.length > 0 ? (
+              articles.map(article => (
+                <li key={article._id}>
+                  <div className='px-4 py-4 flex items-center justify-between sm:px-6'>
+                    <div className='min-w-0 flex-1'>
+                      <div className='bg-white hover:shadow-gold transition-all duration-300 p-4 rounded-lg'>
+                        <h3 className='font-semibold hover:text-gold-600 transition-colors'>
+                          {article.title}
+                        </h3>
+                      </div>
+                      <div className='mt-1 flex items-center text-sm text-gray-500'>
+                        <span>
+                          Published:{' '}
+                          {new Date(article.publishedAt).toLocaleDateString()}
+                        </span>
+                        <span className='mx-2'>•</span>
+                        <span>Slug: {article.slug}</span>
+                      </div>
+                    </div>
+                    <div className='flex space-x-4'>
+                      <Link
+                        href={`/articles/${article.slug}`}
+                        target='_blank'
+                        className='px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200'
+                      >
+                        View
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(article.slug)}
+                        className='px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li className='px-4 py-8 text-center text-gray-500'>
+                No articles found. Create your first article!
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   )
