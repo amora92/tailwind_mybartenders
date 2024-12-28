@@ -5,8 +5,8 @@ export default function handler (req: NextApiRequest, res: NextApiResponse) {
   const user = validateToken(req)
 
   if (user) {
-    return res.status(200).json({ message: 'Authenticated' })
+    return res.status(200).json({ authenticated: true, user })
   }
 
-  res.status(401).json({ message: 'Unauthorized' })
+  res.status(401).json({ authenticated: false, message: 'Unauthorized' })
 }
