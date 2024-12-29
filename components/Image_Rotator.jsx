@@ -284,10 +284,10 @@ const ImageRotator = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className='bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 lg:p-12 shadow-xl text-white'
+          className='bg-white rounded-2xl p-8 lg:p-12 shadow-xl border border-gray-100'
         >
           <div className='max-w-7xl mx-auto'>
-            <h3 className='text-3xl font-bold mb-12 text-center'>
+            <h3 className='text-3xl font-bold mb-12 text-center text-gray-900'>
               The Complete Experience
             </h3>
 
@@ -302,7 +302,7 @@ const ImageRotator = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.05 }}
-                  className='text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm'
+                  className='text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-lg'
                 >
                   <motion.div
                     initial={{ scale: 0.5 }}
@@ -311,7 +311,7 @@ const ImageRotator = () => {
                   >
                     {stat.number}
                   </motion.div>
-                  <p className='text-gray-300'>{stat.label}</p>
+                  <p className='text-gray-600'>{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -340,7 +340,7 @@ const ImageRotator = () => {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.02 }}
-                  className='bg-white/10 backdrop-blur-sm rounded-xl p-6'
+                  className='bg-gradient-to-br from-purple-100 to-pink-50 rounded-xl p-6 shadow-lg'
                 >
                   <div className='text-pink-500 mb-4'>
                     <svg
@@ -357,10 +357,10 @@ const ImageRotator = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className='text-xl font-semibold mb-2'>
+                  <h4 className='text-xl font-semibold mb-2 text-gray-900'>
                     {feature.title}
                   </h4>
-                  <p className='text-gray-300'>{feature.description}</p>
+                  <p className='text-gray-600'>{feature.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -368,7 +368,7 @@ const ImageRotator = () => {
             <div className='text-center'>
               <a
                 href='/gallery'
-                className='inline-flex items-center px-8 py-4 text-lg font-medium text-gray-900 bg-white rounded-xl hover:bg-pink-50 transition-all duration-300 shadow-lg hover:shadow-xl'
+                className='inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-pink-500 rounded-xl hover:bg-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl'
               >
                 Explore Our Drinks
                 <motion.svg
