@@ -8,72 +8,80 @@ const ServicesSection = () => {
     {
       title: 'Masterclass',
       description:
-        'Join our masterclass to learn the art of cocktail making from experienced mixologists. Perfect for enthusiasts and professionals alike.',
+        "Experience London's premier cocktail masterclass led by expert mixologists. Perfect for corporate team building, private parties, and enthusiasts looking to master the art of mixology. Learn techniques, history, and secrets behind classic and contemporary cocktails.",
       image: 'masterclass.webp',
       price: '£ Custom',
       options:
-        'Prohibition Style Cocktails, Modern Cocktails, Party Cocktails, Spirits Masterclass, Shots, Vodka & Caviar, Cocktail History & More',
-      additionalInfo: 'Includes all necessary equipment and ingredients.',
+        'Classic Cocktail Techniques, Modern Mixology, Molecular Cocktails, Premium Spirit Education, Garnishing Masterclass, Bar Equipment Training, Recipe Development, Food Pairing',
+      additionalInfo:
+        'All premium ingredients, professional equipment, recipe cards, and certificates included.',
       capacity: 'Up to 50 participants',
-      lengthOfService: 'Minimum 1 hour'
+      lengthOfService: 'Minimum 2 hours'
     },
     {
       title: 'Wedding',
       description:
-        'Make your special day even more memorable with our bespoke wedding cocktail service. Tailored drinks that match your theme and style.',
+        'Elevate your London wedding with our luxury mobile bar service. Our expert mixologists create bespoke cocktail experiences that perfectly complement your special day. From champagne towers to signature cocktails, we ensure unforgettable moments.',
       image: 'wedding.webp',
       price: '£ Custom',
       options:
-        'Champagne Tower, Her & His Bespoke Cocktails, Custom Menu for the evening.',
-      additionalInfo: 'Customized cocktail menu and professional bartenders.',
+        'Luxury Mobile Bar Setup, Champagne Tower Service, Bride & Groom Signature Cocktails, Premium Spirit Selection, Professional Mixologists, Glassware & Ice, Custom Menu Design, Late Night Service',
+      additionalInfo:
+        'Full event planning support, custom branding, and premium bar setup included.',
       capacity: 'Up to 250 guests',
-      lengthOfService: 'Flexible duration'
+      lengthOfService: 'Full day service available'
     },
     {
       title: 'Tasting Session',
       description:
-        'Experience a variety of exquisite cocktails through our guided tasting sessions. Discover new flavors and enjoy the perfect sip.',
+        "Discover London's finest cocktail experiences through our expert-guided tasting sessions. From rare spirits to innovative cocktail flights, our mixologists guide you through a journey of flavors, techniques, and stories. Perfect for connoisseurs, team events, and special celebrations.",
       image: 'closeup.webp',
       price: '£ Custom',
-      options: 'A flight of cocktails, Spirit & Shot Tasting, Mocktails',
-      additionalInfo: 'Guided tasting with a selection of premium cocktails.',
+      options:
+        'Premium Spirit Tasting, Craft Cocktail Flights, Food & Cocktail Pairing, Rare & Exclusive Spirits, Interactive Mixology Sessions, Blind Tasting Experiences, Spirit Education, Take-Home Tasting Notes',
+      additionalInfo:
+        'Professional tasting guidance, premium glassware, tasting mats, detailed spirit information packs, and light refreshments included. Optional take-home gift packs available.',
       capacity: 'Up to 30 participants',
       lengthOfService: 'Minimum 3 hours'
     },
     {
       title: 'Private Party',
       description:
-        'Elevate your private party with custom cocktails and professional bartending service. Enjoy a unique and unforgettable experience.',
+        "Transform your London private party into an extraordinary experience with our bespoke cocktail services. Whether it's an intimate gathering or a grand celebration, our expert mixologists create a perfect blend of drinks, entertainment, and sophistication. We handle everything from setup to service, ensuring your event is memorable.",
       image: 'party_cocktails.webp',
       price: '£ Custom',
-      options: 'From Welcome Drinks to Shots, Sharers & fine Cocktails.',
-      additionalInfo: 'Personalized cocktail menu and dedicated bartender.',
+      options:
+        'Welcome Drinks, Signature Cocktails, Premium Spirit Selection, Molecular Mixology, Interactive Cocktail Stations, Shot Experiences, Champagne Service, Custom Menu Design, Late Night Service',
+      additionalInfo:
+        'Full mobile bar setup, premium glassware, professional bartenders, all ingredients, ice, garnishes, and bar equipment included. Custom branding and themed decorations available.',
       capacity: 'Up to 250 guests',
       lengthOfService: 'Minimum 4 hours'
     },
     {
       title: 'Birthday Bash',
       description:
-        'Celebrate your birthday with our exclusive cocktail service. Choose from a range of birthday themed cocktails and enjoy the party!',
+        'Make your birthday celebration unforgettable with our exclusive London cocktail service. We create a vibrant atmosphere with stunning cocktails, interactive experiences, and professional service. From sophisticated soirées to high-energy parties, we customize every detail to match your style and preferences.',
       image: 'birthday.webp',
       price: '£ Custom',
-      options: 'Themed and custom menu, celebratory concotions.',
+      options:
+        'Birthday Signature Cocktails, Shot Experiences, Cocktail Making Games, Premium Spirit Packages, Champagne Towers, Interactive Stations, Custom Menu Design, Party Packages, VIP Service',
       additionalInfo:
-        'Tailored cocktails for your birthday theme. A huge shot menu to choose from.',
+        'Complete bar setup, professional mixologists, party props, birthday-themed decorations, custom menus, and premium ingredients included. Special birthday cocktail creation service available.',
       capacity: 'Up to 200 guests',
-      lengthOfService: 'Minimum 2 hours'
+      lengthOfService: 'Minimum 4 hours'
     },
     {
       title: 'Corporate Event',
       description:
-        'Enhance your corporate event with our professional cocktails. Impress your guests with our premium selection, branding, decorations and the bar for maximum impact!',
+        "Elevate your London corporate event with our professional cocktail services. From client entertainment to team celebrations, we deliver sophisticated drinking experiences that reflect your brand's excellence. Our corporate packages combine premium service with meticulous attention to detail.",
       image: 'corporate.webp',
       price: '£ Custom',
-      options: 'Branded drinks & presentation, custom bar decorations.',
+      options:
+        'Branded Cocktail Experiences, Corporate Packages, Premium Bar Service, Interactive Mixology, International Spirit Selection, Champagne Reception, Business Lunch Packages, Evening Entertainment',
       additionalInfo:
-        'Customized cocktail menu, corporate branding, branded menu development.',
-      capacity: 'Up to 200 guests',
-      lengthOfService: 'Minimum 2 hours'
+        'Full event planning support, branded glassware options, corporate styling, professional staff in formal attire, custom menu development, and complete setup/breakdown service. Photography and video services available.',
+      capacity: 'Up to 500 guests',
+      lengthOfService: 'Flexible duration to suit your schedule'
     }
   ]
 
@@ -98,12 +106,12 @@ const ServicesSection = () => {
     >
       <section
         id='next-section'
-        className='container mx-auto px-4 lg:px-6 py-16 flex flex-col items-center'
+        className='container mx-auto px-4 lg:px-6 py-8 flex flex-col items-center'
       >
         <ImageRotator />
       </section>
 
-      <div className='py-24 lg:py-32 bg-gray-50'>
+      <div className='py-12 lg:py-16 bg-gray-50'>
         <h1 className='sr-only'>Professional Cocktail and Bar Services</h1>
 
         <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
@@ -158,14 +166,14 @@ const ServicesSection = () => {
                 viewport={{ once: true }}
                 className='lg:w-1/2'
               >
-                <div className='relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-2xl'>
+                <div className='relative h-[600px] rounded-2xl overflow-hidden bg-gray-100 shadow-2xl'>
                   <motion.img
                     key={selectedServiceIndex}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                     src={selectedService.image}
-                    alt={selectedService.title}
+                    alt={`${selectedService.title} - Professional Cocktail Service in London`}
                     className='w-full h-full object-cover'
                   />
 
@@ -218,7 +226,7 @@ const ServicesSection = () => {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className='lg:w-1/2 bg-white rounded-2xl p-8 lg:p-10 shadow-xl border border-gray-100'
+                className='lg:w-1/2 bg-white rounded-2xl p-8 lg:p-10 shadow-xl border border-gray-100 h-[600px] overflow-y-auto'
               >
                 <motion.div
                   key={selectedServiceIndex}
