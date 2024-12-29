@@ -51,7 +51,7 @@ const formats = [
   'background'
 ]
 
-const AdminPage = () => {
+function AdminDashboard () {
   const [articles, setArticles] = useState<Article[]>([])
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -221,4 +221,4 @@ const AdminPage = () => {
   )
 }
 
-export default withAuth(AdminPage)
+export default withAuth(AdminDashboard)
