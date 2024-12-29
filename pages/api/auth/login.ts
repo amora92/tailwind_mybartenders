@@ -3,31 +3,26 @@ import { sign } from 'jsonwebtoken'
 import { serialize } from 'cookie'
 import * as bcrypt from 'bcrypt'
 import { connectToDatabase } from '@/lib/mongodb'
-
-const SECRET_KEY = process.env.JWT_SECRET
-
-if (!SECRET_KEY) {
-  throw new Error('JWT_SECRET is not defined')
-}
+import jwt from 'jsonwebtoken'
 
 export default async function handler (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' })
+    return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { username, password } = req.body
-
   try {
+    const { email, password } = req.body
+
     // Add debug logging
     console.log('Attempting to connect to database...')
     const { db } = await connectToDatabase()
     console.log('Connected to database, searching for user...')
 
     // Find user
-    const user = await db.collection('users').findOne({ username })
+    const user = await db.collection('users').findOne({ email })
     console.log('User search complete:', user ? 'User found' : 'User not found')
 
     if (!user) {
@@ -45,11 +40,13 @@ export default async function handler (
       return res.status(401).json({ message: 'Invalid credentials' })
     }
 
-    // Create token
-    const token = sign(
+    const SECRET_KEY = process.env.JWT_SECRET
+    if (!SECRET_KEY) {
+      throw new Error('JWT_SECRET is not configured')
+    }
+
+    const token = jwt.sign(
       {
-        username: user.username,
-        role: user.role,
         userId: user._id.toString()
       },
       SECRET_KEY,
@@ -70,9 +67,7 @@ export default async function handler (
 
     return res.status(200).json({ message: 'Logged in successfully' })
   } catch (error) {
-    console.error('Login error details:', error)
-    return res
-      .status(500)
-      .json({ message: 'Internal server error', error: error.message })
+    console.error('Login error:', error)
+    return res.status(500).json({ error: 'Internal server error' })
   }
 }
