@@ -32,13 +32,13 @@ const Carousel = () => {
   ]
 
   return (
-    <div className='relative overflow-hidden group'>
+    <div className='relative overflow-hidden group min-h-[800px] flex items-center'>
       <div
-        className='flex transition-transform duration-500 ease-out'
+        className='flex transition-transform duration-500 ease-out h-full'
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {images.map((image, index) => (
-          <div key={index} className='w-full flex-shrink-0'>
+          <div key={index} className='w-full flex-shrink-0 relative'>
             <Image
               src={image.src}
               className='w-full h-auto rounded-2xl'
@@ -46,6 +46,7 @@ const Carousel = () => {
               width={800}
               height={600}
               {...(index === 0 ? { priority: true } : { loading: 'lazy' })}
+              style={{ objectFit: 'cover', height: '100%' }}
             />
           </div>
         ))}
@@ -54,7 +55,7 @@ const Carousel = () => {
       {/* Navigation Arrows */}
       <div className='absolute inset-0 flex items-center justify-between p-4'>
         <button
-          className='p-2 rounded-full bg-black/30 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/50'
+          className='p-2 rounded-lg bg-pink-500/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-pink-600/80'
           onClick={() =>
             goToSlide((currentSlide - 1 + totalSlides) % totalSlides)
           }
@@ -70,14 +71,14 @@ const Carousel = () => {
             <path
               strokeLinecap='round'
               strokeLinejoin='round'
-              strokeWidth={2.5}
+              strokeWidth={2}
               d='M15 19l-7-7 7-7'
             />
           </svg>
         </button>
 
         <button
-          className='p-2 rounded-full bg-black/30 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/50'
+          className='p-2 rounded-lg bg-pink-500/80 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-pink-600/80'
           onClick={() => goToSlide((currentSlide + 1) % totalSlides)}
           aria-label='Next slide'
         >
@@ -91,7 +92,7 @@ const Carousel = () => {
             <path
               strokeLinecap='round'
               strokeLinejoin='round'
-              strokeWidth={2.5}
+              strokeWidth={2}
               d='M9 5l7 7-7 7'
             />
           </svg>
@@ -100,15 +101,15 @@ const Carousel = () => {
 
       {/* Slide Indicators */}
       <div className='absolute bottom-4 left-0 right-0'>
-        <div className='flex items-center justify-center gap-2'>
+        <div className='flex items-center justify-center gap-2 bg-black/20 backdrop-blur-sm py-2 mx-auto w-fit px-4 rounded-full'>
           {images.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 currentSlide === index
-                  ? 'bg-white w-4'
-                  : 'bg-white/50 hover:bg-white/80'
+                  ? 'bg-pink-500 w-4'
+                  : 'bg-white/50 hover:bg-pink-300'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

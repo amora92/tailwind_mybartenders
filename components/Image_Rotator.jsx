@@ -294,10 +294,10 @@ const ImageRotator = () => {
             {/* Stats Grid */}
             <div className='grid md:grid-cols-4 gap-8 mb-16'>
               {[
-                { number: '1000+', label: 'Events Catered' },
-                { number: '50+', label: 'Signature Drinks' },
-                { number: '10+', label: 'Years Experience' },
-                { number: '15+', label: 'Awards Won' }
+                { number: '1000+', label: 'Events Served' },
+                { number: '500+', label: 'Signature Drinks' },
+                { number: '15+', label: 'Years Experience' },
+                { number: '3+', label: 'Awards Won' }
               ].map((stat, index) => (
                 <motion.div
                   key={index}

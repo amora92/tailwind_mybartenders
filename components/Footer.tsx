@@ -14,7 +14,7 @@ const Footer = () => {
               href='https://facebook.com/mybartenders.co.uk'
               target='_blank'
               rel='noopener noreferrer'
-              className='text-gray-600 hover:text-gold-600 transition-colors'
+              className='text-gray-600 hover:text-pink-500 transition-colors'
             >
               <span className='sr-only'>Facebook</span>
               <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 24 24'>
@@ -30,7 +30,7 @@ const Footer = () => {
               href='https://instagram.com/mybartenders.co.uk'
               target='_blank'
               rel='noopener noreferrer'
-              className='text-gray-600 hover:text-gold-600 transition-colors'
+              className='text-gray-600 hover:text-pink-500 transition-colors'
             >
               <span className='sr-only'>Instagram</span>
               <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 24 24'>
@@ -46,7 +46,7 @@ const Footer = () => {
               href='https://twitter.com/mybartendersuk'
               target='_blank'
               rel='noopener noreferrer'
-              className='text-gray-600 hover:text-gold-600 transition-colors'
+              className='text-gray-600 hover:text-pink-500 transition-colors'
             >
               <span className='sr-only'>Twitter</span>
               <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 24 24'>
@@ -58,7 +58,7 @@ const Footer = () => {
               href='https://tiktok.com/@mybartenders.co.uk'
               target='_blank'
               rel='noopener noreferrer'
-              className='text-gray-600 hover:text-gold-600 transition-colors'
+              className='text-gray-600 hover:text-pink-500 transition-colors'
             >
               <span className='sr-only'>TikTok</span>
               <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 24 24'>
@@ -67,9 +67,25 @@ const Footer = () => {
             </Link>
           </div>
 
+          {/* Legal Links */}
+          <div className='flex space-x-6 mb-6 text-sm'>
+            <Link
+              href='/privacy-policy'
+              className='text-gray-500 hover:text-pink-500 transition-colors'
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href='/terms-and-conditions'
+              className='text-gray-500 hover:text-pink-500 transition-colors'
+            >
+              Terms & Conditions
+            </Link>
+          </div>
+
           {/* Copyright */}
-          <p className='text-gray-500 hover:text-gold-600 transition-colors cursor-pointer text-sm'>
-            © {new Date().getFullYear()} MyBartenders. All rights reserved.
+          <p className='text-gray-500 hover:text-pink-500 transition-colors cursor-pointer text-sm'>
+            © 2025 MyBartenders. All rights reserved.
           </p>
         </div>
       </div>
@@ -85,7 +101,7 @@ type FooterColumnProps = {
 const FooterColumn = ({ title, children }: FooterColumnProps) => {
   return (
     <div className='flex flex-col gap-5'>
-      <nav className='bold-18 whitespace-nowrap hover:text-nav_color_1 transition-colors duration-300'>
+      <nav className='bold-18 whitespace-nowrap hover:text-pink-500 transition-colors duration-300'>
         {title}
       </nav>
       {children}

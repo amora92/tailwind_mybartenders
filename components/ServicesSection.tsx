@@ -8,7 +8,7 @@ const ServicesSection = () => {
     {
       title: 'Masterclass',
       description:
-        "Experience London's premier cocktail masterclass led by expert mixologists. Perfect for corporate team building, private parties, and enthusiasts looking to master the art of mixology. Learn techniques, history, and secrets behind classic and contemporary cocktails.",
+        'Experience our cocktail masterclass led by expert mixologists. Perfect for corporate team building, private parties, and enthusiasts looking to master the art of mixology. Learn techniques, history, and secrets behind classic and contemporary cocktails.',
       image: 'masterclass.webp',
       price: '£ Custom',
       options:
@@ -21,7 +21,7 @@ const ServicesSection = () => {
     {
       title: 'Wedding',
       description:
-        'Elevate your London wedding with our luxury mobile bar service. Our expert mixologists create bespoke cocktail experiences that perfectly complement your special day. From champagne towers to signature cocktails, we ensure unforgettable moments.',
+        'Elevate your wedding with our luxury mobile bar service. Our expert mixologists create bespoke cocktail experiences that perfectly complement your special day. From champagne towers to signature cocktails, we ensure unforgettable moments.',
       image: 'wedding.webp',
       price: '£ Custom',
       options:
@@ -34,7 +34,7 @@ const ServicesSection = () => {
     {
       title: 'Tasting Session',
       description:
-        "Discover London's finest cocktail experiences through our expert-guided tasting sessions. From rare spirits to innovative cocktail flights, our mixologists guide you through a journey of flavors, techniques, and stories. Perfect for connoisseurs, team events, and special celebrations.",
+        'Discover finest cocktail experiences through our expert-guided tasting sessions. From rare spirits to innovative cocktail flights, our mixologists guide you through a journey of flavors, techniques, and stories. Perfect for connoisseurs, team events, and special celebrations.',
       image: 'closeup.webp',
       price: '£ Custom',
       options:
@@ -47,7 +47,7 @@ const ServicesSection = () => {
     {
       title: 'Private Party',
       description:
-        "Transform your London private party into an extraordinary experience with our bespoke cocktail services. Whether it's an intimate gathering or a grand celebration, our expert mixologists create a perfect blend of drinks, entertainment, and sophistication. We handle everything from setup to service, ensuring your event is memorable.",
+        "Transform your private party into an extraordinary experience with our bespoke cocktail services. Whether it's an intimate gathering or a grand celebration, our expert mixologists create a perfect blend of drinks, entertainment, and sophistication. We handle everything from setup to service, ensuring your event is memorable.",
       image: 'party_cocktails.webp',
       price: '£ Custom',
       options:
@@ -60,7 +60,7 @@ const ServicesSection = () => {
     {
       title: 'Birthday Bash',
       description:
-        'Make your birthday celebration unforgettable with our exclusive London cocktail service. We create a vibrant atmosphere with stunning cocktails, interactive experiences, and professional service. From sophisticated soirées to high-energy parties, we customize every detail to match your style and preferences.',
+        'Make your birthday celebration unforgettable with our exclusive cocktail service. We create a vibrant atmosphere with stunning cocktails, interactive experiences, and professional service. From sophisticated soirées to high-energy parties, we customize every detail to match your style and preferences.',
       image: 'birthday.webp',
       price: '£ Custom',
       options:
@@ -73,7 +73,7 @@ const ServicesSection = () => {
     {
       title: 'Corporate Event',
       description:
-        "Elevate your London corporate event with our professional cocktail services. From client entertainment to team celebrations, we deliver sophisticated drinking experiences that reflect your brand's excellence. Our corporate packages combine premium service with meticulous attention to detail.",
+        "Elevate your corporate event with our professional cocktail services. From client entertainment to team celebrations, we deliver sophisticated drinking experiences that reflect your brand's excellence. Our corporate packages combine premium service with meticulous attention to detail.",
       image: 'corporate.webp',
       price: '£ Custom',
       options:
@@ -173,7 +173,7 @@ const ServicesSection = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                     src={selectedService.image}
-                    alt={`${selectedService.title} - Professional Cocktail Service in London`}
+                    alt={`${selectedService.title} - Professional Cocktail Service`}
                     className='w-full h-full object-cover'
                   />
 
@@ -282,7 +282,7 @@ const ServicesSection = () => {
 
                   <div className='border-t border-gray-100 pt-6 mt-6'>
                     <h4 className='text-lg font-semibold text-gray-900 mb-4'>
-                      What's Included:
+                      Options:
                     </h4>
                     <ul className='space-y-3'>
                       {selectedService.options
