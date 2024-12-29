@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link
               href={link.href}
               key={link.key}
-              className='regular-16 text-nav_color_1 flex-center cursor-pointer pb-1.5 transition-all hover:text-mainButtons hover:font-bold'
+              className='text-gray-600 hover:text-gold-600 transition-colors duration-300'
             >
               {link.label}
             </Link>
@@ -40,14 +40,14 @@ const Navbar = () => {
         </div>
 
         <div>
-          <a
-            className='group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[1px] sm:p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75'
+          <Link
             href='/contact_us'
+            className='group inline-block rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[1px] sm:p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75'
           >
             <span className='block rounded-full bg-white px-4 py-2 text-xs sm:px-8 sm:py-3 sm:text-sm font-medium group-hover:bg-transparent'>
               Get A Quote
             </span>
-          </a>
+          </Link>
         </div>
 
         <div className='lg:hidden'>
@@ -69,7 +69,7 @@ const Navbar = () => {
               <Link
                 href={link.href}
                 key={link.key}
-                className='regular-16 text-gray-900 cursor-pointer pb-1.5 transition-all hover:text-mainButtons hover:font-bold'
+                className='text-gray-600 hover:text-gold-600 transition-colors duration-300'
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}

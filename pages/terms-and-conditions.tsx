@@ -2,202 +2,176 @@ import Link from 'next/link'
 
 const TermsAndConditions = () => {
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-bold mb-4'>Terms and Conditions</h1>
+    <div className='bg-gradient-to-b from-white via-pink-50/30 to-white'>
+      <div className='container mx-auto px-4 py-16 max-w-4xl'>
+        <h1 className='text-4xl font-bold mb-6 text-gray-900'>
+          Terms and <span className='text-pink-500'>Conditions</span>
+        </h1>
 
-      <p className='text-lg mb-4'>
-        These Terms and Conditions ("Terms") govern your use of our website,
-        services, and the purchase of alcoholic beverages. By accessing or using
-        this website, placing an order, or using our services, you agree to
-        comply with these Terms. Please read them carefully.
-      </p>
+        <p className='text-lg mb-8 text-gray-700'>
+          These Terms and Conditions outline the general agreement between
+          MyBartenders and our clients for mobile bartending services in the UK.
+          Specific arrangements can be discussed and agreed upon during the
+          booking process.
+        </p>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>1. Introduction</h2>
-        <p className='mb-4'>
-          Welcome to Mybartenders.co.uk. By using our website and services,
-          including the sale and delivery of alcoholic beverages, you agree to
-          abide by these Terms. These Terms are subject to change without
-          notice, and your continued use of the site signifies your acceptance
-          of the updated Terms.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            1. Bookings
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              • A deposit may be required to secure your booking, with the
+              amount to be agreed upon during consultation
+            </p>
+            <p>
+              • Payment terms will be clearly outlined in your booking
+              confirmation
+            </p>
+            <p>
+              • We're happy to discuss flexible payment arrangements for your
+              event
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>2. Age Restrictions</h2>
-        <p className='mb-4'>
-          You must be at least 18 years of age to place an order for alcoholic
-          beverages on this website. By placing an order, you confirm that you
-          are of legal drinking age in your country of residence.
-        </p>
-        <p className='mb-4'>
-          We reserve the right to refuse service to anyone who cannot provide
-          proof of legal age upon request or if the delivery address is found to
-          be underage.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            2. Changes and Cancellations
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              • We understand plans can change - please let us know as soon as
+              possible if you need to modify your booking
+            </p>
+            <p>
+              • Cancellation terms will be provided with your booking
+              confirmation
+            </p>
+            <p>• We'll always try to accommodate date changes where possible</p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>
-          3. Non-Refundable Deposits
-        </h2>
-        <p className='mb-4'>
-          In certain circumstances, we may require a non-refundable deposit to
-          secure a booking for services such as cocktail catering, event
-          planning, or the delivery of alcoholic beverages for an event. By
-          paying the deposit, you agree that it is non-refundable, regardless of
-          whether you cancel or modify your booking.
-        </p>
-        <p className='mb-4'>
-          If you cancel your booking after paying the non-refundable deposit, we
-          will retain the deposit to cover administrative and operational costs.
-          If your booking is rescheduled or modified, any deposit paid will be
-          applied to the new booking date, subject to availability.
-        </p>
-        <p className='mb-4'>
-          The non-refundable deposit is separate from any additional charges for
-          goods or services that may apply. Full payment for all services is due
-          before the event date, as per the agreed terms.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            3. Service Delivery
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              • We follow responsible service of alcohol guidelines to ensure
+              everyone's safety and enjoyment
+            </p>
+            <p>• We operate in accordance with UK licensing requirements</p>
+            <p>
+              • Our team will work with you to ensure smooth service delivery
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>4. Use of the Website</h2>
-        <p className='mb-4'>
-          You are granted a limited, non-exclusive, non-transferable license to
-          access and use the website for personal and lawful purposes only. You
-          agree not to use the website for any unlawful or prohibited
-          activities, including, but not limited to, purchasing alcohol for
-          minors or engaging in fraudulent activity.
-        </p>
-        <ul className='list-inside list-disc mb-4'>
-          <li>
-            Do not post, upload, or share any content that is illegal,
-            offensive, or infringes upon the rights of others.
-          </li>
-          <li>
-            Do not use the website in a way that could damage, disable, or
-            impair the site or interfere with others' use of the website.
-          </li>
-          <li>
-            Do not attempt to gain unauthorized access to any part of the
-            website or any systems connected to it.
-          </li>
-        </ul>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            4. Setup Requirements
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              • We'll discuss specific setup requirements during the planning
+              process
+            </p>
+            <p>
+              • Basic requirements include access to water and power where
+              needed
+            </p>
+            <p>
+              • We're happy to work with your venue to meet any specific
+              requirements
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>
-          5. Sale of Alcoholic Beverages
-        </h2>
-        <p className='mb-4'>
-          All alcoholic beverages sold on this website are intended for personal
-          use only and are subject to the laws of the United Kingdom. The sale
-          of alcohol is regulated, and we strictly comply with all applicable
-          laws, including the Licensing Act 2003.
-        </p>
-        <p className='mb-4'>
-          Alcoholic beverages are only sold to individuals who are at least 18
-          years old. By placing an order for alcohol, you confirm that you are
-          legally permitted to do so.
-        </p>
-        <p className='mb-4'>
-          If an order contains alcoholic beverages, we may require proof of age
-          upon delivery. We reserve the right to refuse delivery of alcohol to
-          any individual who is unable to provide acceptable proof of age or is
-          visibly intoxicated.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            5. Insurance
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>• We maintain appropriate insurance coverage for our services</p>
+            <p>• Details of our insurance can be provided upon request</p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>6. Payment</h2>
-        <p className='mb-4'>
-          Payment for orders is processed through secure payment methods
-          available on the website. Prices for alcoholic beverages are inclusive
-          of VAT where applicable. We reserve the right to change prices at any
-          time without notice.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            6. Service Hours
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>• Service duration will be agreed upon during booking</p>
+            <p>
+              • Extensions may be possible during the event, subject to staff
+              availability
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>7. Privacy Policy</h2>
-        <p className='mb-4'>
-          Your use of the website is also governed by our{' '}
-          <Link href='/privacy-policy' className='text-blue-500'>
-            Privacy Policy
-          </Link>
-          . Please review the Privacy Policy to understand how we collect, use,
-          and protect your personal information.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            7. Menu Selection
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              • We'll work with you to create the perfect menu for your event
+            </p>
+            <p>
+              • Menu adjustments can be made based on availability and
+              requirements
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>
-          8. Intellectual Property
-        </h2>
-        <p className='mb-4'>
-          All content on the website, including but not limited to text, images,
-          graphics, logos, and software, is the property of Mybartenders.co.uk
-          or its licensors and is protected by copyright, trademark, and other
-          intellectual property laws.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            8. Privacy
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              • We respect your privacy and handle your data in accordance with
+              our{' '}
+              <Link
+                href='/privacy-policy'
+                className='text-pink-500 hover:text-pink-600'
+              >
+                Privacy Policy
+              </Link>
+            </p>
+            <p>
+              • We're happy to discuss any specific privacy requirements for
+              your event
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>
-          9. Limitation of Liability
-        </h2>
-        <p className='mb-4'>
-          Mybartenders.co.uk will not be liable for any indirect, incidental,
-          special, or consequential damages arising from the use of the website,
-          including but not limited to loss of profits, data, or business
-          opportunities, even if advised of the possibility of such damages.
-        </p>
-      </section>
+        <section className='mb-8'>
+          <h2 className='text-2xl font-semibold mb-4 text-gray-900'>
+            9. Contact Us
+          </h2>
+          <div className='space-y-4 text-gray-700'>
+            <p>
+              We're here to help! For any questions about these terms or to
+              discuss your specific requirements, please contact us at:{' '}
+              <Link
+                href='mailto:contact@mybartenders.co.uk'
+                className='text-pink-500 hover:text-pink-600'
+              >
+                contact@mybartenders.co.uk
+              </Link>
+            </p>
+          </div>
+        </section>
 
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>10. Termination</h2>
-        <p className='mb-4'>
-          We reserve the right to suspend or terminate your access to the
-          website at our discretion, without notice, for any reason, including
-          but not limited to violations of these Terms and Conditions.
-        </p>
-      </section>
-
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>11. Changes to Terms</h2>
-        <p className='mb-4'>
-          We reserve the right to modify or update these Terms at any time. Any
-          changes will be posted on this page, and the date of the most recent
-          update will be indicated at the top of the page. Your continued use of
-          the website after any changes constitutes your acceptance of the
-          revised Terms.
-        </p>
-      </section>
-
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>12. Governing Law</h2>
-        <p className='mb-4'>
-          These Terms and Conditions are governed by and construed in accordance
-          with the laws of England and Wales. Any disputes will be subject to
-          the exclusive jurisdiction of the courts in England and Wales.
-        </p>
-      </section>
-
-      <section className='mb-6'>
-        <h2 className='text-2xl font-semibold mb-2'>13. Contact Us</h2>
-        <p className='mb-4'>
-          If you have any questions about these Terms and Conditions, please
-          contact us at{' '}
-          <Link
-            href='mailto:contact@mybartenders.co.uk'
-            className='text-blue-500'
-          >
-            contact@mybartenders.co.uk
-          </Link>
-          .
-        </p>
-      </section>
+        <div className='mt-12 p-4 bg-pink-50/50 rounded-xl border border-pink-100'>
+          <p className='text-sm text-gray-600 text-center'>
+            Last updated: February 2025
+          </p>
+        </div>
+      </div>
     </div>
   )
 }

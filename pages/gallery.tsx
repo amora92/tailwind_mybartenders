@@ -3,167 +3,253 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Inter } from 'next/font/google'
 import '../app/globals.css'
-import Masonry_Grid from '@/components/Masonry_Grid'
 import Head from 'next/head'
 
-// Import the Inter font
 const inter = Inter({ subsets: ['latin'] })
 
 const Gallery = () => {
   return (
     <div className={inter.className}>
       <Head>
-        <title>Mobile Bar Hire Gallery | Cocktail Events & Services</title>
+        <title>
+          Luxury Mobile Bar Gallery | Premium Cocktail Events in Northampton &
+          UK
+        </title>
         <meta
           name='description'
-          content='Explore our stunning gallery showcasing mobile bar hire, cocktail events, and professional bartending services in the UK.'
+          content='Explore our premium mobile bar gallery showcasing bespoke cocktail creations, professional mixology services, and exceptional event experiences across Northampton and the UK. View our stunning portfolio of corporate events, weddings, and private celebrations.'
+        />
+        <meta
+          name='keywords'
+          content='mobile bar hire, cocktail gallery, event bartending, mixology services, Northampton bars, UK events, luxury drinks, corporate events, wedding bar service, cocktail masterclass'
         />
         <link rel='canonical' href='https://www.mybartenders.co.uk/gallery' />
       </Head>
 
       <Navbar />
-      <main className='relative overflow-hidden'>
-        <section className='container mx-auto px-6 lg:px-20 py-12'>
-          <div className='bg-white p-6 rounded-lg shadow-lg'>
-            <h1 className='text-4xl font-bold mb-8 text-center mt-10 pt-3'>
-              Gallery
+      <main className='relative overflow-hidden bg-gradient-to-b from-white via-pink-50/30 to-white'>
+        <section className='container mx-auto px-6 lg:px-20 py-16 mt-16'>
+          <div className='max-w-4xl mx-auto mb-16'>
+            <h1 className='text-4xl md:text-5xl font-bold mb-6 text-center'>
+              Exceptional <span className='text-pink-500'>Mobile Bar</span>{' '}
+              Experiences
             </h1>
-            <h2 className='text-2xl font-semibold mb-6 text-center text-gray-700'>
-              Discover Our Passion for Mixology and Event Excellence
+            <h2 className='text-2xl font-semibold mb-6 text-center text-gray-800'>
+              Crafting Memorable Moments Through Premium Mixology
             </h2>
-            <p className='text-lg mb-12 text-center text-gray-600'>
-              Browse through our gallery to see highlights from our past events,
-              including custom cocktails, beautifully designed mobile bars, and
-              our talented bartenders in action. Each image captures the essence
-              of what makes MYBARTENDERS.CO.UK the premier choice for mobile bar
-              hire and bartending services in the UK.
-            </p>
+            <div className='space-y-4 text-center text-gray-600'>
+              <p className='text-lg'>
+                Welcome to our curated gallery of premium mobile bar
+                experiences. Each image showcases our commitment to excellence
+                in mixology and event service across Northampton and the UK.
+              </p>
+              <p className='text-lg'>
+                From sophisticated corporate gatherings to intimate
+                celebrations, discover how we transform events with our{' '}
+                <span className='text-pink-500'>
+                  professional bartending services
+                </span>
+                , stunning cocktail presentations, and bespoke drink
+                experiences.
+              </p>
+            </div>
           </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6'>
+
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
             {/* Gallery Item 1 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG-20240224-WA0027.webp'
-                alt='Parisian Absinthe Fountain'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/IMG-20240224-WA0027.webp'
+                  alt='Luxury Parisian Absinthe Fountain Service - Premium Mobile Bar Events'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 2 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG-20240224-WA0048.webp'
-                alt='White Russian Cocktail Layered'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/IMG-20240224-WA0048.webp'
+                  alt='Signature White Russian Cocktail - Professional Mixology Services'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 3 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG-20240224-WA0053.webp'
-                alt='White Russian Cocktail Layered Cream'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/IMG-20240224-WA0053.webp'
+                  alt='Artisanal White Russian with Layered Cream - Luxury Cocktail Creation'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 4 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG-20240224-WA0056.webp'
-                alt='White Russian Cocktail Layered Cream Cinnamon'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/IMG-20240224-WA0056.webp'
+                  alt='Signature Cinnamon White Russian - Bespoke Cocktail Experience'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 5 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/IMG_20220323_122115_003.webp'
-                alt='Parisian Absinthe Fountain And Premium Vodka'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/IMG_20220323_122115_003.webp'
+                  alt='Premium Vodka Selection with Absinthe Fountain Display - Luxury Bar Service'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 6 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/fire.webp'
-                alt='Firebreathing bartenders'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/fire.webp'
+                  alt='Spectacular Flair Bartending Performance - Entertainment Services'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 7 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/20220528_173621.webp'
-                alt='Garden Cocktail Party SuperCar Fest 2022'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/20220528_173621.webp'
+                  alt='Exclusive SuperCar Fest 2022 Garden Party - Corporate Event Bar Service'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 8 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/20111.jpg'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Drivers Lounge Menu'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/20111.jpg'
+                  alt='SuperCar Fest VIP Drivers Lounge - Premium Event Bar Menu'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
 
             {/* Gallery Item 9 */}
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/201111.jpg'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/201111.jpg'
+                  alt='Professional Mobile Bar Setup - SuperCar Fest Event Service'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/2011.jpg'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+
+            {/* Gallery Item 10 */}
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/2011.jpg'
+                  alt='Luxury Outdoor Bar Service - Corporate Event Excellence'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/55555.jpg'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+
+            {/* Gallery Item 11 */}
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/55555.jpg'
+                  alt='Bespoke Cocktail Creation - Premium Mobile Bar Experience'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
             </div>
-            <div className='relative overflow-hidden rounded-lg shadow-md'>
-              <img
-                src='/aaaa.jpg'
-                alt='Garden Cocktail Party SuperCar Fest 2022 Service'
-                className='w-full h-full object-cover transform transition duration-300 hover:scale-105'
-                width={400}
-                height={300}
-              />
+
+            {/* Gallery Item 12 */}
+            <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
+              <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
+                <img
+                  src='/aaaa.jpg'
+                  alt='Professional Event Bartending - Luxury Mobile Bar Service'
+                  className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
+                  width={400}
+                  height={300}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Added SEO-rich content section */}
+          <div className='max-w-4xl mx-auto mt-16 p-8 bg-white/50 rounded-xl border border-pink-100'>
+            <div className='space-y-6 text-gray-700'>
+              <h3 className='text-2xl font-semibold text-gray-900 mb-4'>
+                Professional{' '}
+                <span className='text-pink-500'>Mobile Bar Services</span> for
+                Every Occasion
+              </h3>
+              <p>
+                Our gallery showcases the versatility and excellence of our
+                mobile bar services, featuring highlights from prestigious
+                events across Northampton and surrounding areas. From our
+                signature cocktail creations to our professional bartending
+                team, each image represents our commitment to delivering
+                exceptional experiences.
+              </p>
+              <h4 className='text-xl font-semibold text-gray-900 mt-6 mb-3'>
+                Featured Services Include:
+              </h4>
+              <ul className='grid md:grid-cols-2 gap-4 list-none'>
+                <li className='flex items-center space-x-2'>
+                  <span className='text-pink-500'>•</span>
+                  <span>Corporate Event Bar Services</span>
+                </li>
+                <li className='flex items-center space-x-2'>
+                  <span className='text-pink-500'>•</span>
+                  <span>Wedding Reception Bars</span>
+                </li>
+                <li className='flex items-center space-x-2'>
+                  <span className='text-pink-500'>•</span>
+                  <span>Luxury Private Celebrations</span>
+                </li>
+                <li className='flex items-center space-x-2'>
+                  <span className='text-pink-500'>•</span>
+                  <span>Mixology Masterclasses</span>
+                </li>
+              </ul>
             </div>
           </div>
         </section>

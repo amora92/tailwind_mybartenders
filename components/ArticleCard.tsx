@@ -14,24 +14,17 @@ interface ArticleType {
 
 const ArticleCard = ({ article }: { article: ArticleType }) => {
   return (
-    <div className='bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 ease-in-out'>
-      <img
-        src={article.image}
-        alt={article.title}
-        className='w-full h-32 object-cover'
-      />
-      <div className='p-4'>
-        <h2 className='text-xl font-semibold mb-2'>{article.title}</h2>
-        <p className='text-gray-600 mb-4'>
-          {article.author} | {article.date}
-        </p>
-        <p className='text-gray-700'>{article.excerpt}</p>
-        <Link href={`/articles/${article.id}`}>
-          <a className='mt-4 block text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out'>
-            Read more
-          </a>
-        </Link>
+    <div className='group hover:shadow-gold transition-all duration-300'>
+      <div className='overflow-hidden rounded-lg'>
+        <img
+          className='w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300'
+          src={article.image}
+          alt={article.title}
+        />
       </div>
+      <h3 className='mt-4 text-xl font-semibold group-hover:text-gold-600 transition-colors'>
+        {article.title}
+      </h3>
     </div>
   )
 }

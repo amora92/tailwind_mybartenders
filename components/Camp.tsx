@@ -9,7 +9,7 @@ const Camp = () => {
   return (
     <section className='container mx-auto px-2 md:px-4 lg:px-6 relative flex flex-col'>
       <Cta_Features />
-      <GridImageL />
+      {/* <GridImageL /> */}
       <GridReview />
       <FreqQ />
       {/* <WindSGrid /> */}

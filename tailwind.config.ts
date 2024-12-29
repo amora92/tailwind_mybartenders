@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         main_buttons_1: '#508D4E', // Define your custom color
         nav_color_1: '#FFB000',
+
         green: {
           50: '#30AF5B',
           90: '#292C27'
