@@ -1,33 +1,47 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { NextPage } from 'next'
 
-export function withAuth (WrappedComponent: NextPage) {
-  return (props: any) => {
+export function withAuth (WrappedComponent: React.ComponentType) {
+  return function WithAuthComponent (props: any) {
     const router = useRouter()
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-      const checkAuth = async () => {
+      async function verifyAuth () {
         try {
-          const res = await fetch('/api/auth/verify')
-          const data = await res.json()
+          console.log('Verifying authentication...')
+          const token = localStorage.getItem('token')
 
-          if (res.ok && data.authenticated) {
-            setIsAuthenticated(true)
-          } else {
-            router.replace('/admin/login')
+          if (!token) {
+            console.log('No token found, redirecting to login...')
+            throw new Error('No token found')
           }
-        } catch (err) {
-          console.error('Auth check failed:', err)
-          router.replace('/admin/login')
-        } finally {
+
+          console.log('Token found, verifying...')
+          const res = await fetch('/api/auth/verify', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+
+          console.log('Verify response status:', res.status)
+          const data = await res.json()
+          console.log('Verify response data:', data)
+
+          if (!res.ok || !data.authenticated) {
+            throw new Error('Not authenticated')
+          }
+
+          console.log('Authentication verified')
           setIsLoading(false)
+        } catch (error) {
+          console.error('Auth error:', error)
+          localStorage.removeItem('token')
+          await router.push('/admin/login')
         }
       }
 
-      checkAuth()
+      verifyAuth()
     }, [router])
 
     if (isLoading) {
@@ -36,10 +50,6 @@ export function withAuth (WrappedComponent: NextPage) {
           <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold-600'></div>
         </div>
       )
-    }
-
-    if (!isAuthenticated) {
-      return null
     }
 
     return <WrappedComponent {...props} />
