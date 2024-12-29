@@ -1,3 +1,5 @@
+import Quill from 'quill'
+
 // Custom Quill formats for special content blocks
 const InfoBlock = Quill.import('blots/block/embed')
 class CustomInfoBlock extends InfoBlock {
