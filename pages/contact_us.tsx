@@ -352,7 +352,7 @@ const ContactUs: React.FC = () => {
             {/* Submit Button */}
             <button
               type='submit'
-              className={`bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded-md ${
+              className={`bg-[#4CAF50] hover:bg-[#45a049] text-white font-bold py-2 px-6 rounded-md transition-colors ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               disabled={loading}
