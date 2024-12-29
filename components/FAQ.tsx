@@ -27,7 +27,7 @@ const faqs: FAQItem[] = [
     category: 'Booking'
   },
   {
-    question: 'What's included in your non-alcoholic and mocktail menu?',
+    question: 'What\'s included in your non-alcoholic and mocktail menu?',
     answer: 'Our extensive non-alcoholic menu features creative mocktails, craft sodas, and alcohol-free versions of classic cocktails. We use premium ingredients like house-made syrups, fresh-pressed juices, and botanical infusions. Perfect for designated drivers, pregnant guests, or those who don't drink alcohol.',
     category: 'Services'
   },
