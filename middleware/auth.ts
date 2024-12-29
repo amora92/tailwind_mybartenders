@@ -1,17 +1,10 @@
-import { NextApiRequest } from 'next'
 import { verify } from 'jsonwebtoken'
 
-const SECRET_KEY = process.env.JWT_SECRET
+const SECRET_KEY = process.env.JWT_SECRET as string
 
-if (!SECRET_KEY) {
-  throw new Error('JWT_SECRET is not defined')
-}
-
-export function validateToken (req: NextApiRequest) {
-  const token = req.cookies.auth
-
-  if (!token) {
-    return null
+export function verifyToken (token: string) {
+  if (!SECRET_KEY) {
+    throw new Error('JWT_SECRET is not defined in environment variables')
   }
 
   try {

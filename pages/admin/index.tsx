@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import dynamic from 'next/dynamic'
 import { withAuth } from '@/components/withAuth'
 import { AdminHeader } from '@/components/admin/Header'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 
@@ -13,10 +13,56 @@ interface Article {
   publishedAt: string
 }
 
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ script: 'sub' }, { script: 'super' }],
+    [{ indent: '-1' }, { indent: '+1' }],
+    ['link', 'image', 'video'],
+    ['clean'],
+    [{ align: [] }],
+    [{ color: [] }, { background: [] }]
+  ],
+  clipboard: {
+    matchVisual: false
+  }
+}
+
+const formats = [
+  'header',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'code-block',
+  'list',
+  'bullet',
+  'script',
+  'indent',
+  'link',
+  'image',
+  'video',
+  'align',
+  'color',
+  'background'
+]
+
 const AdminPage = () => {
   const [articles, setArticles] = useState<Article[]>([])
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [content, setContent] = useState('')
+  const [secondaryContent, setSecondaryContent] = useState('')
+  const [image, setImage] = useState('')
+  const [secondaryImage, setSecondaryImage] = useState('')
+  const [slug, setSlug] = useState('')
+  const [date, setDate] = useState('')
 
   useEffect(() => {
     fetchArticles()
@@ -53,46 +99,7 @@ const AdminPage = () => {
     }
   }
 
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote', 'code-block'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      [{ indent: '-1' }, { indent: '+1' }],
-      ['link', 'image', 'video'],
-      ['recipe'],
-      ['clean'],
-      [{ align: [] }],
-      [{ color: [] }, { background: [] }]
-    ],
-    clipboard: {
-      matchVisual: false
-    }
-  }
-
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'code-block',
-    'list',
-    'bullet',
-    'script',
-    'indent',
-    'link',
-    'image',
-    'video',
-    'align',
-    'color',
-    'background'
-  ]
-
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const newArticle = {
