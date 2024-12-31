@@ -43,15 +43,18 @@ const AdminDashboard = () => {
       // Calculate dashboard stats
       const totalArticles = data.length
       const totalViews = data.reduce(
-        (sum, article) => sum + (article.views || 0),
+        (sum: number, article: Article) => sum + (article.views || 0),
         0
       )
 
       // Get popular categories
-      const categoryCount = data.reduce((acc, article) => {
-        acc[article.category] = (acc[article.category] || 0) + 1
-        return acc
-      }, {})
+      const categoryCount = data.reduce(
+        (acc: { [key: string]: number }, article: Article) => {
+          acc[article.category] = (acc[article.category] || 0) + 1
+          return acc
+        },
+        {}
+      )
 
       const popularCategories = Object.entries(categoryCount)
         .map(([category, count]) => ({ category, count }))
