@@ -142,9 +142,11 @@ const NewArticlePage = () => {
       setTimeout(() => {
         router.push('/admin')
       }, 1000)
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error creating article:', error)
-      setError(error.message || 'Failed to create article')
+      setError(
+        error instanceof Error ? error.message : 'Failed to create article'
+      )
     }
   }
 
