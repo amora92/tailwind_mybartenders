@@ -82,7 +82,7 @@ const Articles = () => {
   const regularArticles = filteredAndSortedArticles.slice(1)
 
   // When displaying the date
-  const formatDate = dateString => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
