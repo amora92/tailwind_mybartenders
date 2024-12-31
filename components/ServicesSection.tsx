@@ -14,7 +14,7 @@ const ServicesSection = () => {
       options:
         'Classic Cocktail Techniques, Modern Mixology, Molecular Cocktails, Premium Spirit Education, Garnishing Masterclass, Bar Equipment Training, Recipe Development, Food Pairing',
       additionalInfo:
-        'All premium ingredients, professional equipment, recipe cards, and certificates included.',
+        'All premium ingredients, professional equipment, our stunning mobile bar, recipe cards, and certificates included.',
       capacity: 'Up to 50 participants',
       lengthOfService: 'Minimum 2 hours'
     },
@@ -47,7 +47,7 @@ const ServicesSection = () => {
     {
       title: 'Private Party',
       description:
-        "Transform your private party into an extraordinary experience with our bespoke cocktail services. Whether it's an intimate gathering or a grand celebration, our expert mixologists create a perfect blend of drinks, entertainment, and sophistication. We handle everything from setup to service, ensuring your event is memorable.",
+        "Transform your private party into an extraordinary experience with our bespoke cocktail services. Whether it's an intimate gathering or a grand celebration, our expert mixologists create a perfect blend of drinks, entertainment, and sophistication. We handle everything from setting up our mobile bar to service and breakdown, ensuring your event is memorable.",
       image: 'party_cocktails.webp',
       price: '£ Custom',
       options:
@@ -58,7 +58,7 @@ const ServicesSection = () => {
       lengthOfService: 'Minimum 4 hours'
     },
     {
-      title: 'Birthday Bash',
+      title: 'Birthday Party',
       description:
         'Make your birthday celebration unforgettable with our exclusive cocktail service. We create a vibrant atmosphere with stunning cocktails, interactive experiences, and professional service. From sophisticated soirées to high-energy parties, we customize every detail to match your style and preferences.',
       image: 'birthday.webp',
