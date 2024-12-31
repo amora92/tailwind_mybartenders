@@ -13,10 +13,15 @@ interface Article {
   views?: number
 }
 
+interface CategoryCount {
+  category: string
+  count: number
+}
+
 interface DashboardStats {
   totalArticles: number
   totalViews: number
-  popularCategories: { category: string; count: number }[]
+  popularCategories: CategoryCount[]
   recentArticles: Article[]
 }
 
@@ -57,8 +62,13 @@ const AdminDashboard = () => {
       )
 
       const popularCategories = Object.entries(categoryCount)
-        .map(([category, count]) => ({ category, count }))
-        .sort((a, b) => b.count - a.count)
+        .map(
+          ([category, count]): CategoryCount => ({
+            category,
+            count: count as number
+          })
+        )
+        .sort((a: CategoryCount, b: CategoryCount) => b.count - a.count)
         .slice(0, 5)
 
       // Get recent articles
