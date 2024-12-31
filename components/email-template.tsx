@@ -1,6 +1,8 @@
-type EmailTemplateProps = {
+interface EmailTemplateProps {
   name: string
   email: string
+  phone: string
+  contactPreference: string
   message: string
   eventDetails: {
     attendees: string
@@ -13,54 +15,37 @@ type EmailTemplateProps = {
   }
 }
 
-export const EmailTemplate: React.FC<EmailTemplateProps> = ({
+export default function EmailTemplate ({
   name,
   email,
+  phone,
+  contactPreference,
   message,
   eventDetails
-}) => {
+}: EmailTemplateProps) {
   return (
-    <div
-      style={{
-        fontFamily: 'Arial, sans-serif',
-        lineHeight: '1.6',
-        color: '#333'
-      }}
-    >
+    <div>
       <h1>New Contact Form Submission</h1>
+
+      <h2>Contact Information:</h2>
+      <p>Name: {name}</p>
+      <p>Email: {email}</p>
+      <p>Phone: {phone}</p>
       <p>
-        <strong>Name:</strong> {name}
+        <strong>Preferred Contact Method: {contactPreference}</strong>
       </p>
-      <p>
-        <strong>Email:</strong> {email}
-      </p>
-      <p>
-        <strong>Message:</strong> {message}
-      </p>
-      <h2>Event Details</h2>
-      <ul>
-        <li>
-          <strong>Attendees:</strong> {eventDetails.attendees}
-        </li>
-        <li>
-          <strong>Event Date:</strong> {eventDetails.eventDate}
-        </li>
-        <li>
-          <strong>Location:</strong> {eventDetails.location}
-        </li>
-        <li>
-          <strong>Start Time:</strong> {eventDetails.startTime}
-        </li>
-        <li>
-          <strong>Finish Time:</strong> {eventDetails.finishTime}
-        </li>
-        <li>
-          <strong>Budget:</strong> {eventDetails.budget}
-        </li>
-        <li>
-          <strong>Requirements:</strong> {eventDetails.requirements}
-        </li>
-      </ul>
+
+      <h2>Message:</h2>
+      <p>{message}</p>
+
+      <h2>Event Details:</h2>
+      <p>Number of Attendees: {eventDetails.attendees}</p>
+      <p>Event Date: {eventDetails.eventDate}</p>
+      <p>Location: {eventDetails.location}</p>
+      <p>Start Time: {eventDetails.startTime}</p>
+      <p>Finish Time: {eventDetails.finishTime}</p>
+      <p>Budget: {eventDetails.budget || 'Not specified'}</p>
+      <p>Requirements: {eventDetails.requirements || 'None specified'}</p>
     </div>
   )
 }
