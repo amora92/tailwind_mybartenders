@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { withAuth } from '@/components/withAuth'
 import dynamic from 'next/dynamic'
@@ -78,7 +78,7 @@ const EditArticle = () => {
     )
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const textContent = contentSections
