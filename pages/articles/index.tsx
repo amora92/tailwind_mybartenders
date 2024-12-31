@@ -169,7 +169,7 @@ const Articles = () => {
                     <p className='text-gray-600 mb-6 line-clamp-3'>
                       {featuredArticle.description}
                     </p>
-                    <div className='flex items-center justify-between'>
+                    <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
                       <div className='flex items-center space-x-4'>
                         <img
                           src={
@@ -233,7 +233,7 @@ const Articles = () => {
                     {article.description}
                   </p>
 
-                  <div className='flex items-center justify-between mt-auto pt-4 border-t border-gray-100'>
+                  <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-auto pt-4 border-t border-gray-100'>
                     <div className='flex items-center space-x-3'>
                       <img
                         src={article.author?.avatar || '/default-avatar.png'}
@@ -244,11 +244,16 @@ const Articles = () => {
                         {article.author?.name || 'Anonymous'}
                       </span>
                     </div>
-                    <time className='text-sm text-gray-500'>
-                      {article.publishedAt
-                        ? formatDate(article.publishedAt)
-                        : 'Date not available'}
-                    </time>
+                    <div className='flex items-center justify-between sm:flex-col sm:items-end'>
+                      <time className='text-sm text-gray-500'>
+                        {article.publishedAt
+                          ? formatDate(article.publishedAt)
+                          : 'Date not available'}
+                      </time>
+                      <span className='text-sm text-gray-500 ml-4 sm:ml-0'>
+                        {formatReadTime(article.readTime)}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </article>
