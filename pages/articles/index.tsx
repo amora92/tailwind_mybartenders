@@ -10,17 +10,34 @@ interface Article {
   title: string
   description: string
   imageUrl: string
+  contentSections?: {
+    id: string
+    type: 'text' | 'image'
+    content: string
+  }[]
   publishedAt: string
   category: string
-  readTime?: string
+  readTime?: string | number
   author?: {
     name: string
     avatar: string
   }
 }
 
+const formatReadTime = (readTime: string | number | undefined) => {
+  if (!readTime) return '5 min read' // Default fallback
+  if (typeof readTime === 'number') return `${readTime} min read`
+  if (typeof readTime === 'string') {
+    return readTime.includes('min read') ? readTime : `${readTime} min read`
+  }
+  return '5 min read'
+}
+
 const Articles = () => {
   const [articles, setArticles] = useState<Article[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [sortBy, setSortBy] = useState<'date' | 'title'>('date')
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -37,9 +54,42 @@ const Articles = () => {
     fetchArticles()
   }, [])
 
+  const filteredAndSortedArticles = articles
+    .filter(article => {
+      const searchLower = searchTerm.toLowerCase()
+      return (
+        article.title.toLowerCase().includes(searchLower) ||
+        article.description.toLowerCase().includes(searchLower) ||
+        article.category.toLowerCase().includes(searchLower)
+      )
+    })
+    .sort((a, b) => {
+      if (sortBy === 'date') {
+        const dateA = new Date(a.publishedAt).getTime()
+        const dateB = new Date(b.publishedAt).getTime()
+        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB
+      } else {
+        const titleA = a.title.toLowerCase()
+        const titleB = b.title.toLowerCase()
+        return sortOrder === 'desc'
+          ? titleB.localeCompare(titleA)
+          : titleA.localeCompare(titleB)
+      }
+    })
+
   // Separate featured article from the rest
-  const featuredArticle = articles[0]
-  const regularArticles = articles.slice(1)
+  const featuredArticle = filteredAndSortedArticles[0]
+  const regularArticles = filteredAndSortedArticles.slice(1)
+
+  // When displaying the date
+  const formatDate = dateString => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -56,19 +106,50 @@ const Articles = () => {
           </p>
         </div>
 
+        {/* Search and Sort Controls */}
+        <div className='mb-8 flex flex-col sm:flex-row gap-4 items-center'>
+          <div className='w-full sm:w-64'>
+            <input
+              type='text'
+              placeholder='Search articles...'
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              className='w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent'
+            />
+          </div>
+          <div className='flex gap-4'>
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value as 'date' | 'title')}
+              className='px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent'
+            >
+              <option value='date'>Sort by Date</option>
+              <option value='title'>Sort by Title</option>
+            </select>
+            <button
+              onClick={() =>
+                setSortOrder(current => (current === 'desc' ? 'asc' : 'desc'))
+              }
+              className='px-4 py-2 bg-gold-600 text-white rounded-lg hover:bg-gold-700'
+            >
+              {sortOrder === 'desc' ? '↓ Desc' : '↑ Asc'}
+            </button>
+          </div>
+        </div>
+
         {/* Featured Article */}
         {featuredArticle && (
           <div className='mb-16'>
             <Link href={`/articles/${featuredArticle.slug}`}>
               <div className='group relative rounded-2xl overflow-hidden bg-white shadow-xl hover:shadow-2xl transition-all duration-300'>
                 <div className='grid md:grid-cols-2 gap-0'>
-                  <div className='relative w-full pb-[56.25%] md:pb-0 md:h-full'>
+                  <div className='relative w-full h-[500px] md:h-full'>
                     <img
                       src={
                         featuredArticle.imageUrl || '/default-article-image.jpg'
                       }
                       alt={featuredArticle.title}
-                      className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                      className='absolute inset-0 w-full h-full object-contain bg-gray-100'
                     />
                   </div>
                   <div className='p-8 md:p-12 flex flex-col justify-center'>
@@ -104,19 +185,13 @@ const Articles = () => {
                           </p>
                           <time className='text-sm text-gray-500'>
                             {featuredArticle.publishedAt
-                              ? new Date(
-                                  featuredArticle.publishedAt
-                                ).toLocaleDateString('en-US', {
-                                  month: 'long',
-                                  day: 'numeric',
-                                  year: 'numeric'
-                                })
+                              ? formatDate(featuredArticle.publishedAt)
                               : 'Date not available'}
                           </time>
                         </div>
                       </div>
                       <span className='text-sm text-gray-500'>
-                        {featuredArticle.readTime || '5 min read'}
+                        {formatReadTime(featuredArticle.readTime)}
                       </span>
                     </div>
                   </div>
@@ -135,11 +210,11 @@ const Articles = () => {
               className='group'
             >
               <article className='h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col'>
-                <div className='relative w-full pb-[56.25%]'>
+                <div className='relative w-full h-[300px]'>
                   <img
                     src={article.imageUrl || '/default-article-image.jpg'}
                     alt={article.title}
-                    className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                    className='absolute inset-0 w-full h-full object-contain bg-gray-100'
                   />
                   {article.category && (
                     <div className='absolute top-4 left-4'>
@@ -171,13 +246,7 @@ const Articles = () => {
                     </div>
                     <time className='text-sm text-gray-500'>
                       {article.publishedAt
-                        ? new Date(article.publishedAt).toLocaleDateString(
-                            'en-US',
-                            {
-                              month: 'short',
-                              day: 'numeric'
-                            }
-                          )
+                        ? formatDate(article.publishedAt)
                         : 'Date not available'}
                     </time>
                   </div>
@@ -187,9 +256,11 @@ const Articles = () => {
           ))}
         </div>
 
-        {articles.length === 0 && (
+        {filteredAndSortedArticles.length === 0 && (
           <div className='text-center py-12'>
-            <p className='text-gray-600 text-lg'>No articles found.</p>
+            <p className='text-gray-600 text-lg'>
+              No articles found matching your search.
+            </p>
           </div>
         )}
       </main>

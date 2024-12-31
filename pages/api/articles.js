@@ -10,53 +10,59 @@ export default async (req, res) => {
       const {
         title,
         description,
-        content,
-        secondaryContent,
         imageUrl,
-        secondaryImageUrl,
         slug,
         publishedAt,
         category,
+        contentSections,
         author,
-        readTime
+        readTime,
+        seo
       } = req.body
 
-      if (
-        !title ||
-        !description ||
-        !content ||
-        !imageUrl ||
-        !slug ||
-        !publishedAt
-      ) {
+      // Validate required fields
+      if (!title || !description || !imageUrl || !slug || !publishedAt) {
+        console.error('Missing required fields:', {
+          title,
+          description,
+          imageUrl,
+          slug,
+          publishedAt
+        })
         return res.status(400).json({ error: 'Missing required fields' })
       }
 
-      const result = await db.collection('articles').insertOne({
+      // Create the article document
+      const article = {
         title,
         description,
-        content,
-        secondaryContent,
         imageUrl,
-        secondaryImageUrl,
         slug,
         publishedAt: new Date(publishedAt).toISOString(),
-        category,
+        category: category || 'General',
+        contentSections: contentSections || [],
         author,
         readTime,
-        createdAt: new Date()
-      })
+        seo,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
 
-      console.log('Inserted article:', result)
+      console.log('Attempting to insert article:', article)
+
+      const result = await db.collection('articles').insertOne(article)
+
+      console.log('Article inserted successfully:', result)
+
       return res.status(201).json({
-        ...req.body,
+        ...article,
         _id: result.insertedId
       })
     } catch (error) {
-      console.error('Error inserting article:', error)
+      console.error('Error creating article:', error)
       return res.status(500).json({
-        error: 'Internal server error',
-        message: error.message
+        error: 'Failed to create article',
+        details: error.message
       })
     }
   }
@@ -74,8 +80,19 @@ export default async (req, res) => {
         .sort({ publishedAt: -1 })
         .toArray()
 
+      // Format dates properly
+      const formattedArticles = articles.map(article => ({
+        ...article,
+        publishedAt: article.publishedAt
+          ? new Date(article.publishedAt).toISOString()
+          : null,
+        createdAt: article.createdAt
+          ? new Date(article.createdAt).toISOString()
+          : null
+      }))
+
       // Return empty array if no articles found
-      return res.status(200).json(articles || [])
+      return res.status(200).json(formattedArticles || [])
     } catch (error) {
       console.error('Error fetching articles:', error)
       return res.status(500).json({

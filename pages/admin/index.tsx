@@ -1,68 +1,34 @@
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { withAuth } from '@/components/withAuth'
 import { AdminHeader } from '@/components/admin/Header'
-import Link from 'next/link'
-import dynamic from 'next/dynamic'
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-import 'react-quill/dist/quill.snow.css'
 
 interface Article {
   _id: string
   title: string
   slug: string
   publishedAt: string
+  category: string
+  readTime: string
+  views?: number
 }
 
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, 3, false] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    ['blockquote', 'code-block'],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ script: 'sub' }, { script: 'super' }],
-    [{ indent: '-1' }, { indent: '+1' }],
-    ['link', 'image', 'video'],
-    ['clean'],
-    [{ align: [] }],
-    [{ color: [] }, { background: [] }]
-  ],
-  clipboard: {
-    matchVisual: false
-  }
+interface DashboardStats {
+  totalArticles: number
+  totalViews: number
+  popularCategories: { category: string; count: number }[]
+  recentArticles: Article[]
 }
 
-const formats = [
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'code-block',
-  'list',
-  'bullet',
-  'script',
-  'indent',
-  'link',
-  'image',
-  'video',
-  'align',
-  'color',
-  'background'
-]
-
-function AdminDashboard () {
+const AdminDashboard = () => {
   const [articles, setArticles] = useState<Article[]>([])
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [content, setContent] = useState('')
-  const [secondaryContent, setSecondaryContent] = useState('')
-  const [image, setImage] = useState('')
-  const [secondaryImage, setSecondaryImage] = useState('')
-  const [slug, setSlug] = useState('')
-  const [date, setDate] = useState('')
+  const [stats, setStats] = useState<DashboardStats>({
+    totalArticles: 0,
+    totalViews: 0,
+    popularCategories: [],
+    recentArticles: []
+  })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchArticles()
@@ -73,148 +39,257 @@ function AdminDashboard () {
       const res = await fetch('/api/articles')
       const data = await res.json()
       setArticles(Array.isArray(data) ? data : [])
+
+      // Calculate dashboard stats
+      const totalArticles = data.length
+      const totalViews = data.reduce(
+        (sum, article) => sum + (article.views || 0),
+        0
+      )
+
+      // Get popular categories
+      const categoryCount = data.reduce((acc, article) => {
+        acc[article.category] = (acc[article.category] || 0) + 1
+        return acc
+      }, {})
+
+      const popularCategories = Object.entries(categoryCount)
+        .map(([category, count]) => ({ category, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5)
+
+      // Get recent articles
+      const recentArticles = [...data]
+        .sort(
+          (a, b) =>
+            new Date(b.publishedAt).getTime() -
+            new Date(a.publishedAt).getTime()
+        )
+        .slice(0, 5)
+
+      setStats({
+        totalArticles,
+        totalViews,
+        popularCategories,
+        recentArticles
+      })
+
+      setLoading(false)
     } catch (error) {
       console.error('Error fetching articles:', error)
-      setArticles([])
+      setLoading(false)
     }
+  }
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    })
   }
 
   const handleDelete = async (slug: string) => {
     if (window.confirm('Are you sure you want to delete this article?')) {
       try {
-        const res = await fetch(`/api/articles/${slug}`, {
+        const response = await fetch(`/api/articles/${slug}`, {
           method: 'DELETE'
         })
 
-        if (res.ok) {
-          setArticles(articles.filter(article => article.slug !== slug))
-          setSuccess('Article deleted successfully')
-        } else {
-          setError('Failed to delete article')
+        if (!response.ok) {
+          throw new Error('Failed to delete article')
         }
+
+        // Remove the article from the local state
+        setArticles(articles.filter(article => article.slug !== slug))
+
+        // Update stats
+        setStats(prev => ({
+          ...prev,
+          totalArticles: prev.totalArticles - 1,
+          recentArticles: prev.recentArticles.filter(
+            article => article.slug !== slug
+          )
+        }))
       } catch (error) {
         console.error('Error deleting article:', error)
-        setError('Failed to delete article')
+        alert('Failed to delete article')
       }
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    const newArticle = {
-      title,
-      description,
-      content,
-      secondaryContent,
-      imageUrl: image,
-      secondaryImageUrl: secondaryImage,
-      slug,
-      publishedAt: new Date(date).toISOString(),
-      category: 'General',
-      author: {
-        name: 'Admin',
-        avatar: '/admin-avatar.svg'
-      },
-      readTime: '5 min read'
-    }
-
-    try {
-      const res = await fetch('/api/articles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newArticle)
-      })
-
-      const data = await res.json()
-
-      if (res.status === 201) {
-        setSuccess('Article added successfully')
-        setTitle('')
-        setDescription('')
-        setContent('')
-        setSecondaryContent('')
-        setImage('')
-        setSecondaryImage('')
-        setSlug('')
-        setDate('')
-        fetchArticles()
-      } else {
-        setError(data.error || 'Something went wrong')
-      }
-    } catch (error) {
-      console.error('Error while submitting:', error)
-      setError('Failed to add article')
-    }
+  if (loading) {
+    return (
+      <div className='min-h-screen bg-gray-50'>
+        <AdminHeader />
+        <div className='max-w-7xl mx-auto py-6 px-4'>
+          <div className='animate-pulse'>Loading...</div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className='min-h-screen bg-gray-50'>
       <AdminHeader />
 
+      {/* Navigation Bar */}
+      <div className='bg-white shadow-sm'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='flex justify-between items-center py-4'>
+            <div className='flex space-x-4'>
+              <Link
+                href='/'
+                className='text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md'
+              >
+                ← Return to Home
+              </Link>
+              <Link
+                href='/articles'
+                className='text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md'
+              >
+                View Articles
+              </Link>
+            </div>
+            <Link
+              href='/admin/new-article'
+              className='px-4 py-2 bg-gold-600 text-white rounded-lg hover:bg-gold-700'
+            >
+              Create New Article
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>
-        <div className='flex justify-between items-center mb-8'>
-          <h1 className='text-3xl font-bold text-gray-900'>
-            Article Dashboard
-          </h1>
-          <Link
-            href='/admin/new-article'
-            className='px-6 py-3 bg-gold-600 text-white font-semibold rounded-lg hover:bg-gold-700'
-          >
-            Create New Article
-          </Link>
+        {/* Dashboard Stats */}
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
+          <div className='bg-white rounded-lg shadow p-6'>
+            <h3 className='text-lg font-medium text-gray-900'>
+              Total Articles
+            </h3>
+            <p className='text-3xl font-bold text-gold-600'>
+              {stats.totalArticles}
+            </p>
+          </div>
+          <div className='bg-white rounded-lg shadow p-6'>
+            <h3 className='text-lg font-medium text-gray-900'>Total Views</h3>
+            <p className='text-3xl font-bold text-gold-600'>
+              {stats.totalViews}
+            </p>
+          </div>
+          <div className='bg-white rounded-lg shadow p-6'>
+            <h3 className='text-lg font-medium text-gray-900'>
+              Popular Categories
+            </h3>
+            <div className='mt-2'>
+              {stats.popularCategories.map(({ category, count }) => (
+                <div key={category} className='flex justify-between text-sm'>
+                  <span>{category}</span>
+                  <span className='text-gold-600'>{count} articles</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {error && <p className='text-red-500 mb-4'>{error}</p>}
-        {success && <p className='text-green-500 mb-4'>{success}</p>}
+        {/* Recent Articles */}
+        <div className='bg-white rounded-lg shadow mb-8'>
+          <div className='px-6 py-4 border-b border-gray-200'>
+            <h3 className='text-lg font-medium text-gray-900'>
+              Recent Articles
+            </h3>
+          </div>
+          <div className='divide-y divide-gray-200'>
+            {stats.recentArticles.map(article => (
+              <div key={article._id} className='px-6 py-4'>
+                <div className='flex justify-between items-center'>
+                  <div>
+                    <Link
+                      href={`/articles/${article.slug}`}
+                      className='text-lg font-medium text-gray-900 hover:text-gold-600'
+                    >
+                      {article.title}
+                    </Link>
+                    <p className='text-sm text-gray-500'>
+                      {article.category} • {article.readTime}
+                    </p>
+                  </div>
+                  <div className='flex items-center space-x-4'>
+                    <span className='text-sm text-gray-500'>
+                      {formatDate(article.publishedAt)}
+                    </span>
+                    <Link
+                      href={`/admin/edit-article/${article.slug}`}
+                      className='text-gold-600 hover:text-gold-700'
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <div className='bg-white shadow overflow-hidden sm:rounded-md'>
-          <ul className='divide-y divide-gray-200'>
-            {Array.isArray(articles) && articles.length > 0 ? (
-              articles.map(article => (
-                <li key={article._id}>
-                  <div className='px-4 py-4 flex items-center justify-between sm:px-6'>
-                    <div className='min-w-0 flex-1'>
-                      <div className='bg-white hover:shadow-gold transition-all duration-300 p-4 rounded-lg'>
-                        <h3 className='font-semibold hover:text-gold-600 transition-colors'>
-                          {article.title}
-                        </h3>
+        {/* All Articles Table */}
+        <div className='bg-white rounded-lg shadow overflow-hidden'>
+          <div className='px-6 py-4 border-b border-gray-200'>
+            <h3 className='text-lg font-medium text-gray-900'>All Articles</h3>
+          </div>
+          <div className='overflow-x-auto'>
+            <table className='min-w-full divide-y divide-gray-200'>
+              <thead className='bg-gray-50'>
+                <tr>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    Title
+                  </th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    Category
+                  </th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    Published
+                  </th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className='bg-white divide-y divide-gray-200'>
+                {articles.map(article => (
+                  <tr key={article._id}>
+                    <td className='px-6 py-4'>
+                      <div className='text-sm font-medium text-gray-900'>
+                        {article.title}
                       </div>
-                      <div className='mt-1 flex items-center text-sm text-gray-500'>
-                        <span>
-                          Published:{' '}
-                          {new Date(article.publishedAt).toLocaleDateString()}
-                        </span>
-                        <span className='mx-2'>•</span>
-                        <span>Slug: {article.slug}</span>
-                      </div>
-                    </div>
-                    <div className='flex space-x-4'>
+                    </td>
+                    <td className='px-6 py-4'>
+                      <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gold-100 text-gold-800'>
+                        {article.category}
+                      </span>
+                    </td>
+                    <td className='px-6 py-4 text-sm text-gray-500'>
+                      {formatDate(article.publishedAt)}
+                    </td>
+                    <td className='px-6 py-4 text-sm'>
                       <Link
-                        href={`/articles/${article.slug}`}
-                        target='_blank'
-                        className='px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200'
+                        href={`/admin/edit-article/${article.slug}`}
+                        className='text-gold-600 hover:text-gold-900 mr-4'
                       >
-                        View
+                        Edit
                       </Link>
                       <button
                         onClick={() => handleDelete(article.slug)}
-                        className='px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
+                        className='text-red-600 hover:text-red-900'
                       >
                         Delete
                       </button>
-                    </div>
-                  </div>
-                </li>
-              ))
-            ) : (
-              <li className='px-4 py-8 text-center text-gray-500'>
-                No articles found. Create your first article!
-              </li>
-            )}
-          </ul>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
