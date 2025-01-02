@@ -4,11 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styles from './VideoSection.module.css'
 
 const VideoSection = () => {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
+  const [isVisible, setIsVisible] = useState(true)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   const scrollToNextSection = useCallback(() => {
     const nextSection = document.getElementById('next-section')
@@ -27,11 +24,14 @@ const VideoSection = () => {
           muted
           loop
           playsInline
-          preload='metadata'
+          preload='auto'
+          onCanPlay={() => setIsVideoLoaded(true)}
           className='absolute inset-0 w-full h-full object-cover'
           style={{
             filter: 'brightness(0.8)',
-            transform: 'scale(1.01)'
+            transform: 'scale(1.01)',
+            opacity: isVideoLoaded ? 1 : 0.5,
+            transition: 'opacity 0.5s ease-in-out'
           }}
         />
         <div className={styles.gradientOverlay} />
@@ -39,8 +39,7 @@ const VideoSection = () => {
 
       <div
         className={`absolute inset-0 flex flex-col items-center justify-center z-10 px-4 sm:px-6 lg:px-8 
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} 
-        transition-all duration-1000 ease-out`}
+        opacity-100 translate-y-0`}
       >
         <div className='max-w-6xl mx-auto text-center space-y-8 lg:space-y-10'>
           <div className={styles.glowContainer}>
