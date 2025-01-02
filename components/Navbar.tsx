@@ -16,15 +16,25 @@ const Navbar = () => {
     <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
       <div className='container mx-auto flex items-center justify-between py-2 px-4 md:px-6 lg:px-8'>
         <div className='flex items-center'>
-          <Link href='/'>
+          <Link
+            href='/'
+            className='flex items-center group hover:opacity-80 transition-opacity duration-300'
+            aria-label='Return to homepage'
+          >
             <Image
               src='/mybartenders.co.uk_logo_svg.svg'
               alt='logo mybartenders.co.uk'
               width={29}
               height={40}
+              priority={true}
             />
+            <p
+              className='ml-2 text-gray-800 font-semibold group-hover:text-gold-600 transition-colors duration-300'
+              loading='eager'
+            >
+              mybartenders
+            </p>
           </Link>
-          <p className='ml-2 text-gray-800 font-semibold'>mybartenders</p>
         </div>
 
         <div className='hidden lg:flex justify-center gap-6 flex-grow'>

@@ -302,3 +302,9 @@ body {
 html {
   height: 1px;
 }
+
+/* Add this to your global CSS */
+.nav-text {
+  min-width: 120px; /* Adjust based on your text width */
+  display: inline-block;
+}
