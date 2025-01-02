@@ -49,7 +49,7 @@ const VideoSection = () => {
               backdrop-blur-sm bg-black/10 p-4 rounded-lg shadow-2xl'
             >
               <span className={styles.textGradient}>
-                Mobile Bar, Mixology, Weddings,
+                Mobile Bar Hire, Mixology, Weddings,
               </span>
               <br />
               <span className={styles.textGradient}>
@@ -87,6 +87,16 @@ const VideoSection = () => {
                   hover:scale-105 inline-block'
               >
                 +44 7365 5822 959
+              </a>
+            </div>
+            <div className='text-xl md:text-2xl lg:text-3xl font-light'>
+              <span className='font-medium'>Email: </span>
+              <a
+                href='mailto:contact@mybartenders.co.uk'
+                className='text-gold-400 hover:text-gold-300 transition-all duration-300
+                  hover:scale-105 inline-block'
+              >
+                contact@mybartenders.co.uk
               </a>
             </div>
           </div>
