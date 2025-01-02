@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -15,8 +15,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Portable Bar Hire Northampton, Cocktails, Mixology, Weddings',
   description:
-    'Private hire bartenders and bars for weddings or events in Northampton or nationwide? Our mixologists are skilled in the art of mixology and ready to serve your guests with style.',
-  viewport: 'width=device-width, initial-scale=1'
+    'Private hire bartenders and bars for weddings or events in Northampton or nationwide? Our mixologists are skilled in the art of mixology and ready to serve your guests with style.'
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1
 }
 
 export default function RootLayout ({
