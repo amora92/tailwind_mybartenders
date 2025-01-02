@@ -113,7 +113,7 @@ const Gallery = () => {
               <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
                 <img
                   src='/IMG_20220323_122115_003.webp'
-                  alt='Premium Vodka Selection with Absinthe Fountain Display - Luxury Bar Service'
+                  alt='Stolichnaya Vodka, Belvedere Vodka, Au Vodka, Absinthe Fountain, Premium Vodka Selection'
                   className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
                   width={400}
                   height={300}
@@ -126,7 +126,7 @@ const Gallery = () => {
               <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
                 <img
                   src='/fire.webp'
-                  alt='Spectacular Flair Bartending Performance - Entertainment Services'
+                  alt='Firebreathing Bartender, Flair Bartending, Entertainment Services'
                   className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
                   width={400}
                   height={300}
@@ -138,8 +138,8 @@ const Gallery = () => {
             <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
               <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
                 <img
-                  src='/20220528_173621.webp'
-                  alt='Exclusive SuperCar Fest 2022 Garden Party - Corporate Event Bar Service'
+                  src='/FB_IMG_1563583948109.jpg'
+                  alt='Creamy, Nightcap Cocktail, Bourbon, Cherries, Fruit'
                   className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
                   width={400}
                   height={300}
@@ -151,8 +151,8 @@ const Gallery = () => {
             <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
               <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
                 <img
-                  src='/20111.jpg'
-                  alt='SuperCar Fest VIP Drivers Lounge - Premium Event Bar Menu'
+                  src='/2014.jpg'
+                  alt='Louis XIII Cognac, Martini Glass, Mixologist'
                   className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
                   width={400}
                   height={300}
@@ -177,7 +177,7 @@ const Gallery = () => {
             <div className='group relative overflow-hidden rounded-xl shadow-md bg-white p-2 hover:shadow-xl transition-all duration-300'>
               <div className='aspect-w-4 aspect-h-3 overflow-hidden rounded-lg'>
                 <img
-                  src='/2011.jpg'
+                  src='/picture1.jpg'
                   alt='Luxury Outdoor Bar Service - Corporate Event Excellence'
                   className='w-full h-full object-cover transform transition duration-300 group-hover:scale-105'
                   width={400}

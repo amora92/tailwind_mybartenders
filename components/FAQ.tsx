@@ -9,6 +9,18 @@ const FAQ = () => {
       category: 'Services'
     },
     {
+      question: 'How much access or space do you need?',
+      answer:
+        "We're completely self-sufficient and highly adaptable! Our mobile bar setup can fit into most spaces, and we bring everything we need including water supply and power if necessary. All we really need is a reasonably flat surface to set up on, and we'll handle the rest!",
+      category: 'Setup'
+    },
+    {
+      question: 'How much does it cost to hire a mobile bar?',
+      answer:
+        'Our pricing varies depending on several factors including the day of the week, duration of the event, number of staff required, and your specific requirements. We offer customized packages to suit different budgets and needs. Contact us for a personalized quote!',
+      category: 'Pricing'
+    },
+    {
       question: 'How far in advance should I book?',
       answer:
         'We recommend booking 2-3 months in advance, especially for peak season events. However, we can sometimes accommodate last-minute bookings depending on availability.',
@@ -27,9 +39,15 @@ const FAQ = () => {
       category: 'Equipment'
     },
     {
+      question: 'What happens if it rains? Do you offer wet weather options?',
+      answer:
+        "We're prepared for all weather conditions! For outdoor events, we can provide covered areas for the bar, and we always have contingency plans in place. We'll work with you and your venue to ensure smooth service regardless of the weather.",
+      category: 'Services'
+    },
+    {
       question: 'What payment methods do you accept?',
       answer:
-        'We accept bank transfers, credit/debit cards, and other standard payment methods. A deposit is typically required to secure your booking.',
+        'We accept all major payment methods. A deposit is required to secure your booking.',
       category: 'Payment'
     }
   ]
