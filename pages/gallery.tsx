@@ -68,6 +68,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/fire.webp',
+    largeSrc: '/fire.webp',
     alt: 'Firebreathing Bartender, Flair Bartending, Entertainment Services',
     category: 'cocktails',
     width: 600,
@@ -75,6 +76,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/FB_IMG_1563583948109.jpg',
+    largeSrc: '/FB_IMG_1563583948109.jpg',
     alt: 'Creamy, Nightcap Cocktail, Bourbon, Cherries, Fruit',
     category: 'cocktails',
     width: 600,
@@ -82,6 +84,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/2014.jpg',
+    largeSrc: '/2014.jpg',
     alt: 'Louis XIII Cognac, Martini Glass, Mixologist',
     category: 'cocktails',
     width: 600,
@@ -89,6 +92,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/201111.jpg',
+    largeSrc: '/201111.jpg',
     alt: 'Professional Mobile Bar Setup',
     category: 'events',
     width: 600,
@@ -96,6 +100,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/picture1.jpg',
+    largeSrc: '/picture1.jpg',
     alt: 'Luxury Outdoor Bar Service',
     category: 'events',
     width: 600,
@@ -103,6 +108,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/55555.jpg',
+    largeSrc: '/55555.jpg',
     alt: 'Bespoke Cocktail Creation',
     category: 'cocktails',
     width: 600,
@@ -110,6 +116,7 @@ const mediaItems: MediaItem[] = [
   },
   {
     src: '/aaaa.jpg',
+    largeSrc: '/aaaa.jpg',
     alt: 'Professional Event Bartending',
     category: 'events',
     width: 600,
