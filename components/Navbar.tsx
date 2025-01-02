@@ -1,15 +1,34 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { NAV_LINKS } from '@/constants'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  // Return a loading state or simplified version during SSR
+  if (!mounted) {
+    return (
+      <nav className='fixed top-0 left-0 right-0 z-30 bg-white shadow-md'>
+        <div className='container mx-auto flex items-center justify-between py-2 px-4 md:px-6 lg:px-8'>
+          <div className='flex items-center'>
+            <div className='w-[29px] h-[40px] bg-gray-200 animate-pulse' />
+            <div className='ml-2 w-24 h-6 bg-gray-200 animate-pulse' />
+          </div>
+        </div>
+      </nav>
+    )
   }
 
   return (
@@ -28,12 +47,9 @@ const Navbar = () => {
               height={40}
               priority={true}
             />
-            <p
-              className='ml-2 text-gray-800 font-semibold group-hover:text-gold-600 transition-colors duration-300'
-              loading='eager'
-            >
+            <span className='ml-2 text-gray-800 font-semibold group-hover:text-gold-600 transition-colors duration-300'>
               mybartenders
-            </p>
+            </span>
           </Link>
         </div>
 
