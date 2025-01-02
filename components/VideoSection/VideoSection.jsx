@@ -15,7 +15,7 @@ const VideoSection = () => {
   }, [])
 
   return (
-    <section className='relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white'>
+    <section className='relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white mt-[60px] sm:mt-[64px]'>
       <div className={`${styles.videoContainer} bg-black`}>
         <video
           src='/Branding_Video_2.compressed.mp4'
@@ -25,8 +25,10 @@ const VideoSection = () => {
           loop
           playsInline
           preload='auto'
-          onCanPlay={() => setIsVideoLoaded(true)}
-          className='absolute inset-0 w-full h-full object-cover'
+          onLoadedData={() => setIsVideoLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            isVideoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           style={{
             filter: 'brightness(0.8)',
             transform: 'scale(1.01)',
