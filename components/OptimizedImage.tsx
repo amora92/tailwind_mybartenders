@@ -1,5 +1,7 @@
+'use client'
+
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface OptimizedImageProps {
   src: string
@@ -21,6 +23,20 @@ const OptimizedImage = ({
   onClick
 }: OptimizedImageProps) => {
   const [isLoading, setLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div
+        className={`bg-gray-200 animate-pulse ${className}`}
+        style={{ width, height }}
+      />
+    )
+  }
 
   return (
     <Image
