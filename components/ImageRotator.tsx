@@ -151,8 +151,8 @@ const ImageRotator = () => {
             <h4>Get in Touch</h4>
             <p>
               Call us at{' '}
-              <a href='tel:+4473655822959' className={styles.phoneLink}>
-                +44 7365 5822 959
+              <a href='tel:+447482612532' className={styles.phoneLink}>
+                +44 748 2612 532
               </a>
             </p>
           </div>

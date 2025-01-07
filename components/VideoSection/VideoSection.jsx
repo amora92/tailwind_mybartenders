@@ -81,11 +81,11 @@ const VideoSection = () => {
             <div className='text-xl md:text-2xl lg:text-3xl font-light'>
               <span className='font-medium'>Phone: </span>
               <a
-                href='tel:+4473655822959'
+                href='tel:+447482612532'
                 className='text-gold-400 hover:text-gold-300 transition-all duration-300
                   hover:scale-105 inline-block'
               >
-                +44 7365 5822 959
+                +44 748 2612 532
               </a>
             </div>
             <div className='text-xl md:text-2xl lg:text-3xl font-light'>

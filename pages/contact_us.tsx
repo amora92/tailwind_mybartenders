@@ -505,10 +505,10 @@ const ContactUs: React.FC = () => {
                     </svg>
                   </div>
                   <a
-                    href='tel:+4473655822959'
+                    href='tel:+447482612532'
                     className='text-gray-700 hover:text-pink-600 transition-colors duration-200'
                   >
-                    +44 7365 5822 959
+                    +44 7482 6125 32
                   </a>
                 </div>
               </div>
