@@ -41,7 +41,7 @@ const VideoSection = () => {
         className={`absolute inset-0 flex flex-col items-center justify-center z-10 px-4 sm:px-6 lg:px-8 
         opacity-100 translate-y-0`}
       >
-        <div className='max-w-6xl mx-auto text-center space-y-8 lg:space-y-10'>
+        <div className='max-w-6xl mx-auto text-center space-y-8 lg:space-y-10 pt-16 sm:pt-20'>
           <div className={styles.glowContainer}>
             <h1
               className='text-3xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-tight
