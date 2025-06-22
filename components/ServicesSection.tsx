@@ -137,7 +137,7 @@ const ServicesSection = () => {
 
   const [selectedServiceIndex, setSelectedServiceIndex] = useState(0)
 
-  const handleServiceChange = index => {
+  const handleServiceChange = (index: number) => {
     setSelectedServiceIndex(index)
   }
 
