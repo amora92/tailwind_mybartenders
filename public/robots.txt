@@ -1,9 +1,7 @@
-# *
 User-agent: *
-Allow: /
+Disallow: /admin/
+Disallow: /admin/login
+Disallow: /admin/new-article
 
-# Host
 Host: https://mybartenders.co.uk
-
-# Sitemaps
 Sitemap: https://mybartenders.co.uk/sitemap.xml

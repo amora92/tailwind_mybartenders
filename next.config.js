@@ -9,19 +9,24 @@ module.exports = {
     path: '/_next/image'
   },
   async redirects () {
-    if (process.env.NODE_ENV === 'production') {
-      return [
-        {
-          source: '/:path*',
-          missing: [
-            { type: 'header', key: 'x-forwarded-proto', value: 'https' }
-          ],
-          destination: `https://mybartenders.co.uk/:path*`,
-          permanent: true
-        }
-      ]
+    if (process.env.NODE_ENV !== 'production') {
+      // No redirects in development
+      return []
     }
-    // No redirects in development
-    return []
+    // Redirect http to https in production only
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'header',
+            key: 'x-forwarded-proto',
+            value: 'http'
+          }
+        ],
+        destination: `https://mybartenders.co.uk/:path*`,
+        permanent: true
+      }
+    ]
   }
 }

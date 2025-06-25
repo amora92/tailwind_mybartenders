@@ -21,13 +21,7 @@ module.exports = {
     }
   },
   additionalPaths: async config => {
-    // Manually add any pages not automatically detected
-    return [
-      {
-        loc: '/mobile-bar-hire-northampton/pricing',
-        priority: 0.9,
-        lastmod: new Date().toISOString()
-      }
-    ]
+    // No additional manual paths for now
+    return []
   }
 }

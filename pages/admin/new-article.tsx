@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { withAuth } from '@/components/withAuth'
 import { AdminHeader } from '@/components/admin/Header'
 import Link from 'next/link'
@@ -152,6 +153,11 @@ const NewArticlePage = () => {
 
   return (
     <div className='min-h-screen bg-gray-50'>
+      <Head>
+        <meta name='robots' content='noindex, nofollow' />
+        <title>Create New Article - Admin</title>
+      </Head>
+
       <AdminHeader />
 
       <div className='max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8'>
@@ -377,148 +383,170 @@ const NewArticlePage = () => {
               </div>
 
               <div className='border-t pt-6 mt-8'>
-                <h3 className='text-lg font-semibold mb-4'>SEO Settings</h3>
-                <div className='space-y-4'>
-                  <div>
-                    <label className='block mb-2'>Meta Title</label>
-                    <input
-                      type='text'
-                      value={seoData.metaTitle}
-                      onChange={e =>
-                        setSeoData(prev => ({
-                          ...prev,
-                          metaTitle: e.target.value
-                        }))
-                      }
-                      placeholder='Leave blank to use article title'
-                      className='w-full p-2 border rounded'
-                    />
-                  </div>
-
-                  <div>
-                    <label className='block mb-2'>Meta Description</label>
-                    <textarea
-                      value={seoData.metaDescription}
-                      onChange={e =>
-                        setSeoData(prev => ({
-                          ...prev,
-                          metaDescription: e.target.value
-                        }))
-                      }
-                      placeholder='Leave blank to use article description'
-                      className='w-full p-2 border rounded'
-                      rows={3}
-                    />
-                  </div>
-
-                  <div>
-                    <label className='block mb-2'>
-                      Keywords (comma-separated)
-                    </label>
-                    <input
-                      type='text'
-                      value={seoData.keywords.join(', ')}
-                      onChange={e =>
-                        setSeoData(prev => ({
-                          ...prev,
-                          keywords: e.target.value.split(',').map(k => k.trim())
-                        }))
-                      }
-                      placeholder='cocktails, bartending, mixology'
-                      className='w-full p-2 border rounded'
-                    />
-                  </div>
-
-                  <div>
-                    <label className='block mb-2'>Social Share Image</label>
-                    <input
-                      type='text'
-                      value={seoData.ogImage}
-                      onChange={e =>
-                        setSeoData(prev => ({
-                          ...prev,
-                          ogImage: e.target.value
-                        }))
-                      }
-                      placeholder='Leave blank to use main image'
-                      className='w-full p-2 border rounded'
-                    />
-                  </div>
-
-                  <div>
-                    <label className='block mb-2'>
-                      Canonical URL (optional)
-                    </label>
-                    <input
-                      type='text'
-                      value={seoData.canonicalUrl}
-                      onChange={e =>
-                        setSeoData(prev => ({
-                          ...prev,
-                          canonicalUrl: e.target.value
-                        }))
-                      }
-                      placeholder='https://mybartenders.co.uk/articles/your-article'
-                      className='w-full p-2 border rounded'
-                    />
-                  </div>
+                <h2 className='text-xl font-semibold mb-4'>SEO Settings</h2>
+                <div className='mb-4'>
+                  <label
+                    htmlFor='metaTitle'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Meta Title
+                  </label>
+                  <input
+                    type='text'
+                    id='metaTitle'
+                    value={seoData.metaTitle}
+                    onChange={e =>
+                      setSeoData(prev => ({
+                        ...prev,
+                        metaTitle: e.target.value
+                      }))
+                    }
+                    className='mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <label
+                    htmlFor='metaDescription'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Meta Description
+                  </label>
+                  <textarea
+                    id='metaDescription'
+                    value={seoData.metaDescription}
+                    onChange={e =>
+                      setSeoData(prev => ({
+                        ...prev,
+                        metaDescription: e.target.value
+                      }))
+                    }
+                    rows={3}
+                    className='mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <label
+                    htmlFor='keywords'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Keywords (comma separated)
+                  </label>
+                  <input
+                    type='text'
+                    id='keywords'
+                    value={seoData.keywords.join(', ')}
+                    onChange={e =>
+                      setSeoData(prev => ({
+                        ...prev,
+                        keywords: e.target.value.split(',').map(k => k.trim())
+                      }))
+                    }
+                    className='mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <label
+                    htmlFor='ogImage'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Open Graph Image URL
+                  </label>
+                  <input
+                    type='text'
+                    id='ogImage'
+                    value={seoData.ogImage}
+                    onChange={e =>
+                      setSeoData(prev => ({ ...prev, ogImage: e.target.value }))
+                    }
+                    className='mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <label
+                    htmlFor='canonicalUrl'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Canonical URL
+                  </label>
+                  <input
+                    type='text'
+                    id='canonicalUrl'
+                    value={seoData.canonicalUrl || ''}
+                    onChange={e =>
+                      setSeoData(prev => ({
+                        ...prev,
+                        canonicalUrl: e.target.value
+                      }))
+                    }
+                    className='mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500'
+                  />
                 </div>
               </div>
 
               <button
                 type='submit'
-                className='w-full px-4 py-2 bg-gold-600 text-white rounded hover:bg-gold-700'
+                className='w-full py-3 bg-gold-600 text-white font-bold rounded hover:bg-gold-700 transition duration-300'
               >
-                Create Article
+                Publish Article
               </button>
             </form>
           </div>
 
           {/* Preview Panel */}
-          <div
-            className='bg-white rounded-lg shadow-lg p-6 overflow-y-auto'
-            style={{ maxHeight: 'calc(100vh - 200px)' }}
-          >
-            <h2 className='text-2xl font-bold mb-6'>Preview</h2>
-            <div className='prose prose-lg max-w-none'>
-              <h1>{title || 'Article Title'}</h1>
-              <p className='text-gray-600'>
-                {description || 'Article description will appear here...'}
-              </p>
-
-              {contentSections.map((section, index) => (
-                <div key={section.id}>
-                  {section.type === 'text' ? (
-                    <div>
-                      <h2 className='text-xl font-bold mb-2'>
-                        Section {index + 1}
-                      </h2>
-                      <div
-                        dangerouslySetInnerHTML={{ __html: section.content }}
+          <div className='bg-white rounded-lg shadow-lg p-6 overflow-auto'>
+            <h2 className='text-2xl font-bold mb-4'>
+              {title || 'Article Title'}
+            </h2>
+            <p className='mb-4 text-gray-700'>
+              {description || 'Article description...'}
+            </p>
+            {imageUrl && (
+              <img
+                src={imageUrl}
+                alt='Article Main Image'
+                className='mb-4 max-h-72 object-contain'
+              />
+            )}
+            <div className='space-y-6'>
+              {contentSections.map(section => {
+                if (section.type === 'text') {
+                  return (
+                    <div
+                      key={section.id}
+                      className='prose max-w-none'
+                      dangerouslySetInnerHTML={{ __html: section.content }}
+                    />
+                  )
+                }
+                if (section.type === 'image') {
+                  return (
+                    <img
+                      key={section.id}
+                      src={section.content}
+                      alt='Article Section Image'
+                      className='max-h-96 object-contain'
+                    />
+                  )
+                }
+                if (
+                  section.type === 'video' &&
+                  getYouTubeVideoId(section.content)
+                ) {
+                  return (
+                    <div key={section.id} className='aspect-w-16 aspect-h-9'>
+                      <iframe
+                        src={`https://www.youtube.com/embed/${getYouTubeVideoId(
+                          section.content
+                        )}`}
+                        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                        allowFullScreen
+                        className='w-full h-full'
                       />
                     </div>
-                  ) : section.type === 'image' ? (
-                    <img
-                      src={section.content}
-                      alt={`Section ${section.id}`}
-                      className='rounded-lg my-6'
-                    />
-                  ) : (
-                    section.content && (
-                      <div className='my-6 aspect-w-16 aspect-h-9'>
-                        <iframe
-                          src={`https://www.youtube.com/embed/${getYouTubeVideoId(
-                            section.content
-                          )}`}
-                          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                          allowFullScreen
-                          className='w-full h-full'
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
-              ))}
+                  )
+                }
+                return null
+              })}
             </div>
           </div>
         </div>
