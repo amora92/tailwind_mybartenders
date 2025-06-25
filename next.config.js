@@ -10,27 +10,12 @@ module.exports = {
     path: '/_next/image'
   },
   async redirects () {
-    // Only apply redirects in production
-    if (process.env.NODE_ENV !== 'production') {
-      return []
-    }
-
     return [
+      // Only redirect HTTP to HTTPS (no www forcing)
       {
-        // Only redirect HTTP to HTTPS (not all requests)
         source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'mybartenders.co.uk'
-          },
-          {
-            type: 'header',
-            key: 'x-forwarded-proto',
-            value: 'http'
-          }
-        ],
-        destination: 'https://mybartenders.co.uk/:path*',
+        missing: [{ type: 'header', key: 'x-forwarded-proto', value: 'https' }],
+        destination: `https://mybartenders.co.uk/:path*`,
         permanent: true
       }
     ]
