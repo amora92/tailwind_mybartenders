@@ -1,4 +1,3 @@
-// next.config.js
 module.exports = {
   images: {
     formats: ['image/webp'],
@@ -10,14 +9,19 @@ module.exports = {
     path: '/_next/image'
   },
   async redirects () {
-    return [
-      // Only redirect HTTP to HTTPS (no www forcing)
-      {
-        source: '/:path*',
-        missing: [{ type: 'header', key: 'x-forwarded-proto', value: 'https' }],
-        destination: `https://mybartenders.co.uk/:path*`,
-        permanent: true
-      }
-    ]
+    if (process.env.NODE_ENV === 'production') {
+      return [
+        {
+          source: '/:path*',
+          missing: [
+            { type: 'header', key: 'x-forwarded-proto', value: 'https' }
+          ],
+          destination: `https://mybartenders.co.uk/:path*`,
+          permanent: true
+        }
+      ]
+    }
+    // No redirects in development
+    return []
   }
 }
