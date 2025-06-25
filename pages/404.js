@@ -7,3 +7,11 @@ export default function Custom404 () {
     </div>
   )
 }
+
+// ⬇️ Add this function to enforce a 404 status
+export async function getStaticProps () {
+  return {
+    props: {},
+    notFound: true // Forces Next.js to send a 404 status
+  }
+}
