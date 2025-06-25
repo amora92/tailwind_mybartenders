@@ -69,10 +69,27 @@ const ArticlePage = () => {
   const fetchArticle = async () => {
     try {
       const response = await fetch(`/api/articles/${slug}`)
+
+      if (!response.ok) {
+        if (response.status >= 500) {
+          // Redirect to custom 500 error page
+          router.replace('/500')
+          return
+        }
+        if (response.status === 404) {
+          // Redirect to 404 page if article not found
+          router.replace('/404')
+          return
+        }
+
+        throw new Error(`Failed to fetch article: ${response.status}`)
+      }
+
       const data = await response.json()
       setArticle(data)
     } catch (error) {
       console.error('Error fetching article:', error)
+      router.replace('/500') // fallback for unknown issues
     } finally {
       setLoading(false)
     }
