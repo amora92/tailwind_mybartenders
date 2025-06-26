@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['mybartenders.co.uk'], // Add this to allow images from your own domain
     formats: ['image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -11,7 +12,6 @@ const nextConfig = {
   },
 
   async redirects () {
-    // 👇 Only redirect in production
     if (process.env.NODE_ENV === 'production') {
       return [
         {
@@ -28,8 +28,6 @@ const nextConfig = {
         }
       ]
     }
-
-    // 👇 No redirect in development
     return []
   }
 }

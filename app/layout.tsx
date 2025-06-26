@@ -1,8 +1,10 @@
+// app/layout.tsx
 import { inter } from './fonts'
 import './globals.css'
 import { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: '✨ Luxury Mobile Bar Hire Northampton | Weddings & Events',
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
     siteName: 'MyBartenders',
     images: [
       {
-        url: 'https://mybartenders.co.uk/_next/image?url=%2FIMG-20240224-WA0053.webp&w=1200&q=75', // High-res version
+        url: 'https://mybartenders.co.uk/_next/image?url=%2FIMG-20240224-WA0053.webp&w=1200&q=75',
         width: 1200,
         height: 630,
         alt: 'MyBartenders luxury mobile bar service in Northampton'
@@ -48,6 +50,8 @@ export const metadata: Metadata = {
   }
 }
 
+const GA_TRACKING_ID = 'G-ZBM8HLM8DZ'
+
 export default function RootLayout ({
   children
 }: {
@@ -55,6 +59,27 @@ export default function RootLayout ({
 }) {
   return (
     <html lang='en' className={`${inter.variable} font-sans`}>
+      <head>
+        {/* Google Analytics Script */}
+        <Script
+          strategy='afterInteractive'
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <Script
+          id='gtag-init'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `
+          }}
+        />
+      </head>
       <body suppressHydrationWarning={true} className={inter.className}>
         <Navbar />
         <main className='relative overflow-hidden'>{children}</main>
