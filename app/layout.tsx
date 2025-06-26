@@ -10,7 +10,7 @@ import GoogleAnalytics from './GoogleAnalytics' // we'll create this next
 export const metadata: Metadata = {
   title: '✨ Luxury Mobile Bar Hire Northampton | Weddings & Events',
   description:
-    '🚀 Award-winning portable bar hire & cocktail service in Northampton. Expert mixologists, premium drinks & stress-free events. Book now!'
+    '🚀 Award-winning mobile bar hire & cocktail service in Northampton. Expert mixologists, premium drinks & stress-free events. Book now!'
   // ... rest of your metadata
 }
 
