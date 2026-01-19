@@ -72,7 +72,7 @@ const FreqQ = () => {
   }
 
   return (
-    <section id='faq' className='py-20 bg-white'>
+    <section id='faq' className='py-20 bg-gray-50'>
       <div className='container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl'>
         <script
           type='application/ld+json'

@@ -3,9 +3,7 @@
 import { inter } from './fonts'
 import './globals.css'
 import { Metadata } from 'next'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import GoogleAnalytics from './GoogleAnalytics' // we'll create this next
+import GoogleAnalytics from './GoogleAnalytics'
 
 export const metadata: Metadata = {
   title: 'Luxury Mobile Bar Hire Northampton | Weddings & Events | MyBartenders',
@@ -112,10 +110,8 @@ export default function RootLayout ({
         />
       </head>
       <body suppressHydrationWarning className={inter.className}>
-        <Navbar />
-        <main className='relative overflow-hidden'>{children}</main>
-        <Footer />
-        <GoogleAnalytics /> {/* client side consent & GA loader */}
+        {children}
+        <GoogleAnalytics />
       </body>
     </html>
   )

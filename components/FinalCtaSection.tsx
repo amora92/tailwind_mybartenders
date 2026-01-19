@@ -4,6 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { CONTACT_INFO } from '@/constants/contact'
+import { getBookingYear, SITE_IMAGES, TRUST_INDICATORS } from '@/constants/siteConfig'
 
 const FinalCtaSection = () => {
   return (
@@ -11,7 +12,7 @@ const FinalCtaSection = () => {
       {/* Background Image */}
       <div className='absolute inset-0'>
         <Image
-          src='/FB_IMG_1563583948109.jpg'
+          src={SITE_IMAGES.ctaBackground}
           alt='Background'
           fill
           className='object-cover'
@@ -39,7 +40,7 @@ const FinalCtaSection = () => {
               <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
             </span>
             <span className='text-white/90 text-sm font-medium'>
-              Now Booking for 2025
+              Now Booking for {getBookingYear()}
             </span>
           </motion.div>
 
@@ -126,62 +127,22 @@ const FinalCtaSection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className='flex flex-wrap items-center justify-center gap-6 lg:gap-10 text-white/50 text-sm'
           >
-            <div className='flex items-center gap-2'>
-              <svg
-                className='w-5 h-5 text-green-400'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-                  clipRule='evenodd'
-                />
-              </svg>
-              <span>Free Consultation</span>
-            </div>
-            <div className='flex items-center gap-2'>
-              <svg
-                className='w-5 h-5 text-green-400'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-                  clipRule='evenodd'
-                />
-              </svg>
-              <span>No Hidden Fees</span>
-            </div>
-            <div className='flex items-center gap-2'>
-              <svg
-                className='w-5 h-5 text-green-400'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-                  clipRule='evenodd'
-                />
-              </svg>
-              <span>Customized Packages</span>
-            </div>
-            <div className='flex items-center gap-2'>
-              <svg
-                className='w-5 h-5 text-green-400'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
-                  clipRule='evenodd'
-                />
-              </svg>
-              <span>UK Nationwide</span>
-            </div>
+            {TRUST_INDICATORS.map(item => (
+              <div key={item} className='flex items-center gap-2'>
+                <svg
+                  className='w-5 h-5 text-green-400'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+                <span>{item}</span>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>

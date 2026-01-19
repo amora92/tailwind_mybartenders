@@ -3,6 +3,7 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import styles from './VideoSection.module.css'
+import { getBookingYear, COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 
 const VideoSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
@@ -39,7 +40,7 @@ const VideoSection = () => {
           className='absolute inset-[-20px]'
         >
           <video
-            src='/Branding_Video_2.compressed.mp4'
+            src={SITE_IMAGES.heroVideo}
             type='video/mp4'
             autoPlay
             muted
@@ -91,7 +92,7 @@ const VideoSection = () => {
 
             {/* Main Headline */}
             <h1 className='text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-6'>
-              Craft Cocktails.
+              Spectacular Cocktails.
               <span className='block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-amber-300'>
                 Unforgettable Events.
               </span>
@@ -99,7 +100,7 @@ const VideoSection = () => {
 
             {/* Subheadline */}
             <p className='text-xl text-white/70 max-w-xl mb-10 leading-relaxed'>
-              Award-winning mixologists bringing bespoke cocktail experiences to your weddings, corporate events, and private celebrations.
+              Experienced mixologists bringing exceptional cocktail experiences to weddings, corporate events, and private celebrations across the UK.
             </p>
 
             {/* CTA Buttons */}
@@ -142,10 +143,10 @@ const VideoSection = () => {
             className='hidden lg:grid grid-cols-2 gap-4'
           >
             {[
-              { number: '15+', label: 'Years Experience', icon: '🏆' },
-              { number: '500+', label: 'Events Served', icon: '🎉' },
-              { number: '50k+', label: 'Cocktails Made', icon: '🍸' },
-              { number: '100%', label: 'Client Satisfaction', icon: '⭐' }
+              { number: COMPANY_STATS.yearsExperience, label: 'Years Experience', icon: '🏆' },
+              { number: COMPANY_STATS.eventsServed, label: 'Events Served', icon: '🎉' },
+              { number: COMPANY_STATS.cocktailsMade, label: 'Cocktails Made', icon: '🍸' },
+              { number: COMPANY_STATS.googleRating, label: 'Client Rating', icon: '⭐' }
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -175,13 +176,13 @@ const VideoSection = () => {
                 <svg className='w-5 h-5 text-green-400' fill='currentColor' viewBox='0 0 20 20'>
                   <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clipRule='evenodd' />
                 </svg>
-                Fully Licensed & Insured
+                Professional Service
               </span>
               <span className='flex items-center gap-2'>
                 <svg className='w-5 h-5 text-green-400' fill='currentColor' viewBox='0 0 20 20'>
                   <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clipRule='evenodd' />
                 </svg>
-                DBS Checked Staff
+                Experienced Team
               </span>
               <span className='flex items-center gap-2'>
                 <svg className='w-5 h-5 text-green-400' fill='currentColor' viewBox='0 0 20 20'>
@@ -196,7 +197,7 @@ const VideoSection = () => {
                   <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
                 </svg>
               ))}
-              <span className='ml-2'>5.0 Rating on Google</span>
+              <span className='ml-2'>{COMPANY_STATS.googleRating} Client Rating</span>
             </div>
           </div>
         </motion.div>

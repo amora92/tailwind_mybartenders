@@ -26,7 +26,7 @@ const features = [
 
 const Cta_Features = () => {
   return (
-    <section className='py-20 bg-white'>
+    <section className='py-20 bg-gray-50'>
       <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
         {/* Header */}
         <div className='max-w-3xl mx-auto text-center mb-16'>

@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import ServicesSection from '@/components/ServicesSection'
 import AboutSection from '@/components/AboutSection'
 import HowItWorksSection from '@/components/HowItWorksSection'

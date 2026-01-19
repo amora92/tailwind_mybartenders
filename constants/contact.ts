@@ -10,6 +10,10 @@ export const CONTACT_INFO = {
   email: 'info@mybartenders.co.uk',
   emailHref: 'mailto:info@mybartenders.co.uk',
 
+  // BCC email for contact form submissions (receives a copy of all inquiries)
+  // Set to empty string '' to disable BCC
+  bccEmail: '',
+
   // Location
   location: 'Northampton, UK',
   serviceArea: 'UK Nationwide',

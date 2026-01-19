@@ -3,17 +3,18 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 
 const stats = [
-  { value: '15+', label: 'Years of Excellence' },
-  { value: '500+', label: 'Events Crafted' },
-  { value: '50k+', label: 'Cocktails Served' },
-  { value: '5.0', label: 'Google Rating' }
+  { value: COMPANY_STATS.yearsExperience, label: 'Years of Excellence' },
+  { value: COMPANY_STATS.eventsServed, label: 'Events Crafted' },
+  { value: COMPANY_STATS.cocktailsMade, label: 'Cocktails Served' },
+  { value: COMPANY_STATS.googleRating, label: 'Client Rating' }
 ]
 
 const AboutSection = () => {
   return (
-    <section className='relative py-24 lg:py-32 bg-white overflow-hidden'>
+    <section className='relative py-24 lg:py-32 bg-gray-50 overflow-hidden'>
       {/* Subtle background pattern */}
       <div className='absolute inset-0 opacity-[0.02]'>
         <div
@@ -38,7 +39,7 @@ const AboutSection = () => {
             <div className='relative z-10'>
               <div className='relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl'>
                 <Image
-                  src='/FB_IMG_1563583948109.jpg'
+                  src={SITE_IMAGES.aboutHero}
                   alt='Expert mixologist crafting a cocktail'
                   fill
                   className='object-cover'
@@ -127,8 +128,8 @@ const AboutSection = () => {
                   desc: 'Tailored to your unique vision'
                 },
                 {
-                  title: 'Professional Team',
-                  desc: 'DBS checked and fully trained'
+                  title: 'Experienced Team',
+                  desc: 'Skilled and professional bartenders'
                 },
                 { title: 'Full Service', desc: 'From setup to cleanup' }
               ].map((item, index) => (

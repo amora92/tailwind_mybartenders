@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import React from 'react'
 import { Resend } from 'resend'
 import EmailTemplate from '../../components/email-template'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
+import { CONTACT_INFO } from '@/constants/contact'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -38,7 +40,14 @@ export default async function handler (
       return res.status(400).json({ error: 'Name, email, and message are required' })
     }
 
-    const data = await resend.emails.send({
+    // Build email options with optional BCC
+    const emailOptions: {
+      from: string
+      to: string[]
+      subject: string
+      react: React.ReactElement
+      bcc?: string[]
+    } = {
       from: 'MyBartenders <contact@mybartenders.co.uk>',
       to: ['contact@mybartenders.co.uk'],
       subject: 'New Contact Form Submission',
@@ -50,7 +59,15 @@ export default async function handler (
         message,
         eventDetails
       })
-    })
+    }
+
+    // Add BCC if configured in constants or environment variable
+    const bccEmail = process.env.CONTACT_FORM_BCC || CONTACT_INFO.bccEmail
+    if (bccEmail) {
+      emailOptions.bcc = [bccEmail]
+    }
+
+    const data = await resend.emails.send(emailOptions)
 
     return res.status(200).json(data)
   } catch (error) {
