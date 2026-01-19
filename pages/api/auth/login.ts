@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken'
 import { serialize } from 'cookie'
 import * as bcrypt from 'bcrypt'
 import { connectToDatabase } from '@/lib/mongodb'
+import { rateLimit, getClientIp } from '@/lib/rateLimit'
+import { logger } from '@/lib/logger'
 
 export default async function handler (
   req: NextApiRequest,
@@ -10,6 +12,22 @@ export default async function handler (
 ) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
+  }
+
+  // Rate limiting: 5 attempts per minute per IP
+  const clientIp = getClientIp(req)
+  const rateLimitResult = rateLimit(`login:${clientIp}`, {
+    maxAttempts: 5,
+    windowMs: 60 * 1000
+  })
+
+  if (!rateLimitResult.success) {
+    const retryAfter = Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000)
+    res.setHeader('Retry-After', retryAfter.toString())
+    return res.status(429).json({
+      error: 'Too many login attempts. Please try again later.',
+      retryAfter
+    })
   }
 
   try {
@@ -22,7 +40,7 @@ export default async function handler (
         .json({ error: 'Username and password are required' })
     }
 
-    console.log('Attempting login for username:', username)
+    logger.log('Attempting login for username:', username)
 
     const { db } = await connectToDatabase()
 
@@ -30,13 +48,13 @@ export default async function handler (
     const user = await db.collection('users').findOne({ username })
 
     if (!user) {
-      console.log('User not found')
+      logger.log('User not found')
       return res.status(401).json({ error: 'Invalid credentials' })
     }
 
     // Verify password
     const passwordMatch = await bcrypt.compare(password, user.passwordHash)
-    console.log('Password match:', passwordMatch)
+    logger.log('Password match:', passwordMatch)
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Invalid credentials' })
@@ -80,7 +98,7 @@ export default async function handler (
       }
     })
   } catch (error) {
-    console.error('Login error:', error)
+    logger.error('Login error:', error)
     return res.status(500).json({ error: 'Internal server error' })
   }
 }

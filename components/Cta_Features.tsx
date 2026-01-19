@@ -1,128 +1,88 @@
 import React from 'react'
 import Image from 'next/image'
 
+const features = [
+  {
+    icon: '/emotion-happy-line.svg',
+    title: 'Full Event Service',
+    description: 'Professional bartending for weddings, corporate events, and private parties throughout Northamptonshire.'
+  },
+  {
+    icon: '/award.svg',
+    title: '15+ Years Experience',
+    description: 'Industry-recognized expertise ensuring exceptional service quality for every event.'
+  },
+  {
+    icon: '/leaf5.svg',
+    title: 'Premium Ingredients',
+    description: 'Locally sourced, fresh ingredients combined with premium spirits for exceptional cocktails.'
+  },
+  {
+    icon: '/cocktail.svg',
+    title: '500+ Cocktails',
+    description: 'Extensive menu from classic prohibition-era recipes to modern mixology innovations.'
+  }
+]
+
 const Cta_Features = () => {
   return (
-    <section
-      className='py-16 bg-gradient-to-b from-white via-pink-50/30 to-white'
-      aria-label='Features and Services'
-    >
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        {/* Header Section */}
-        <div className='mb-12 lg:mb-16 flex justify-center items-center flex-col gap-y-6 lg:gap-y-8'>
-          <h2 className='text-4xl md:text-5xl font-bold text-gray-900 text-center max-w-3xl leading-tight'>
-            Elevate Your Events with{' '}
-            <span className='text-pink-500'>Professional</span> Mobile
-            Bartending <span className='text-pink-500'>Excellence</span>
+    <section className='py-20 bg-white'>
+      <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+        {/* Header */}
+        <div className='max-w-3xl mx-auto text-center mb-16'>
+          <span className='inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-sm font-medium rounded-full mb-4'>
+            Why Choose Us
+          </span>
+          <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
+            Exceptional Service, Every Time
           </h2>
-          <p className='text-xl text-gray-600 text-center max-w-2xl'>
-            From intimate gatherings to grand celebrations, we bring the{' '}
-            <span className='text-pink-500'>art of mixology</span> directly to
-            your venue with our premium mobile bar service in Northampton and
-            surrounding areas.
+          <p className='text-lg text-gray-600'>
+            We bring the art of mixology directly to your venue with our premium mobile bar service.
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8'>
-          <div className='group relative bg-white rounded-xl p-6 transition-all duration-300 hover:shadow-xl border border-pink-100/50 hover:bg-pink-50/30'>
-            <div className='bg-pink-50/50 rounded-xl p-4 mb-6 group-hover:bg-pink-100/50 transition-colors duration-300'>
-              <Image
-                src='/emotion-happy-line.svg'
-                alt='Comprehensive Event Services Icon'
-                width={40}
-                height={40}
-                className='group-hover:scale-110 transition-transform duration-300'
-              />
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'>
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className='group p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-gray-100'
+            >
+              <div className='w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-pink-500 transition-colors'>
+                <Image
+                  src={feature.icon}
+                  alt={feature.title}
+                  width={24}
+                  height={24}
+                  className='group-hover:brightness-0 group-hover:invert transition-all'
+                />
+              </div>
+              <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                {feature.title}
+              </h3>
+              <p className='text-gray-600 text-sm leading-relaxed'>
+                {feature.description}
+              </p>
             </div>
-            <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-              <span className='text-pink-500'>Comprehensive</span> Event
-              Services
-            </h3>
-            <p className='text-gray-600 leading-relaxed'>
-              Professional bartending for weddings, corporate events, private
-              parties, and interactive mixology masterclasses throughout
-              Northamptonshire.
-            </p>
-          </div>
-
-          <div className='group relative bg-white rounded-xl p-6 transition-all duration-300 hover:shadow-xl border border-pink-100/50 hover:bg-pink-50/30'>
-            <div className='bg-pink-50/50 rounded-xl p-4 mb-6 group-hover:bg-pink-100/50 transition-colors duration-300'>
-              <Image
-                src='/award.svg'
-                alt='Award-Winning Excellence Icon'
-                width={40}
-                height={40}
-                className='group-hover:scale-110 transition-transform duration-300'
-              />
-            </div>
-            <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-              <span className='text-pink-500'>Award-Winning</span> Excellence
-            </h3>
-            <p className='text-gray-600 leading-relaxed'>
-              15+ years of industry-recognized expertise, ensuring exceptional
-              service quality for every event we cater.
-            </p>
-          </div>
-
-          <div className='group relative bg-white rounded-xl p-6 transition-all duration-300 hover:shadow-xl border border-pink-100/50 hover:bg-pink-50/30'>
-            <div className='bg-pink-50/50 rounded-xl p-4 mb-6 group-hover:bg-pink-100/50 transition-colors duration-300'>
-              <Image
-                src='/leaf5.svg'
-                alt='Premium Ingredients Icon'
-                width={40}
-                height={40}
-                className='group-hover:scale-110 transition-transform duration-300'
-              />
-            </div>
-            <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-              <span className='text-pink-500'>Premium</span> Ingredients
-            </h3>
-            <p className='text-gray-600 leading-relaxed'>
-              Locally sourced, fresh ingredients combined with premium spirits
-              to create exceptional cocktail experiences.
-            </p>
-          </div>
-
-          <div className='group relative bg-white rounded-xl p-6 transition-all duration-300 hover:shadow-xl border border-pink-100/50 hover:bg-pink-50/30'>
-            <div className='bg-pink-50/50 rounded-xl p-4 mb-6 group-hover:bg-pink-100/50 transition-colors duration-300'>
-              <Image
-                src='/cocktail.svg'
-                alt='Signature Cocktails Icon'
-                width={40}
-                height={40}
-                className='group-hover:scale-110 transition-transform duration-300'
-              />
-            </div>
-            <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-              <span className='text-pink-500'>Signature</span> Cocktails
-            </h3>
-            <p className='text-gray-600 leading-relaxed'>
-              Extensive menu featuring 500+ cocktails, from classic
-              prohibition-era recipes to modern mixology innovations.
-            </p>
-          </div>
+          ))}
         </div>
 
-        {/* CTA Section */}
-        <div className='mt-16 text-center bg-pink-50/30 p-8 rounded-xl'>
+        {/* CTA */}
+        <div className='mt-16 text-center'>
           <a
             href='/gallery'
-            className='inline-flex items-center gap-3 text-lg font-medium text-pink-500 hover:text-pink-600 transition-colors duration-200'
+            className='inline-flex items-center gap-2 text-pink-500 font-medium hover:text-pink-600 transition-colors group'
           >
-            Explore Our Event Gallery
-            <Image
-              src='/idea.svg'
-              alt='View Gallery Arrow'
-              width={24}
-              height={24}
-              className='group-hover:translate-x-1 transition-transform duration-200'
-            />
+            View Our Gallery
+            <svg
+              className='w-4 h-4 transition-transform group-hover:translate-x-1'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+            </svg>
           </a>
-          <p className='mt-3 text-gray-600'>
-            Discover our creative cocktail presentations and previous event
-            successes
-          </p>
         </div>
       </div>
     </section>

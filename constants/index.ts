@@ -1,11 +1,9 @@
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Home' },
-  // { href: '/aboutus', key: 'about_us', label: 'About-Us' },
+  { href: '/services', key: 'services', label: 'Services' },
   { href: '/gallery', key: 'gallery', label: 'Gallery' },
   { href: '/articles', key: 'articles', label: 'Articles' },
-  // { href: '/services', key: 'services', label: 'Services' },
-  // { href: '/pricing', key: 'pricing', label: 'Pricing' },
   { href: '/contact_us', key: 'contact_us', label: 'Contact Us' }
 ]
 
@@ -76,7 +74,7 @@ export const FOOTER_LINKS = [
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
   links: [
-    { label: 'Call us', value: '123-456-7890' },
+    { label: 'Call us', value: '+44 7482 612532' },
     { label: 'Email Us', value: 'contact@mybartenders.co.uk' }
   ]
 }

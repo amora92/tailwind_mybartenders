@@ -1,11 +1,37 @@
 import { connectToDatabase } from '../../lib/mongodb'
+import { logger } from '../../lib/logger'
+import jwt from 'jsonwebtoken'
+
+// Middleware to verify authentication for protected routes
+const verifyAuth = (req) => {
+  const token = req.cookies?.auth
+  if (!token) {
+    return null
+  }
+
+  try {
+    const SECRET_KEY = process.env.JWT_SECRET
+    if (!SECRET_KEY) {
+      return null
+    }
+    return jwt.verify(token, SECRET_KEY)
+  } catch (error) {
+    return null
+  }
+}
 
 export default async (req, res) => {
-  // Handle POST requests (create new article)
+  // Handle POST requests (create new article) - PROTECTED
   if (req.method === 'POST') {
+    // Verify authentication
+    const user = verifyAuth(req)
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+
     try {
       const { db } = await connectToDatabase()
-      console.log('Connected to MongoDB')
+      logger.log('Connected to MongoDB')
 
       const {
         title,
@@ -22,7 +48,7 @@ export default async (req, res) => {
 
       // Validate required fields
       if (!title || !description || !imageUrl || !slug || !publishedAt) {
-        console.error('Missing required fields:', {
+        logger.error('Missing required fields:', {
           title,
           description,
           imageUrl,
@@ -48,30 +74,29 @@ export default async (req, res) => {
         updatedAt: new Date()
       }
 
-      console.log('Attempting to insert article:', article)
+      logger.log('Attempting to insert article:', article)
 
       const result = await db.collection('articles').insertOne(article)
 
-      console.log('Article inserted successfully:', result)
+      logger.log('Article inserted successfully:', result)
 
       return res.status(201).json({
         ...article,
         _id: result.insertedId
       })
     } catch (error) {
-      console.error('Error creating article:', error)
+      logger.error('Error creating article:', error)
       return res.status(500).json({
-        error: 'Failed to create article',
-        details: error.message
+        error: 'Failed to create article'
       })
     }
   }
 
-  // Handle GET requests (fetch all articles)
+  // Handle GET requests (fetch all articles) - PUBLIC
   if (req.method === 'GET') {
     try {
       const { db } = await connectToDatabase()
-      console.log('Connected to MongoDB')
+      logger.log('Connected to MongoDB')
 
       // Find all articles and sort by publishedAt in descending order
       const articles = await db
@@ -94,12 +119,31 @@ export default async (req, res) => {
       // Return empty array if no articles found
       return res.status(200).json(formattedArticles || [])
     } catch (error) {
-      console.error('Error fetching articles:', error)
+      logger.error('Error fetching articles:', error)
       return res.status(500).json({
-        error: 'Internal server error',
-        message: error.message
+        error: 'Internal server error'
       })
     }
+  }
+
+  // Handle PUT requests (update article) - PROTECTED
+  if (req.method === 'PUT') {
+    const user = verifyAuth(req)
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+    // PUT logic would go here
+    return res.status(405).json({ error: 'Method Not Implemented' })
+  }
+
+  // Handle DELETE requests - PROTECTED
+  if (req.method === 'DELETE') {
+    const user = verifyAuth(req)
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+    // DELETE logic would go here
+    return res.status(405).json({ error: 'Method Not Implemented' })
   }
 
   // Handle unsupported HTTP methods

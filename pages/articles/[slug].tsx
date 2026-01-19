@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import Image from 'next/image'
+import { sanitizeHtml, sanitizeCss } from '@/lib/sanitize'
 
 interface Article {
   title: string
@@ -180,11 +182,62 @@ const ArticlePage = () => {
     )
   }
 
+  const canonicalUrl = `https://mybartenders.co.uk/articles/${slug}`
+
+  // JSON-LD structured data for article
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    image: article.imageUrl,
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: article.author?.name || 'MyBartenders'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'MyBartenders',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://mybartenders.co.uk/mybartenders.co.uk_logo_svg.svg'
+      }
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl
+    }
+  }
+
   return (
     <>
       <Head>
-        <title>{article.title} | YourSiteName</title>
+        <title>{article.title} | MyBartenders</title>
         <meta name='description' content={article.description} />
+        <link rel='canonical' href={canonicalUrl} />
+
+        {/* OpenGraph Meta Tags */}
+        <meta property='og:type' content='article' />
+        <meta property='og:title' content={article.title} />
+        <meta property='og:description' content={article.description} />
+        <meta property='og:image' content={article.imageUrl} />
+        <meta property='og:url' content={canonicalUrl} />
+        <meta property='og:site_name' content='MyBartenders' />
+        <meta property='article:published_time' content={article.publishedAt} />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content={article.title} />
+        <meta name='twitter:description' content={article.description} />
+        <meta name='twitter:image' content={article.imageUrl} />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </Head>
 
       <div className='min-h-screen bg-gray-50'>
@@ -206,10 +259,12 @@ const ArticlePage = () => {
             </h1>
             <div className='flex items-center justify-between border-b border-gray-200 pb-6'>
               <div className='flex items-center space-x-3'>
-                <img
+                <Image
                   src={article.author?.avatar || '/default-avatar.png'}
                   alt={article.author?.name || 'Author'}
-                  className='w-10 h-10 rounded-full'
+                  width={40}
+                  height={40}
+                  className='rounded-full'
                 />
                 <div>
                   <p className='font-medium text-gray-900'>
@@ -291,29 +346,38 @@ const ArticlePage = () => {
 
           {/* Article Image */}
           {article.imageUrl && (
-            <img
-              src={article.imageUrl}
-              alt={article.title}
-              className='rounded-lg w-full object-cover mb-12 max-h-[450px] mx-auto'
-            />
+            <div className='relative w-full h-[450px] mb-12'>
+              <Image
+                src={article.imageUrl}
+                alt={article.title}
+                fill
+                className='rounded-lg object-cover'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
+                priority
+              />
+            </div>
           )}
 
           {/* Article Content */}
           <div className='prose prose-lg max-w-none mb-12 text-gray-700'>
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }} />
           </div>
 
           {/* Secondary Image and Content */}
           {article.secondaryImageUrl && article.secondaryContent && (
             <section className='mb-12'>
-              <img
-                src={article.secondaryImageUrl}
-                alt={`${article.title} secondary`}
-                className='rounded-lg w-full object-cover mb-6 max-h-[450px] mx-auto'
-              />
+              <div className='relative w-full h-[450px] mb-6'>
+                <Image
+                  src={article.secondaryImageUrl}
+                  alt={`${article.title} secondary`}
+                  fill
+                  className='rounded-lg object-cover'
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
+                />
+              </div>
               <div
                 className='prose prose-lg max-w-none text-gray-700'
-                dangerouslySetInnerHTML={{ __html: article.secondaryContent }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.secondaryContent) }}
               />
             </section>
           )}
@@ -326,18 +390,22 @@ const ArticlePage = () => {
                   <section
                     key={section.id}
                     className='prose prose-lg max-w-none mb-12 text-gray-700'
-                    dangerouslySetInnerHTML={{ __html: section.content }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(section.content) }}
                   />
                 )
               }
               if (section.type === 'image') {
                 return (
                   <section key={section.id} className='mb-12'>
-                    <img
-                      src={section.content}
-                      alt={`${article.title} section image`}
-                      className='rounded-lg w-full object-cover max-h-[450px] mx-auto'
-                    />
+                    <div className='relative w-full h-[450px]'>
+                      <Image
+                        src={section.content}
+                        alt={`${article.title} section image`}
+                        fill
+                        className='rounded-lg object-cover'
+                        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
+                      />
+                    </div>
                   </section>
                 )
               }
@@ -383,11 +451,11 @@ const ArticlePage = () => {
 
         <Footer />
 
-        {/* Custom CSS */}
+        {/* Custom CSS - sanitized to prevent style injection */}
         {customCss && (
           <style
             dangerouslySetInnerHTML={{
-              __html: customCss
+              __html: sanitizeCss(customCss)
             }}
           />
         )}

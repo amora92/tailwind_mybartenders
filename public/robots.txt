@@ -1,8 +1,6 @@
+# *
 User-agent: *
 Allow: /
-
-# Disallow the unwanted /blog/cc2 URL
-Disallow: /blog/cc2
 
 # Host
 Host: https://mybartenders.co.uk
