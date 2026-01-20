@@ -23,7 +23,33 @@ interface FormData {
   finishTime: string
   budget: string
   requirements: string
+  eventType: string
 }
+
+const GUEST_PRESETS = [
+  { value: '20-50', label: '20-50' },
+  { value: '50-100', label: '50-100' },
+  { value: '100-150', label: '100-150' },
+  { value: '150-200', label: '150-200' },
+  { value: '200+', label: '200+' },
+]
+
+const BUDGET_PRESETS = [
+  { value: '£300-500', label: '£300-500' },
+  { value: '£500-1000', label: '£500-1,000' },
+  { value: '£1000-2000', label: '£1,000-2,000' },
+  { value: '£2000+', label: '£2,000+' },
+  { value: 'Flexible', label: 'Flexible' },
+]
+
+const EVENT_TYPES = [
+  { value: 'Wedding', label: 'Wedding', icon: '💒' },
+  { value: 'Corporate', label: 'Corporate', icon: '🏢' },
+  { value: 'Birthday', label: 'Birthday', icon: '🎂' },
+  { value: 'Engagement', label: 'Engagement', icon: '💍' },
+  { value: 'Anniversary', label: 'Anniversary', icon: '🥂' },
+  { value: 'Other', label: 'Other', icon: '🎉' },
+]
 
 const ContactUs: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<string>('')
@@ -41,7 +67,8 @@ const ContactUs: React.FC = () => {
     startTime: '',
     finishTime: '',
     budget: '',
-    requirements: ''
+    requirements: '',
+    eventType: ''
   })
 
   const handleChange = (
@@ -68,7 +95,8 @@ const ContactUs: React.FC = () => {
       startTime,
       finishTime,
       budget,
-      requirements
+      requirements,
+      eventType
     } = formData
 
     const eventDetails = {
@@ -78,7 +106,8 @@ const ContactUs: React.FC = () => {
       startTime,
       finishTime,
       budget,
-      requirements
+      requirements,
+      eventType
     }
 
     try {
@@ -115,7 +144,8 @@ const ContactUs: React.FC = () => {
           startTime: '',
           finishTime: '',
           budget: '',
-          requirements: ''
+          requirements: '',
+          eventType: ''
         })
       } else {
         setStatusMessage(
@@ -288,6 +318,37 @@ const ContactUs: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Event Type Selection */}
+                  <div>
+                    <h3 className='text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2'>
+                      <span className='w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center'>
+                        <svg className='w-4 h-4 text-pink-500' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z' />
+                        </svg>
+                      </span>
+                      What type of event?
+                    </h3>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-3'>
+                      {EVENT_TYPES.map(type => (
+                        <button
+                          key={type.value}
+                          type='button'
+                          onClick={() => setFormData(prev => ({ ...prev, eventType: type.value }))}
+                          className={`p-4 rounded-xl border-2 transition-all text-left ${
+                            formData.eventType === type.value
+                              ? 'border-pink-500 bg-pink-50 ring-2 ring-pink-500/20'
+                              : 'border-gray-200 hover:border-pink-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          <span className='text-2xl mb-2 block'>{type.icon}</span>
+                          <span className={`font-medium ${formData.eventType === type.value ? 'text-pink-700' : 'text-gray-700'}`}>
+                            {type.label}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Event Details */}
                   <div>
                     <h3 className='text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2'>
@@ -298,94 +359,113 @@ const ContactUs: React.FC = () => {
                       </span>
                       Event Details
                     </h3>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div className='space-y-5'>
+                      {/* Guest Count Presets */}
                       <div>
-                        <label htmlFor='attendees' className='block text-sm font-medium text-gray-700 mb-1'>
+                        <label className='block text-sm font-medium text-gray-700 mb-2'>
                           Number of Guests *
                         </label>
-                        <input
-                          type='number'
-                          id='attendees'
-                          name='attendees'
-                          placeholder='50'
-                          value={formData.attendees}
-                          onChange={handleChange}
-                          className={inputClasses}
-                          required
-                        />
+                        <div className='flex flex-wrap gap-2'>
+                          {GUEST_PRESETS.map(preset => (
+                            <button
+                              key={preset.value}
+                              type='button'
+                              onClick={() => setFormData(prev => ({ ...prev, attendees: preset.value }))}
+                              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                                formData.attendees === preset.value
+                                  ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
+                                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                              }`}
+                            >
+                              {preset.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                      <div>
-                        <label htmlFor='eventDate' className='block text-sm font-medium text-gray-700 mb-1'>
-                          Event Date *
-                        </label>
-                        <input
-                          type='date'
-                          id='eventDate'
-                          name='eventDate'
-                          value={formData.eventDate}
-                          onChange={handleChange}
-                          className={inputClasses}
-                          required
-                        />
+
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                        <div>
+                          <label htmlFor='eventDate' className='block text-sm font-medium text-gray-700 mb-1'>
+                            Event Date *
+                          </label>
+                          <input
+                            type='date'
+                            id='eventDate'
+                            name='eventDate'
+                            value={formData.eventDate}
+                            onChange={handleChange}
+                            className={inputClasses}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor='location' className='block text-sm font-medium text-gray-700 mb-1'>
+                            Location *
+                          </label>
+                          <input
+                            type='text'
+                            id='location'
+                            name='location'
+                            placeholder='Northampton, UK'
+                            value={formData.location}
+                            onChange={handleChange}
+                            className={inputClasses}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor='startTime' className='block text-sm font-medium text-gray-700 mb-1'>
+                            Start Time *
+                          </label>
+                          <input
+                            type='time'
+                            id='startTime'
+                            name='startTime'
+                            value={formData.startTime}
+                            onChange={handleChange}
+                            className={inputClasses}
+                            required
+                            step='1800'
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor='finishTime' className='block text-sm font-medium text-gray-700 mb-1'>
+                            Finish Time *
+                          </label>
+                          <input
+                            type='time'
+                            id='finishTime'
+                            name='finishTime'
+                            value={formData.finishTime}
+                            onChange={handleChange}
+                            className={inputClasses}
+                            required
+                            step='1800'
+                          />
+                        </div>
                       </div>
+
+                      {/* Budget Presets */}
                       <div>
-                        <label htmlFor='location' className='block text-sm font-medium text-gray-700 mb-1'>
-                          Location *
+                        <label className='block text-sm font-medium text-gray-700 mb-2'>
+                          Budget Range
                         </label>
-                        <input
-                          type='text'
-                          id='location'
-                          name='location'
-                          placeholder='Northampton, UK'
-                          value={formData.location}
-                          onChange={handleChange}
-                          className={inputClasses}
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor='budget' className='block text-sm font-medium text-gray-700 mb-1'>
-                          Budget (Optional)
-                        </label>
-                        <input
-                          type='text'
-                          id='budget'
-                          name='budget'
-                          placeholder='e.g., £500-£1000'
-                          value={formData.budget}
-                          onChange={handleChange}
-                          className={inputClasses}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor='startTime' className='block text-sm font-medium text-gray-700 mb-1'>
-                          Start Time *
-                        </label>
-                        <input
-                          type='time'
-                          id='startTime'
-                          name='startTime'
-                          value={formData.startTime}
-                          onChange={handleChange}
-                          className={inputClasses}
-                          required
-                          step='1800'
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor='finishTime' className='block text-sm font-medium text-gray-700 mb-1'>
-                          Finish Time *
-                        </label>
-                        <input
-                          type='time'
-                          id='finishTime'
-                          name='finishTime'
-                          value={formData.finishTime}
-                          onChange={handleChange}
-                          className={inputClasses}
-                          required
-                          step='1800'
-                        />
+                        <div className='flex flex-wrap gap-2'>
+                          {BUDGET_PRESETS.map(preset => (
+                            <button
+                              key={preset.value}
+                              type='button'
+                              onClick={() => setFormData(prev => ({ ...prev, budget: preset.value }))}
+                              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                                formData.budget === preset.value
+                                  ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
+                                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                              }`}
+                            >
+                              {preset.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

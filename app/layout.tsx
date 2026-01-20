@@ -3,7 +3,12 @@
 import { inter } from './fonts'
 import './globals.css'
 import { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import GoogleAnalytics from './GoogleAnalytics'
+
+const CookieConsent = dynamic(() => import('@/components/CookieConsent'), {
+  ssr: false
+})
 
 export const metadata: Metadata = {
   title: 'Luxury Mobile Bar Hire Northampton | Weddings & Events | MyBartenders',
@@ -112,6 +117,7 @@ export default function RootLayout ({
       <body suppressHydrationWarning className={inter.className}>
         {children}
         <GoogleAnalytics />
+        <CookieConsent />
       </body>
     </html>
   )

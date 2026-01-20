@@ -12,7 +12,7 @@ export const CONTACT_INFO = {
 
   // BCC email for contact form submissions (receives a copy of all inquiries)
   // Set to empty string '' to disable BCC
-  bccEmail: '',
+  bccEmail: 'albert.moravski@gmail.com',
 
   // Location
   location: 'Northampton, UK',

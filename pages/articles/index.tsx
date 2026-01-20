@@ -47,11 +47,33 @@ const formatDate = (dateString: string) => {
   })
 }
 
+const CATEGORIES = [
+  { value: 'all', label: 'All Categories' },
+  { value: 'Wedding', label: 'Wedding' },
+  { value: 'Educational', label: 'Educational' },
+  { value: 'Entertainment', label: 'Entertainment' },
+  { value: 'News', label: 'News' },
+  { value: 'Cocktails', label: 'Cocktails' },
+  { value: 'Events', label: 'Events' },
+]
+
+const SORT_OPTIONS = [
+  { value: 'date-desc', label: 'Newest First' },
+  { value: 'date-asc', label: 'Oldest First' },
+  { value: 'views-desc', label: 'Most Popular' },
+  { value: 'views-asc', label: 'Least Popular' },
+]
+
+interface ArticleWithViews extends Article {
+  views?: number
+}
+
 const Articles = () => {
-  const [articles, setArticles] = useState<Article[]>([])
+  const [articles, setArticles] = useState<ArticleWithViews[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [sortBy, setSortBy] = useState('date-desc')
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -70,8 +92,6 @@ const Articles = () => {
     fetchArticles()
   }, [])
 
-  const categories = ['all', ...new Set(articles.map(a => a.category).filter(Boolean))]
-
   const filteredArticles = articles
     .filter(article => {
       const matchesSearch =
@@ -80,7 +100,19 @@ const Articles = () => {
       const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory
       return matchesSearch && matchesCategory
     })
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'date-asc':
+          return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+        case 'views-desc':
+          return (b.views || 0) - (a.views || 0)
+        case 'views-asc':
+          return (a.views || 0) - (b.views || 0)
+        case 'date-desc':
+        default:
+          return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      }
+    })
 
   const featuredArticle = filteredArticles[0]
   const regularArticles = filteredArticles.slice(1)
@@ -136,9 +168,9 @@ const Articles = () => {
         {/* Search & Filter Section */}
         <section className='relative py-8 bg-gray-900 border-b border-white/10'>
           <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='flex flex-col md:flex-row gap-4 items-center justify-between'>
+            <div className='flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between'>
               {/* Search */}
-              <div className='relative w-full md:w-96'>
+              <div className='relative w-full lg:w-96'>
                 <svg className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
                 </svg>
@@ -151,21 +183,43 @@ const Articles = () => {
                 />
               </div>
 
-              {/* Category Filter */}
-              <div className='flex flex-wrap gap-2'>
-                {categories.map(category => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      selectedCategory === category
-                        ? 'bg-pink-500 text-white'
-                        : 'bg-white/5 text-gray-300 hover:bg-white/10'
-                    }`}
+              {/* Filters */}
+              <div className='flex flex-col sm:flex-row gap-3'>
+                {/* Category Dropdown */}
+                <div className='relative'>
+                  <select
+                    value={selectedCategory}
+                    onChange={e => setSelectedCategory(e.target.value)}
+                    className='appearance-none w-full sm:w-48 px-4 py-3 pr-10 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all cursor-pointer'
                   >
-                    {category === 'all' ? 'All' : category}
-                  </button>
-                ))}
+                    {CATEGORIES.map(cat => (
+                      <option key={cat.value} value={cat.value} className='bg-gray-900 text-white'>
+                        {cat.label}
+                      </option>
+                    ))}
+                  </select>
+                  <svg className='absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                  </svg>
+                </div>
+
+                {/* Sort Dropdown */}
+                <div className='relative'>
+                  <select
+                    value={sortBy}
+                    onChange={e => setSortBy(e.target.value)}
+                    className='appearance-none w-full sm:w-44 px-4 py-3 pr-10 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all cursor-pointer'
+                  >
+                    {SORT_OPTIONS.map(opt => (
+                      <option key={opt.value} value={opt.value} className='bg-gray-900 text-white'>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                  <svg className='absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>

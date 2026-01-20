@@ -61,14 +61,18 @@ export default function Home () {
           content='Explore premier mobile bar hire services in Northampton. Hire professional bartenders for weddings, parties, and events. Get bespoke cocktail bartending, mobile bars, and mixologist services tailored to your needs.'
         />
       </Head>
-      <VideoSection />
-      <ServicesSection />
-      <AboutSection />
-      <GalleryPreview />
-      <TestimonialsSection />
-      <HowItWorksSection />
-      <FreqQ />
-      <FinalCtaSection />
+      <Navbar />
+      <main className='relative overflow-hidden'>
+        <VideoSection />
+        <ServicesSection />
+        <AboutSection />
+        <GalleryPreview />
+        <TestimonialsSection />
+        <HowItWorksSection />
+        <FreqQ />
+        <FinalCtaSection />
+      </main>
+      <Footer />
     </>
   )
 }
