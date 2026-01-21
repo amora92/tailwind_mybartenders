@@ -16,8 +16,9 @@ console.log('Zoho fallback env check:', {
 // Zoho SMTP configuration
 const zohoTransporter = nodemailer.createTransport({
   host: process.env.ZOHO_SMTP_HOST || 'smtp.zoho.eu',
-  port: parseInt(process.env.ZOHO_SMTP_PORT || '465', 10),
-  secure: true,
+  port: parseInt(process.env.ZOHO_SMTP_PORT || '587', 10),
+  secure: false, // important for 587
+  requireTLS: true, // enforce TLS
   auth: {
     user: process.env.ZOHO_SMTP_USER,
     pass: process.env.ZOHO_SMTP_PASSWORD
