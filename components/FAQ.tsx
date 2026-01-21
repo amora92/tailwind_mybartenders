@@ -143,7 +143,9 @@ const FAQ = () => {
                 {/* Question Button */}
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className='flex w-full items-center justify-between gap-4 p-6 text-left'
+                  className='flex w-full items-center justify-between gap-4 p-6 text-left focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-inset rounded-2xl'
+                  aria-expanded={openIndex === index}
+                  aria-controls={`faq-answer-${index}`}
                 >
                   <div className='flex items-center gap-4'>
                     <div className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
@@ -185,6 +187,7 @@ const FAQ = () => {
                 <AnimatePresence>
                   {openIndex === index && (
                     <motion.div
+                      id={`faq-answer-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -192,7 +195,7 @@ const FAQ = () => {
                       className='overflow-hidden'
                     >
                       <div className='px-6 pb-6 pl-20'>
-                        <p className='text-gray-400 leading-relaxed'>
+                        <p className='text-gray-300 leading-relaxed'>
                           {faq.answer}
                         </p>
                       </div>

@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -26,7 +25,7 @@ const GalleryPreview = dynamic(
     loading: () => (
       <div className='w-full h-96 bg-gray-950 animate-pulse' />
     ),
-    ssr: true
+    ssr: false
   }
 )
 
@@ -36,7 +35,7 @@ const TestimonialsSection = dynamic(
     loading: () => (
       <div className='w-full h-96 bg-white animate-pulse' />
     ),
-    ssr: true
+    ssr: false
   }
 )
 
@@ -46,21 +45,13 @@ const FinalCtaSection = dynamic(
     loading: () => (
       <div className='w-full h-96 bg-gray-900 animate-pulse' />
     ),
-    ssr: true
+    ssr: false
   }
 )
 
 export default function Home () {
   return (
     <>
-      <Head>
-        <link rel='canonical' href='https://www.mybartenders.co.uk/' />
-        <title>Mobile Bar Hire Northampton</title>
-        <meta
-          name='description'
-          content='Explore premier mobile bar hire services in Northampton. Hire professional bartenders for weddings, parties, and events. Get bespoke cocktail bartending, mobile bars, and mixologist services tailored to your needs.'
-        />
-      </Head>
       <Navbar />
       <main className='relative overflow-hidden'>
         <VideoSection />

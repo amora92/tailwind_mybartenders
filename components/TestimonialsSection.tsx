@@ -77,7 +77,7 @@ const TestimonialsSection = () => {
               Happy Clients
             </span>
           </h2>
-          <p className='text-xl text-gray-600'>
+          <p className='text-xl text-gray-700'>
             Don't just take our word for it. Here's what our clients have to say about their experience.
           </p>
         </motion.div>
@@ -131,7 +131,7 @@ const TestimonialsSection = () => {
             <div className='flex items-center gap-4 mt-12'>
               <button
                 onClick={prevTestimonial}
-                className='w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-pink-500 hover:text-pink-500 transition-colors'
+                className='w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-700 hover:border-pink-500 hover:text-pink-500 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2'
                 aria-label='Previous testimonial'
               >
                 <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -140,7 +140,7 @@ const TestimonialsSection = () => {
               </button>
               <button
                 onClick={nextTestimonial}
-                className='w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-pink-500 hover:text-pink-500 transition-colors'
+                className='w-12 h-12 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-700 hover:border-pink-500 hover:text-pink-500 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2'
                 aria-label='Next testimonial'
               >
                 <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -152,10 +152,11 @@ const TestimonialsSection = () => {
                   <button
                     key={index}
                     onClick={() => setActiveIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === activeIndex ? 'w-8 bg-pink-500' : 'bg-gray-300 hover:bg-gray-400'
+                    className={`h-3 min-w-[12px] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
+                      index === activeIndex ? 'w-8 bg-pink-500' : 'w-3 bg-gray-300 hover:bg-gray-400'
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
+                    aria-current={index === activeIndex ? 'true' : undefined}
                   />
                 ))}
               </div>

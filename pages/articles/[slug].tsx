@@ -431,13 +431,13 @@ const ArticlePage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className='relative w-full h-[350px] md:h-[450px] lg:h-[500px] mb-12 -mt-24 rounded-2xl overflow-hidden shadow-2xl'
+                    className='relative w-full aspect-[16/9] mb-12 rounded-2xl overflow-hidden shadow-2xl bg-gray-100'
                   >
                     <Image
                       src={article.imageUrl}
                       alt={article.title}
                       fill
-                      className='object-cover'
+                      className='object-contain'
                       sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
                       priority
                     />
@@ -466,12 +466,12 @@ const ArticlePage = () => {
                     transition={{ duration: 0.6 }}
                     className='mb-12'
                   >
-                    <div className='relative w-full h-[350px] md:h-[450px] mb-8 rounded-2xl overflow-hidden shadow-lg'>
+                    <div className='relative w-full aspect-[16/9] mb-8 rounded-2xl overflow-hidden shadow-lg bg-gray-100'>
                       <Image
                         src={article.secondaryImageUrl}
                         alt={`${article.title} secondary`}
                         fill
-                        className='object-cover'
+                        className='object-contain'
                         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
                       />
                     </div>
@@ -514,12 +514,12 @@ const ArticlePage = () => {
                           transition={{ duration: 0.5, delay: index * 0.1 }}
                           className='mb-12'
                         >
-                          <div className='relative w-full h-[350px] md:h-[450px] rounded-2xl overflow-hidden shadow-lg'>
+                          <div className='relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg bg-gray-100'>
                             <Image
                               src={section.content}
                               alt={`${article.title} section image`}
                               fill
-                              className='object-cover'
+                              className='object-contain'
                               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
                             />
                           </div>

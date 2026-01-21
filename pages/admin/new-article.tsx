@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { withAuth } from '@/components/withAuth'
@@ -14,6 +14,7 @@ interface ContentSection {
   id: string
   type: 'text' | 'image' | 'video'
   content: string
+  caption?: string
 }
 
 const CATEGORY_OPTIONS = [
@@ -49,12 +50,86 @@ const NewArticlePage = () => {
   const [slug, setSlug] = useState('')
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false)
   const [publishedAt, setPublishedAt] = useState('')
+  const [tags, setTags] = useState<string[]>([])
+  const [tagInput, setTagInput] = useState('')
   const [contentSections, setContentSections] = useState<ContentSection[]>([
     { id: '1', type: 'text', content: '' }
   ])
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadingSection, setUploadingSection] = useState<string | null>(null)
+  const featuredImageInputRef = useRef<HTMLInputElement>(null)
+
+  // Upload image file
+  const uploadImage = async (file: File): Promise<string | null> => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      })
+
+      if (!res.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const data = await res.json()
+      return data.url
+    } catch (err) {
+      console.error('Upload error:', err)
+      setError('Failed to upload image. Please try again.')
+      return null
+    }
+  }
+
+  // Handle featured image upload
+  const handleFeaturedImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    const url = await uploadImage(file)
+    if (url) {
+      setImageUrl(url)
+    }
+    setUploading(false)
+  }
+
+  // Handle content section image upload
+  const handleSectionImageUpload = async (sectionId: string, file: File) => {
+    setUploadingSection(sectionId)
+    const url = await uploadImage(file)
+    if (url) {
+      updateSection(sectionId, url)
+    }
+    setUploadingSection(null)
+  }
+
+  // Add tag
+  const addTag = () => {
+    const trimmedTag = tagInput.trim().toLowerCase()
+    if (trimmedTag && !tags.includes(trimmedTag)) {
+      setTags([...tags, trimmedTag])
+      setTagInput('')
+    }
+  }
+
+  // Remove tag
+  const removeTag = (tagToRemove: string) => {
+    setTags(tags.filter(tag => tag !== tagToRemove))
+  }
+
+  // Handle tag input key press
+  const handleTagKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault()
+      addTag()
+    }
+  }
 
   // Auto-generate slug from title
   useEffect(() => {
@@ -127,6 +202,7 @@ const NewArticlePage = () => {
         publishedAt: new Date(publishedAt).toISOString(),
         category: category || 'General',
         contentSections,
+        tags,
         author: {
           name: 'MyBartenders',
           avatar: '/admin-avatar.svg'
@@ -339,11 +415,45 @@ const NewArticlePage = () => {
                         </div>
                       ) : section.type === 'image' ? (
                         <div className='space-y-3'>
+                          {/* File Upload for content images */}
+                          <div className='flex gap-2'>
+                            <input
+                              type='file'
+                              accept='image/*'
+                              onChange={e => {
+                                const file = e.target.files?.[0]
+                                if (file) handleSectionImageUpload(section.id, file)
+                              }}
+                              className='hidden'
+                              id={`file-upload-${section.id}`}
+                            />
+                            <label
+                              htmlFor={`file-upload-${section.id}`}
+                              className='flex-1 py-2 px-4 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-sm font-medium rounded-lg hover:bg-blue-500/30 transition-colors flex items-center justify-center gap-2 cursor-pointer'
+                            >
+                              {uploadingSection === section.id ? (
+                                <>
+                                  <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
+                                    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+                                    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z' />
+                                  </svg>
+                                  Uploading...
+                                </>
+                              ) : (
+                                <>
+                                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12' />
+                                  </svg>
+                                  Upload
+                                </>
+                              )}
+                            </label>
+                          </div>
                           <input
                             type='text'
                             value={section.content}
                             onChange={e => updateSection(section.id, e.target.value)}
-                            placeholder='Enter image URL'
+                            placeholder='Or enter image URL'
                             className='w-full px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
                           />
                           {section.content && (
@@ -353,6 +463,15 @@ const NewArticlePage = () => {
                                 alt='Preview'
                                 className='w-full h-full object-contain'
                               />
+                              <button
+                                type='button'
+                                onClick={() => updateSection(section.id, '')}
+                                className='absolute top-2 right-2 p-1.5 bg-red-500/80 text-white rounded-full hover:bg-red-600 transition-colors'
+                              >
+                                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                                </svg>
+                              </button>
                             </div>
                           )}
                         </div>
@@ -450,13 +569,54 @@ const NewArticlePage = () => {
                 <h2 className='text-lg font-semibold text-white mb-6'>Featured Image</h2>
 
                 <div className='space-y-4'>
+                  {/* File Upload */}
+                  <input
+                    ref={featuredImageInputRef}
+                    type='file'
+                    accept='image/*'
+                    onChange={handleFeaturedImageUpload}
+                    className='hidden'
+                  />
+                  <button
+                    type='button'
+                    onClick={() => featuredImageInputRef.current?.click()}
+                    disabled={uploading}
+                    className='w-full py-3 px-4 bg-blue-500/20 border border-blue-500/30 text-blue-400 font-medium rounded-xl hover:bg-blue-500/30 transition-colors flex items-center justify-center gap-2 disabled:opacity-50'
+                  >
+                    {uploading ? (
+                      <>
+                        <svg className='w-5 h-5 animate-spin' fill='none' viewBox='0 0 24 24'>
+                          <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+                          <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z' />
+                        </svg>
+                        Uploading...
+                      </>
+                    ) : (
+                      <>
+                        <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12' />
+                        </svg>
+                        Upload Image
+                      </>
+                    )}
+                  </button>
+
+                  {/* Or enter URL */}
+                  <div className='relative'>
+                    <div className='absolute inset-0 flex items-center'>
+                      <div className='w-full border-t border-white/10' />
+                    </div>
+                    <div className='relative flex justify-center'>
+                      <span className='px-3 bg-gray-900 text-gray-500 text-sm'>or enter URL</span>
+                    </div>
+                  </div>
+
                   <input
                     type='text'
                     value={imageUrl}
                     onChange={e => setImageUrl(e.target.value)}
                     className='w-full px-4 py-3 bg-gray-800 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
                     placeholder='Enter image URL'
-                    required
                   />
 
                   {imageUrl ? (
@@ -464,8 +624,17 @@ const NewArticlePage = () => {
                       <img
                         src={imageUrl}
                         alt='Featured preview'
-                        className='w-full h-full object-cover'
+                        className='w-full h-full object-contain'
                       />
+                      <button
+                        type='button'
+                        onClick={() => setImageUrl('')}
+                        className='absolute top-2 right-2 p-1.5 bg-red-500/80 text-white rounded-full hover:bg-red-600 transition-colors'
+                      >
+                        <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                        </svg>
+                      </button>
                     </div>
                   ) : (
                     <div className='h-48 rounded-xl bg-gray-800 border-2 border-dashed border-white/10 flex items-center justify-center'>
@@ -477,6 +646,70 @@ const NewArticlePage = () => {
                       </div>
                     </div>
                   )}
+                </div>
+              </div>
+
+              {/* Tags Card */}
+              <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
+                <h2 className='text-lg font-semibold text-white mb-6'>Tags</h2>
+
+                <div className='space-y-4'>
+                  <div className='flex gap-2'>
+                    <input
+                      type='text'
+                      value={tagInput}
+                      onChange={e => setTagInput(e.target.value)}
+                      onKeyDown={handleTagKeyPress}
+                      className='flex-1 px-4 py-2 bg-gray-800 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
+                      placeholder='Add tag and press Enter'
+                    />
+                    <button
+                      type='button'
+                      onClick={addTag}
+                      className='px-4 py-2 bg-pink-500/20 text-pink-400 rounded-xl hover:bg-pink-500/30 transition-colors'
+                    >
+                      Add
+                    </button>
+                  </div>
+
+                  {tags.length > 0 && (
+                    <div className='flex flex-wrap gap-2'>
+                      {tags.map(tag => (
+                        <span
+                          key={tag}
+                          className='inline-flex items-center gap-1 px-3 py-1 bg-white/5 border border-white/10 text-gray-300 text-sm rounded-full'
+                        >
+                          #{tag}
+                          <button
+                            type='button'
+                            onClick={() => removeTag(tag)}
+                            className='text-gray-500 hover:text-red-400 transition-colors'
+                          >
+                            <svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                            </svg>
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* SEO Preview Card */}
+              <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
+                <h2 className='text-lg font-semibold text-white mb-6'>SEO Preview</h2>
+
+                <div className='space-y-3 p-4 bg-white rounded-xl'>
+                  <p className='text-blue-600 text-sm truncate'>
+                    mybartenders.co.uk/articles/{slug || 'your-article-slug'}
+                  </p>
+                  <h3 className='text-blue-800 text-lg font-medium line-clamp-2'>
+                    {title || 'Article Title'} | MyBartenders
+                  </h3>
+                  <p className='text-gray-600 text-sm line-clamp-2'>
+                    {description || 'Article description will appear here...'}
+                  </p>
                 </div>
               </div>
             </div>

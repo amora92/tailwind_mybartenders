@@ -175,7 +175,7 @@ const ServicesSection = () => {
                 <div className='flex flex-col sm:flex-row gap-4 pt-4'>
                   <a
                     href='/contact_us'
-                    className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r ${service.color} text-white font-semibold rounded-full hover:opacity-90 transition-opacity shadow-lg`}
+                    className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r ${service.color} text-white font-semibold rounded-full hover:opacity-90 transition-opacity shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950`}
                   >
                     Book This Service
                     <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -184,9 +184,9 @@ const ServicesSection = () => {
                   </a>
                   <a
                     href='/services'
-                    className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 text-white font-semibold rounded-full border border-white/10 hover:bg-white/10 transition-colors'
+                    className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 text-white font-semibold rounded-full border border-white/10 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950'
                   >
-                    Learn More
+                    View All Services
                   </a>
                 </div>
               </div>

@@ -120,10 +120,10 @@ const Footer = () => {
 
             {/* Services Column */}
             <div>
-              <h4 className='text-white font-semibold mb-6 flex items-center gap-2'>
+              <h3 className='text-white font-semibold mb-6 flex items-center gap-2 text-base'>
                 <span className='w-8 h-px bg-gradient-to-r from-pink-500 to-transparent' />
                 Services
-              </h4>
+              </h3>
               <ul className='space-y-3'>
                 {footerLinks.services.map(link => (
                   <li key={link.label}>
@@ -141,10 +141,10 @@ const Footer = () => {
 
             {/* Company Column */}
             <div>
-              <h4 className='text-white font-semibold mb-6 flex items-center gap-2'>
+              <h3 className='text-white font-semibold mb-6 flex items-center gap-2 text-base'>
                 <span className='w-8 h-px bg-gradient-to-r from-pink-500 to-transparent' />
                 Company
-              </h4>
+              </h3>
               <ul className='space-y-3'>
                 {footerLinks.company.map(link => (
                   <li key={link.label}>
@@ -162,10 +162,10 @@ const Footer = () => {
 
             {/* Contact Column */}
             <div>
-              <h4 className='text-white font-semibold mb-6 flex items-center gap-2'>
+              <h3 className='text-white font-semibold mb-6 flex items-center gap-2 text-base'>
                 <span className='w-8 h-px bg-gradient-to-r from-pink-500 to-transparent' />
                 Get in Touch
-              </h4>
+              </h3>
               <div className='space-y-4'>
                 <a
                   href={CONTACT_INFO.phoneHref}
@@ -241,7 +241,7 @@ const Footer = () => {
           <div className='container mx-auto px-4 sm:px-6 lg:px-8 py-6'>
             <div className='flex flex-col md:flex-row items-center justify-between gap-4'>
               {/* Copyright */}
-              <p className='text-gray-500 text-sm'>
+              <p className='text-gray-400 text-sm'>
                 © {currentYear} MyBartenders. All rights reserved.
               </p>
 
@@ -251,7 +251,7 @@ const Footer = () => {
                   <Link
                     key={link.label}
                     href={link.href}
-                    className='text-gray-500 hover:text-pink-400 transition-colors text-sm'
+                    className='text-gray-400 hover:text-pink-400 transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded'
                   >
                     {link.label}
                   </Link>
@@ -272,7 +272,7 @@ const Footer = () => {
                     </svg>
                   ))}
                 </div>
-                <span className='text-gray-500 text-sm'>5.0 Rating</span>
+                <span className='text-gray-400 text-sm'>5.0 Rating</span>
               </div>
             </div>
           </div>

@@ -1,0 +1,39 @@
+{
+  "name": "MyBartenders - Luxury Mobile Bar Hire",
+  "short_name": "MyBartenders",
+  "description": "Award-winning mobile bar hire and cocktail service in Northampton. Expert mixologists for weddings, parties and events.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#EC4899",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "food", "lifestyle"],
+  "lang": "en-GB",
+  "dir": "ltr"
+}
