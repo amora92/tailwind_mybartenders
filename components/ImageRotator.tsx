@@ -1,14 +1,26 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import styles from './ImageRotator.module.css'
 
 const ImageRotator = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   useEffect(() => {
     setIsVisible(true)
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches)
+    }
+
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
 
   const images = [
@@ -66,10 +78,13 @@ const ImageRotator = () => {
         {/* Image Carousel */}
         <div className='w-full md:w-1/2 flex justify-center relative'>
           <div className={`${styles.imageContainer} group`}>
-            <img
+            <Image
               src={images[currentIndex].src}
               alt={images[currentIndex].title}
-              className={styles.carouselImage}
+              fill
+              className={`${styles.carouselImage} ${prefersReducedMotion ? '' : 'transition-opacity duration-500'}`}
+              sizes='(max-width: 768px) 100vw, 50vw'
+              priority={currentIndex === 0}
             />
             <div className={styles.imageOverlay}></div>
 

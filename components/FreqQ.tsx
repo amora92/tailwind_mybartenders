@@ -1,9 +1,12 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 const FreqQ = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
   const faqsByCategory = {
     'Getting Started': [
       {
@@ -14,194 +17,238 @@ const FreqQ = () => {
       {
         question: 'How far in advance should I book for my event?',
         answer:
-          'For the best availability, we recommend booking 2-3 months in advance, especially for peak season events (May-September) and weekends. However, we understand that sometimes plans come together quickly - we can often accommodate last-minute bookings or at the very least attempt to help you.'
+          'For the best availability, we recommend booking 2-3 months in advance, especially for peak season events (May-September) and weekends. However, we can often accommodate last-minute bookings.'
       }
     ],
     'Services & Coverage': [
       {
-        question: 'Which areas do you cover with your mobile bar service?',
+        question: 'Which areas do you cover?',
         answer:
-          "While we're based in Northampton, we provide our premium mobile bar services across the UK. Our primary service areas include Northamptonshire, London, Milton Keynes, and surrounding counties. Distance surcharges may apply for locations beyond our core service area."
-      },
-      {
-        question: 'What service options do you offer?',
-        answer:
-          'We offer flexible service options to suit your needs. We can provide a full-service experience where we handle everything from supplies to service, or we can work with you on a hybrid approach. For example, we can provide you with a detailed shopping list and quantity estimates while you handle the purchasing, or we can manage the entire process. Our goal is to make your event as stress-free as possible, whether you want us to handle everything or prefer a more collaborative approach.'
+          "While we're based in Northampton, we provide services across the UK. Our primary areas include Northamptonshire, London, Milton Keynes, and surrounding counties. Distance surcharges may apply for locations beyond our core service area."
       },
       {
         question: 'Do you offer non-alcoholic alternatives?',
         answer:
-          'Absolutely! We offer an extensive range of non-alcoholic options including craft mocktails, premium coffee services, fresh smoothies, and alcohol-free spirits and wines. Our mixologists are skilled in creating exciting non-alcoholic beverages that are just as impressive as their alcoholic counterparts.'
+          'Absolutely! We offer an extensive range of non-alcoholic options including craft mocktails, premium coffee services, fresh smoothies, and alcohol-free spirits. Our mixologists create impressive non-alcoholic beverages.'
       }
     ],
     'Setup & Requirements': [
       {
         question: 'Is there a minimum or maximum guest capacity?',
         answer:
-          'We have a minimum hire time of 2 hours for all events. In terms of capacity, we have successfully served events with up to 500 guests, and our setup can be scaled to accommodate your specific needs. For larger events, we can adjust our staffing and equipment accordingly.'
+          'We have a minimum hire time of 2 hours. We can serve events with up to 500 guests, and our setup scales to accommodate your specific needs with adjusted staffing and equipment.'
       },
       {
         question: 'What about glasses, ice, and equipment?',
         answer:
-          'We provide all necessary glassware, ice, and equipment within our standard packages. This includes premium glassware, ice buckets, garnishes, and bar equipment. For custom requirements or specialized equipment, additional fees may apply. We ensure everything is provided to deliver a professional service tailored to your event.'
-      },
-      {
-        question: 'How much access or space do you need?',
-        answer:
-          "We're completely self-sufficient and highly adaptable! Our mobile bar setup can fit into most spaces, and we bring everything we need. All we really need is a reasonably flat surface to set up on, and we'll handle the rest!"
-      },
-      {
-        question: 'What happens if it rains? Do you offer wet weather options?',
-        answer:
-          "We're prepared for all weather conditions! For outdoor events, we can provide covered areas for the bar, and we always have contingency plans in place. We'll work with you and your venue to ensure smooth service regardless of the weather."
+          'We provide all necessary glassware, ice, and equipment within our standard packages - including premium glassware, ice buckets, garnishes, and bar equipment.'
       }
     ],
-    'Pricing & Payment': [
+    'Pricing & Legal': [
       {
-        question:
-          'How much does it cost to hire a mobile bar / mixology service?',
+        question: 'How much does it cost?',
         answer:
-          'Our pricing varies depending on several factors including the day of the week, duration of the event, number of staff required, and your specific requirements. We offer customized packages to suit different budgets and needs. Contact us for a personalized quote!'
-      }
-    ],
-    'Legal & Safety': [
-      {
-        question: 'Are you licensed / certified?',
-        answer:
-          'We are fully licensed and hold all relevant certifications, including Food Hygiene, Allergen Awareness, Health & Safety, DBS, and more.'
+          'Pricing varies depending on the day, duration, staffing, and requirements. We offer customized packages to suit different budgets. Contact us for a personalized quote!'
       },
       {
-        question: 'Can you accommodate special dietary requirements?',
+        question: 'Are you licensed and certified?',
         answer:
-          'Yes, we take dietary requirements very seriously. We can accommodate all dietary restrictions and allergies, including gluten-free, dairy-free, and vegan options. We maintain detailed ingredient lists and can create custom menus to ensure all your guests can enjoy our drinks safely and confidently.'
+          'Yes, our team holds personal alcohol licences and are DBS checked. Additional requirements such as insurance or specific certifications can be discussed and arranged based on your event needs.'
       }
     ]
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
+  // Flatten FAQs for easier indexing
+  const allFaqs = Object.entries(faqsByCategory).flatMap(([category, questions]) =>
+    questions.map(q => ({ ...q, category }))
+  )
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  }
-
-  // Create the JSON-LD script content
+  // JSON-LD for SEO
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: Object.values(faqsByCategory)
-      .flat()
-      .map(faq => ({
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: faq.answer
-        }
-      }))
+    mainEntity: allFaqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
   }
 
+  const categoryIcons: Record<string, JSX.Element> = {
+    'Getting Started': (
+      <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M13 10V3L4 14h7v7l9-11h-7z' />
+      </svg>
+    ),
+    'Services & Coverage': (
+      <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
+      </svg>
+    ),
+    'Setup & Requirements': (
+      <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' />
+        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
+      </svg>
+    ),
+    'Pricing & Legal': (
+      <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
+      </svg>
+    )
+  }
+
+  let globalIndex = 0
+
   return (
-    <section
-      id='faq'
-      className='py-16 bg-gradient-to-b from-white via-pink-50/30 to-white'
-      aria-label='Frequently Asked Questions'
-    >
-      <div className='mx-auto max-w-4xl px-4 sm:px-6 lg:px-8'>
+    <section id='faq' className='relative py-24 lg:py-32 bg-gray-950 overflow-hidden'>
+      {/* Background Effects */}
+      <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
+      <div className='absolute top-1/4 left-0 w-[600px] h-[600px] bg-pink-500/5 rounded-full blur-3xl' />
+      <div className='absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-3xl' />
+
+      <div className='relative container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl'>
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
+        {/* Header */}
         <motion.div
-          variants={containerVariants}
-          initial='hidden'
-          animate='visible'
-          className='text-center mb-12'
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className='text-center mb-16'
         >
-          <h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-4'>
-            Frequently Asked <span className='text-pink-500'>Questions</span>
+          <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
+            FAQ
+          </span>
+          <h2 className='text-4xl md:text-5xl font-bold text-white mb-6'>
+            Frequently Asked{' '}
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
+              Questions
+            </span>
           </h2>
-          <p className='text-lg text-gray-600'>
-            Everything you need to know about our{' '}
-            <span className='text-pink-500'>premium mobile bar services</span>{' '}
-            in Northampton and surrounding areas
+          <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
+            Everything you need to know about our mobile bar services
           </p>
         </motion.div>
 
-        <AnimatePresence>
-          {Object.entries(faqsByCategory).map(([category, questions]) => (
+        {/* FAQ Categories Grid */}
+        <div className='grid md:grid-cols-2 gap-8'>
+          {Object.entries(faqsByCategory).map(([category, questions], categoryIndex) => (
             <motion.div
               key={category}
-              variants={itemVariants}
-              initial='hidden'
-              whileInView='visible'
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className='mb-8'
+              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+              className='space-y-4'
             >
-              <h3 className='text-xl font-semibold text-gray-800 mb-4'>
-                {category}
-              </h3>
-              <div className='divide-y divide-pink-100 rounded-xl border border-pink-100 bg-white shadow-sm'>
-                {questions.map((faq, index) => (
-                  <details
-                    key={index}
-                    className='group p-6 [&_summary::-webkit-details-marker]:hidden hover:bg-pink-50/30 transition-colors duration-200'
-                  >
-                    <summary className='flex cursor-pointer items-center justify-between gap-1.5 text-gray-900'>
-                      <h2 className='text-lg font-medium'>{faq.question}</h2>
+              {/* Category Header */}
+              <div className='flex items-center gap-3 mb-6'>
+                <div className='w-10 h-10 bg-gradient-to-br from-pink-500/20 to-amber-500/20 border border-pink-500/30 rounded-xl flex items-center justify-center text-pink-400'>
+                  {categoryIcons[category]}
+                </div>
+                <h3 className='text-lg font-semibold text-white'>
+                  {category}
+                </h3>
+              </div>
 
-                      <span className='relative size-5 shrink-0 text-pink-500'>
-                        {/* SVGs remain the same but with text-pink-500 class */}
-                      </span>
-                    </summary>
-                    <p className='mt-4 leading-relaxed text-gray-700'>
-                      {faq.answer}
-                    </p>
-                  </details>
-                ))}
+              {/* Questions */}
+              <div className='space-y-3'>
+                {questions.map((faq, index) => {
+                  const currentIndex = globalIndex++
+                  return (
+                    <div
+                      key={index}
+                      className={`group rounded-xl border transition-all duration-300 ${
+                        openIndex === currentIndex
+                          ? 'bg-white/5 border-pink-500/30'
+                          : 'bg-gray-900/30 border-white/5 hover:border-white/10 hover:bg-gray-900/50'
+                      }`}
+                    >
+                      <button
+                        onClick={() => setOpenIndex(openIndex === currentIndex ? null : currentIndex)}
+                        className='flex w-full items-center justify-between gap-3 p-4 text-left'
+                      >
+                        <span className={`text-sm font-medium transition-colors ${
+                          openIndex === currentIndex ? 'text-white' : 'text-gray-300 group-hover:text-white'
+                        }`}>
+                          {faq.question}
+                        </span>
+                        <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
+                          openIndex === currentIndex ? 'bg-pink-500/20 rotate-180' : 'bg-white/5'
+                        }`}>
+                          <svg
+                            className={`w-3 h-3 transition-colors ${
+                              openIndex === currentIndex ? 'text-pink-400' : 'text-gray-500'
+                            }`}
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                          </svg>
+                        </div>
+                      </button>
+
+                      <AnimatePresence>
+                        {openIndex === currentIndex && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: 'easeInOut' }}
+                            className='overflow-hidden'
+                          >
+                            <div className='px-4 pb-4'>
+                              <p className='text-sm text-gray-400 leading-relaxed'>
+                                {faq.answer}
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                })}
               </div>
             </motion.div>
           ))}
-        </AnimatePresence>
+        </div>
 
+        {/* CTA */}
         <motion.div
-          variants={itemVariants}
-          initial='hidden'
-          whileInView='visible'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className='mt-8 text-center'
+          className='mt-16 text-center'
         >
-          <p className='text-gray-600'>
-            Still have questions?{' '}
-            <a
-              href='/contact_us'
-              className='text-pink-500 hover:text-pink-600 font-medium inline-flex items-center gap-1 group'
-            >
-              Contact us directly
-              <svg
-                className='w-4 h-4 transform group-hover:translate-x-1 transition-transform'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M9 5l7 7-7 7'
-                />
+          <div className='inline-flex flex-col sm:flex-row items-center gap-6 p-8 bg-gradient-to-r from-pink-500/10 via-rose-500/5 to-amber-500/10 border border-white/10 rounded-2xl backdrop-blur-sm'>
+            <div className='w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center shadow-lg shadow-pink-500/25'>
+              <svg className='w-7 h-7 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
               </svg>
-            </a>
-          </p>
+            </div>
+            <div className='text-center sm:text-left'>
+              <p className='text-white font-semibold text-lg mb-1'>Still have questions?</p>
+              <p className='text-gray-400 text-sm'>Our team is here to help with any queries you may have</p>
+            </div>
+            <Link
+              href='/contact_us'
+              className='inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all group'
+            >
+              Contact Us
+              <svg className='w-5 h-5 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+              </svg>
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

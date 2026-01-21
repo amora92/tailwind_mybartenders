@@ -1,12 +1,17 @@
 import type { AppProps } from 'next/app'
-import Header from '../components/Header'
+import dynamic from 'next/dynamic'
 import '../app/globals.css'
 
-function MyApp ({ Component, pageProps }: AppProps) {
+// Dynamically import CookieConsent to avoid SSR issues
+const CookieConsent = dynamic(() => import('@/components/CookieConsent'), {
+  ssr: false
+})
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Header />
       <Component {...pageProps} />
+      <CookieConsent />
     </>
   )
 }

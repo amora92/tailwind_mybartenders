@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from '@/lib/mongodb'
+import { logger } from '@/lib/logger'
 import * as bcrypt from 'bcrypt'
 
 export default async function handler (
@@ -10,7 +11,29 @@ export default async function handler (
     return res.status(405).json({ message: 'Method not allowed' })
   }
 
+  // Require ADMIN_SETUP_KEY for security
+  const setupKey = req.headers['x-admin-setup-key'] || req.body.setupKey
+  const expectedKey = process.env.ADMIN_SETUP_KEY
+
+  if (!expectedKey) {
+    return res.status(403).json({
+      message: 'Admin setup is disabled. Set ADMIN_SETUP_KEY environment variable to enable.'
+    })
+  }
+
+  if (setupKey !== expectedKey) {
+    return res.status(403).json({ message: 'Invalid setup key' })
+  }
+
   const { username, password } = req.body
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required' })
+  }
+
+  if (password.length < 8) {
+    return res.status(400).json({ message: 'Password must be at least 8 characters' })
+  }
 
   try {
     const { db } = await connectToDatabase()
@@ -36,7 +59,7 @@ export default async function handler (
 
     res.status(201).json({ message: 'Admin user created successfully' })
   } catch (error) {
-    console.error('Error creating admin:', error)
+    logger.error('Error creating admin:', error)
     res.status(500).json({ message: 'Error creating admin user' })
   }
 }

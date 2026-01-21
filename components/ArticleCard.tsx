@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface ArticleType {
   id: string
@@ -15,11 +16,13 @@ interface ArticleType {
 const ArticleCard = ({ article }: { article: ArticleType }) => {
   return (
     <div className='group hover:shadow-gold transition-all duration-300'>
-      <div className='overflow-hidden rounded-lg'>
-        <img
-          className='w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300'
+      <div className='overflow-hidden rounded-lg relative h-48'>
+        <Image
+          className='object-cover transform group-hover:scale-105 transition-transform duration-300'
           src={article.image}
           alt={article.title}
+          fill
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         />
       </div>
       <h3 className='mt-4 text-xl font-semibold group-hover:text-gold-600 transition-colors'>

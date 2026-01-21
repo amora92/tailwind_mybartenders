@@ -38,3 +38,5 @@ next-env.d.ts
 # environment variables
 .env*
 !.env.example
+.env.example
+*.example
