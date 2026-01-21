@@ -1,0 +1,18 @@
+# Netlify configuration file
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  publish = ".next"
+  command = "npm run build"
+
+# Secrets scanning configuration
+# The scanner flags certain environment variable values that appear in source code.
+# The following env vars contain public contact information (email addresses)
+# and service hostnames that are intentionally used in the website source code.
+# They are NOT secrets and should be excluded from the scan:
+# - EMAIL_TO: Public business contact email displayed on the website
+# - CONTACT_FORM_BCC: Business email for form submission copies
+# - ZOHO_SMTP_HOST: Standard SMTP service hostname (smtp.zoho.eu)
+# - ZOHO_SMTP_USER: SMTP username (uses same email as public contact email)
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "EMAIL_TO,CONTACT_FORM_BCC,ZOHO_SMTP_HOST,ZOHO_SMTP_USER"
