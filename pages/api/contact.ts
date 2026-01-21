@@ -5,14 +5,6 @@ import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-// Zoho SMTP env sanity check (TEMPORARY — for debugging)
-console.log('Zoho fallback env check:', {
-  ZOHO_SMTP_HOST: process.env.ZOHO_SMTP_HOST || 'smtp.zoho.eu (default)',
-  ZOHO_SMTP_PORT: process.env.ZOHO_SMTP_PORT || '465 (default)',
-  userDefined: !!process.env.ZOHO_SMTP_USER,
-  passwordDefined: !!process.env.ZOHO_SMTP_PASSWORD
-})
-
 // Zoho SMTP configuration
 const zohoTransporter = nodemailer.createTransport({
   host: process.env.ZOHO_SMTP_HOST || 'smtp.zoho.eu',
