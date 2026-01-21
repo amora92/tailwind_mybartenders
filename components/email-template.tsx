@@ -94,14 +94,16 @@ export default function EmailTemplate ({
             <td style={{ padding: '8px 0', color: '#111827', fontWeight: '500' }}>{eventDetails.attendees || 'Not specified'}</td>
           </tr>
           <tr>
-            <td style={{ padding: '8px 0', color: '#6b7280' }}>Date:</td>
+            <td style={{ padding: '8px 0', color: '#6b7280' }}>Event Date:</td>
             <td style={{ padding: '8px 0', color: '#111827', fontWeight: '500' }}>{formatDate(eventDetails.eventDate)}</td>
           </tr>
           <tr>
-            <td style={{ padding: '8px 0', color: '#6b7280' }}>Time:</td>
-            <td style={{ padding: '8px 0', color: '#111827', fontWeight: '500' }}>
-              {formatTime(eventDetails.startTime)} - {formatTime(eventDetails.finishTime)}
-            </td>
+            <td style={{ padding: '8px 0', color: '#6b7280' }}>Start Time:</td>
+            <td style={{ padding: '8px 0', color: '#111827', fontWeight: '500' }}>{formatTime(eventDetails.startTime)}</td>
+          </tr>
+          <tr>
+            <td style={{ padding: '8px 0', color: '#6b7280' }}>Finish Time:</td>
+            <td style={{ padding: '8px 0', color: '#111827', fontWeight: '500' }}>{formatTime(eventDetails.finishTime)}</td>
           </tr>
           <tr>
             <td style={{ padding: '8px 0', color: '#6b7280' }}>Location:</td>

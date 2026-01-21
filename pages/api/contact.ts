@@ -57,12 +57,15 @@ const formatEventDetails = (eventDetails: {
     <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Guests:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
       eventDetails.attendees || 'Not specified'
     }</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Date:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${formatDate(
+    <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Event Date:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${formatDate(
       eventDetails.eventDate || ''
     )}</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Time:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${formatTime(
+    <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Start Time:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${formatTime(
       eventDetails.startTime || ''
-    )} - ${formatTime(eventDetails.finishTime || '')}</td></tr>
+    )}</td></tr>
+    <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Finish Time:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${formatTime(
+      eventDetails.finishTime || ''
+    )}</td></tr>
     <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Location:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
       eventDetails.location || 'Not specified'
     }</td></tr>

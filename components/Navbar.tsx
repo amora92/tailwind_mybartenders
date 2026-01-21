@@ -35,6 +35,26 @@ const Navbar = () => {
     return () => document.removeEventListener('keydown', handleEscape)
   }, [isMenuOpen])
 
+  // Close menu on click outside
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(target)
+      ) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isMenuOpen])
+
   // Trap focus within menu when open
   useEffect(() => {
     if (!isMenuOpen || !menuRef.current) return
@@ -61,6 +81,18 @@ const Navbar = () => {
     firstElement?.focus()
 
     return () => document.removeEventListener('keydown', handleTabKey)
+  }, [isMenuOpen])
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [isMenuOpen])
 
   return (
@@ -188,11 +220,21 @@ const Navbar = () => {
         </button>
       </div>
 
+      {/* Mobile Menu Backdrop */}
+      <div
+        className={`lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        style={{ top: '60px' }}
+        onClick={() => setIsMenuOpen(false)}
+        aria-hidden='true'
+      />
+
       {/* Mobile Menu */}
       <div
         ref={menuRef}
         id={menuId}
-        className={`lg:hidden absolute top-full left-0 right-0 bg-gray-950/98 backdrop-blur-xl border-t border-white/10 transition-all duration-300 ${
+        className={`lg:hidden fixed top-[60px] left-0 right-0 max-h-[calc(100vh-60px)] overflow-y-auto bg-gray-950 border-t border-white/10 transition-all duration-300 ${
           isMenuOpen
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 -translate-y-4 pointer-events-none'
