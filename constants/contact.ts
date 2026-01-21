@@ -10,9 +10,8 @@ export const CONTACT_INFO = {
   email: 'contact@mybartenders.co.uk',
   emailHref: 'mailto:contact@mybartenders.co.uk',
 
-  // BCC email for contact form submissions (receives a copy of all inquiries)
-  // Set to empty string '' to disable BCC
-  bccEmail: 'albert.moravski@gmail.com',
+  // BCC email is now configured via CONTACT_FORM_BCC environment variable
+  // This prevents the email from being exposed in the client bundle
 
   // Location
   location: 'Northampton, UK',

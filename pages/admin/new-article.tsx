@@ -12,9 +12,13 @@ import 'react-quill/dist/quill.snow.css'
 
 interface ContentSection {
   id: string
-  type: 'text' | 'image' | 'video'
+  type: 'text' | 'image' | 'video' | 'quote' | 'code' | 'cta'
   content: string
   caption?: string
+  author?: string // For quotes
+  language?: string // For code blocks
+  buttonText?: string // For CTA
+  buttonUrl?: string // For CTA
 }
 
 const CATEGORY_OPTIONS = [
@@ -55,6 +59,7 @@ const NewArticlePage = () => {
   const [contentSections, setContentSections] = useState<ContentSection[]>([
     { id: '1', type: 'text', content: '' }
   ])
+  const [status, setStatus] = useState<'draft' | 'published'>('published')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [saving, setSaving] = useState(false)
@@ -104,7 +109,7 @@ const NewArticlePage = () => {
     setUploadingSection(sectionId)
     const url = await uploadImage(file)
     if (url) {
-      updateSection(sectionId, url)
+      updateSection(sectionId, 'content', url)
     }
     setUploadingSection(null)
   }
@@ -150,21 +155,26 @@ const NewArticlePage = () => {
     setSlug(generateSlug(value))
   }
 
-  const addSection = (type: 'text' | 'image' | 'video') => {
-    setContentSections(prev => [
-      ...prev,
-      { id: Date.now().toString(), type, content: '' }
-    ])
+  const addSection = (type: ContentSection['type']) => {
+    const newSection: ContentSection = { id: Date.now().toString(), type, content: '' }
+    if (type === 'code') {
+      newSection.language = 'javascript'
+    }
+    if (type === 'cta') {
+      newSection.buttonText = 'Learn More'
+      newSection.buttonUrl = ''
+    }
+    setContentSections(prev => [...prev, newSection])
   }
 
   const removeSection = (id: string) => {
     setContentSections(prev => prev.filter(section => section.id !== id))
   }
 
-  const updateSection = (id: string, content: string) => {
+  const updateSection = (id: string, field: string, value: string) => {
     setContentSections(prev =>
       prev.map(section =>
-        section.id === id ? { ...section, content } : section
+        section.id === id ? { ...section, [field]: value } : section
       )
     )
   }
@@ -203,6 +213,7 @@ const NewArticlePage = () => {
         category: category || 'General',
         contentSections,
         tags,
+        status,
         author: {
           name: 'MyBartenders',
           avatar: '/admin-avatar.svg'
@@ -345,7 +356,7 @@ const NewArticlePage = () => {
               <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
                 <div className='flex items-center justify-between mb-6'>
                   <h2 className='text-lg font-semibold text-white'>Content Sections</h2>
-                  <div className='flex gap-2'>
+                  <div className='flex flex-wrap gap-2'>
                     <button
                       type='button'
                       onClick={() => addSection('text')}
@@ -367,6 +378,27 @@ const NewArticlePage = () => {
                     >
                       + Video
                     </button>
+                    <button
+                      type='button'
+                      onClick={() => addSection('quote')}
+                      className='px-3 py-1.5 bg-purple-500/20 text-purple-400 text-sm font-medium rounded-lg hover:bg-purple-500/30 transition-colors'
+                    >
+                      + Quote
+                    </button>
+                    <button
+                      type='button'
+                      onClick={() => addSection('code')}
+                      className='px-3 py-1.5 bg-cyan-500/20 text-cyan-400 text-sm font-medium rounded-lg hover:bg-cyan-500/30 transition-colors'
+                    >
+                      + Code
+                    </button>
+                    <button
+                      type='button'
+                      onClick={() => addSection('cta')}
+                      className='px-3 py-1.5 bg-orange-500/20 text-orange-400 text-sm font-medium rounded-lg hover:bg-orange-500/30 transition-colors'
+                    >
+                      + CTA
+                    </button>
                   </div>
                 </div>
 
@@ -386,7 +418,13 @@ const NewArticlePage = () => {
                               ? 'bg-green-500/20 text-green-400'
                               : section.type === 'image'
                               ? 'bg-blue-500/20 text-blue-400'
-                              : 'bg-red-500/20 text-red-400'
+                              : section.type === 'video'
+                              ? 'bg-red-500/20 text-red-400'
+                              : section.type === 'quote'
+                              ? 'bg-purple-500/20 text-purple-400'
+                              : section.type === 'code'
+                              ? 'bg-cyan-500/20 text-cyan-400'
+                              : 'bg-orange-500/20 text-orange-400'
                           }`}>
                             {section.type}
                           </span>
@@ -408,7 +446,7 @@ const NewArticlePage = () => {
                         <div className='quill-dark'>
                           <ReactQuill
                             value={section.content}
-                            onChange={content => updateSection(section.id, content)}
+                            onChange={content => updateSection(section.id, 'content', content)}
                             className='bg-gray-900 rounded-lg'
                             theme='snow'
                           />
@@ -452,7 +490,7 @@ const NewArticlePage = () => {
                           <input
                             type='text'
                             value={section.content}
-                            onChange={e => updateSection(section.id, e.target.value)}
+                            onChange={e => updateSection(section.id, 'content', e.target.value)}
                             placeholder='Or enter image URL'
                             className='w-full px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
                           />
@@ -465,7 +503,7 @@ const NewArticlePage = () => {
                               />
                               <button
                                 type='button'
-                                onClick={() => updateSection(section.id, '')}
+                                onClick={() => updateSection(section.id, 'content', '')}
                                 className='absolute top-2 right-2 p-1.5 bg-red-500/80 text-white rounded-full hover:bg-red-600 transition-colors'
                               >
                                 <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -474,13 +512,21 @@ const NewArticlePage = () => {
                               </button>
                             </div>
                           )}
+                          {/* Image Caption */}
+                          <input
+                            type='text'
+                            value={section.caption || ''}
+                            onChange={e => updateSection(section.id, 'caption', e.target.value)}
+                            placeholder='Image caption (optional)'
+                            className='w-full px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm'
+                          />
                         </div>
-                      ) : (
+                      ) : section.type === 'video' ? (
                         <div className='space-y-3'>
                           <input
                             type='text'
                             value={section.content}
-                            onChange={e => updateSection(section.id, e.target.value)}
+                            onChange={e => updateSection(section.id, 'content', e.target.value)}
                             placeholder='Enter YouTube URL'
                             className='w-full px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500'
                           />
@@ -495,7 +541,91 @@ const NewArticlePage = () => {
                             </div>
                           )}
                         </div>
-                      )}
+                      ) : section.type === 'quote' ? (
+                        <div className='space-y-3'>
+                          <textarea
+                            value={section.content}
+                            onChange={e => updateSection(section.id, 'content', e.target.value)}
+                            placeholder='Enter quote text'
+                            rows={3}
+                            className='w-full px-4 py-3 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none italic'
+                          />
+                          <input
+                            type='text'
+                            value={section.author || ''}
+                            onChange={e => updateSection(section.id, 'author', e.target.value)}
+                            placeholder='Quote author (optional)'
+                            className='w-full px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm'
+                          />
+                          {/* Preview */}
+                          {section.content && (
+                            <div className='p-4 bg-purple-500/10 border-l-4 border-purple-500 rounded-r-lg'>
+                              <p className='text-gray-200 italic'>&ldquo;{section.content}&rdquo;</p>
+                              {section.author && (
+                                <p className='text-purple-400 text-sm mt-2'>— {section.author}</p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      ) : section.type === 'code' ? (
+                        <div className='space-y-3'>
+                          <select
+                            value={section.language || 'javascript'}
+                            onChange={e => updateSection(section.id, 'language', e.target.value)}
+                            className='px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500'
+                          >
+                            <option value='javascript'>JavaScript</option>
+                            <option value='typescript'>TypeScript</option>
+                            <option value='python'>Python</option>
+                            <option value='html'>HTML</option>
+                            <option value='css'>CSS</option>
+                            <option value='bash'>Bash</option>
+                            <option value='json'>JSON</option>
+                          </select>
+                          <textarea
+                            value={section.content}
+                            onChange={e => updateSection(section.id, 'content', e.target.value)}
+                            placeholder='Enter code...'
+                            rows={6}
+                            className='w-full px-4 py-3 bg-gray-900 border border-white/10 rounded-lg text-cyan-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono text-sm resize-none'
+                          />
+                        </div>
+                      ) : section.type === 'cta' ? (
+                        <div className='space-y-3'>
+                          <textarea
+                            value={section.content}
+                            onChange={e => updateSection(section.id, 'content', e.target.value)}
+                            placeholder='CTA text/description'
+                            rows={2}
+                            className='w-full px-4 py-3 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none'
+                          />
+                          <div className='grid grid-cols-2 gap-3'>
+                            <input
+                              type='text'
+                              value={section.buttonText || ''}
+                              onChange={e => updateSection(section.id, 'buttonText', e.target.value)}
+                              placeholder='Button text'
+                              className='px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm'
+                            />
+                            <input
+                              type='text'
+                              value={section.buttonUrl || ''}
+                              onChange={e => updateSection(section.id, 'buttonUrl', e.target.value)}
+                              placeholder='Button URL'
+                              className='px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm'
+                            />
+                          </div>
+                          {/* Preview */}
+                          {section.content && (
+                            <div className='p-6 bg-gradient-to-r from-orange-500/20 to-pink-500/20 border border-orange-500/30 rounded-xl text-center'>
+                              <p className='text-gray-200 mb-4'>{section.content}</p>
+                              <span className='inline-block px-6 py-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-medium rounded-lg'>
+                                {section.buttonText || 'Button'}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ) : null}
                     </div>
                   ))}
                 </div>
@@ -509,6 +639,37 @@ const NewArticlePage = () => {
                 <h2 className='text-lg font-semibold text-white mb-6'>Publish</h2>
 
                 <div className='space-y-5'>
+                  {/* Draft/Published Toggle */}
+                  <div>
+                    <label className='block text-sm font-medium text-gray-300 mb-2'>
+                      Status
+                    </label>
+                    <div className='flex gap-2'>
+                      <button
+                        type='button'
+                        onClick={() => setStatus('draft')}
+                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
+                          status === 'draft'
+                            ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                            : 'bg-gray-800 text-gray-400 border border-white/10 hover:text-white'
+                        }`}
+                      >
+                        Draft
+                      </button>
+                      <button
+                        type='button'
+                        onClick={() => setStatus('published')}
+                        className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
+                          status === 'published'
+                            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                            : 'bg-gray-800 text-gray-400 border border-white/10 hover:text-white'
+                        }`}
+                      >
+                        Published
+                      </button>
+                    </div>
+                  </div>
+
                   <div>
                     <label className='block text-sm font-medium text-gray-300 mb-2'>
                       Category *

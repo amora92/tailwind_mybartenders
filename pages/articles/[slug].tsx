@@ -33,8 +33,13 @@ interface Article {
   customCss?: string
   contentSections?: {
     id: string
-    type: 'text' | 'image' | 'video'
+    type: 'text' | 'image' | 'video' | 'quote' | 'code' | 'cta'
     content: string
+    caption?: string
+    author?: string
+    language?: string
+    buttonText?: string
+    buttonUrl?: string
   }[]
 }
 
@@ -514,15 +519,22 @@ const ArticlePage = () => {
                           transition={{ duration: 0.5, delay: index * 0.1 }}
                           className='mb-12'
                         >
-                          <div className='relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg bg-gray-100'>
-                            <Image
-                              src={section.content}
-                              alt={`${article.title} section image`}
-                              fill
-                              className='object-contain'
-                              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
-                            />
-                          </div>
+                          <figure>
+                            <div className='relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg bg-gray-100'>
+                              <Image
+                                src={section.content}
+                                alt={section.caption || `${article.title} section image`}
+                                fill
+                                className='object-contain'
+                                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px'
+                              />
+                            </div>
+                            {section.caption && (
+                              <figcaption className='text-center text-sm text-gray-500 mt-3 italic'>
+                                {section.caption}
+                              </figcaption>
+                            )}
+                          </figure>
                         </motion.section>
                       )
                     }
@@ -548,6 +560,95 @@ const ArticlePage = () => {
                               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                               allowFullScreen
                             />
+                          </div>
+                        </motion.section>
+                      )
+                    }
+                    if (section.type === 'quote') {
+                      return (
+                        <motion.section
+                          key={section.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className='mb-12'
+                        >
+                          <blockquote className='relative bg-gradient-to-br from-pink-50 to-white p-8 md:p-12 rounded-2xl border-l-4 border-pink-500 shadow-sm'>
+                            <svg
+                              className='absolute top-6 left-6 w-8 h-8 text-pink-200'
+                              fill='currentColor'
+                              viewBox='0 0 24 24'
+                            >
+                              <path d='M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z' />
+                            </svg>
+                            <p className='text-xl md:text-2xl text-gray-700 italic leading-relaxed pl-8'>
+                              {section.content}
+                            </p>
+                            {section.author && (
+                              <footer className='mt-6 pl-8'>
+                                <p className='text-pink-500 font-semibold'>— {section.author}</p>
+                              </footer>
+                            )}
+                          </blockquote>
+                        </motion.section>
+                      )
+                    }
+                    if (section.type === 'code') {
+                      return (
+                        <motion.section
+                          key={section.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className='mb-12'
+                        >
+                          <div className='bg-gray-900 rounded-2xl overflow-hidden shadow-lg'>
+                            <div className='flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700'>
+                              <span className='text-sm text-gray-400 font-mono'>
+                                {section.language || 'code'}
+                              </span>
+                              <div className='flex gap-1.5'>
+                                <span className='w-3 h-3 rounded-full bg-red-500' />
+                                <span className='w-3 h-3 rounded-full bg-yellow-500' />
+                                <span className='w-3 h-3 rounded-full bg-green-500' />
+                              </div>
+                            </div>
+                            <pre className='p-6 overflow-x-auto'>
+                              <code className='text-sm text-gray-300 font-mono whitespace-pre-wrap'>
+                                {section.content}
+                              </code>
+                            </pre>
+                          </div>
+                        </motion.section>
+                      )
+                    }
+                    if (section.type === 'cta') {
+                      return (
+                        <motion.section
+                          key={section.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className='mb-12'
+                        >
+                          <div className='bg-gradient-to-r from-pink-500/10 via-rose-500/10 to-orange-500/10 border border-pink-500/20 rounded-2xl p-8 md:p-12 text-center'>
+                            <p className='text-xl text-gray-700 mb-6'>
+                              {section.content}
+                            </p>
+                            {section.buttonUrl && section.buttonText && (
+                              <Link
+                                href={section.buttonUrl}
+                                className='inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all'
+                              >
+                                {section.buttonText}
+                                <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                                </svg>
+                              </Link>
+                            )}
                           </div>
                         </motion.section>
                       )

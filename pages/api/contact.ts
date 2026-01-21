@@ -215,15 +215,17 @@ export default async function handler (
       eventDetails
     })
 
-    // Email configuration - using verified domain
-    const fromEmail = 'MyBartenders <contact@mybartenders.co.uk>'
-    const toEmail = 'contact@mybartenders.co.uk'
-    const bccEmail = 'albert.moravski@gmail.com'
+    // Email configuration - all values from environment variables
+    const senderEmail = process.env.CONTACT_FORM_SENDER || process.env.ZOHO_SMTP_USER
+    const recipientEmail = process.env.CONTACT_FORM_RECIPIENT || process.env.ZOHO_SMTP_USER
+    const fromEmail = `MyBartenders <${senderEmail}>`
+    const toEmail = recipientEmail as string
+    const bccEmail = process.env.CONTACT_FORM_BCC || ''
 
     console.log('=== Sending Email via Resend ===')
     console.log('From:', fromEmail)
     console.log('To:', toEmail)
-    console.log('BCC:', bccEmail)
+    console.log('BCC:', bccEmail ? '[configured]' : '[none]')
     console.log('Reply-To:', email)
 
     let emailSent = false
@@ -232,14 +234,27 @@ export default async function handler (
 
     // Try Resend first
     try {
-      const { data, error } = await resend.emails.send({
+      const emailOptions: {
+        from: string
+        to: string[]
+        bcc?: string[]
+        replyTo: string
+        subject: string
+        html: string
+      } = {
         from: fromEmail,
         to: [toEmail],
-        bcc: [bccEmail],
         replyTo: email,
         subject: `New Enquiry from ${name} - MyBartenders`,
         html: htmlContent
-      })
+      }
+
+      // Only add BCC if configured
+      if (bccEmail) {
+        emailOptions.bcc = [bccEmail]
+      }
+
+      const { data, error } = await resend.emails.send(emailOptions)
 
       console.log('=== Resend Response ===')
       if (data) {
