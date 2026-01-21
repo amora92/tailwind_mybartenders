@@ -13,5 +13,6 @@
 # - EMAIL_TO: Public business contact email displayed on the website
 # - CONTACT_FORM_BCC: Business email for form submission copies
 # - ZOHO_SMTP_HOST: Standard SMTP service hostname (smtp.zoho.eu)
+# - ZOHO_SMTP_USER: SMTP username (uses same email as public contact email)
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "EMAIL_TO,CONTACT_FORM_BCC,ZOHO_SMTP_HOST"
+  SECRETS_SCAN_OMIT_KEYS = "EMAIL_TO,CONTACT_FORM_BCC,ZOHO_SMTP_HOST,ZOHO_SMTP_USER"
