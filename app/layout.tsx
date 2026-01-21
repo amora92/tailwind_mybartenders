@@ -2,13 +2,21 @@
 
 import { inter } from './fonts'
 import './globals.css'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import dynamic from 'next/dynamic'
 import GoogleAnalytics from './GoogleAnalytics'
 
 const CookieConsent = dynamic(() => import('@/components/CookieConsent'), {
   ssr: false
 })
+
+export const viewport: Viewport = {
+  themeColor: '#EC4899',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover'
+}
 
 export const metadata: Metadata = {
   title: 'Luxury Mobile Bar Hire Northampton | Weddings & Events | MyBartenders',
@@ -19,6 +27,22 @@ export const metadata: Metadata = {
   creator: 'MyBartenders',
   publisher: 'MyBartenders',
   metadataBase: new URL('https://mybartenders.co.uk'),
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'MyBartenders'
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ]
+  },
   alternates: {
     canonical: '/'
   },

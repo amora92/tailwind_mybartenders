@@ -106,14 +106,14 @@ const Navbar = () => {
             <Link
               href={link.href}
               key={link.key}
-              className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full group ${
+              className={`relative px-5 py-3 text-sm font-medium transition-colors duration-300 rounded-full group focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950 ${
                 isScrolled
                   ? 'text-gray-300 hover:text-white'
                   : 'text-white/80 hover:text-white'
               }`}
             >
               {link.label}
-              <span className='absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-pink-500 to-rose-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full' />
+              <span className='absolute bottom-1.5 left-5 right-5 h-0.5 bg-gradient-to-r from-pink-500 to-rose-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full' />
             </Link>
           ))}
         </div>
@@ -197,18 +197,16 @@ const Navbar = () => {
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
-        role='menu'
-        aria-label='Mobile navigation menu'
+        aria-label='Mobile navigation'
       >
-        <div className='container mx-auto px-4 py-6'>
+        <nav className='container mx-auto px-4 py-6'>
           <ul className='space-y-1'>
             {NAV_LINKS.map((link, index) => (
-              <li key={link.key} role='none'>
+              <li key={link.key}>
                 <Link
                   href={link.href}
-                  className='flex items-center gap-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-xl transition-colors group'
+                  className='flex items-center gap-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/5 rounded-xl transition-colors group focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950'
                   onClick={() => setIsMenuOpen(false)}
-                  role='menuitem'
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <span className='w-1.5 h-1.5 rounded-full bg-pink-500/50 group-hover:bg-pink-500 transition-colors' />
@@ -250,7 +248,7 @@ const Navbar = () => {
               <span>Now Booking for {getBookingYear()}</span>
             </div>
           </div>
-        </div>
+        </nav>
       </div>
     </nav>
   )
