@@ -24,6 +24,19 @@ interface FormData {
   budget: string
   requirements: string
   eventType: string
+  website: string // Honeypot field
+}
+
+interface FormErrors {
+  name?: string
+  email?: string
+  phone?: string
+  eventDate?: string
+  location?: string
+  startTime?: string
+  finishTime?: string
+  message?: string
+  attendees?: string
 }
 
 const GUEST_PRESETS = [
@@ -54,6 +67,7 @@ const EVENT_TYPES = [
 const ContactUs: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [errors, setErrors] = useState<FormErrors>({})
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -68,8 +82,73 @@ const ContactUs: React.FC = () => {
     finishTime: '',
     budget: '',
     requirements: '',
-    eventType: ''
+    eventType: '',
+    website: '' // Honeypot field - should remain empty
   })
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^[\d\s+()-]{10,}$/
+    return phoneRegex.test(phone)
+  }
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {}
+
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      newErrors.name = 'Please enter your full name (at least 2 characters)'
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is required'
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required'
+    } else if (!validatePhone(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number'
+    }
+
+    if (!formData.attendees) {
+      newErrors.attendees = 'Please select the number of guests'
+    }
+
+    if (!formData.eventDate) {
+      newErrors.eventDate = 'Event date is required'
+    } else {
+      const selectedDate = new Date(formData.eventDate)
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      if (selectedDate < today) {
+        newErrors.eventDate = 'Event date must be in the future'
+      }
+    }
+
+    if (!formData.location.trim()) {
+      newErrors.location = 'Event location is required'
+    }
+
+    if (!formData.startTime) {
+      newErrors.startTime = 'Start time is required'
+    }
+
+    if (!formData.finishTime) {
+      newErrors.finishTime = 'Finish time is required'
+    }
+
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      newErrors.message = 'Please provide event details (at least 10 characters)'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -81,6 +160,20 @@ const ContactUs: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setStatusMessage('')
+    setErrors({})
+
+    // Honeypot check - if the hidden field is filled, it's likely a bot
+    if (formData.website) {
+      setStatusMessage('Thanks for your submission! We will get back to you soon.')
+      return
+    }
+
+    // Validate form
+    if (!validateForm()) {
+      setStatusMessage('Please fix the errors below and try again.')
+      return
+    }
+
     setLoading(true)
 
     const {
@@ -145,7 +238,8 @@ const ContactUs: React.FC = () => {
           finishTime: '',
           budget: '',
           requirements: '',
-          eventType: ''
+          eventType: '',
+          website: ''
         })
       } else {
         setStatusMessage(
@@ -235,6 +329,22 @@ const ContactUs: React.FC = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className='p-8 space-y-8'>
+                  {/* Honeypot field - hidden from users, catches bots */}
+                  <div className='absolute -left-[9999px]' aria-hidden='true'>
+                    <label htmlFor='website'>
+                      Leave this field empty
+                      <input
+                        type='text'
+                        id='website'
+                        name='website'
+                        value={formData.website}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete='off'
+                      />
+                    </label>
+                  </div>
+
                   {/* Personal Information */}
                   <div>
                     <h3 className='text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2'>
@@ -257,9 +367,10 @@ const ContactUs: React.FC = () => {
                           placeholder='John Doe'
                           value={formData.name}
                           onChange={handleChange}
-                          className={inputClasses}
+                          className={`${inputClasses} ${errors.name ? 'border-red-500 focus:ring-red-500' : ''}`}
                           required
                         />
+                        {errors.name && <p className='mt-1 text-sm text-red-500'>{errors.name}</p>}
                       </div>
                       <div>
                         <label htmlFor='email' className='block text-sm font-medium text-gray-700 mb-1'>
@@ -272,9 +383,10 @@ const ContactUs: React.FC = () => {
                           placeholder='john@example.com'
                           value={formData.email}
                           onChange={handleChange}
-                          className={inputClasses}
+                          className={`${inputClasses} ${errors.email ? 'border-red-500 focus:ring-red-500' : ''}`}
                           required
                         />
+                        {errors.email && <p className='mt-1 text-sm text-red-500'>{errors.email}</p>}
                       </div>
                       <div>
                         <label htmlFor='phone' className='block text-sm font-medium text-gray-700 mb-1'>
@@ -287,9 +399,10 @@ const ContactUs: React.FC = () => {
                           placeholder='07700 900000'
                           value={formData.phone}
                           onChange={handleChange}
-                          className={inputClasses}
+                          className={`${inputClasses} ${errors.phone ? 'border-red-500 focus:ring-red-500' : ''}`}
                           required
                         />
+                        {errors.phone && <p className='mt-1 text-sm text-red-500'>{errors.phone}</p>}
                       </div>
                       <div className='flex items-end gap-6 pb-3'>
                         <label className='flex items-center gap-2 cursor-pointer'>

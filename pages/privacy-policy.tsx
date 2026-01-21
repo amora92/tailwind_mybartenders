@@ -12,21 +12,25 @@ const sections = [
   {
     title: '1. Information We Collect',
     content: [
-      'We do not collect or process personal data from visitors to our website unless you provide it to us voluntarily through the contact form. The only personal information we may collect is your email address, which you provide when submitting an inquiry through our contact form.',
-      'This information is only used for the purpose of responding to your query or request and is not stored beyond that.'
+      'We do not collect or process personal data from visitors to our website unless you provide it to us voluntarily through the contact form. The personal information we may collect includes your name, email address, phone number, and event details, which you provide when submitting an inquiry through our contact form.',
+      'This information is only used for the purpose of responding to your query or request and providing you with a quote for our services.'
     ]
   },
   {
     title: '2. How We Use Your Information',
     content: [
-      'Your email address is used exclusively to respond to inquiries made through our contact form. We do not use your email address for marketing purposes or share it with any third parties.',
+      'Your personal information is used exclusively to respond to inquiries made through our contact form and to provide quotes for our mobile bar services. We do not use your information for marketing purposes without your explicit consent or share it with any third parties.',
       'We will not send unsolicited emails or use your personal information for any purposes other than those explicitly stated here.'
     ]
   },
   {
     title: '3. Data Retention',
     content: [
-      'We will only retain your email address for as long as necessary to respond to your inquiry or request. Once the communication has been completed, your email address will be deleted from our system.'
+      'We retain your personal data for the following periods:',
+      '- Enquiry data: Deleted within 30 days of final communication if no booking is made',
+      '- Booking data: Retained for 6 years after the event date for legal and accounting purposes',
+      '- Marketing consent: Until you withdraw consent',
+      'You may request early deletion of your data at any time by contacting us, subject to legal retention requirements.'
     ]
   },
   {
@@ -39,37 +43,69 @@ const sections = [
   {
     title: '5. Third-Party Services',
     content: [
-      'We do not share your email address or any other personal information with third-party services, except where required by law. If you choose to interact with third-party services (such as social media platforms or payment processors), please review their privacy policies.'
+      'We may use the following third-party services that process data on our behalf:',
+      '- Email services (Resend) for sending enquiry confirmations',
+      '- Analytics services (Google Analytics) for website usage statistics',
+      '- Content management (Sanity CMS) for blog content',
+      'These services are GDPR-compliant and process data only according to our instructions. We do not sell or share your personal information with third parties for their own marketing purposes.'
     ]
   },
   {
-    title: '6. Your Rights',
+    title: '6. Your Rights Under GDPR',
     content: [
-      'Under the General Data Protection Regulation (GDPR) and the Data Protection Act 2018, you have the right to:'
+      'Under the General Data Protection Regulation (GDPR) and the Data Protection Act 2018, you have the following rights:'
     ],
     list: [
-      'Request access to the personal data we hold about you',
-      'Request corrections to any inaccuracies in your personal data',
-      'Request the deletion of your personal data, where applicable',
-      'Request the restriction of processing your personal data in certain circumstances'
+      'Right of Access: Request a copy of the personal data we hold about you (Subject Access Request)',
+      'Right to Rectification: Request corrections to any inaccuracies in your personal data',
+      'Right to Erasure: Request deletion of your personal data ("right to be forgotten")',
+      'Right to Restrict Processing: Request limitation of how we use your data',
+      'Right to Data Portability: Receive your data in a structured, machine-readable format',
+      'Right to Object: Object to processing of your personal data for specific purposes',
+      'Right to Withdraw Consent: Withdraw consent at any time where processing is based on consent'
     ]
   },
   {
-    title: '7. Security',
+    title: '7. How to Exercise Your Rights',
     content: [
-      'We take appropriate measures to protect the personal data you provide through our website. However, no method of electronic transmission or storage is 100% secure. While we strive to use commercially acceptable means to protect your information, we cannot guarantee its absolute security.'
+      'To exercise any of your GDPR rights, please contact us at contact@mybartenders.co.uk with the subject line "GDPR Request". Please include:',
+      '- Your full name and contact details',
+      '- A description of which right(s) you wish to exercise',
+      '- Any relevant information to help us locate your data',
+      'We will respond to your request within 30 days. If your request is complex, we may extend this by up to two months, but we will inform you of this within the first 30 days.'
     ]
   },
   {
-    title: '8. Changes to This Privacy Policy',
+    title: '8. Data Breach Notification',
     content: [
-      'We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date at the top. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your personal data.'
+      'In the event of a personal data breach that is likely to result in a risk to your rights and freedoms, we will:',
+      '- Notify the Information Commissioner\'s Office (ICO) within 72 hours of becoming aware of the breach',
+      '- Notify affected individuals without undue delay if the breach is likely to result in high risk',
+      '- Document all breaches, including facts, effects, and remedial action taken',
+      'We maintain appropriate technical and organisational measures to detect, report, and investigate data breaches.'
     ]
   },
   {
-    title: '9. Governing Law',
+    title: '9. Security',
     content: [
-      'This Privacy Policy is governed by the laws of the United Kingdom. Any disputes will be subject to the exclusive jurisdiction of the courts in the United Kingdom.'
+      'We take appropriate technical and organisational measures to protect the personal data you provide through our website, including:',
+      '- Encryption of data in transit using HTTPS/TLS',
+      '- Secure storage with access controls',
+      '- Regular security reviews and updates',
+      'However, no method of electronic transmission or storage is 100% secure. While we strive to use commercially acceptable means to protect your information, we cannot guarantee its absolute security.'
+    ]
+  },
+  {
+    title: '10. Changes to This Privacy Policy',
+    content: [
+      'We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date at the bottom. Material changes will be communicated via email to those who have provided contact details. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your personal data.'
+    ]
+  },
+  {
+    title: '11. Governing Law',
+    content: [
+      'This Privacy Policy is governed by the laws of the United Kingdom. Any disputes will be subject to the exclusive jurisdiction of the courts in the United Kingdom.',
+      'The supervisory authority for data protection in the UK is the Information Commissioner\'s Office (ICO). You have the right to lodge a complaint with the ICO if you believe your data protection rights have been violated: ico.org.uk'
     ]
   }
 ]
@@ -175,7 +211,7 @@ const PrivacyPolicy = () => {
                   className='p-6 bg-gradient-to-r from-pink-500/10 to-amber-500/10 border border-pink-500/20 rounded-2xl'
                 >
                   <h2 className='text-xl font-semibold text-white mb-4'>
-                    10. Contact Us
+                    12. Contact Us
                   </h2>
                   <p className='text-gray-300 leading-relaxed'>
                     If you have any questions or concerns about this Privacy Policy, or if
@@ -198,7 +234,7 @@ const PrivacyPolicy = () => {
                 className='mt-12 text-center'
               >
                 <p className='text-gray-500 text-sm'>
-                  Last updated: January 2025
+                  Last updated: January 2026
                 </p>
               </motion.div>
             </div>

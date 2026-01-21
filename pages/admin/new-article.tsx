@@ -1,14 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { withAuth } from '@/components/withAuth'
 import { AdminHeader } from '@/components/admin/Header'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
-
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-import 'react-quill/dist/quill.snow.css'
 
 interface ContentSection {
   id: string
@@ -443,14 +438,13 @@ const NewArticlePage = () => {
                       </div>
 
                       {section.type === 'text' ? (
-                        <div className='quill-dark'>
-                          <ReactQuill
-                            value={section.content}
-                            onChange={content => updateSection(section.id, 'content', content)}
-                            className='bg-gray-900 rounded-lg'
-                            theme='snow'
-                          />
-                        </div>
+                        <textarea
+                          value={section.content}
+                          onChange={e => updateSection(section.id, 'content', e.target.value)}
+                          rows={8}
+                          className='w-full px-4 py-3 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 resize-y'
+                          placeholder='Enter your content here... (HTML supported)'
+                        />
                       ) : section.type === 'image' ? (
                         <div className='space-y-3'>
                           {/* File Upload for content images */}
@@ -878,45 +872,6 @@ const NewArticlePage = () => {
         </form>
       </div>
 
-      <style jsx global>{`
-        .quill-dark .ql-toolbar {
-          background: rgb(17 24 39);
-          border-color: rgba(255 255 255 / 0.1) !important;
-          border-radius: 0.5rem 0.5rem 0 0;
-        }
-        .quill-dark .ql-container {
-          background: rgb(17 24 39);
-          border-color: rgba(255 255 255 / 0.1) !important;
-          border-radius: 0 0 0.5rem 0.5rem;
-          min-height: 200px;
-        }
-        .quill-dark .ql-editor {
-          color: white;
-          min-height: 200px;
-        }
-        .quill-dark .ql-editor.ql-blank::before {
-          color: rgb(107 114 128);
-        }
-        .quill-dark .ql-stroke {
-          stroke: rgb(156 163 175) !important;
-        }
-        .quill-dark .ql-fill {
-          fill: rgb(156 163 175) !important;
-        }
-        .quill-dark .ql-picker-label {
-          color: rgb(156 163 175) !important;
-        }
-        .quill-dark .ql-picker-options {
-          background: rgb(31 41 55) !important;
-          border-color: rgba(255 255 255 / 0.1) !important;
-        }
-        .quill-dark .ql-picker-item {
-          color: rgb(156 163 175) !important;
-        }
-        .quill-dark .ql-picker-item:hover {
-          color: white !important;
-        }
-      `}</style>
     </div>
   )
 }

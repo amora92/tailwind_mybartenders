@@ -3,14 +3,14 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}'
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './sanity/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
     extend: {
       colors: {
-        main_buttons_1: '#508D4E', // Define your custom color
+        main_buttons_1: '#508D4E',
         nav_color_1: '#FFB000',
-
         green: {
           50: '#30AF5B',
           90: '#292C27'
@@ -30,6 +30,18 @@ module.exports = {
         },
         yellow: {
           50: '#FEC601'
+        },
+        gold: {
+          50: '#FFFBEB',
+          100: '#FEF3C7',
+          200: '#FDE68A',
+          300: '#FCD34D',
+          400: '#FBBF24',
+          500: '#F59E0B',
+          600: '#D97706',
+          700: '#B45309',
+          800: '#92400E',
+          900: '#78350F'
         }
       },
       backgroundImage: {
@@ -52,7 +64,14 @@ module.exports = {
       }
     }
   },
-  plugins: [require('daisyui')],
+  plugins: [
+    require('daisyui'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography')
+  ],
+  corePlugins: {
+    lineClamp: true
+  },
   daisyui: {
     themes: [
       {

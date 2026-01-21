@@ -1,32 +1,17 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { GetStaticProps } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { SEO_DEFAULTS } from '@/constants/brandStyles'
+import { getAllArticles, UnifiedArticle } from '@/lib/articles'
 import '../../app/globals.css'
 
-interface Article {
-  slug: string
-  title: string
-  description: string
-  imageUrl: string
-  contentSections?: {
-    id: string
-    type: 'text' | 'image'
-    content: string
-  }[]
-  publishedAt: string
-  category: string
-  readTime?: string | number
-  author?: {
-    name: string
-    avatar: string
-  }
+interface ArticlesPageProps {
+  articles: UnifiedArticle[]
 }
 
 const formatReadTime = (readTime: string | number | undefined) => {
@@ -64,33 +49,10 @@ const SORT_OPTIONS = [
   { value: 'views-asc', label: 'Least Popular' },
 ]
 
-interface ArticleWithViews extends Article {
-  views?: number
-}
-
-const Articles = () => {
-  const [articles, setArticles] = useState<ArticleWithViews[]>([])
-  const [loading, setLoading] = useState(true)
+const Articles = ({ articles }: ArticlesPageProps) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortBy, setSortBy] = useState('date-desc')
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch('/api/articles')
-        const data = await response.json()
-        setArticles(Array.isArray(data) ? data : [])
-      } catch (error) {
-        console.error('Error fetching articles:', error)
-        setArticles([])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchArticles()
-  }, [])
 
   const filteredArticles = articles
     .filter(article => {
@@ -228,21 +190,7 @@ const Articles = () => {
         {/* Articles Section */}
         <section className='relative py-16 lg:py-24 bg-gray-50'>
           <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
-            {loading ? (
-              <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
-                {[1, 2, 3, 4, 5, 6].map(i => (
-                  <div key={i} className='bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse'>
-                    <div className='h-56 bg-gray-200' />
-                    <div className='p-6'>
-                      <div className='h-4 bg-gray-200 rounded w-1/4 mb-4' />
-                      <div className='h-6 bg-gray-200 rounded w-3/4 mb-3' />
-                      <div className='h-4 bg-gray-200 rounded w-full mb-2' />
-                      <div className='h-4 bg-gray-200 rounded w-2/3' />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : filteredArticles.length === 0 ? (
+            {filteredArticles.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -278,6 +226,7 @@ const Articles = () => {
                               fill
                               className='object-cover group-hover:scale-105 transition-transform duration-500'
                               sizes='(max-width: 1024px) 100vw, 50vw'
+                              priority
                             />
                             <div className='absolute top-4 left-4 flex gap-2'>
                               <span className='px-3 py-1 bg-pink-500 text-white text-xs font-semibold rounded-full'>
@@ -426,6 +375,17 @@ const Articles = () => {
       <Footer />
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps<ArticlesPageProps> = async () => {
+  const articles = await getAllArticles()
+
+  return {
+    props: {
+      articles: JSON.parse(JSON.stringify(articles))
+    },
+    revalidate: 60 // Revalidate every 60 seconds
+  }
 }
 
 export default Articles
