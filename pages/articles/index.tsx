@@ -300,7 +300,7 @@ const Articles = () => {
                             <div className='flex items-center justify-between'>
                               <div className='flex items-center gap-3'>
                                 <Image
-                                  src={featuredArticle.author?.avatar || '/default-avatar.png'}
+                                  src={featuredArticle.author?.avatar || '/admin-avatar.svg'}
                                   alt={featuredArticle.author?.name || 'Author'}
                                   width={40}
                                   height={40}
@@ -363,7 +363,7 @@ const Articles = () => {
                             <div className='flex items-center justify-between pt-4 border-t border-gray-100'>
                               <div className='flex items-center gap-2'>
                                 <Image
-                                  src={article.author?.avatar || '/default-avatar.png'}
+                                  src={article.author?.avatar || '/admin-avatar.svg'}
                                   alt={article.author?.name || 'Author'}
                                   width={32}
                                   height={32}

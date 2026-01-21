@@ -57,7 +57,7 @@ export default async function handler(
         contentSections: contentSections || [],
         publishedAt: new Date(publishedAt).toISOString(),
         category: category || 'General',
-        author: author || { name: 'MyBartenders', avatar: '/default-avatar.png' },
+        author: author || { name: 'MyBartenders', avatar: '/admin-avatar.svg' },
         readTime: readTime || 5,
         slug,
         views: 0,

@@ -5,8 +5,9 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
+import { COMPANY_STATS, SITE_IMAGES, TRUST_INDICATORS, getBookingYear } from '@/constants/siteConfig'
 import { SEO_DEFAULTS } from '@/constants/brandStyles'
+import { CONTACT_INFO } from '@/constants/contact'
 import '../app/globals.css'
 
 const values = [
@@ -17,7 +18,8 @@ const values = [
       </svg>
     ),
     title: 'Quality First',
-    description: 'Premium spirits, fresh ingredients, and meticulous attention to detail in every cocktail we craft.'
+    description: 'Premium spirits, fresh ingredients, and meticulous attention to detail in every cocktail we craft.',
+    color: 'from-pink-500 to-rose-600'
   },
   {
     icon: (
@@ -26,7 +28,8 @@ const values = [
       </svg>
     ),
     title: 'Expert Team',
-    description: 'Highly trained professionals with years of experience in hospitality and mixology.'
+    description: 'Highly trained professionals with years of experience in hospitality and mixology.',
+    color: 'from-violet-500 to-purple-600'
   },
   {
     icon: (
@@ -35,7 +38,8 @@ const values = [
       </svg>
     ),
     title: 'Passion Driven',
-    description: 'We genuinely love what we do, and that passion shines through in every event we serve.'
+    description: 'We genuinely love what we do, and that passion shines through in every event we serve.',
+    color: 'from-amber-500 to-orange-600'
   },
   {
     icon: (
@@ -44,33 +48,16 @@ const values = [
       </svg>
     ),
     title: 'Reliable Service',
-    description: 'Punctual, professional, and consistent. We handle everything from setup to cleanup.'
+    description: 'Punctual, professional, and consistent. We handle everything from setup to cleanup.',
+    color: 'from-emerald-500 to-teal-600'
   }
 ]
 
-const services = [
-  {
-    title: 'Private Cocktail Bartender Hire',
-    description: 'Our experienced bartenders create bespoke cocktail experiences at your location, from small gatherings to large celebrations.'
-  },
-  {
-    title: 'Mobile Bar Services',
-    description: 'Fully equipped mobile bars with premium spirits, mixers, and garnishes that can be set up at any venue.'
-  },
-  {
-    title: 'Wedding & Event Catering',
-    description: 'Make your special day unforgettable with personalized service and custom cocktail menus tailored to your event.'
-  },
-  {
-    title: 'Mixology Workshops',
-    description: 'Hands-on workshops perfect for team-building, parties, or anyone wanting to master cocktail-making skills.'
-  }
-]
-
-const team = [
-  { name: 'A.M.', role: 'Head Bartender', image: '/pineapple5.jpg' },
-  { name: 'L.V.', role: 'Event Coordinator', image: '/pineapple_2.svg' },
-  { name: 'M.B.', role: 'Mixologist', image: '/pineapple_4.svg' }
+const milestones = [
+  { year: '2009', title: 'Founded', description: 'Started with a passion for hospitality' },
+  { year: '2015', title: 'Expanded', description: 'Grew to serve weddings nationwide' },
+  { year: '2020', title: '500+ Events', description: 'Reached our 500th successful event' },
+  { year: 'Today', title: 'Growing', description: 'Continuing to serve excellence' }
 ]
 
 const AboutUs = () => {
@@ -93,7 +80,7 @@ const AboutUs = () => {
 
       <main>
         {/* Hero Section */}
-        <section className='relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gray-950 overflow-hidden'>
+        <section className='relative pt-32 pb-20 lg:pt-40 lg:pb-32 bg-gray-950 overflow-hidden'>
           <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
           <div className='absolute top-20 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl' />
           <div className='absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl' />
@@ -109,23 +96,44 @@ const AboutUs = () => {
                 Our Story
               </span>
 
-              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6'>
+              <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight'>
                 Crafting Exceptional
                 <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
                   Experiences Since 2009
                 </span>
               </h1>
 
-              <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
+              <p className='text-xl text-gray-400 max-w-2xl mx-auto mb-10'>
                 From a small team of passionate bartenders to Northampton's most trusted mobile bar service.
                 Our commitment to quality and genuine hospitality drives everything we do.
               </p>
+
+              <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+                <a
+                  href='/contact_us'
+                  className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full hover:opacity-90 transition-opacity shadow-lg shadow-pink-500/30'
+                >
+                  Get in Touch
+                  <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  </svg>
+                </a>
+                <a
+                  href={CONTACT_INFO.phoneHref}
+                  className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-colors'
+                >
+                  <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z' />
+                  </svg>
+                  {CONTACT_INFO.phone}
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>
 
         {/* Stats Section */}
-        <section className='relative py-16 bg-gray-900 border-y border-white/10'>
+        <section className='relative py-16 bg-gray-950 border-y border-white/10'>
           <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
               {[
@@ -142,7 +150,9 @@ const AboutUs = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className='text-center'
                 >
-                  <div className='text-3xl md:text-4xl font-bold text-white mb-1'>{stat.value}</div>
+                  <div className='text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400 mb-1'>
+                    {stat.value}
+                  </div>
                   <div className='text-gray-500 text-sm'>{stat.label}</div>
                 </motion.div>
               ))}
@@ -151,11 +161,12 @@ const AboutUs = () => {
         </section>
 
         {/* Our Story Section */}
-        <section className='relative py-24 lg:py-32 bg-gray-50 overflow-hidden'>
-          <div className='absolute top-0 left-0 w-96 h-96 bg-pink-100/50 rounded-full blur-3xl' />
+        <section className='relative py-24 lg:py-32 bg-gray-950 overflow-hidden'>
+          <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900/50 via-gray-950 to-gray-950' />
+          <div className='absolute top-20 left-0 w-[500px] h-[500px] bg-pink-500/5 rounded-full blur-3xl' />
 
           <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='grid lg:grid-cols-2 gap-16 items-center'>
+            <div className='grid lg:grid-cols-2 gap-16 lg:gap-24 items-center'>
               {/* Image */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -164,7 +175,8 @@ const AboutUs = () => {
                 transition={{ duration: 0.8 }}
                 className='relative'
               >
-                <div className='relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl'>
+                <div className='absolute -inset-4 bg-gradient-to-r from-pink-500 to-amber-500 rounded-3xl blur-2xl opacity-20' />
+                <div className='relative aspect-[4/5] rounded-2xl overflow-hidden'>
                   <Image
                     src={SITE_IMAGES.aboutHero}
                     alt='Professional bartender crafting cocktails'
@@ -172,11 +184,19 @@ const AboutUs = () => {
                     className='object-cover'
                     sizes='(max-width: 768px) 100vw, 50vw'
                   />
-                </div>
-                <div className='absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center shadow-xl'>
-                  <div className='text-center text-white'>
-                    <div className='text-3xl font-bold'>15+</div>
-                    <div className='text-xs'>Years</div>
+                  <div className='absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-transparent' />
+
+                  {/* Floating Badge */}
+                  <div className='absolute bottom-6 left-6 right-6'>
+                    <div className='inline-flex items-center gap-3 px-5 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20'>
+                      <div className='w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center'>
+                        <span className='text-white font-bold text-lg'>15+</span>
+                      </div>
+                      <div>
+                        <div className='text-white font-semibold'>Years of Excellence</div>
+                        <div className='text-white/60 text-sm'>Trusted Since 2009</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -187,15 +207,14 @@ const AboutUs = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className='space-y-6'
               >
-                <span className='inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-sm font-medium rounded-full'>
+                <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
                   How It Started
                 </span>
-                <h2 className='text-3xl md:text-4xl font-bold text-gray-900'>
+                <h2 className='text-3xl lg:text-4xl font-bold text-white mb-6'>
                   A Passion for Perfect Hospitality
                 </h2>
-                <div className='space-y-4 text-gray-600 leading-relaxed'>
+                <div className='space-y-4 text-gray-400 leading-relaxed'>
                   <p>
                     MyBartenders began in 2009 with a simple vision: to bring the art of
                     exceptional hospitality directly to our clients' venues. What started
@@ -215,6 +234,24 @@ const AboutUs = () => {
                     and genuine care for every client we serve.
                   </p>
                 </div>
+
+                {/* Timeline */}
+                <div className='mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4'>
+                  {milestones.map((milestone, index) => (
+                    <motion.div
+                      key={milestone.year}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className='p-4 bg-white/5 rounded-xl border border-white/10'
+                    >
+                      <div className='text-pink-400 font-bold text-lg mb-1'>{milestone.year}</div>
+                      <div className='text-white font-medium text-sm mb-1'>{milestone.title}</div>
+                      <div className='text-gray-500 text-xs'>{milestone.description}</div>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             </div>
           </div>
@@ -222,7 +259,8 @@ const AboutUs = () => {
 
         {/* Values Section */}
         <section className='relative py-24 lg:py-32 bg-gray-950 overflow-hidden'>
-          <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-gray-950' />
+          <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
+          <div className='absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl' />
 
           <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
             <motion.div
@@ -234,15 +272,16 @@ const AboutUs = () => {
               <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
                 What Sets Us Apart
               </span>
-              <h2 className='text-3xl md:text-4xl font-bold text-white mb-4'>
-                Our Values
+              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6'>
+                Our
+                <span className='text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400'> Values</span>
               </h2>
-              <p className='text-gray-400 max-w-2xl mx-auto'>
+              <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
                 The principles that guide everything we do and make every event exceptional.
               </p>
             </motion.div>
 
-            <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
+            <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto'>
               {values.map((value, index) => (
                 <motion.div
                   key={value.title}
@@ -250,9 +289,9 @@ const AboutUs = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className='p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-pink-500/30 transition-colors'
+                  className='group p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-pink-500/30 transition-all'
                 >
-                  <div className='w-12 h-12 bg-gradient-to-br from-pink-500/20 to-amber-500/20 rounded-xl flex items-center justify-center text-pink-400 mb-4'>
+                  <div className={`w-12 h-12 bg-gradient-to-r ${value.color} rounded-xl flex items-center justify-center text-white mb-4`}>
                     {value.icon}
                   </div>
                   <h3 className='text-lg font-semibold text-white mb-2'>{value.title}</h3>
@@ -263,115 +302,32 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section className='relative py-24 lg:py-32 bg-gray-50 overflow-hidden'>
-          <div className='absolute bottom-0 right-0 w-96 h-96 bg-amber-100/50 rounded-full blur-3xl' />
-
-          <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className='text-center mb-16'
-            >
-              <span className='inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-sm font-medium rounded-full mb-6'>
-                What We Offer
-              </span>
-              <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>
-                Our Services
-              </h2>
-              <p className='text-gray-600 max-w-2xl mx-auto'>
-                Comprehensive mobile bar solutions tailored to your unique event needs.
-              </p>
-            </motion.div>
-
-            <div className='grid md:grid-cols-2 gap-6 max-w-4xl mx-auto'>
-              {services.map((service, index) => (
+        {/* Image Gallery Strip */}
+        <section className='relative py-16 bg-gray-950 overflow-hidden'>
+          <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+              {[
+                { src: '/wedding.webp', alt: 'Wedding bar service' },
+                { src: '/corporate.webp', alt: 'Corporate event' },
+                { src: '/party_cocktails.webp', alt: 'Private party' },
+                { src: '/masterclass.webp', alt: 'Cocktail masterclass' }
+              ].map((image, index) => (
                 <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  key={image.src}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className='p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow border border-gray-100'
+                  className='relative aspect-[4/3] rounded-xl overflow-hidden'
                 >
-                  <div className='flex items-start gap-4'>
-                    <div className='w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center flex-shrink-0'>
-                      <svg className='w-5 h-5 text-pink-500' fill='currentColor' viewBox='0 0 20 20'>
-                        <path fillRule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clipRule='evenodd' />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className='text-lg font-semibold text-gray-900 mb-2'>{service.title}</h3>
-                      <p className='text-gray-600 text-sm'>{service.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className='text-center mt-12'
-            >
-              <a
-                href='/services'
-                className='inline-flex items-center gap-2 text-pink-500 font-medium hover:text-pink-600 transition-colors'
-              >
-                View All Services
-                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                </svg>
-              </a>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Team Section */}
-        <section className='relative py-24 lg:py-32 bg-gray-950 overflow-hidden'>
-          <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
-
-          <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className='text-center mb-16'
-            >
-              <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
-                The Experts
-              </span>
-              <h2 className='text-3xl md:text-4xl font-bold text-white mb-4'>
-                Meet Our Team
-              </h2>
-              <p className='text-gray-400 max-w-2xl mx-auto'>
-                Passionate professionals dedicated to making your event extraordinary.
-              </p>
-            </motion.div>
-
-            <div className='grid md:grid-cols-3 gap-8 max-w-4xl mx-auto'>
-              {team.map((member, index) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className='text-center group'
-                >
-                  <div className='relative w-32 h-32 mx-auto mb-6'>
-                    <div className='absolute inset-0 bg-gradient-to-br from-pink-500 to-amber-500 rounded-full opacity-20 group-hover:opacity-40 transition-opacity' />
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className='object-cover rounded-full border-4 border-white/10'
-                    />
-                  </div>
-                  <h3 className='text-xl font-semibold text-white mb-1'>{member.name}</h3>
-                  <p className='text-pink-400 text-sm'>{member.role}</p>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className='object-cover hover:scale-110 transition-transform duration-500'
+                    sizes='(max-width: 768px) 50vw, 25vw'
+                  />
+                  <div className='absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-transparent' />
                 </motion.div>
               ))}
             </div>
@@ -391,32 +347,92 @@ const AboutUs = () => {
             <div className='absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/90 to-gray-900/80' />
           </div>
 
-          <div className='relative container mx-auto px-4 sm:px-6 lg:px-8 text-center'>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className='max-w-3xl mx-auto'
-            >
-              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6'>
-                Ready to Create
-                <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400'>
-                  Something Amazing?
-                </span>
-              </h2>
-              <p className='text-xl text-white/70 mb-10'>
-                Let's discuss your event and craft an unforgettable experience together.
-              </p>
-              <a
-                href='/contact_us'
-                className='inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-2xl shadow-pink-500/30 hover:shadow-pink-500/50 transition-all text-lg'
+          <div className='absolute top-20 right-20 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl' />
+          <div className='absolute bottom-20 left-20 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl' />
+
+          <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='max-w-4xl mx-auto text-center'>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className='inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8'
               >
-                Get Your Free Quote
-                <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                </svg>
-              </a>
-            </motion.div>
+                <span className='relative flex h-2 w-2'>
+                  <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
+                  <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
+                </span>
+                <span className='text-white/90 text-sm font-medium'>
+                  Now Booking for {getBookingYear()}
+                </span>
+              </motion.div>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight'
+              >
+                Ready to Work
+                <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
+                  With Us?
+                </span>
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className='text-xl text-white/70 mb-10 max-w-2xl mx-auto'
+              >
+                Get in touch today for a free, no-obligation quote. We'd love to
+                hear about your event and how we can make it special.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className='flex flex-col sm:flex-row gap-4 justify-center mb-12'
+              >
+                <a
+                  href='/contact_us'
+                  className='inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-2xl shadow-pink-500/30 hover:shadow-pink-500/50 transition-all text-lg group'
+                >
+                  Get Your Free Quote
+                  <svg className='w-5 h-5 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  </svg>
+                </a>
+                <a
+                  href='/services'
+                  className='inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-all text-lg'
+                >
+                  View Our Services
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className='flex flex-wrap items-center justify-center gap-6 lg:gap-10 text-white/50 text-sm'
+              >
+                {TRUST_INDICATORS.map(item => (
+                  <div key={item} className='flex items-center gap-2'>
+                    <svg className='w-5 h-5 text-green-400' fill='currentColor' viewBox='0 0 20 20'>
+                      <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clipRule='evenodd' />
+                    </svg>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>

@@ -346,7 +346,7 @@ const ArticlePage = () => {
                 <div className='flex flex-wrap items-center justify-between gap-6 pt-6 border-t border-white/10'>
                   <div className='flex items-center gap-4'>
                     <Image
-                      src={article.author?.avatar || '/default-avatar.png'}
+                      src={article.author?.avatar || '/admin-avatar.svg'}
                       alt={article.author?.name || 'Author'}
                       width={48}
                       height={48}

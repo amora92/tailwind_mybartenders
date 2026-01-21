@@ -8,6 +8,18 @@ import { getBookingYear, COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConf
 const VideoSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const videoRef = React.useRef(null)
+
+  // Ensure video plays on mount
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay was prevented, video will still be visible but paused
+        setIsVideoLoaded(true)
+      })
+    }
+  }, [])
 
   const scrollToNextSection = useCallback(() => {
     const nextSection = document.getElementById('next-section')
@@ -40,6 +52,7 @@ const VideoSection = () => {
           className='absolute inset-[-20px]'
         >
           <video
+            ref={videoRef}
             src={SITE_IMAGES.heroVideo}
             type='video/mp4'
             autoPlay
@@ -47,7 +60,8 @@ const VideoSection = () => {
             loop
             playsInline
             preload='auto'
-            onCanPlay={() => setIsVideoLoaded(true)}
+            onLoadedData={() => setIsVideoLoaded(true)}
+            onCanPlayThrough={() => setIsVideoLoaded(true)}
             className='w-full h-full object-cover'
             style={{
               filter: 'brightness(0.4) saturate(1.2)',

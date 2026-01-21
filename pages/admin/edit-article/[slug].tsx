@@ -120,7 +120,7 @@ const EditArticle = () => {
           readTime: readTimeMinutes,
           author: {
             name: 'MyBartenders',
-            avatar: '/default-avatar.png'
+            avatar: '/admin-avatar.svg'
           }
         })
       })

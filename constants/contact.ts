@@ -7,8 +7,8 @@ export const CONTACT_INFO = {
   phoneHref: 'tel:+447482612532',
 
   // Email
-  email: 'info@mybartenders.co.uk',
-  emailHref: 'mailto:info@mybartenders.co.uk',
+  email: 'contact@mybartenders.co.uk',
+  emailHref: 'mailto:contact@mybartenders.co.uk',
 
   // BCC email for contact form submissions (receives a copy of all inquiries)
   // Set to empty string '' to disable BCC
@@ -20,9 +20,9 @@ export const CONTACT_INFO = {
 
   // Social Media (update with your actual URLs)
   social: {
-    instagram: 'https://instagram.com/mybartenders',
-    facebook: 'https://facebook.com/mybartenders',
-    twitter: 'https://twitter.com/mybartenders'
+    instagram: 'https://instagram.com/mybartenders.co.uk',
+    facebook: 'https://facebook.com/mybartenders.co.uk',
+    twitter: 'https://twitter.com/mybartenders.co.uk'
   },
 
   // Business Hours
