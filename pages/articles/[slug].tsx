@@ -33,13 +33,14 @@ interface Article {
   customCss?: string
   contentSections?: {
     id: string
-    type: 'text' | 'image' | 'video' | 'quote' | 'code' | 'cta'
+    type: 'text' | 'image' | 'video' | 'quote' | 'code' | 'cta' | 'gallery'
     content: string
     caption?: string
     author?: string
     language?: string
     buttonText?: string
     buttonUrl?: string
+    images?: { url: string; caption?: string }[]
   }[]
 }
 
@@ -649,6 +650,52 @@ const ArticlePage = () => {
                                 </svg>
                               </Link>
                             )}
+                          </div>
+                        </motion.section>
+                      )
+                    }
+                    if (section.type === 'gallery' && section.images && section.images.length > 0) {
+                      return (
+                        <motion.section
+                          key={section.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className='mb-12'
+                        >
+                          {section.content && (
+                            <h3 className='text-2xl font-bold text-gray-900 mb-6 text-center'>
+                              {section.content}
+                            </h3>
+                          )}
+                          <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+                            {section.images.map((img, imgIndex) => (
+                              <motion.figure
+                                key={imgIndex}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: imgIndex * 0.05 }}
+                                className='group relative'
+                              >
+                                <div className='relative aspect-square rounded-xl overflow-hidden shadow-lg bg-gray-100'>
+                                  <Image
+                                    src={img.url}
+                                    alt={img.caption || `Gallery image ${imgIndex + 1}`}
+                                    fill
+                                    className='object-cover transition-transform duration-500 group-hover:scale-110'
+                                    sizes='(max-width: 768px) 50vw, 33vw'
+                                  />
+                                  <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                                </div>
+                                {img.caption && (
+                                  <figcaption className='mt-2 text-sm text-gray-600 text-center'>
+                                    {img.caption}
+                                  </figcaption>
+                                )}
+                              </motion.figure>
+                            ))}
                           </div>
                         </motion.section>
                       )

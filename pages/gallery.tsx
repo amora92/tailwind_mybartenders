@@ -20,10 +20,8 @@ interface GalleryImage {
   alt: string
   category: 'cocktails' | 'events' | 'setup'
   span?: string
+  _id?: string
 }
-
-// Use images from config
-const galleryImages: GalleryImage[] = GALLERY_IMAGES
 
 const categories = [
   { id: 'all', name: 'All', icon: '✦' },
@@ -56,10 +54,10 @@ const imageVariants = {
 }
 
 // ===========================================
-// STRUCTURED DATA FOR SEO
+// STRUCTURED DATA FOR SEO (base template - images added in component)
 // ===========================================
 
-const structuredData = {
+const getStructuredData = (images: GalleryImage[]) => ({
   '@context': 'https://schema.org',
   '@type': 'ImageGallery',
   name: 'MyBartenders Mobile Bar Gallery',
@@ -71,12 +69,12 @@ const structuredData = {
     name: SEO_DEFAULTS.siteName,
     url: SEO_DEFAULTS.siteUrl
   },
-  image: galleryImages.map(img => ({
+  image: images.map(img => ({
     '@type': 'ImageObject',
     contentUrl: `${SEO_DEFAULTS.siteUrl}${img.src}`,
     description: img.alt
   }))
-}
+})
 
 // ===========================================
 // COMPONENT
@@ -86,6 +84,26 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [activeCategory, setActiveCategory] = useState('all')
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [dbImages, setDbImages] = useState<GalleryImage[]>([])
+
+  // Fetch database images on mount
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      try {
+        const res = await fetch('/api/gallery')
+        const data = await res.json()
+        if (Array.isArray(data)) {
+          setDbImages(data)
+        }
+      } catch (error) {
+        console.error('Error fetching gallery images:', error)
+      }
+    }
+    fetchGalleryImages()
+  }, [])
+
+  // Combine static and database images
+  const galleryImages: GalleryImage[] = [...GALLERY_IMAGES, ...dbImages]
 
   const filteredImages =
     activeCategory === 'all'
@@ -174,16 +192,18 @@ const Gallery = () => {
         {/* Structured Data */}
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getStructuredData(galleryImages)) }}
         />
 
         {/* Preload first image */}
-        <link
-          rel='preload'
-          href={galleryImages[0].src}
-          as='image'
-          type='image/webp'
-        />
+        {galleryImages.length > 0 && (
+          <link
+            rel='preload'
+            href={galleryImages[0].src}
+            as='image'
+            type='image/webp'
+          />
+        )}
       </Head>
 
       <Navbar />

@@ -37,6 +37,12 @@ export const AdminHeader = () => {
 
           <nav className='hidden md:flex items-center gap-6'>
             <Link
+              href='/admin/gallery'
+              className='text-gray-400 hover:text-white text-sm font-medium transition-colors'
+            >
+              Gallery
+            </Link>
+            <Link
               href='/'
               className='text-gray-400 hover:text-white text-sm font-medium transition-colors'
             >

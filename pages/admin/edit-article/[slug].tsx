@@ -8,15 +8,21 @@ import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 
+interface GalleryImage {
+  url: string
+  caption?: string
+}
+
 interface ContentSection {
   id: string
-  type: 'text' | 'image' | 'video' | 'quote' | 'code' | 'cta'
+  type: 'text' | 'image' | 'video' | 'quote' | 'code' | 'cta' | 'gallery'
   content: string
   caption?: string
   author?: string // For quotes
   language?: string // For code blocks
   buttonText?: string // For CTA
   buttonUrl?: string // For CTA
+  images?: GalleryImage[] // For gallery
 }
 
 const CATEGORY_OPTIONS = [
@@ -69,7 +75,8 @@ const EditArticle = () => {
 
   const fetchArticle = async () => {
     try {
-      const response = await fetch(`/api/articles/${slug}`)
+      // Use admin=true to fetch drafts as well
+      const response = await fetch(`/api/articles/${slug}?admin=true`)
       if (!response.ok) throw new Error('Article not found')
       const data = await response.json()
 
@@ -168,7 +175,63 @@ const EditArticle = () => {
       newSection.buttonText = 'Learn More'
       newSection.buttonUrl = ''
     }
+    if (type === 'gallery') {
+      newSection.images = []
+    }
     setContentSections(prev => [...prev, newSection])
+  }
+
+  // Add image to gallery section
+  const addGalleryImage = (sectionId: string, url: string, caption?: string) => {
+    setContentSections(prev =>
+      prev.map(section => {
+        if (section.id === sectionId && section.type === 'gallery') {
+          const images = section.images || []
+          return { ...section, images: [...images, { url, caption: caption || '' }] }
+        }
+        return section
+      })
+    )
+  }
+
+  // Remove image from gallery section
+  const removeGalleryImage = (sectionId: string, imageIndex: number) => {
+    setContentSections(prev =>
+      prev.map(section => {
+        if (section.id === sectionId && section.type === 'gallery') {
+          const images = [...(section.images || [])]
+          images.splice(imageIndex, 1)
+          return { ...section, images }
+        }
+        return section
+      })
+    )
+  }
+
+  // Update gallery image caption
+  const updateGalleryImageCaption = (sectionId: string, imageIndex: number, caption: string) => {
+    setContentSections(prev =>
+      prev.map(section => {
+        if (section.id === sectionId && section.type === 'gallery') {
+          const images = [...(section.images || [])]
+          if (images[imageIndex]) {
+            images[imageIndex] = { ...images[imageIndex], caption }
+          }
+          return { ...section, images }
+        }
+        return section
+      })
+    )
+  }
+
+  // Handle gallery image upload
+  const handleGalleryImageUpload = async (sectionId: string, file: File) => {
+    setUploadingSection(sectionId)
+    const url = await uploadImage(file)
+    if (url) {
+      addGalleryImage(sectionId, url)
+    }
+    setUploadingSection(null)
   }
 
   const removeSection = (id: string) => {
@@ -412,6 +475,13 @@ const EditArticle = () => {
                     >
                       + CTA
                     </button>
+                    <button
+                      type='button'
+                      onClick={() => addSection('gallery')}
+                      className='px-3 py-1.5 bg-indigo-500/20 text-indigo-400 text-sm font-medium rounded-lg hover:bg-indigo-500/30 transition-colors'
+                    >
+                      + Gallery
+                    </button>
                   </div>
                 </div>
 
@@ -437,6 +507,8 @@ const EditArticle = () => {
                               ? 'bg-purple-500/20 text-purple-400'
                               : section.type === 'code'
                               ? 'bg-cyan-500/20 text-cyan-400'
+                              : section.type === 'gallery'
+                              ? 'bg-indigo-500/20 text-indigo-400'
                               : 'bg-orange-500/20 text-orange-400'
                           }`}>
                             {section.type}
@@ -637,6 +709,130 @@ const EditArticle = () => {
                               </span>
                             </div>
                           )}
+                        </div>
+                      ) : section.type === 'gallery' ? (
+                        <div className='space-y-4'>
+                          {/* Upload buttons */}
+                          <div className='flex flex-wrap gap-2'>
+                            <input
+                              type='file'
+                              accept='image/*'
+                              multiple
+                              onChange={e => {
+                                const files = e.target.files
+                                if (files) {
+                                  Array.from(files).forEach(file => {
+                                    handleGalleryImageUpload(section.id, file)
+                                  })
+                                }
+                              }}
+                              className='hidden'
+                              id={`gallery-upload-${section.id}`}
+                            />
+                            <label
+                              htmlFor={`gallery-upload-${section.id}`}
+                              className='py-2 px-4 bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 text-sm font-medium rounded-lg hover:bg-indigo-500/30 transition-colors flex items-center gap-2 cursor-pointer'
+                            >
+                              {uploadingSection === section.id ? (
+                                <>
+                                  <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
+                                    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+                                    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z' />
+                                  </svg>
+                                  Uploading...
+                                </>
+                              ) : (
+                                <>
+                                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12' />
+                                  </svg>
+                                  Upload Images
+                                </>
+                              )}
+                            </label>
+                            <span className='text-gray-500 text-sm py-2'>or add URL below</span>
+                          </div>
+
+                          {/* Add image by URL */}
+                          <div className='flex gap-2'>
+                            <input
+                              type='text'
+                              placeholder='Enter image URL'
+                              className='flex-1 px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm'
+                              onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault()
+                                  const input = e.target as HTMLInputElement
+                                  if (input.value.trim()) {
+                                    addGalleryImage(section.id, input.value.trim())
+                                    input.value = ''
+                                  }
+                                }
+                              }}
+                            />
+                            <button
+                              type='button'
+                              onClick={e => {
+                                const input = (e.target as HTMLElement).previousElementSibling as HTMLInputElement
+                                if (input?.value.trim()) {
+                                  addGalleryImage(section.id, input.value.trim())
+                                  input.value = ''
+                                }
+                              }}
+                              className='px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg hover:bg-indigo-500/30 transition-colors text-sm font-medium'
+                            >
+                              Add
+                            </button>
+                          </div>
+
+                          {/* Gallery grid preview */}
+                          {section.images && section.images.length > 0 ? (
+                            <div className='grid grid-cols-2 md:grid-cols-3 gap-3'>
+                              {section.images.map((img, imgIndex) => (
+                                <div key={imgIndex} className='relative group'>
+                                  <div className='aspect-square rounded-lg overflow-hidden bg-gray-900'>
+                                    <img
+                                      src={img.url}
+                                      alt={img.caption || `Gallery image ${imgIndex + 1}`}
+                                      className='w-full h-full object-cover'
+                                    />
+                                  </div>
+                                  <button
+                                    type='button'
+                                    onClick={() => removeGalleryImage(section.id, imgIndex)}
+                                    className='absolute top-2 right-2 p-1.5 bg-red-500/80 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600'
+                                  >
+                                    <svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                                    </svg>
+                                  </button>
+                                  <input
+                                    type='text'
+                                    value={img.caption || ''}
+                                    onChange={e => updateGalleryImageCaption(section.id, imgIndex, e.target.value)}
+                                    placeholder='Caption'
+                                    className='mt-2 w-full px-2 py-1 bg-gray-900 border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-xs'
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className='p-8 border-2 border-dashed border-white/10 rounded-lg text-center'>
+                              <svg className='w-10 h-10 text-gray-600 mx-auto mb-2' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' />
+                              </svg>
+                              <p className='text-gray-500 text-sm'>No images in gallery. Upload or add URLs above.</p>
+                            </div>
+                          )}
+
+                          {/* Gallery title/caption */}
+                          <input
+                            type='text'
+                            value={section.content}
+                            onChange={e => updateSection(section.id, 'content', e.target.value)}
+                            placeholder='Gallery title (optional)'
+                            className='w-full px-4 py-2 bg-gray-900 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm'
+                          />
                         </div>
                       ) : null}
                     </div>

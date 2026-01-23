@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ['framer-motion', '@headlessui/react'],
+  },
+
   images: {
     remotePatterns: [
       {

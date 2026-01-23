@@ -18,7 +18,9 @@ export default async function handler (
         publishedAt,
         category,
         author,
-        readTime
+        readTime,
+        tags,
+        status
       } = req.body
 
       if (!title || !description || !imageUrl || !publishedAt) {
@@ -37,6 +39,8 @@ export default async function handler (
             category,
             author,
             readTime,
+            tags: tags || [],
+            status: status || 'published',
             updatedAt: new Date().toISOString()
           }
         }
@@ -57,7 +61,7 @@ export default async function handler (
   if (req.method === 'GET') {
     try {
       const { db } = await connectToDatabase()
-      const { slug } = req.query
+      const { slug, admin } = req.query
 
       // First, find the article
       const article = await db.collection('articles').findOne({ slug: slug })
@@ -66,16 +70,26 @@ export default async function handler (
         return res.status(404).json({ error: 'Article not found' })
       }
 
-      // Increment the view count
-      await db
-        .collection('articles')
-        .updateOne({ slug: slug }, { $inc: { views: 1 } })
+      // If article is draft and not admin request, return 404
+      if (article.status === 'draft' && admin !== 'true') {
+        return res.status(404).json({ error: 'Article not found' })
+      }
 
-      // Return the article with updated view count
-      return res.status(200).json({
-        ...article,
-        views: (article.views || 0) + 1
-      })
+      // Only increment view count for non-admin, published articles
+      if (admin !== 'true' && article.status !== 'draft') {
+        await db
+          .collection('articles')
+          .updateOne({ slug: slug }, { $inc: { views: 1 } })
+
+        // Return the article with updated view count
+        return res.status(200).json({
+          ...article,
+          views: (article.views || 0) + 1
+        })
+      }
+
+      // For admin requests, return without incrementing views
+      return res.status(200).json(article)
     } catch (error) {
       console.error('Error fetching article:', error)
       return res.status(500).json({ error: 'Internal server error' })

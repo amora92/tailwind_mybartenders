@@ -9,9 +9,20 @@ export default async function handler(
     try {
       const { db } = await connectToDatabase()
 
+      // Check if admin=true query param is passed (for admin dashboard)
+      const { admin, status: statusFilter } = req.query
+
+      // Build query - if not admin, only show published articles
+      const query: Record<string, unknown> = {}
+      if (admin !== 'true') {
+        query.status = { $ne: 'draft' }
+      } else if (statusFilter) {
+        query.status = statusFilter
+      }
+
       const articles = await db
         .collection('articles')
-        .find({})
+        .find(query)
         .sort({ publishedAt: -1 })
         .toArray()
 
@@ -35,7 +46,9 @@ export default async function handler(
         category,
         author,
         readTime,
-        slug
+        slug,
+        tags,
+        status
       } = req.body
 
       if (!title || !description || !imageUrl || !publishedAt || !slug) {
@@ -60,6 +73,8 @@ export default async function handler(
         author: author || { name: 'MyBartenders', avatar: '/admin-avatar.svg' },
         readTime: readTime || 5,
         slug,
+        tags: tags || [],
+        status: status || 'published',
         views: 0,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()

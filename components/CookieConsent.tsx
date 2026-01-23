@@ -94,49 +94,46 @@ export default function CookieConsent() {
         onClick={() => setShowSettings(false)}
       />
 
-      {/* Main Banner */}
-      <div className='fixed bottom-0 left-0 right-0 z-[9999] p-4'>
-        <div className='max-w-4xl mx-auto'>
-          <div className='bg-gray-900 border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden'>
+      {/* Main Banner - Compact Design */}
+      <div className='fixed bottom-0 left-0 right-0 z-[9999] p-3 md:p-4'>
+        <div className='max-w-5xl mx-auto'>
+          <div className='bg-gray-900/95 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl shadow-black/50 overflow-hidden'>
             {!showSettings ? (
-              // Simple Banner View
-              <div className='p-6'>
-                <div className='flex flex-col md:flex-row md:items-start gap-6'>
-                  <div className='flex-1'>
-                    <div className='flex items-center gap-3 mb-3'>
-                      <div className='w-10 h-10 bg-pink-500/20 rounded-xl flex items-center justify-center'>
-                        <svg className='w-5 h-5 text-pink-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' />
-                        </svg>
-                      </div>
-                      <h3 className='text-lg font-semibold text-white'>Cookie Preferences</h3>
+              // Simple Compact Banner View
+              <div className='px-4 py-3 md:px-5 md:py-4'>
+                <div className='flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4'>
+                  {/* Icon + Text */}
+                  <div className='flex items-center gap-3 flex-1 min-w-0'>
+                    <div className='hidden sm:flex w-9 h-9 bg-gradient-to-br from-pink-500/20 to-rose-500/20 rounded-lg items-center justify-center flex-shrink-0'>
+                      <svg className='w-4 h-4 text-pink-400' fill='currentColor' viewBox='0 0 20 20'>
+                        <path d='M10 2a8 8 0 100 16 8 8 0 000-16zM5.94 5.5c.944-.945 2.56-.276 2.56 1.06V8h5V6.56c0-1.336 1.616-2.005 2.56-1.06l1.44 1.44V8.5a1.5 1.5 0 01-1.5 1.5h-10A1.5 1.5 0 014.5 8.5V6.94l1.44-1.44zM4 12.5A1.5 1.5 0 015.5 11h9a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 014 15.5v-3z' />
+                      </svg>
                     </div>
-                    <p className='text-gray-400 text-sm leading-relaxed'>
-                      We use cookies to enhance your browsing experience, analyse site traffic, and personalise content.
-                      By clicking "Accept All", you consent to our use of cookies as described in our{' '}
-                      <Link href='/privacy-policy' className='text-pink-400 hover:text-pink-300 underline'>
-                        Privacy Policy
+                    <p className='text-gray-300 text-xs md:text-sm'>
+                      We use cookies to improve your experience.{' '}
+                      <Link href='/privacy-policy' className='text-pink-400 hover:text-pink-300'>
+                        Learn more
                       </Link>
-                      . You can manage your preferences or withdraw consent at any time.
                     </p>
                   </div>
 
-                  <div className='flex flex-col sm:flex-row gap-3 md:flex-col lg:flex-row'>
+                  {/* Buttons - Horizontal on mobile too */}
+                  <div className='flex items-center gap-2 flex-shrink-0'>
                     <button
                       onClick={() => setShowSettings(true)}
-                      className='px-5 py-2.5 bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl text-sm font-medium transition-all'
+                      className='px-3 py-1.5 text-gray-400 hover:text-white text-xs font-medium transition-colors'
                     >
-                      Manage Settings
+                      Settings
                     </button>
                     <button
                       onClick={acceptNecessary}
-                      className='px-5 py-2.5 bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl text-sm font-medium transition-all'
+                      className='px-3 py-1.5 bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium transition-all'
                     >
-                      Necessary Only
+                      Decline
                     </button>
                     <button
                       onClick={acceptAll}
-                      className='px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all'
+                      className='px-4 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg text-xs font-semibold shadow-lg shadow-pink-500/20 hover:shadow-pink-500/30 transition-all'
                     >
                       Accept All
                     </button>
@@ -144,113 +141,90 @@ export default function CookieConsent() {
                 </div>
               </div>
             ) : (
-              // Detailed Settings View
-              <div className='p-6'>
-                <div className='flex items-center justify-between mb-6'>
-                  <h3 className='text-xl font-semibold text-white'>Cookie Settings</h3>
+              // Detailed Settings View - Compact
+              <div className='p-4 md:p-5 max-h-[80vh] overflow-y-auto'>
+                <div className='flex items-center justify-between mb-4'>
+                  <h3 className='text-lg font-semibold text-white'>Cookie Settings</h3>
                   <button
                     onClick={() => setShowSettings(false)}
-                    className='text-gray-400 hover:text-white transition-colors'
+                    className='p-1 text-gray-400 hover:text-white transition-colors'
                   >
-                    <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                       <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
                     </svg>
                   </button>
                 </div>
 
-                <p className='text-gray-400 text-sm mb-6'>
-                  Under the UK GDPR and PECR regulations, we need your consent to use certain cookies.
-                  Please select your preferences below. You can change these settings at any time.
-                </p>
-
-                <div className='space-y-4 mb-6'>
+                <div className='space-y-3 mb-4'>
                   {/* Necessary Cookies */}
-                  <div className='p-4 bg-gray-800/50 rounded-xl border border-white/5'>
-                    <div className='flex items-center justify-between mb-2'>
-                      <div className='flex items-center gap-3'>
-                        <span className='text-white font-medium'>Strictly Necessary</span>
-                        <span className='px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-medium rounded-full'>
-                          Always Active
-                        </span>
-                      </div>
-                      <div className='w-12 h-6 bg-green-500 rounded-full relative cursor-not-allowed'>
-                        <div className='absolute right-1 top-1 w-4 h-4 bg-white rounded-full' />
-                      </div>
+                  <div className='flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-white/5'>
+                    <div className='flex items-center gap-2'>
+                      <span className='text-white text-sm font-medium'>Necessary</span>
+                      <span className='px-1.5 py-0.5 bg-green-500/20 text-green-400 text-[10px] font-medium rounded'>
+                        Required
+                      </span>
                     </div>
-                    <p className='text-gray-500 text-sm'>
-                      Essential for the website to function properly. These cannot be disabled.
-                      Includes session cookies, security tokens, and basic functionality.
-                    </p>
+                    <div className='w-10 h-5 bg-green-500 rounded-full relative cursor-not-allowed opacity-70'>
+                      <div className='absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full' />
+                    </div>
                   </div>
 
                   {/* Analytics Cookies */}
-                  <div className='p-4 bg-gray-800/50 rounded-xl border border-white/5'>
-                    <div className='flex items-center justify-between mb-2'>
-                      <span className='text-white font-medium'>Analytics & Performance</span>
-                      <button
-                        onClick={() => setPreferences(p => ({ ...p, analytics: !p.analytics }))}
-                        className={`w-12 h-6 rounded-full relative transition-colors ${
-                          preferences.analytics ? 'bg-pink-500' : 'bg-gray-600'
-                        }`}
-                      >
-                        <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${
-                          preferences.analytics ? 'right-1' : 'left-1'
-                        }`} />
-                      </button>
+                  <div className='flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-white/5'>
+                    <div>
+                      <span className='text-white text-sm font-medium'>Analytics</span>
+                      <p className='text-gray-500 text-xs mt-0.5'>Help us improve our site</p>
                     </div>
-                    <p className='text-gray-500 text-sm'>
-                      Help us understand how visitors interact with our website by collecting and
-                      reporting information anonymously. We use Google Analytics with IP anonymisation.
-                    </p>
+                    <button
+                      onClick={() => setPreferences(p => ({ ...p, analytics: !p.analytics }))}
+                      className={`w-10 h-5 rounded-full relative transition-colors ${
+                        preferences.analytics ? 'bg-pink-500' : 'bg-gray-600'
+                      }`}
+                    >
+                      <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${
+                        preferences.analytics ? 'right-0.5' : 'left-0.5'
+                      }`} />
+                    </button>
                   </div>
 
                   {/* Marketing Cookies */}
-                  <div className='p-4 bg-gray-800/50 rounded-xl border border-white/5'>
-                    <div className='flex items-center justify-between mb-2'>
-                      <span className='text-white font-medium'>Marketing & Advertising</span>
-                      <button
-                        onClick={() => setPreferences(p => ({ ...p, marketing: !p.marketing }))}
-                        className={`w-12 h-6 rounded-full relative transition-colors ${
-                          preferences.marketing ? 'bg-pink-500' : 'bg-gray-600'
-                        }`}
-                      >
-                        <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${
-                          preferences.marketing ? 'right-1' : 'left-1'
-                        }`} />
-                      </button>
+                  <div className='flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-white/5'>
+                    <div>
+                      <span className='text-white text-sm font-medium'>Marketing</span>
+                      <p className='text-gray-500 text-xs mt-0.5'>Personalised ads (not in use)</p>
                     </div>
-                    <p className='text-gray-500 text-sm'>
-                      Used to track visitors across websites to display relevant advertisements.
-                      Currently not in use on this website.
-                    </p>
+                    <button
+                      onClick={() => setPreferences(p => ({ ...p, marketing: !p.marketing }))}
+                      className={`w-10 h-5 rounded-full relative transition-colors ${
+                        preferences.marketing ? 'bg-pink-500' : 'bg-gray-600'
+                      }`}
+                    >
+                      <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${
+                        preferences.marketing ? 'right-0.5' : 'left-0.5'
+                      }`} />
+                    </button>
                   </div>
                 </div>
 
-                <div className='flex flex-col sm:flex-row gap-3'>
+                <div className='flex gap-2'>
                   <button
                     onClick={acceptNecessary}
-                    className='flex-1 px-5 py-3 bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl text-sm font-medium transition-all'
+                    className='flex-1 px-4 py-2 bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg text-xs font-medium transition-all'
                   >
-                    Reject All Optional
+                    Decline Optional
                   </button>
                   <button
                     onClick={savePreferences}
-                    className='flex-1 px-5 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all'
+                    className='flex-1 px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg text-xs font-semibold shadow-lg shadow-pink-500/20 hover:shadow-pink-500/30 transition-all'
                   >
-                    Save Preferences
+                    Save
                   </button>
                 </div>
 
-                <p className='text-gray-500 text-xs mt-4 text-center'>
-                  For more information, please read our{' '}
-                  <Link href='/privacy-policy' className='text-pink-400 hover:text-pink-300 underline'>
-                    Privacy Policy
-                  </Link>
-                  {' '}and{' '}
-                  <Link href='/cookie-policy' className='text-pink-400 hover:text-pink-300 underline'>
-                    Cookie Policy
-                  </Link>
-                  .
+                <p className='text-gray-500 text-[10px] mt-3 text-center'>
+                  <Link href='/privacy-policy' className='text-pink-400 hover:text-pink-300'>Privacy</Link>
+                  {' '}&bull;{' '}
+                  <Link href='/cookie-policy' className='text-pink-400 hover:text-pink-300'>Cookies</Link>
                 </p>
               </div>
             )}

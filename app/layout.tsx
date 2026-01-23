@@ -133,6 +133,25 @@ export default function RootLayout ({
   return (
     <html lang='en' className={`${inter.variable} font-sans`}>
       <head>
+        {/* Preload critical resources for better FCP */}
+        <link
+          rel='preload'
+          href='/mybartenders.co.uk_logo_svg.svg'
+          as='image'
+          type='image/svg+xml'
+        />
+        <link
+          rel='preconnect'
+          href='https://fonts.googleapis.com'
+        />
+        <link
+          rel='preconnect'
+          href='https://fonts.gstatic.com'
+          crossOrigin='anonymous'
+        />
+        {/* DNS prefetch for external resources */}
+        <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+        <link rel='dns-prefetch' href='https://www.google-analytics.com' />
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

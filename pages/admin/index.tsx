@@ -12,6 +12,7 @@ interface Article {
   category: string
   readTime: string
   views?: number
+  status?: 'draft' | 'published'
 }
 
 interface CategoryCount {
@@ -26,6 +27,8 @@ interface DashboardStats {
   recentArticles: Article[]
   topArticles: Article[]
   avgViewsPerArticle: number
+  draftCount: number
+  publishedCount: number
 }
 
 const AdminDashboard = () => {
@@ -36,7 +39,9 @@ const AdminDashboard = () => {
     popularCategories: [],
     recentArticles: [],
     topArticles: [],
-    avgViewsPerArticle: 0
+    avgViewsPerArticle: 0,
+    draftCount: 0,
+    publishedCount: 0
   })
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -47,7 +52,8 @@ const AdminDashboard = () => {
 
   const fetchArticles = async () => {
     try {
-      const res = await fetch('/api/articles')
+      // Use admin=true to fetch all articles including drafts
+      const res = await fetch('/api/articles?admin=true')
       const data = await res.json()
       setArticles(Array.isArray(data) ? data : [])
 
@@ -56,6 +62,10 @@ const AdminDashboard = () => {
         (sum: number, article: Article) => sum + (article.views || 0),
         0
       )
+
+      // Count drafts and published
+      const draftCount = data.filter((a: Article) => a.status === 'draft').length
+      const publishedCount = data.filter((a: Article) => a.status !== 'draft').length
 
       const categoryCount = data.reduce(
         (acc: { [key: string]: number }, article: Article) => {
@@ -97,7 +107,9 @@ const AdminDashboard = () => {
         popularCategories,
         recentArticles,
         topArticles,
-        avgViewsPerArticle
+        avgViewsPerArticle,
+        draftCount,
+        publishedCount
       })
 
       setLoading(false)
@@ -243,19 +255,36 @@ const AdminDashboard = () => {
 
           <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
             <div>
-              <p className='text-gray-400 text-sm font-medium mb-3'>Top Categories</p>
-              <div className='space-y-2'>
-                {stats.popularCategories.length > 0 ? (
-                  stats.popularCategories.slice(0, 3).map(({ category, count }) => (
-                    <div key={category} className='flex justify-between items-center'>
-                      <span className='text-white text-sm'>{category}</span>
+              <p className='text-gray-400 text-sm font-medium mb-3'>Article Status</p>
+              <div className='space-y-3'>
+                <div className='flex justify-between items-center'>
+                  <span className='text-white text-sm flex items-center gap-2'>
+                    <span className='w-2 h-2 bg-green-400 rounded-full'></span>
+                    Published
+                  </span>
+                  <span className='px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-medium rounded-full'>
+                    {stats.publishedCount}
+                  </span>
+                </div>
+                <div className='flex justify-between items-center'>
+                  <span className='text-white text-sm flex items-center gap-2'>
+                    <span className='w-2 h-2 bg-yellow-400 rounded-full'></span>
+                    Drafts
+                  </span>
+                  <span className='px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs font-medium rounded-full'>
+                    {stats.draftCount}
+                  </span>
+                </div>
+                {stats.popularCategories.length > 0 && (
+                  <div className='pt-2 border-t border-white/5'>
+                    <p className='text-gray-500 text-xs mb-2'>Top Category</p>
+                    <div className='flex justify-between items-center'>
+                      <span className='text-white text-sm'>{stats.popularCategories[0].category}</span>
                       <span className='px-2 py-0.5 bg-pink-500/20 text-pink-400 text-xs font-medium rounded-full'>
-                        {count}
+                        {stats.popularCategories[0].count}
                       </span>
                     </div>
-                  ))
-                ) : (
-                  <p className='text-gray-500 text-sm'>No categories yet</p>
+                  </div>
                 )}
               </div>
             </div>
@@ -405,6 +434,9 @@ const AdminDashboard = () => {
                     Title
                   </th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
+                    Status
+                  </th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
                     Category
                   </th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
@@ -428,6 +460,18 @@ const AdminDashboard = () => {
                         </Link>
                       </td>
                       <td className='px-6 py-4'>
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full ${
+                          article.status === 'draft'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-green-500/20 text-green-400'
+                        }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${
+                            article.status === 'draft' ? 'bg-yellow-400' : 'bg-green-400'
+                          }`}></span>
+                          {article.status === 'draft' ? 'Draft' : 'Published'}
+                        </span>
+                      </td>
+                      <td className='px-6 py-4'>
                         <span className='px-2.5 py-1 bg-pink-500/20 text-pink-400 text-xs font-medium rounded-full'>
                           {article.category}
                         </span>
@@ -448,8 +492,17 @@ const AdminDashboard = () => {
                         <div className='flex items-center justify-end gap-2'>
                           <Link
                             href={`/articles/${article.slug}`}
-                            className='p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all'
-                            title='View article'
+                            className={`p-2 hover:bg-white/10 rounded-lg transition-all ${
+                              article.status === 'draft'
+                                ? 'text-gray-500 cursor-not-allowed'
+                                : 'text-gray-400 hover:text-white'
+                            }`}
+                            title={article.status === 'draft' ? 'Draft - not publicly visible' : 'View article'}
+                            onClick={e => {
+                              if (article.status === 'draft') {
+                                e.preventDefault()
+                              }
+                            }}
                           >
                             <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                               <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14' />
@@ -479,7 +532,7 @@ const AdminDashboard = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className='px-6 py-12 text-center text-gray-500'>
+                    <td colSpan={6} className='px-6 py-12 text-center text-gray-500'>
                       {searchTerm ? 'No articles match your search' : 'No articles yet'}
                     </td>
                   </tr>
