@@ -13,12 +13,12 @@ const Navbar = () => {
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuId = 'mobile-menu'
 
-  // Handle scroll effect
+  // Handle scroll effect with passive listener for performance
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 

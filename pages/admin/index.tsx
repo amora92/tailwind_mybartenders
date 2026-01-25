@@ -45,6 +45,12 @@ const AdminDashboard = () => {
   })
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; slug: string; title: string }>({
+    isOpen: false,
+    slug: '',
+    title: ''
+  })
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     fetchArticles()
@@ -127,29 +133,40 @@ const AdminDashboard = () => {
     })
   }
 
-  const handleDelete = async (slug: string) => {
-    if (window.confirm('Are you sure you want to delete this article?')) {
-      try {
-        const response = await fetch(`/api/articles/${slug}`, {
-          method: 'DELETE'
-        })
+  const openDeleteModal = (slug: string, title: string) => {
+    setDeleteModal({ isOpen: true, slug, title })
+  }
 
-        if (!response.ok) {
-          throw new Error('Failed to delete article')
-        }
+  const closeDeleteModal = () => {
+    setDeleteModal({ isOpen: false, slug: '', title: '' })
+  }
 
-        setArticles(articles.filter(article => article.slug !== slug))
-        setStats(prev => ({
-          ...prev,
-          totalArticles: prev.totalArticles - 1,
-          recentArticles: prev.recentArticles.filter(
-            article => article.slug !== slug
-          )
-        }))
-      } catch (error) {
-        console.error('Error deleting article:', error)
-        alert('Failed to delete article')
+  const handleDelete = async () => {
+    const { slug } = deleteModal
+    setDeleting(true)
+    try {
+      const response = await fetch(`/api/articles/${slug}`, {
+        method: 'DELETE'
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to delete article')
       }
+
+      setArticles(articles.filter(article => article.slug !== slug))
+      setStats(prev => ({
+        ...prev,
+        totalArticles: prev.totalArticles - 1,
+        recentArticles: prev.recentArticles.filter(
+          article => article.slug !== slug
+        )
+      }))
+      closeDeleteModal()
+    } catch (error) {
+      console.error('Error deleting article:', error)
+      alert('Failed to delete article')
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -518,7 +535,7 @@ const AdminDashboard = () => {
                             </svg>
                           </Link>
                           <button
-                            onClick={() => handleDelete(article.slug)}
+                            onClick={() => openDeleteModal(article.slug, article.title)}
                             className='p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all'
                             title='Delete article'
                           >
@@ -542,6 +559,74 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal.isOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center p-4'>
+          {/* Backdrop */}
+          <div
+            className='absolute inset-0 bg-black/70 backdrop-blur-sm'
+            onClick={closeDeleteModal}
+          />
+
+          {/* Modal */}
+          <div className='relative bg-gray-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl'>
+            {/* Warning Icon */}
+            <div className='w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6'>
+              <svg className='w-8 h-8 text-red-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' />
+              </svg>
+            </div>
+
+            {/* Content */}
+            <h3 className='text-xl font-bold text-white text-center mb-2'>
+              Delete Article?
+            </h3>
+            <p className='text-gray-400 text-center mb-2'>
+              Are you sure you want to delete this article?
+            </p>
+            <p className='text-white font-medium text-center mb-6 px-4 py-2 bg-white/5 rounded-lg truncate'>
+              "{deleteModal.title}"
+            </p>
+            <p className='text-red-400 text-sm text-center mb-6'>
+              This action cannot be undone.
+            </p>
+
+            {/* Actions */}
+            <div className='flex gap-3'>
+              <button
+                onClick={closeDeleteModal}
+                disabled={deleting}
+                className='flex-1 py-3 px-4 bg-white/5 border border-white/10 text-gray-300 font-medium rounded-xl hover:bg-white/10 transition-colors disabled:opacity-50'
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                className='flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2'
+              >
+                {deleting ? (
+                  <>
+                    <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
+                      <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+                      <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z' />
+                    </svg>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' />
+                    </svg>
+                    Yes, Delete
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

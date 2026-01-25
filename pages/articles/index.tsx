@@ -300,7 +300,7 @@ const Articles = () => {
                             <div className='flex items-center justify-between'>
                               <div className='flex items-center gap-3'>
                                 <Image
-                                  src={featuredArticle.author?.avatar || '/admin-avatar.svg'}
+                                  src={featuredArticle.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
                                   alt={featuredArticle.author?.name || 'Author'}
                                   width={40}
                                   height={40}
@@ -365,7 +365,7 @@ const Articles = () => {
                             <div className='flex items-center justify-between pt-4 border-t border-gray-100'>
                               <div className='flex items-center gap-2'>
                                 <Image
-                                  src={article.author?.avatar || '/admin-avatar.svg'}
+                                  src={article.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
                                   alt={article.author?.name || 'Author'}
                                   width={32}
                                   height={32}

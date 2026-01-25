@@ -1,23 +1,31 @@
 'use client'
 
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import styles from './VideoSection.module.css'
-import { getBookingYear, COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
+import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 
 const VideoSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const videoRef = React.useRef(null)
+  const videoRef = useRef(null)
 
-  // Ensure video plays on mount
+  // Ensure video plays on mount with intersection observer for performance
   useEffect(() => {
     const video = videoRef.current
     if (video) {
-      video.play().catch(() => {
-        // Autoplay was prevented, video will still be visible but paused
-        setIsVideoLoaded(true)
-      })
+      // Use requestIdleCallback for non-critical video playback
+      const startVideo = () => {
+        video.play().catch(() => {
+          setIsVideoLoaded(true)
+        })
+      }
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(startVideo)
+      } else {
+        setTimeout(startVideo, 100)
+      }
     }
   }, [])
 
@@ -28,14 +36,17 @@ const VideoSection = () => {
     }
   }, [])
 
-  // Subtle parallax effect on mouse move
+  // Subtle parallax effect on mouse move - only on non-touch devices
   useEffect(() => {
+    // Skip parallax on mobile for performance
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
     const handleMouseMove = (e) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 20
       const y = (e.clientY / window.innerHeight - 0.5) * 20
       setMousePosition({ x, y })
     }
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
@@ -69,7 +80,6 @@ const VideoSection = () => {
             loop
             playsInline
             preload='metadata'
-            poster='/video-poster.jpg'
             onLoadedData={() => setIsVideoLoaded(true)}
             onCanPlayThrough={() => setIsVideoLoaded(true)}
             className='w-full h-full object-cover'

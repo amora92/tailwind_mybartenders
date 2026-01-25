@@ -70,7 +70,7 @@ export default async function handler(
         contentSections: contentSections || [],
         publishedAt: new Date(publishedAt).toISOString(),
         category: category || 'General',
-        author: author || { name: 'MyBartenders', avatar: '/admin-avatar.svg' },
+        author: author || { name: 'MyBartenders', avatar: '/mybartenders.co.uk_logo_svg.svg' },
         readTime: readTime || 5,
         slug,
         tags: tags || [],
