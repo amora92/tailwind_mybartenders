@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { sanitizeHtml } from '@/lib/sanitize'
+import Logo from '@/components/Logo'
 
 interface GalleryImage {
   url: string
@@ -144,13 +145,9 @@ export const ArticlePreview = ({
 
               {/* Author & Date */}
               <div className='flex items-center gap-4 pt-6 border-t border-white/10'>
-                <Image
-                  src='/mybartenders.co.uk_logo_svg.svg'
-                  alt='MyBartenders'
-                  width={48}
-                  height={48}
-                  className='rounded-full ring-2 ring-white/10'
-                />
+                <div className='w-12 h-12 rounded-full bg-white/10 ring-2 ring-white/10 flex items-center justify-center'>
+                  <Logo width={28} height={38} />
+                </div>
                 <div>
                   <p className='font-medium text-white'>MyBartenders</p>
                   <time className='text-sm text-gray-400'>

@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { NAV_LINKS } from '@/constants'
+import Logo from './Logo'
 import { getBookingYear } from '@/constants/siteConfig'
 
 const Navbar = () => {
@@ -112,19 +112,7 @@ const Navbar = () => {
           className='flex items-center gap-3 group'
           aria-label='Return to homepage'
         >
-          <div className='relative'>
-            <Image
-              src='/mybartenders.co.uk_logo_svg.svg'
-              alt='MyBartenders Logo'
-              width={32}
-              height={44}
-              priority={true}
-              className='transition-all duration-300'
-              style={{
-                filter: 'brightness(0) saturate(100%) invert(73%) sepia(47%) saturate(537%) hue-rotate(359deg) brightness(94%) contrast(84%)'
-              }}
-            />
-          </div>
+          <Logo width={32} height={44} />
           <span
             className='font-bold text-xl tracking-wide transition-colors duration-300 text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300'
           >
@@ -155,7 +143,6 @@ const Navbar = () => {
           {/* Booking Badge */}
           <div className='hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-xs'>
             <span className='relative flex h-2 w-2'>
-              <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
               <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
             </span>
             <span className='text-white/70'>
@@ -284,7 +271,6 @@ const Navbar = () => {
             {/* Mobile Booking Badge */}
             <div className='flex items-center justify-center gap-2 mt-4 text-sm text-white/50'>
               <span className='relative flex h-2 w-2'>
-                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
                 <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
               </span>
               <span>Now Booking for {getBookingYear()}</span>
