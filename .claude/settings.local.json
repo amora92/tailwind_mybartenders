@@ -12,7 +12,13 @@
       "Bash(node scripts/generate-icons.js:*)",
       "Bash(git diff:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(npm ls:*)",
+      "Bash(node --version:*)",
+      "Bash(cmd //c \"dir _app.tsx\")",
+      "Bash(DEBUG=*)",
+      "Bash(npx next build)",
+      "Bash(curl:*)"
     ]
   }
 }

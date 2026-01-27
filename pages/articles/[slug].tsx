@@ -24,6 +24,7 @@ interface Article {
   content: string
   imageUrl: string
   publishedAt: string
+  updatedAt?: string
   category: string
   readTime?: string | number
   author?: {
@@ -281,71 +282,78 @@ const ArticlePage = () => {
 
   const absoluteImageUrl = getAbsoluteImageUrl(article.imageUrl)
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: article.title,
-    description: article.description,
-    image: absoluteImageUrl,
-    datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
-    author: {
-      '@type': 'Person',
-      name: article.author?.name || 'MyBartenders'
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'MyBartenders',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://mybartenders.co.uk/mybartenders.co.uk_logo_svg.svg'
-      }
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: article.description,
+  image: absoluteImageUrl,
+  datePublished: article.publishedAt,
+  dateModified: article.updatedAt ?? article.publishedAt,
+  author: {
+    '@type': 'Person',
+    name: article.author?.name ?? 'MyBartenders'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'MyBartenders',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://mybartenders.co.uk/mybartenders.co.uk_logo_svg.svg'
     }
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl
   }
+}
 
-  return (
-    <>
-      <Head>
-        <title>{article.title} | MyBartenders</title>
-        <meta name='description' content={article.description} />
-        <link rel='canonical' href={canonicalUrl} />
+return (
+  <>
+    <Head>
+      <title>{article.title} | MyBartenders</title>
+      <meta name="description" content={article.description} />
+      <link rel="canonical" href={canonicalUrl} />
 
-        {/* Open Graph / Facebook */}
-        <meta property='og:type' content='article' />
-        <meta property='og:title' content={article.title} />
-        <meta property='og:description' content={article.description} />
-        <meta property='og:image' content={absoluteImageUrl} />
-        <meta property='og:image:width' content='1200' />
-        <meta property='og:image:height' content='630' />
-        <meta property='og:image:alt' content={article.title} />
-        <meta property='og:url' content={canonicalUrl} />
-        <meta property='og:site_name' content='MyBartenders' />
-        <meta property='og:locale' content='en_GB' />
-        <meta property='article:published_time' content={article.publishedAt} />
-        {article.category && <meta property='article:section' content={article.category} />}
-        <meta property='article:author' content={article.author?.name || 'MyBartenders'} />
+      {/* Open Graph */}
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={article.title} />
+      <meta property="og:description" content={article.description} />
+      <meta property="og:image" content={absoluteImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={article.title} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:site_name" content="MyBartenders" />
+      <meta property="og:locale" content="en_GB" />
+      <meta property="article:published_time" content={article.publishedAt} />
+      {article.category && (
+        <meta property="article:section" content={article.category} />
+      )}
+      <meta
+        property="article:author"
+        content={article.author?.name ?? 'MyBartenders'}
+      />
 
-        {/* Twitter Card */}
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:title' content={article.title} />
-        <meta name='twitter:description' content={article.description} />
-        <meta name='twitter:image' content={absoluteImageUrl} />
-        <meta name='twitter:image:alt' content={article.title} />
-        <meta name='twitter:site' content='@MyBartenders' />
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={article.title} />
+      <meta name="twitter:description" content={article.description} />
+      <meta name="twitter:image" content={absoluteImageUrl} />
+      <meta name="twitter:image:alt" content={article.title} />
+      <meta name="twitter:site" content="@MyBartenders" />
 
-        {/* Additional SEO */}
-        <meta name='author' content={article.author?.name || 'MyBartenders'} />
-        <meta name='robots' content='index, follow' />
+      {/* SEO */}
+      <meta name="author" content={article.author?.name ?? 'MyBartenders'} />
+      <meta name="robots" content="index, follow" />
 
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd)
+        }}
+      />
+    </Head>
 
       <div className='min-h-screen'>
         <Navbar />
@@ -897,7 +905,7 @@ const ArticlePage = () => {
 
                             {/* Recipe Header */}
                             <div className='relative bg-gradient-to-r from-amber-500 via-amber-500 to-orange-500 px-6 py-5'>
-                              <div className='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")]' />
+                              <div className='absolute inset-0 opacity-10 bg-white' style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
                               <h2 className='relative text-xl md:text-2xl font-bold text-white flex items-center gap-3'>
                                 <span className='w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center'>
                                   <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
@@ -1018,7 +1026,7 @@ const ArticlePage = () => {
 
                             {/* Method Header */}
                             <div className='relative bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 px-6 py-5'>
-                              <div className='absolute inset-0 bg-[url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E")]' />
+                              <div className='absolute inset-0 opacity-10 bg-white' style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
                               <h2 className='relative text-xl md:text-2xl font-bold text-white flex items-center gap-3'>
                                 <span className='w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center'>
                                   <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>

@@ -26,7 +26,7 @@ interface ContentSection {
   cookTime?: string
   servings?: string
   ingredients?: string[]
-  nutrition?: Record<string, string>
+  nutrition?: Record<string, string | undefined>
   steps?: { title: string; description: string }[]
 }
 
