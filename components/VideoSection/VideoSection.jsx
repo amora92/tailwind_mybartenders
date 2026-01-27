@@ -120,7 +120,7 @@ const VideoSection = () => {
       <div className='absolute bottom-20 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none' />
 
       {/* Content */}
-      <div className='relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20'>
+      <div className='relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 pb-32 sm:pb-20'>
         <div className='grid lg:grid-cols-2 gap-12 items-center'>
           {/* Left Content */}
           <motion.div
