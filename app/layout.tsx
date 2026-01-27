@@ -142,13 +142,7 @@ export default function RootLayout ({
         <link rel='dns-prefetch' href='https://www.google-analytics.com' />
         <link rel='dns-prefetch' href='https://www.youtube.com' />
 
-        {/* Preload critical resources for better FCP/LCP */}
-        <link
-          rel='preload'
-          href='/mybartenders.co.uk_logo_svg.svg'
-          as='image'
-          type='image/svg+xml'
-        />
+        {/* Critical font preload removed - logo is now inline SVG */}
 
         {/* Structured data */}
         <script

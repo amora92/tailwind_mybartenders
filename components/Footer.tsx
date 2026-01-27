@@ -2,8 +2,8 @@
 
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { getCurrentYear } from '@/constants/siteConfig'
+import Logo from './Logo'
 import { CONTACT_INFO } from '@/constants/contact'
 
 const Footer = () => {
@@ -82,15 +82,7 @@ const Footer = () => {
             {/* Brand Column */}
             <div className='lg:col-span-1'>
               <Link href='/' className='inline-flex items-center gap-3 mb-6'>
-                <Image
-                  src='/mybartenders.co.uk_logo_svg.svg'
-                  alt='MyBartenders Logo'
-                  width={36}
-                  height={50}
-                  style={{
-                    filter: 'brightness(0) saturate(100%) invert(73%) sepia(47%) saturate(537%) hue-rotate(359deg) brightness(94%) contrast(84%)'
-                  }}
-                />
+                <Logo width={36} height={50} />
                 <span className='text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300'>
                   MyBartenders
                 </span>

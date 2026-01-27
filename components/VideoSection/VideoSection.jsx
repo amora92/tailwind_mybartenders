@@ -8,7 +8,18 @@ import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 const VideoSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const videoRef = useRef(null)
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+
+    const handler = (e) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
 
   // Ensure video plays on mount with intersection observer for performance
   useEffect(() => {
@@ -36,9 +47,10 @@ const VideoSection = () => {
     }
   }, [])
 
-  // Subtle parallax effect on mouse move - only on non-touch devices
+  // Subtle parallax effect on mouse move - only on non-touch devices with motion enabled
   useEffect(() => {
-    // Skip parallax on mobile for performance
+    // Skip parallax on mobile or if user prefers reduced motion
+    if (prefersReducedMotion) return
     if (window.matchMedia('(pointer: coarse)').matches) return
 
     const handleMouseMove = (e) => {
@@ -48,7 +60,7 @@ const VideoSection = () => {
     }
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [prefersReducedMotion])
 
   return (
     <section className='relative w-full min-h-screen overflow-hidden flex items-center justify-center'>
@@ -79,12 +91,11 @@ const VideoSection = () => {
             muted
             loop
             playsInline
-            preload='metadata'
+            preload='none'
             onLoadedData={() => setIsVideoLoaded(true)}
             onCanPlayThrough={() => setIsVideoLoaded(true)}
-            className='w-full h-full object-cover'
+            className='w-full h-full object-cover brightness-[0.4] saturate-[1.2]'
             style={{
-              filter: 'brightness(0.4) saturate(1.2)',
               opacity: isVideoLoaded ? 1 : 0,
               transition: 'opacity 0.8s ease-in-out'
             }}
@@ -105,20 +116,19 @@ const VideoSection = () => {
         <div className='grid lg:grid-cols-2 gap-12 items-center'>
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.8, delay: prefersReducedMotion ? 0 : 0.2 }}
             className='text-left'
           >
             {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
               className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8'
             >
               <span className='relative flex h-2 w-2'>
-                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75'></span>
                 <span className='relative inline-flex rounded-full h-2 w-2 bg-pink-500'></span>
               </span>
               <span className='text-sm font-medium text-white/90'>Northampton's Premier Mobile Bar</span>
@@ -171,9 +181,9 @@ const VideoSection = () => {
 
           {/* Right Content - Stats Cards */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.8, delay: prefersReducedMotion ? 0 : 0.4 }}
             className='hidden lg:grid grid-cols-2 gap-4'
           >
             {[
@@ -184,9 +194,9 @@ const VideoSection = () => {
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : 0.6 + index * 0.1 }}
                 className='group p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300'
               >
                 <span className='text-3xl mb-3 block'>{stat.icon}</span>
@@ -199,9 +209,9 @@ const VideoSection = () => {
 
         {/* Bottom Trust Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 1 }}
           className='mt-16 pt-8 border-t border-white/10'
         >
           <div className='flex flex-col sm:flex-row items-center justify-center lg:justify-between gap-4 sm:gap-8 text-white/60 text-sm'>
@@ -214,14 +224,13 @@ const VideoSection = () => {
               ].map((item, index) => (
                 <motion.span
                   key={item.label}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 1.2 + item.delay }}
+                  transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 1.2 + item.delay }}
                   className='flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/10'
                 >
                   <span className='relative flex-shrink-0'>
-                    <span className='absolute inset-0 animate-ping rounded-full bg-emerald-400/30'></span>
-                    <svg className='relative w-4 h-4 text-emerald-400 drop-shadow-[0_0_6px_rgba(52,211,153,0.5)]' fill='currentColor' viewBox='0 0 20 20'>
+                    <svg className='relative w-4 h-4 text-emerald-400' fill='currentColor' viewBox='0 0 20 20'>
                       <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clipRule='evenodd' />
                     </svg>
                   </span>
@@ -232,17 +241,14 @@ const VideoSection = () => {
             {/* Star Rating */}
             <div className='flex items-center gap-1 px-3 py-1.5 bg-white/5 rounded-full border border-white/10'>
               {[...Array(5)].map((_, i) => (
-                <motion.svg
+                <svg
                   key={i}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 1.4 + i * 0.1 }}
-                  className='w-4 h-4 text-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.5)]'
+                  className='w-4 h-4 text-amber-400'
                   fill='currentColor'
                   viewBox='0 0 20 20'
                 >
                   <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
-                </motion.svg>
+                </svg>
               ))}
               <span className='ml-2 whitespace-nowrap'>{COMPANY_STATS.googleRating} Client Rating</span>
             </div>
@@ -252,9 +258,9 @@ const VideoSection = () => {
 
       {/* Scroll Indicator - Enhanced for mobile touch */}
       <motion.button
-        initial={{ opacity: 0 }}
+        initial={prefersReducedMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: prefersReducedMotion ? 0 : 1.5 }}
         onClick={scrollToNextSection}
         onTouchEnd={(e) => {
           e.preventDefault()
@@ -269,8 +275,8 @@ const VideoSection = () => {
             Discover More
           </span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            animate={prefersReducedMotion ? {} : { y: [0, 8, 0] }}
+            transition={prefersReducedMotion ? {} : { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             className='w-12 h-12 sm:w-10 sm:h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:bg-white/20 active:bg-white/30 transition-colors'
           >
             <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
