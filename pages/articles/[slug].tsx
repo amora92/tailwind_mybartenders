@@ -1222,7 +1222,6 @@ return (
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', damping: 25 }}
               className='relative max-w-7xl max-h-[90vh] w-full'
-              onClick={e => e.stopPropagation()}
             >
               <div className='relative w-full h-full flex items-center justify-center'>
                 <Image
