@@ -3,7 +3,7 @@
 
 [build]
   publish = ".next"
-  command = "npm run build"
+  command = "yarn install && yarn build"
 
 # Secrets scanning configuration
 # The scanner flags certain environment variable values that appear in source code.
@@ -15,4 +15,5 @@
 # - ZOHO_SMTP_HOST: Standard SMTP service hostname (smtp.zoho.eu)
 # - ZOHO_SMTP_USER: SMTP username (uses same email as public contact email)
 [build.environment]
+  NODE_VERSION = "20"
   SECRETS_SCAN_OMIT_KEYS = "EMAIL_TO,CONTACT_FORM_BCC,ZOHO_SMTP_HOST,ZOHO_SMTP_USER"
