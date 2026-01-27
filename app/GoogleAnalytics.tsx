@@ -1,13 +1,36 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Script from 'next/script'
 
 const GA_TRACKING_ID = 'G-ZBM8HLM8DZ'
 const COOKIE_PREFERENCES_KEY = 'cookie_preferences'
+// Delay GA loading to ensure LCP is complete first (3 seconds)
+const GA_LOAD_DELAY = 3000
 
 export default function GoogleAnalytics() {
+  const [shouldLoadGA, setShouldLoadGA] = useState(false)
+
   useEffect(() => {
+    // Defer GA loading until after LCP is likely complete
+    // Use requestIdleCallback if available, otherwise setTimeout
+    const loadGA = () => setShouldLoadGA(true)
+
+    // Wait for LCP to complete, then load during idle time
+    const timeoutId = setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(loadGA, { timeout: 2000 })
+      } else {
+        loadGA()
+      }
+    }, GA_LOAD_DELAY)
+
+    return () => clearTimeout(timeoutId)
+  }, [])
+
+  useEffect(() => {
+    if (!shouldLoadGA) return
+
     // Check saved preferences on mount and update consent
     const savedPrefs = localStorage.getItem(COOKIE_PREFERENCES_KEY)
     if (savedPrefs) {
@@ -30,18 +53,20 @@ export default function GoogleAnalytics() {
 
     window.addEventListener('cookieConsentUpdate', handleConsentUpdate as EventListener)
     return () => window.removeEventListener('cookieConsentUpdate', handleConsentUpdate as EventListener)
-  }, [])
+  }, [shouldLoadGA])
 
-  // Always load GA scripts, but with consent denied by default
+  // Don't render scripts until after LCP delay
+  if (!shouldLoadGA) return null
+
   return (
     <>
       <Script
-        strategy='lazyOnload'
+        strategy='afterInteractive'
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
       />
       <Script
         id='gtag-init'
-        strategy='lazyOnload'
+        strategy='afterInteractive'
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

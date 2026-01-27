@@ -5,6 +5,9 @@ import { motion } from 'framer-motion'
 import styles from './VideoSection.module.css'
 import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 
+// Poster image for instant LCP while video loads
+const VIDEO_POSTER = '/corporate.webp'
+
 const VideoSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -74,9 +77,13 @@ const VideoSection = () => {
           transition={{ type: 'spring', stiffness: 50, damping: 30 }}
           className='absolute inset-[-20px]'
         >
-          {/* Poster image for instant FCP */}
-          <div
-            className='absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black'
+          {/* Poster image for instant LCP - shows while video loads */}
+          <img
+            src={VIDEO_POSTER}
+            alt=''
+            aria-hidden='true'
+            fetchPriority='high'
+            className='absolute inset-0 w-full h-full object-cover brightness-[0.4] saturate-[1.2]'
             style={{
               opacity: isVideoLoaded ? 0 : 1,
               transition: 'opacity 0.5s ease-in-out',
@@ -87,11 +94,12 @@ const VideoSection = () => {
             ref={videoRef}
             src={SITE_IMAGES.heroVideo}
             type='video/mp4'
+            poster={VIDEO_POSTER}
             autoPlay
             muted
             loop
             playsInline
-            preload='none'
+            preload='metadata'
             onLoadedData={() => setIsVideoLoaded(true)}
             onCanPlayThrough={() => setIsVideoLoaded(true)}
             className='w-full h-full object-cover brightness-[0.4] saturate-[1.2]'

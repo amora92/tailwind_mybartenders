@@ -140,9 +140,9 @@ export default function RootLayout ({
         {/* DNS prefetch for external resources */}
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
         <link rel='dns-prefetch' href='https://www.google-analytics.com' />
-        <link rel='dns-prefetch' href='https://www.youtube.com' />
 
-        {/* Critical font preload removed - logo is now inline SVG */}
+        {/* Preload hero poster image for fast LCP */}
+        <link rel='preload' as='image' href='/corporate.webp' type='image/webp' />
 
         {/* Structured data */}
         <script

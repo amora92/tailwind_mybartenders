@@ -1,12 +1,9 @@
 import dynamic from 'next/dynamic'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import ServicesSection from '@/components/ServicesSection'
-import AboutSection from '@/components/AboutSection'
-import HowItWorksSection from '@/components/HowItWorksSection'
-import FreqQ from '@/components/FreqQ'
 
-// Lazy load heavy components with loading skeletons
+// Lazy load heavy components with loading skeletons to reduce initial JS bundle
+// VideoSection is SSR'd for good LCP, all below-fold sections are client-only
 const VideoSection = dynamic(
   () => import('@/components/VideoSection/VideoSection'),
   {
@@ -16,6 +13,27 @@ const VideoSection = dynamic(
       </div>
     ),
     ssr: true
+  }
+)
+
+// Below-fold sections - load lazily to reduce initial bundle size
+const ServicesSection = dynamic(
+  () => import('@/components/ServicesSection'),
+  {
+    loading: () => (
+      <div className='w-full h-[600px] bg-gray-950 animate-pulse' />
+    ),
+    ssr: false
+  }
+)
+
+const AboutSection = dynamic(
+  () => import('@/components/AboutSection'),
+  {
+    loading: () => (
+      <div className='w-full h-[500px] bg-gray-900 animate-pulse' />
+    ),
+    ssr: false
   }
 )
 
@@ -34,6 +52,26 @@ const TestimonialsSection = dynamic(
   {
     loading: () => (
       <div className='w-full h-96 bg-white animate-pulse' />
+    ),
+    ssr: false
+  }
+)
+
+const HowItWorksSection = dynamic(
+  () => import('@/components/HowItWorksSection'),
+  {
+    loading: () => (
+      <div className='w-full h-[400px] bg-gray-900 animate-pulse' />
+    ),
+    ssr: false
+  }
+)
+
+const FreqQ = dynamic(
+  () => import('@/components/FreqQ'),
+  {
+    loading: () => (
+      <div className='w-full h-[500px] bg-gray-950 animate-pulse' />
     ),
     ssr: false
   }

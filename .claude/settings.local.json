@@ -18,7 +18,12 @@
       "Bash(cmd //c \"dir _app.tsx\")",
       "Bash(DEBUG=*)",
       "Bash(npx next build)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(find:*)",
+      "Bash(xargs:*)",
+      "Bash(sort:*)",
+      "Bash(ls:*)",
+      "Bash(git stash:*)"
     ]
   }
 }
