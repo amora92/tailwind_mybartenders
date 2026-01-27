@@ -187,6 +187,13 @@ NEXT_PUBLIC_TINYMCE_API_KEY=editor-key
 
 ## Adding New Images to Gallery
 
+### Option 1: Admin Panel (Recommended)
+1. Go to `/admin/gallery`
+2. Upload images directly or add by URL
+3. Set category and description
+4. Images appear on gallery page immediately
+
+### Option 2: Config File
 1. Add image to `/public/` folder (prefer .webp format)
 2. Open `constants/siteConfig.ts`
 3. Add to `GALLERY_IMAGES` array:
@@ -198,6 +205,37 @@ NEXT_PUBLIC_TINYMCE_API_KEY=editor-key
    }
    ```
 4. Save and the gallery updates automatically
+
+---
+
+## Article Management
+
+### Creating Articles
+1. Go to `/admin` dashboard
+2. Click "New Article"
+3. Fill in title, description, and content sections
+
+### Article Drafts
+- Toggle "Draft" status to save without publishing
+- Drafts are visible only in admin, not on public site
+- Dashboard shows draft/published count separately
+
+### Article Content Sections
+Available section types:
+- **Text**: Rich text content
+- **Image**: Single image with caption
+- **Gallery**: Multiple images in a grid layout (new!)
+- **Video**: YouTube embed
+- **Quote**: Styled blockquote
+- **Code**: Code block with syntax highlighting
+- **CTA**: Call-to-action button
+
+### Adding a Gallery Section
+1. In article editor, click "+ Gallery"
+2. Upload images or add by URL
+3. Add captions to each image
+4. Optional: Add gallery title
+5. Images display in a responsive grid on the article page
 
 ---
 
@@ -222,6 +260,64 @@ NEXT_PUBLIC_TINYMCE_API_KEY=editor-key
 
 ---
 
+## Admin Dashboard Overview
+
+### Dashboard Stats
+- **Total Articles**: All articles including drafts
+- **Published/Draft Count**: Track content pipeline
+- **Total Views**: Aggregate view count across all articles
+- **Top Categories**: See which categories perform best
+
+### Quick Actions
+- View recent articles
+- See top performing articles by views
+- Quick search through all articles
+- One-click edit/delete
+
+---
+
+## Gallery Management (`/admin/gallery`)
+
+### Features
+- **Upload from local files**: Click or drag & drop
+- **Add by URL**: Paste external image URLs
+- **Category assignment**: Cocktails, Events, or Setup
+- **Size options**: Normal, Wide, or Featured (large)
+- **Quick delete**: Remove images with one click
+
+### Image Requirements
+- Max size: 10MB
+- Formats: PNG, JPG, WEBP
+- Recommended: Use .webp for better performance
+
+---
+
+## Cookie Consent
+
+The site uses a GDPR-compliant cookie consent banner:
+- **Necessary**: Always active (cannot be disabled)
+- **Analytics**: Google Analytics tracking
+- **Marketing**: Reserved for future use
+
+Users can manage their preferences at any time.
+
+---
+
+## Performance Tips
+
+### For Better Page Speed
+1. Use .webp format for images
+2. Keep images under 500KB when possible
+3. Video should be compressed (MP4, <10MB)
+
+### Current Optimizations
+- Lazy loading for below-fold content
+- Image optimization via Next.js
+- Video poster image for faster initial paint
+- Preload hints for critical resources
+
+---
+
 ## Security Notes
 
 ✅ `.env` files are in `.gitignore` - they won't be committed
@@ -230,6 +326,25 @@ NEXT_PUBLIC_TINYMCE_API_KEY=editor-key
 ✅ HTTP-only cookies for security
 
 Never share your `.env` file contents with anyone!
+
+---
+
+## Troubleshooting
+
+### Video not playing
+- Check video format (MP4 recommended)
+- Verify file path in `siteConfig.ts`
+- Mobile browsers may require user interaction
+
+### Images not showing
+- Verify file exists in `/public/`
+- Check file path matches exactly (case-sensitive)
+- For remote images, check `next.config.js` allowed domains
+
+### Admin login issues
+- Clear browser cookies
+- Check JWT_SECRET is set
+- Verify password hash is correct
 
 ---
 

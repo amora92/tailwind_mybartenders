@@ -9,7 +9,16 @@
       "Bash(cmd //c \"taskkill /PID 18788 /F\")",
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
-      "Bash(node scripts/generate-icons.js:*)"
+      "Bash(node scripts/generate-icons.js:*)",
+      "Bash(git diff:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run lint)",
+      "Bash(npm ls:*)",
+      "Bash(node --version:*)",
+      "Bash(cmd //c \"dir _app.tsx\")",
+      "Bash(DEBUG=*)",
+      "Bash(npx next build)",
+      "Bash(curl:*)"
     ]
   }
 }

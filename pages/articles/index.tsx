@@ -300,7 +300,7 @@ const Articles = () => {
                             <div className='flex items-center justify-between'>
                               <div className='flex items-center gap-3'>
                                 <Image
-                                  src={featuredArticle.author?.avatar || '/admin-avatar.svg'}
+                                  src={featuredArticle.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
                                   alt={featuredArticle.author?.name || 'Author'}
                                   width={40}
                                   height={40}
@@ -337,17 +337,19 @@ const Articles = () => {
                     >
                       <Link href={`/articles/${article.slug}`} className='group block h-full'>
                         <article className='bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col'>
-                          <div className='relative h-56'>
+                          <div className='relative aspect-[16/10] bg-gray-100'>
                             <Image
                               src={article.imageUrl || '/default-article-image.jpg'}
                               alt={article.title}
                               fill
-                              className='object-cover group-hover:scale-105 transition-transform duration-500'
+                              className='object-cover object-center group-hover:scale-105 transition-transform duration-500'
                               sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
                             />
+                            {/* Subtle gradient for better image display */}
+                            <div className='absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent' />
                             {article.category && (
                               <div className='absolute top-4 left-4'>
-                                <span className='px-3 py-1 bg-white/90 text-gray-900 text-xs font-semibold rounded-full'>
+                                <span className='px-3 py-1 bg-white/95 backdrop-blur-sm text-gray-900 text-xs font-semibold rounded-full shadow-sm'>
                                   {article.category}
                                 </span>
                               </div>
@@ -363,7 +365,7 @@ const Articles = () => {
                             <div className='flex items-center justify-between pt-4 border-t border-gray-100'>
                               <div className='flex items-center gap-2'>
                                 <Image
-                                  src={article.author?.avatar || '/admin-avatar.svg'}
+                                  src={article.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
                                   alt={article.author?.name || 'Author'}
                                   width={32}
                                   height={32}

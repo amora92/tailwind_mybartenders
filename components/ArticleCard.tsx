@@ -11,23 +11,64 @@ interface ArticleType {
   author: string
   date: string
   excerpt: string
+  category?: string
+  slug?: string
 }
 
 const ArticleCard = ({ article }: { article: ArticleType }) => {
   return (
-    <div className='group hover:shadow-gold transition-all duration-300'>
-      <div className='overflow-hidden rounded-lg relative h-48'>
+    <div className='group bg-gray-900/50 rounded-2xl overflow-hidden border border-white/5 hover:border-pink-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/10'>
+      {/* Image container with better aspect ratio */}
+      <div className='relative aspect-[16/10] overflow-hidden bg-gray-800'>
         <Image
-          className='object-cover transform group-hover:scale-105 transition-transform duration-300'
+          className='object-cover object-center transform group-hover:scale-105 transition-transform duration-500'
           src={article.image}
           alt={article.title}
           fill
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         />
+        {/* Gradient overlay */}
+        <div className='absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity' />
+
+        {/* Category badge */}
+        {article.category && (
+          <span className='absolute top-3 left-3 px-3 py-1 bg-pink-500/90 text-white text-xs font-medium rounded-full'>
+            {article.category}
+          </span>
+        )}
       </div>
-      <h3 className='mt-4 text-xl font-semibold group-hover:text-gold-600 transition-colors'>
-        {article.title}
-      </h3>
+
+      {/* Content */}
+      <div className='p-5'>
+        <h3 className='text-lg font-semibold text-white group-hover:text-pink-400 transition-colors line-clamp-2 leading-tight'>
+          {article.title}
+        </h3>
+
+        {article.excerpt && (
+          <p className='mt-2 text-gray-400 text-sm line-clamp-2'>
+            {article.excerpt}
+          </p>
+        )}
+
+        {/* Meta info */}
+        <div className='mt-4 flex items-center justify-between text-xs text-gray-500'>
+          {article.date && (
+            <span>{new Date(article.date).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            })}</span>
+          )}
+          {article.author && (
+            <span className='flex items-center gap-1'>
+              <svg className='w-3 h-3' fill='currentColor' viewBox='0 0 20 20'>
+                <path fillRule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clipRule='evenodd' />
+              </svg>
+              {article.author}
+            </span>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

@@ -12,6 +12,7 @@ interface Article {
   category: string
   readTime: string
   views?: number
+  status?: 'draft' | 'published'
 }
 
 interface CategoryCount {
@@ -26,6 +27,8 @@ interface DashboardStats {
   recentArticles: Article[]
   topArticles: Article[]
   avgViewsPerArticle: number
+  draftCount: number
+  publishedCount: number
 }
 
 const AdminDashboard = () => {
@@ -36,10 +39,18 @@ const AdminDashboard = () => {
     popularCategories: [],
     recentArticles: [],
     topArticles: [],
-    avgViewsPerArticle: 0
+    avgViewsPerArticle: 0,
+    draftCount: 0,
+    publishedCount: 0
   })
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; slug: string; title: string }>({
+    isOpen: false,
+    slug: '',
+    title: ''
+  })
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     fetchArticles()
@@ -47,7 +58,8 @@ const AdminDashboard = () => {
 
   const fetchArticles = async () => {
     try {
-      const res = await fetch('/api/articles')
+      // Use admin=true to fetch all articles including drafts
+      const res = await fetch('/api/articles?admin=true')
       const data = await res.json()
       setArticles(Array.isArray(data) ? data : [])
 
@@ -56,6 +68,10 @@ const AdminDashboard = () => {
         (sum: number, article: Article) => sum + (article.views || 0),
         0
       )
+
+      // Count drafts and published
+      const draftCount = data.filter((a: Article) => a.status === 'draft').length
+      const publishedCount = data.filter((a: Article) => a.status !== 'draft').length
 
       const categoryCount = data.reduce(
         (acc: { [key: string]: number }, article: Article) => {
@@ -97,7 +113,9 @@ const AdminDashboard = () => {
         popularCategories,
         recentArticles,
         topArticles,
-        avgViewsPerArticle
+        avgViewsPerArticle,
+        draftCount,
+        publishedCount
       })
 
       setLoading(false)
@@ -115,29 +133,40 @@ const AdminDashboard = () => {
     })
   }
 
-  const handleDelete = async (slug: string) => {
-    if (window.confirm('Are you sure you want to delete this article?')) {
-      try {
-        const response = await fetch(`/api/articles/${slug}`, {
-          method: 'DELETE'
-        })
+  const openDeleteModal = (slug: string, title: string) => {
+    setDeleteModal({ isOpen: true, slug, title })
+  }
 
-        if (!response.ok) {
-          throw new Error('Failed to delete article')
-        }
+  const closeDeleteModal = () => {
+    setDeleteModal({ isOpen: false, slug: '', title: '' })
+  }
 
-        setArticles(articles.filter(article => article.slug !== slug))
-        setStats(prev => ({
-          ...prev,
-          totalArticles: prev.totalArticles - 1,
-          recentArticles: prev.recentArticles.filter(
-            article => article.slug !== slug
-          )
-        }))
-      } catch (error) {
-        console.error('Error deleting article:', error)
-        alert('Failed to delete article')
+  const handleDelete = async () => {
+    const { slug } = deleteModal
+    setDeleting(true)
+    try {
+      const response = await fetch(`/api/articles/${slug}`, {
+        method: 'DELETE'
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to delete article')
       }
+
+      setArticles(articles.filter(article => article.slug !== slug))
+      setStats(prev => ({
+        ...prev,
+        totalArticles: prev.totalArticles - 1,
+        recentArticles: prev.recentArticles.filter(
+          article => article.slug !== slug
+        )
+      }))
+      closeDeleteModal()
+    } catch (error) {
+      console.error('Error deleting article:', error)
+      alert('Failed to delete article')
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -243,19 +272,36 @@ const AdminDashboard = () => {
 
           <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
             <div>
-              <p className='text-gray-400 text-sm font-medium mb-3'>Top Categories</p>
-              <div className='space-y-2'>
-                {stats.popularCategories.length > 0 ? (
-                  stats.popularCategories.slice(0, 3).map(({ category, count }) => (
-                    <div key={category} className='flex justify-between items-center'>
-                      <span className='text-white text-sm'>{category}</span>
+              <p className='text-gray-400 text-sm font-medium mb-3'>Article Status</p>
+              <div className='space-y-3'>
+                <div className='flex justify-between items-center'>
+                  <span className='text-white text-sm flex items-center gap-2'>
+                    <span className='w-2 h-2 bg-green-400 rounded-full'></span>
+                    Published
+                  </span>
+                  <span className='px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-medium rounded-full'>
+                    {stats.publishedCount}
+                  </span>
+                </div>
+                <div className='flex justify-between items-center'>
+                  <span className='text-white text-sm flex items-center gap-2'>
+                    <span className='w-2 h-2 bg-yellow-400 rounded-full'></span>
+                    Drafts
+                  </span>
+                  <span className='px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs font-medium rounded-full'>
+                    {stats.draftCount}
+                  </span>
+                </div>
+                {stats.popularCategories.length > 0 && (
+                  <div className='pt-2 border-t border-white/5'>
+                    <p className='text-gray-500 text-xs mb-2'>Top Category</p>
+                    <div className='flex justify-between items-center'>
+                      <span className='text-white text-sm'>{stats.popularCategories[0].category}</span>
                       <span className='px-2 py-0.5 bg-pink-500/20 text-pink-400 text-xs font-medium rounded-full'>
-                        {count}
+                        {stats.popularCategories[0].count}
                       </span>
                     </div>
-                  ))
-                ) : (
-                  <p className='text-gray-500 text-sm'>No categories yet</p>
+                  </div>
                 )}
               </div>
             </div>
@@ -405,6 +451,9 @@ const AdminDashboard = () => {
                     Title
                   </th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
+                    Status
+                  </th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
                     Category
                   </th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
@@ -428,6 +477,18 @@ const AdminDashboard = () => {
                         </Link>
                       </td>
                       <td className='px-6 py-4'>
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full ${
+                          article.status === 'draft'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-green-500/20 text-green-400'
+                        }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${
+                            article.status === 'draft' ? 'bg-yellow-400' : 'bg-green-400'
+                          }`}></span>
+                          {article.status === 'draft' ? 'Draft' : 'Published'}
+                        </span>
+                      </td>
+                      <td className='px-6 py-4'>
                         <span className='px-2.5 py-1 bg-pink-500/20 text-pink-400 text-xs font-medium rounded-full'>
                           {article.category}
                         </span>
@@ -448,8 +509,17 @@ const AdminDashboard = () => {
                         <div className='flex items-center justify-end gap-2'>
                           <Link
                             href={`/articles/${article.slug}`}
-                            className='p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all'
-                            title='View article'
+                            className={`p-2 hover:bg-white/10 rounded-lg transition-all ${
+                              article.status === 'draft'
+                                ? 'text-gray-500 cursor-not-allowed'
+                                : 'text-gray-400 hover:text-white'
+                            }`}
+                            title={article.status === 'draft' ? 'Draft - not publicly visible' : 'View article'}
+                            onClick={e => {
+                              if (article.status === 'draft') {
+                                e.preventDefault()
+                              }
+                            }}
                           >
                             <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                               <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14' />
@@ -465,7 +535,7 @@ const AdminDashboard = () => {
                             </svg>
                           </Link>
                           <button
-                            onClick={() => handleDelete(article.slug)}
+                            onClick={() => openDeleteModal(article.slug, article.title)}
                             className='p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all'
                             title='Delete article'
                           >
@@ -479,7 +549,7 @@ const AdminDashboard = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className='px-6 py-12 text-center text-gray-500'>
+                    <td colSpan={6} className='px-6 py-12 text-center text-gray-500'>
                       {searchTerm ? 'No articles match your search' : 'No articles yet'}
                     </td>
                   </tr>
@@ -489,6 +559,74 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteModal.isOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center p-4'>
+          {/* Backdrop */}
+          <div
+            className='absolute inset-0 bg-black/70 backdrop-blur-sm'
+            onClick={closeDeleteModal}
+          />
+
+          {/* Modal */}
+          <div className='relative bg-gray-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl'>
+            {/* Warning Icon */}
+            <div className='w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6'>
+              <svg className='w-8 h-8 text-red-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' />
+              </svg>
+            </div>
+
+            {/* Content */}
+            <h3 className='text-xl font-bold text-white text-center mb-2'>
+              Delete Article?
+            </h3>
+            <p className='text-gray-400 text-center mb-2'>
+              Are you sure you want to delete this article?
+            </p>
+            <p className='text-white font-medium text-center mb-6 px-4 py-2 bg-white/5 rounded-lg truncate'>
+              "{deleteModal.title}"
+            </p>
+            <p className='text-red-400 text-sm text-center mb-6'>
+              This action cannot be undone.
+            </p>
+
+            {/* Actions */}
+            <div className='flex gap-3'>
+              <button
+                onClick={closeDeleteModal}
+                disabled={deleting}
+                className='flex-1 py-3 px-4 bg-white/5 border border-white/10 text-gray-300 font-medium rounded-xl hover:bg-white/10 transition-colors disabled:opacity-50'
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                className='flex-1 py-3 px-4 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2'
+              >
+                {deleting ? (
+                  <>
+                    <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
+                      <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+                      <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z' />
+                    </svg>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' />
+                    </svg>
+                    Yes, Delete
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
