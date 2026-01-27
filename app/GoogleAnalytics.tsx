@@ -1,34 +1,38 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Script from 'next/script'
 
 const GA_TRACKING_ID = 'G-ZBM8HLM8DZ'
 const COOKIE_PREFERENCES_KEY = 'cookie_preferences'
 
 export default function GoogleAnalytics() {
-  const [analyticsEnabled, setAnalyticsEnabled] = useState(false)
-
   useEffect(() => {
-    // Check saved preferences on mount
+    // Check saved preferences on mount and update consent
     const savedPrefs = localStorage.getItem(COOKIE_PREFERENCES_KEY)
     if (savedPrefs) {
       const prefs = JSON.parse(savedPrefs)
-      setAnalyticsEnabled(prefs.analytics === true)
+      if (prefs.analytics === true && typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        })
+      }
     }
 
     // Listen for consent updates
     const handleConsentUpdate = (event: CustomEvent) => {
-      setAnalyticsEnabled(event.detail.analytics === true)
+      if (event.detail.analytics === true && typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        })
+      }
     }
 
     window.addEventListener('cookieConsentUpdate', handleConsentUpdate as EventListener)
     return () => window.removeEventListener('cookieConsentUpdate', handleConsentUpdate as EventListener)
   }, [])
 
-  // Only load GA scripts if analytics consent given
-  if (!analyticsEnabled) return null
-
+  // Always load GA scripts, but with consent denied by default
   return (
     <>
       <Script
@@ -44,7 +48,7 @@ export default function GoogleAnalytics() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('consent', 'default', {
-              'analytics_storage': 'granted',
+              'analytics_storage': 'denied',
               'ad_storage': 'denied'
             });
             gtag('config', '${GA_TRACKING_ID}', {
