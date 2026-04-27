@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { getCurrentYear } from '@/constants/siteConfig'
-import Logo from './Logo'
+import BrandLockup from './BrandLockup'
 import { CONTACT_INFO } from '@/constants/contact'
 
 const Footer = () => {
@@ -81,11 +81,8 @@ const Footer = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8'>
             {/* Brand Column */}
             <div className='lg:col-span-1'>
-              <Link href='/' className='inline-flex items-center gap-3 mb-6'>
-                <Logo width={36} height={50} />
-                <span className='text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300'>
-                  MyBartenders
-                </span>
+              <Link href='/' className='inline-flex items-center gap-3 mb-6' aria-label='MyBartenders home'>
+                <BrandLockup />
               </Link>
               <p className='text-gray-400 text-sm leading-relaxed mb-6'>
                 Northampton's premier mobile bar service. Bringing exceptional

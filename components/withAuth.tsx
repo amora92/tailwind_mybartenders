@@ -18,11 +18,11 @@ export const withAuth = (WrappedComponent: ComponentType) => {
             setIsAuthenticated(true)
           } else {
             setIsAuthenticated(false)
-            router.push('/login')
+            router.push('/admin/login')
           }
         } catch (error) {
           setIsAuthenticated(false)
-          router.push('/login')
+          router.push('/admin/login')
         }
       }
 

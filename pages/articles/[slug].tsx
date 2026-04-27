@@ -1,7 +1,5 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from 'react'
+import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -9,6 +7,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { sanitizeHtml, sanitizeCss } from '@/lib/sanitize'
+import { connectToDatabase } from '@/lib/mongodb'
+import { buildBreadcrumbSchema, toAbsoluteUrl } from '@/lib/seo'
 import '../../app/globals.css'
 
 interface GalleryImage {
@@ -19,6 +19,7 @@ interface GalleryImage {
 }
 
 interface Article {
+  slug?: string
   title: string
   description: string
   content: string
@@ -31,6 +32,9 @@ interface Article {
     name: string
     avatar: string
   }
+  tags?: string[]
+  status?: string
+  views?: number
   relatedArticles?: {
     slug: string
     title?: string
@@ -70,6 +74,10 @@ interface Article {
   }[]
 }
 
+interface ArticlePageProps {
+  article: Article | null
+}
+
 const formatReadTime = (readTime: string | number | undefined) => {
   if (!readTime) return '5 min read'
   if (typeof readTime === 'number') return `${readTime} min read`
@@ -88,44 +96,83 @@ const formatDate = (dateString: string) => {
   })
 }
 
+const getAuthorAvatar = (avatar?: string) => {
+  if (!avatar || avatar.includes('branding-mybartenders')) {
+    return '/branding/logo-icon-192.png'
+  }
+
+  return avatar
+}
+
 const getYouTubeVideoId = (url: string) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
   const match = url.match(regExp)
   return match && match[2].length === 11 ? match[2] : null
 }
 
-const ArticlePage = () => {
-  const router = useRouter()
-  const { slug } = router.query
-  const [article, setArticle] = useState<Article | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [customCss, setCustomCss] = useState('')
+export const getServerSideProps: GetServerSideProps<ArticlePageProps> = async ({
+  params
+}) => {
+  const slug = typeof params?.slug === 'string' ? params.slug : ''
+
+  if (!slug) {
+    return { notFound: true }
+  }
+
+  try {
+    const { db } = await connectToDatabase()
+    const article = await db.collection('articles').findOne({ slug })
+
+    if (!article || article.status === 'draft') {
+      return { notFound: true }
+    }
+
+    await db.collection('articles').updateOne({ slug }, { $inc: { views: 1 } })
+
+    let relatedArticles = Array.isArray(article.relatedArticles)
+      ? article.relatedArticles
+      : []
+
+    if (relatedArticles.length === 0) {
+      const relatedQuery: Record<string, unknown> = {
+        slug: { $ne: slug },
+        status: { $ne: 'draft' }
+      }
+
+      if (article.category) {
+        relatedQuery.category = article.category
+      }
+
+      relatedArticles = await db
+        .collection('articles')
+        .find(relatedQuery)
+        .project({ slug: 1, title: 1, imageUrl: 1 })
+        .sort({ publishedAt: -1 })
+        .limit(3)
+        .toArray()
+    }
+
+    return {
+      props: {
+        article: JSON.parse(
+          JSON.stringify({
+            ...article,
+            slug,
+            views: (article.views || 0) + 1,
+            relatedArticles
+          })
+        )
+      }
+    }
+  } catch (error) {
+    console.error('Error server-rendering article:', error)
+    return { notFound: true }
+  }
+}
+
+const ArticlePage = ({ article }: ArticlePageProps) => {
   const [copyNotification, setCopyNotification] = useState(false)
   const [lightboxImage, setLightboxImage] = useState<{ url: string; caption?: string } | null>(null)
-
-  useEffect(() => {
-    if (slug) {
-      fetchArticle()
-    }
-  }, [slug])
-
-  useEffect(() => {
-    if (article?.customCss) {
-      setCustomCss(article.customCss)
-    }
-  }, [article])
-
-  const fetchArticle = async () => {
-    try {
-      const response = await fetch(`/api/articles/${slug}`)
-      const data = await response.json()
-      setArticle(data)
-    } catch (error) {
-      console.error('Error fetching article:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleShare = async (
     platform: 'facebook' | 'twitter' | 'linkedin' | 'whatsapp' | 'copy'
@@ -169,56 +216,6 @@ const ArticlePage = () => {
         }
         break
     }
-  }
-
-  if (loading) {
-    return (
-      <>
-        <Head>
-          <title>Loading article...</title>
-        </Head>
-        <div className='min-h-screen bg-gray-950'>
-          <Navbar />
-          <main>
-            {/* Loading Hero */}
-            <section className='relative pt-32 pb-16 lg:pt-40 lg:pb-20 bg-gray-950 overflow-hidden'>
-              <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
-              <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-                <div className='max-w-4xl mx-auto animate-pulse'>
-                  <div className='h-6 bg-white/10 rounded-full w-32 mb-6' />
-                  <div className='h-12 bg-white/10 rounded-lg w-3/4 mb-4' />
-                  <div className='h-8 bg-white/10 rounded-lg w-1/2 mb-8' />
-                  <div className='flex items-center gap-4'>
-                    <div className='w-12 h-12 bg-white/10 rounded-full' />
-                    <div>
-                      <div className='h-4 bg-white/10 rounded w-32 mb-2' />
-                      <div className='h-3 bg-white/10 rounded w-24' />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Loading Content */}
-            <section className='relative py-16 bg-gray-50'>
-              <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
-                <div className='max-w-4xl mx-auto animate-pulse'>
-                  <div className='h-[400px] bg-gray-200 rounded-2xl mb-12' />
-                  <div className='space-y-4'>
-                    <div className='h-4 bg-gray-200 rounded w-full' />
-                    <div className='h-4 bg-gray-200 rounded w-5/6' />
-                    <div className='h-4 bg-gray-200 rounded w-4/6' />
-                    <div className='h-4 bg-gray-200 rounded w-full' />
-                    <div className='h-4 bg-gray-200 rounded w-3/4' />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
-          <Footer />
-        </div>
-      </>
-    )
   }
 
   if (!article) {
@@ -271,86 +268,88 @@ const ArticlePage = () => {
     )
   }
 
-  const canonicalUrl = `https://mybartenders.co.uk/articles/${slug}`
+  const canonicalUrl = toAbsoluteUrl(`/articles/${article.slug}`)
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Articles', path: '/articles' },
+    { name: article.title, path: `/articles/${article.slug}` }
+  ])
 
-  // Ensure image URL is absolute for social sharing
   const getAbsoluteImageUrl = (url: string) => {
-    if (!url) return 'https://mybartenders.co.uk/mybartenders.co.uk_logo_svg.svg'
-    if (url.startsWith('http://') || url.startsWith('https://')) return url
-    return `https://mybartenders.co.uk${url.startsWith('/') ? '' : '/'}${url}`
+    if (!url) return toAbsoluteUrl('/branding/logo-icon-512.png')
+    return toAbsoluteUrl(url)
   }
 
   const absoluteImageUrl = getAbsoluteImageUrl(article.imageUrl)
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: article.title,
-  description: article.description,
-  image: absoluteImageUrl,
-  datePublished: article.publishedAt,
-  dateModified: article.updatedAt ?? article.publishedAt,
-  author: {
-    '@type': 'Person',
-    name: article.author?.name ?? 'MyBartenders'
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'MyBartenders',
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://mybartenders.co.uk/mybartenders.co.uk_logo_svg.svg'
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: article.title,
+    description: article.description,
+    image: absoluteImageUrl,
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt ?? article.publishedAt,
+    articleSection: article.category,
+    keywords: article.tags?.join(', '),
+    author: {
+      '@type': 'Person',
+      name: article.author?.name ?? 'MyBartenders'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'MyBartenders',
+      logo: {
+        '@type': 'ImageObject',
+        url: toAbsoluteUrl('/branding/logo-icon-512.png')
+      }
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl
     }
-  },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': canonicalUrl
   }
-}
+  const customCss = article.customCss ?? ''
 
-return (
+  return (
   <>
     <Head>
       <title>{article.title} | MyBartenders</title>
-      <meta name="description" content={article.description} />
-      <link rel="canonical" href={canonicalUrl} />
+      <meta name='description' content={article.description} />
+      <link rel='canonical' href={canonicalUrl} />
 
-      {/* Open Graph */}
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content={article.title} />
-      <meta property="og:description" content={article.description} />
-      <meta property="og:image" content={absoluteImageUrl} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={article.title} />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:site_name" content="MyBartenders" />
-      <meta property="og:locale" content="en_GB" />
-      <meta property="article:published_time" content={article.publishedAt} />
+      <meta property='og:type' content='article' />
+      <meta property='og:title' content={article.title} />
+      <meta property='og:description' content={article.description} />
+      <meta property='og:image' content={absoluteImageUrl} />
+      <meta property='og:image:width' content='1200' />
+      <meta property='og:image:height' content='630' />
+      <meta property='og:image:alt' content={article.title} />
+      <meta property='og:url' content={canonicalUrl} />
+      <meta property='og:site_name' content='MyBartenders' />
+      <meta property='og:locale' content='en_GB' />
+      <meta property='article:published_time' content={article.publishedAt} />
       {article.category && (
-        <meta property="article:section" content={article.category} />
+        <meta property='article:section' content={article.category} />
       )}
       <meta
-        property="article:author"
+        property='article:author'
         content={article.author?.name ?? 'MyBartenders'}
       />
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={article.title} />
-      <meta name="twitter:description" content={article.description} />
-      <meta name="twitter:image" content={absoluteImageUrl} />
-      <meta name="twitter:image:alt" content={article.title} />
-      <meta name="twitter:site" content="@MyBartenders" />
+      <meta name='twitter:card' content='summary_large_image' />
+      <meta name='twitter:title' content={article.title} />
+      <meta name='twitter:description' content={article.description} />
+      <meta name='twitter:image' content={absoluteImageUrl} />
+      <meta name='twitter:image:alt' content={article.title} />
+      <meta name='twitter:site' content='@MyBartenders' />
 
-      {/* SEO */}
-      <meta name="author" content={article.author?.name ?? 'MyBartenders'} />
-      <meta name="robots" content="index, follow" />
+      <meta name='author' content={article.author?.name ?? 'MyBartenders'} />
+      <meta name='robots' content='index, follow' />
 
       <script
-        type="application/ld+json"
+        type='application/ld+json'
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd)
+          __html: JSON.stringify([breadcrumbSchema, articleSchema])
         }}
       />
     </Head>
@@ -373,13 +372,19 @@ return (
                 className='max-w-4xl mx-auto'
               >
                 {/* Breadcrumb */}
-                <nav className='flex items-center gap-2 text-sm mb-6'>
+                <nav aria-label='Breadcrumb' className='flex flex-wrap items-center gap-2 text-sm mb-6'>
+                  <Link href='/' className='text-gray-500 hover:text-pink-400 transition-colors'>
+                    Home
+                  </Link>
+                  <span className='text-gray-600'>/</span>
                   <Link href='/articles' className='text-gray-400 hover:text-pink-400 transition-colors'>
                     Articles
                   </Link>
-                  <span className='text-gray-600'>/</span>
                   {article.category && (
-                    <span className='text-pink-400'>{article.category}</span>
+                    <>
+                      <span className='text-gray-600'>/</span>
+                      <span className='text-pink-400'>{article.category}</span>
+                    </>
                   )}
                 </nav>
 
@@ -409,7 +414,7 @@ return (
                 <div className='flex flex-wrap items-center justify-between gap-6 pt-6 border-t border-white/10'>
                   <div className='flex items-center gap-4'>
                     <Image
-                      src={article.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
+                      src={getAuthorAvatar(article.author?.avatar)}
                       alt={article.author?.name || 'Author'}
                       width={48}
                       height={48}
@@ -523,21 +528,22 @@ return (
                 )}
 
                 {/* Main Content */}
-                <motion.article
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className='relative bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-8 md:p-12 mb-12 border border-gray-100 overflow-hidden'
-                >
-                  {/* Decorative corner accent */}
-                  <div className='absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-pink-100/50 to-transparent rounded-bl-full' />
-                  <div className='absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-amber-100/50 to-transparent rounded-tr-full' />
+                {article.content && (
+                  <motion.article
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className='relative bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-8 md:p-12 mb-12 border border-gray-100 overflow-hidden'
+                  >
+                    <div className='absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-pink-100/50 to-transparent rounded-bl-full' />
+                    <div className='absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-amber-100/50 to-transparent rounded-tr-full' />
 
-                  <div
-                    className='relative prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-pink-500 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-img:rounded-xl prose-li:text-gray-600 prose-blockquote:border-l-pink-400 prose-blockquote:bg-pink-50/50 prose-blockquote:py-2 prose-blockquote:rounded-r-lg'
-                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
-                  />
-                </motion.article>
+                    <div
+                      className='relative prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-pink-500 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-img:rounded-xl prose-li:text-gray-600 prose-blockquote:border-l-pink-400 prose-blockquote:bg-pink-50/50 prose-blockquote:py-2 prose-blockquote:rounded-r-lg'
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
+                    />
+                  </motion.article>
+                )}
 
                 {/* Secondary Image and Content */}
                 {article.secondaryImageUrl && article.secondaryContent && (

@@ -1,6 +1,5 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,6 +7,8 @@ import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { SEO_DEFAULTS } from '@/constants/brandStyles'
+import { connectToDatabase } from '@/lib/mongodb'
+import { buildBreadcrumbSchema, toAbsoluteUrl } from '@/lib/seo'
 import '../../app/globals.css'
 
 interface Article {
@@ -15,36 +16,19 @@ interface Article {
   title: string
   description: string
   imageUrl: string
-  contentSections?: {
-    id: string
-    type: 'text' | 'image'
-    content: string
-  }[]
   publishedAt: string
-  category: string
+  category?: string
   readTime?: string | number
+  views?: number
+  tags?: string[]
   author?: {
-    name: string
-    avatar: string
+    name?: string
+    avatar?: string
   }
 }
 
-const formatReadTime = (readTime: string | number | undefined) => {
-  if (!readTime) return '5 min read'
-  if (typeof readTime === 'number') return `${readTime} min read`
-  if (typeof readTime === 'string') {
-    return readTime.includes('min read') ? readTime : `${readTime} min read`
-  }
-  return '5 min read'
-}
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
+interface ArticlesPageProps {
+  initialArticles: Article[]
 }
 
 const CATEGORIES = [
@@ -64,40 +48,78 @@ const SORT_OPTIONS = [
   { value: 'views-asc', label: 'Least Popular' },
 ]
 
-interface ArticleWithViews extends Article {
-  views?: number
+const formatReadTime = (readTime: string | number | undefined) => {
+  if (!readTime) return '5 min read'
+  if (typeof readTime === 'number') return `${readTime} min read`
+  if (typeof readTime === 'string') {
+    return readTime.includes('min read') ? readTime : `${readTime} min read`
+  }
+  return '5 min read'
 }
 
-const Articles = () => {
-  const [articles, setArticles] = useState<ArticleWithViews[]>([])
-  const [loading, setLoading] = useState(true)
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+const getAuthorAvatar = (avatar?: string) => {
+  if (!avatar || avatar.includes('branding-mybartenders')) {
+    return '/branding/logo-icon-192.png'
+  }
+
+  return avatar
+}
+
+export const getServerSideProps: GetServerSideProps<ArticlesPageProps> = async () => {
+  try {
+    const { db } = await connectToDatabase()
+    const articles = await db
+      .collection('articles')
+      .find({ status: { $ne: 'draft' } })
+      .sort({ publishedAt: -1 })
+      .toArray()
+
+    return {
+      props: {
+        initialArticles: JSON.parse(JSON.stringify(articles))
+      }
+    }
+  } catch (error) {
+    console.error('Error server-rendering articles:', error)
+
+    return {
+      props: {
+        initialArticles: []
+      }
+    }
+  }
+}
+
+const Articles = ({ initialArticles }: ArticlesPageProps) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortBy, setSortBy] = useState('date-desc')
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch('/api/articles')
-        const data = await response.json()
-        setArticles(Array.isArray(data) ? data : [])
-      } catch (error) {
-        console.error('Error fetching articles:', error)
-        setArticles([])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchArticles()
-  }, [])
-
-  const filteredArticles = articles
+  const filteredArticles = [...initialArticles]
     .filter(article => {
-      const matchesSearch =
-        article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        article.description.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory
+      const haystack = [
+        article.title,
+        article.description,
+        article.category,
+        ...(article.tags ?? [])
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase()
+
+      const matchesSearch = haystack.includes(searchTerm.toLowerCase())
+      const matchesCategory =
+        selectedCategory === 'all' || article.category === selectedCategory
+
       return matchesSearch && matchesCategory
     })
     .sort((a, b) => {
@@ -116,25 +138,65 @@ const Articles = () => {
 
   const featuredArticle = filteredArticles[0]
   const regularArticles = filteredArticles.slice(1)
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Articles', path: '/articles' }
+  ])
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'MyBartenders Articles and Insights',
+    description:
+      'Private bartender hire advice, mobile cocktail bar ideas, drinks planning tips, and event inspiration from MyBartenders.',
+    url: `${SEO_DEFAULTS.siteUrl}/articles`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: initialArticles.slice(0, 12).map((article, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: toAbsoluteUrl(`/articles/${article.slug}`),
+        name: article.title
+      }))
+    }
+  }
 
   return (
     <>
       <Head>
-        <title>Articles & Insights | Mobile Bar Tips | MyBartenders UK</title>
+        <title>
+          Private Bartender Hire Tips, Mobile Bar Ideas & Event Guides | MyBartenders
+        </title>
         <meta
           name='description'
-          content='Discover expert tips, cocktail recipes, and event planning insights from MyBartenders. Your guide to hosting unforgettable events.'
+          content='Explore private bartender hire advice, cocktail menu ideas, mobile bar planning tips and event inspiration from MyBartenders for weddings, private parties and corporate events.'
         />
         <link rel='canonical' href={`${SEO_DEFAULTS.siteUrl}/articles`} />
-        <meta property='og:title' content='Articles & Insights | MyBartenders' />
-        <meta property='og:description' content='Expert tips, cocktail recipes, and event planning insights.' />
+        <meta
+          property='og:title'
+          content='Private Bartender Hire Tips, Mobile Bar Ideas & Event Guides | MyBartenders'
+        />
+        <meta
+          property='og:description'
+          content='Ideas, planning tips and inspiration for mobile cocktail bars, weddings, private parties and corporate event drinks service.'
+        />
         <meta property='og:type' content='website' />
+        <meta property='og:url' content={`${SEO_DEFAULTS.siteUrl}/articles`} />
+        <meta
+          property='og:image'
+          content={toAbsoluteUrl(featuredArticle?.imageUrl || '/corporate.jpg')}
+        />
+        <meta name='twitter:card' content='summary_large_image' />
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([breadcrumbSchema, collectionSchema])
+          }}
+        />
       </Head>
 
       <Navbar />
 
       <main>
-        {/* Hero Section */}
         <section className='relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gray-950 overflow-hidden'>
           <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
           <div className='absolute top-20 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl' />
@@ -148,34 +210,44 @@ const Articles = () => {
               className='text-center max-w-4xl mx-auto'
             >
               <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
-                Our Blog
+                Private Hire Journal
               </span>
 
               <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6'>
-                Articles &{' '}
-                <span className='text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
-                  Insights
+                Mobile Bar, Cocktail &
+                <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
+                  Event Planning Insights
                 </span>
               </h1>
 
-              <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
-                Expert tips, cocktail recipes, and event planning insights to help you create unforgettable experiences.
+              <p className='text-xl text-gray-400 max-w-3xl mx-auto'>
+                Helpful guides from a working mobile cocktail bar team, covering private bartender hire, event drinks planning,
+                wedding bar ideas, and ways to make parties feel beautifully hosted.
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* Search & Filter Section */}
         <section className='relative py-8 bg-gray-900 border-b border-white/10'>
           <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between'>
-              {/* Search */}
               <div className='relative w-full lg:w-96'>
-                <svg className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
+                <svg
+                  className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                  />
                 </svg>
                 <input
-                  type='text'
+                  type='search'
+                  aria-label='Search articles'
                   placeholder='Search articles...'
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
@@ -183,41 +255,68 @@ const Articles = () => {
                 />
               </div>
 
-              {/* Filters */}
               <div className='flex flex-col sm:flex-row gap-3'>
-                {/* Category Dropdown */}
                 <div className='relative'>
                   <select
+                    aria-label='Filter articles by category'
                     value={selectedCategory}
                     onChange={e => setSelectedCategory(e.target.value)}
-                    className='appearance-none w-full sm:w-48 px-4 py-3 pr-10 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all cursor-pointer'
+                    className='appearance-none w-full sm:w-52 px-4 py-3 pr-10 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all cursor-pointer'
                   >
-                    {CATEGORIES.map(cat => (
-                      <option key={cat.value} value={cat.value} className='bg-gray-900 text-white'>
-                        {cat.label}
+                    {CATEGORIES.map(category => (
+                      <option
+                        key={category.value}
+                        value={category.value}
+                        className='bg-gray-900 text-white'
+                      >
+                        {category.label}
                       </option>
                     ))}
                   </select>
-                  <svg className='absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                  <svg
+                    className='absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M19 9l-7 7-7-7'
+                    />
                   </svg>
                 </div>
 
-                {/* Sort Dropdown */}
                 <div className='relative'>
                   <select
+                    aria-label='Sort articles'
                     value={sortBy}
                     onChange={e => setSortBy(e.target.value)}
                     className='appearance-none w-full sm:w-44 px-4 py-3 pr-10 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all cursor-pointer'
                   >
-                    {SORT_OPTIONS.map(opt => (
-                      <option key={opt.value} value={opt.value} className='bg-gray-900 text-white'>
-                        {opt.label}
+                    {SORT_OPTIONS.map(option => (
+                      <option
+                        key={option.value}
+                        value={option.value}
+                        className='bg-gray-900 text-white'
+                      >
+                        {option.label}
                       </option>
                     ))}
                   </select>
-                  <svg className='absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                  <svg
+                    className='absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M19 9l-7 7-7-7'
+                    />
                   </svg>
                 </div>
               </div>
@@ -225,42 +324,38 @@ const Articles = () => {
           </div>
         </section>
 
-        {/* Articles Section */}
         <section className='relative py-16 lg:py-24 bg-gray-50'>
           <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
-            {loading ? (
-              <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
-                {[1, 2, 3, 4, 5, 6].map(i => (
-                  <div key={i} className='bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse'>
-                    <div className='h-56 bg-gray-200' />
-                    <div className='p-6'>
-                      <div className='h-4 bg-gray-200 rounded w-1/4 mb-4' />
-                      <div className='h-6 bg-gray-200 rounded w-3/4 mb-3' />
-                      <div className='h-4 bg-gray-200 rounded w-full mb-2' />
-                      <div className='h-4 bg-gray-200 rounded w-2/3' />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : filteredArticles.length === 0 ? (
+            {filteredArticles.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className='text-center py-16'
               >
                 <div className='w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6'>
-                  <svg className='w-10 h-10 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z' />
+                  <svg
+                    className='w-10 h-10 text-gray-400'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={1.5}
+                      d='M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z'
+                    />
                   </svg>
                 </div>
-                <h3 className='text-xl font-semibold text-gray-900 mb-2'>No articles found</h3>
+                <h2 className='text-xl font-semibold text-gray-900 mb-2'>No articles found</h2>
                 <p className='text-gray-600'>
-                  {searchTerm ? 'Try adjusting your search terms.' : 'Check back soon for new content!'}
+                  {searchTerm
+                    ? 'Try adjusting your search terms.'
+                    : 'Check back soon for new mobile bar and event planning articles.'}
                 </p>
               </motion.div>
             ) : (
               <>
-                {/* Featured Article */}
                 {featuredArticle && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -269,15 +364,16 @@ const Articles = () => {
                     className='mb-16'
                   >
                     <Link href={`/articles/${featuredArticle.slug}`}>
-                      <div className='group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300'>
+                      <article className='group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300'>
                         <div className='grid lg:grid-cols-2'>
                           <div className='relative h-72 lg:h-[450px]'>
                             <Image
-                              src={featuredArticle.imageUrl || '/default-article-image.jpg'}
+                              src={featuredArticle.imageUrl || '/corporate.jpg'}
                               alt={featuredArticle.title}
                               fill
                               className='object-cover group-hover:scale-105 transition-transform duration-500'
                               sizes='(max-width: 1024px) 100vw, 50vw'
+                              priority
                             />
                             <div className='absolute top-4 left-4 flex gap-2'>
                               <span className='px-3 py-1 bg-pink-500 text-white text-xs font-semibold rounded-full'>
@@ -297,11 +393,11 @@ const Articles = () => {
                             <p className='text-gray-600 mb-6 line-clamp-3'>
                               {featuredArticle.description}
                             </p>
-                            <div className='flex items-center justify-between'>
+                            <div className='flex items-center justify-between gap-6'>
                               <div className='flex items-center gap-3'>
                                 <Image
-                                  src={featuredArticle.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
-                                  alt={featuredArticle.author?.name || 'Author'}
+                                  src={getAuthorAvatar(featuredArticle.author?.avatar)}
+                                  alt={featuredArticle.author?.name || 'MyBartenders'}
                                   width={40}
                                   height={40}
                                   className='rounded-full'
@@ -321,31 +417,32 @@ const Articles = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </article>
                     </Link>
                   </motion.div>
                 )}
 
-                {/* Article Grid */}
                 <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
                   {regularArticles.map((article, index) => (
                     <motion.div
                       key={article.slug}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      transition={{ duration: 0.5, delay: index * 0.08 }}
                     >
-                      <Link href={`/articles/${article.slug}`} className='group block h-full'>
+                      <Link
+                        href={`/articles/${article.slug}`}
+                        className='group block h-full'
+                      >
                         <article className='bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col'>
                           <div className='relative aspect-[16/10] bg-gray-100'>
                             <Image
-                              src={article.imageUrl || '/default-article-image.jpg'}
+                              src={article.imageUrl || '/corporate.jpg'}
                               alt={article.title}
                               fill
                               className='object-cover object-center group-hover:scale-105 transition-transform duration-500'
                               sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
                             />
-                            {/* Subtle gradient for better image display */}
                             <div className='absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent' />
                             {article.category && (
                               <div className='absolute top-4 left-4'>
@@ -359,23 +456,23 @@ const Articles = () => {
                             <h2 className='text-xl font-bold text-gray-900 mb-3 group-hover:text-pink-500 transition-colors line-clamp-2'>
                               {article.title}
                             </h2>
-                            <p className='text-gray-600 line-clamp-2 mb-6 flex-1'>
+                            <p className='text-gray-600 line-clamp-3 mb-6 flex-1'>
                               {article.description}
                             </p>
-                            <div className='flex items-center justify-between pt-4 border-t border-gray-100'>
-                              <div className='flex items-center gap-2'>
+                            <div className='flex items-center justify-between pt-4 border-t border-gray-100 gap-4'>
+                              <div className='flex items-center gap-2 min-w-0'>
                                 <Image
-                                  src={article.author?.avatar || '/mybartenders.co.uk_logo_svg.svg'}
-                                  alt={article.author?.name || 'Author'}
+                                  src={getAuthorAvatar(article.author?.avatar)}
+                                  alt={article.author?.name || 'MyBartenders'}
                                   width={32}
                                   height={32}
                                   className='rounded-full'
                                 />
-                                <span className='text-sm text-gray-600'>
+                                <span className='text-sm text-gray-600 truncate'>
                                   {article.author?.name || 'MyBartenders'}
                                 </span>
                               </div>
-                              <span className='text-sm text-gray-500'>
+                              <span className='text-sm text-gray-500 whitespace-nowrap'>
                                 {formatReadTime(article.readTime)}
                               </span>
                             </div>
@@ -390,7 +487,6 @@ const Articles = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className='relative py-20 lg:py-28 bg-gray-950 overflow-hidden'>
           <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
           <div className='absolute top-0 left-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl' />
@@ -403,23 +499,41 @@ const Articles = () => {
               className='max-w-3xl mx-auto'
             >
               <h2 className='text-3xl md:text-4xl font-bold text-white mb-6'>
-                Ready to Plan Your
+                Ready to plan a bar that feels
                 <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400'>
-                  Perfect Event?
+                  as polished as the party?
                 </span>
               </h2>
               <p className='text-xl text-gray-400 mb-10'>
-                Let us bring our expertise to your next celebration.
+                Explore our services or tell us about your event and we’ll build a mobile cocktail bar package around it.
               </p>
-              <Link
-                href='/contact_us'
-                className='inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-2xl shadow-pink-500/30 hover:shadow-pink-500/50 transition-all text-lg'
-              >
-                Get a Free Quote
-                <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                </svg>
-              </Link>
+              <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+                <Link
+                  href='/services'
+                  className='inline-flex items-center gap-3 px-10 py-5 bg-white/10 text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-all text-lg'
+                >
+                  View Services
+                </Link>
+                <Link
+                  href='/contact_us'
+                  className='inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-2xl shadow-pink-500/30 hover:shadow-pink-500/50 transition-all text-lg'
+                >
+                  Get a Free Quote
+                  <svg
+                    className='w-5 h-5'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M17 8l4 4m0 0l-4 4m4-4H3'
+                    />
+                  </svg>
+                </Link>
+              </div>
             </motion.div>
           </div>
         </section>

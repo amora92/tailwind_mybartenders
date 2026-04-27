@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
+import BrandLockup from '@/components/BrandLockup'
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -30,11 +31,10 @@ export default function Login() {
         throw new Error(data.error || 'Login failed')
       }
 
-      if (data.success && data.token) {
-        localStorage.setItem('token', data.token)
+      if (data.success) {
         await router.push('/admin')
       } else {
-        setError('Login failed - No token received')
+        setError('Login failed')
       }
     } catch (err: any) {
       console.error('Login error:', err)
@@ -61,12 +61,8 @@ export default function Login() {
           <div className='w-full max-w-md'>
             {/* Logo/Brand */}
             <div className='text-center mb-8'>
-              <Link href='/' className='inline-flex items-center gap-3 mb-6'>
-                <div className='w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-amber-500 flex items-center justify-center'>
-                  <svg className='w-7 h-7 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' />
-                  </svg>
-                </div>
+              <Link href='/' className='inline-flex items-center justify-center mb-6' aria-label='MyBartenders home'>
+                <BrandLockup centered />
               </Link>
               <h1 className='text-3xl font-bold text-white mb-2'>Admin Login</h1>
               <p className='text-gray-400'>Sign in to manage your content</p>

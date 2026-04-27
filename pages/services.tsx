@@ -1,5 +1,3 @@
-'use client'
-
 import Head from 'next/head'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -8,6 +6,7 @@ import Footer from '@/components/Footer'
 import { CONTACT_INFO } from '@/constants/contact'
 import { SEO_DEFAULTS } from '@/constants/brandStyles'
 import { getBookingYear, SITE_IMAGES, TRUST_INDICATORS } from '@/constants/siteConfig'
+import { buildBreadcrumbSchema, toAbsoluteUrl } from '@/lib/seo'
 
 const services = [
   {
@@ -15,7 +14,7 @@ const services = [
     title: 'Weddings',
     subtitle: 'Your Perfect Day, Perfectly Served',
     description:
-      "From champagne towers to signature cocktails named after the happy couple, we create magical moments that your guests will remember forever. Our experienced team ensures every detail is perfect, from the first toast to the last dance.",
+      "From champagne towers to signature cocktails named after the happy couple, our mobile cocktail bar team creates a polished wedding drinks experience your guests remember for the right reasons.",
     image: '/wedding.webp',
     features: [
       'Bespoke cocktail menu design',
@@ -32,7 +31,7 @@ const services = [
     title: 'Corporate Events',
     subtitle: 'Impress Your Clients & Team',
     description:
-      "Elevate your brand with sophisticated cocktail experiences. From product launches to annual celebrations, conference after-parties to team building events, we deliver excellence that reflects your company's standards.",
+      "Elevate your brand with a private bartender hire service that feels organised, premium and guest-focused. From launches to celebrations, we deliver drinks service that reflects your company's standards.",
     image: '/corporate.webp',
     features: [
       'Branded cocktail experiences',
@@ -49,7 +48,7 @@ const services = [
     title: 'Private Parties',
     subtitle: 'Celebrations Made Extraordinary',
     description:
-      'Birthday milestones, anniversaries, engagement parties, or just because - transform your gathering into an unforgettable experience with our premium mobile bar service and expert mixologists.',
+      'Birthday milestones, anniversaries, engagement parties, or just because: transform your gathering with a mobile cocktail bar, private bartenders and expert mixologists who keep the drinks flowing and the room buzzing.',
     image: '/party_cocktails.webp',
     features: [
       'Interactive cocktail stations',
@@ -66,7 +65,7 @@ const services = [
     title: 'Cocktail Masterclasses',
     subtitle: 'Learn from the Experts',
     description:
-      'Hands-on mixology experiences perfect for team building, hen parties, corporate events, or anyone wanting to master the art of cocktail making. Learn professional techniques from our expert bartenders.',
+      'Hands-on mixology experiences for team building, hen parties and celebrations, led by working bartenders who bring the energy, the kit and the know-how.',
     image: '/masterclass.webp',
     features: [
       'Professional instruction',
@@ -163,56 +162,123 @@ const additionalServices = [
   }
 ]
 
-// Structured data for SEO
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Mobile Bar Hire Services',
-  provider: {
-    '@type': 'Organization',
-    name: SEO_DEFAULTS.siteName,
-    url: SEO_DEFAULTS.siteUrl
+const serviceReasons = [
+  {
+    title: 'A real mobile cocktail bar, not just a drinks table',
+    description:
+      'We pitch up with a stylish bar presence that helps your event feel hosted, not improvised.'
   },
-  description:
-    'Professional mobile bar hire services including weddings, corporate events, private parties, and cocktail masterclasses across the UK.',
-  areaServed: {
-    '@type': 'Country',
-    name: 'United Kingdom'
+  {
+    title: 'Private bartender hire tailored to your guest list',
+    description:
+      'We shape staffing, drinks style and service pace around weddings, private parties and corporate events.'
   },
-  serviceType: [
-    'Wedding Bar Hire',
-    'Corporate Event Bar',
-    'Private Party Bar',
-    'Cocktail Masterclass'
-  ]
-}
+  {
+    title: 'Menus built to suit the room',
+    description:
+      'From elegant classics to branded signatures and low-alcohol options, we make the menu part of the occasion.'
+  }
+]
+
+const bookingQuestions = [
+  {
+    question: 'What is included in your mobile bar hire packages?',
+    answer:
+      'Packages can include the bar setup, private bartenders, menu planning, glassware, ingredients, ice and full service depending on the event.'
+  },
+  {
+    question: 'Can you tailor the drinks menu to our event?',
+    answer:
+      'Yes. We regularly build bespoke cocktail menus for weddings, birthdays, launches, staff parties and luxury private events.'
+  },
+  {
+    question: 'Do you travel outside Northampton?',
+    answer:
+      'Yes. We serve Northampton and travel across the UK for the right private and corporate bookings.'
+  }
+]
+
+const structuredData = [
+  buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' }
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Private Bartender Hire and Mobile Cocktail Bar Services',
+    provider: {
+      '@type': 'Organization',
+      name: SEO_DEFAULTS.siteName,
+      url: SEO_DEFAULTS.siteUrl
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'United Kingdom'
+    },
+    description:
+      'Private bartender hire, mixologist hire and mobile cocktail bar services for weddings, corporate events, private parties and cocktail masterclasses across the UK.',
+    image: toAbsoluteUrl('/wedding.webp'),
+    serviceType: [
+      'Private Bartender Hire',
+      'Mixologist Hire',
+      'Wedding Mobile Bar Hire',
+      'Corporate Event Bar Hire',
+      'Private Party Mobile Bar',
+      'Cocktail Masterclass'
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'MyBartenders services',
+      itemListElement: services.map((service, index) => ({
+        '@type': 'Offer',
+        position: index + 1,
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          description: service.description
+        }
+      }))
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: bookingQuestions.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer
+      }
+    }))
+  }
+]
 
 const Services = () => {
   return (
     <>
       <Head>
         <title>
-          Mobile Bar Hire Services | Weddings, Corporate & Private Events |
-          MyBartenders
+          Private Bartender Hire & Mobile Cocktail Bar Services | MyBartenders
         </title>
         <meta
           name='description'
-          content='Professional mobile bar hire services in Northampton and across the UK. Expert bartenders for weddings, corporate events, private parties, and cocktail masterclasses.'
+          content='Private bartender hire, mixologist hire and mobile cocktail bar services for weddings, private parties, corporate events and masterclasses in Northampton and across the UK.'
         />
         <meta
           name='keywords'
-          content='mobile bar hire, wedding bar, corporate event bar, cocktail masterclass, bartender hire, Northampton, UK'
+          content='private bartender hire, mixologist hire, mobile cocktail bar, wedding bar hire, corporate event bartenders, private party bar hire, Northampton, UK'
         />
         <link rel='canonical' href={`${SEO_DEFAULTS.siteUrl}/services`} />
 
-        {/* Open Graph */}
         <meta
           property='og:title'
-          content='Mobile Bar Hire Services | MyBartenders UK'
+          content='Private Bartender Hire & Mobile Cocktail Bar Services | MyBartenders'
         />
         <meta
           property='og:description'
-          content='Professional mobile bar hire for weddings, corporate events, and private parties.'
+          content='Private bartender hire, mixologist hire and mobile cocktail bar packages for weddings, parties and corporate events.'
         />
         <meta property='og:type' content='website' />
         <meta property='og:url' content={`${SEO_DEFAULTS.siteUrl}/services`} />
@@ -221,18 +287,16 @@ const Services = () => {
           content={`${SEO_DEFAULTS.siteUrl}/wedding.webp`}
         />
 
-        {/* Twitter Card */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta
           name='twitter:title'
-          content='Mobile Bar Hire Services | MyBartenders UK'
+          content='Private Bartender Hire & Mobile Cocktail Bar Services | MyBartenders'
         />
         <meta
           name='twitter:description'
-          content='Professional mobile bar hire for weddings, corporate events, and private parties.'
+          content='Private bartender hire, mixologist hire and mobile cocktail bar packages for weddings, parties and corporate events.'
         />
 
-        {/* Structured Data */}
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -256,17 +320,17 @@ const Services = () => {
               className='text-center max-w-4xl mx-auto'
             >
               <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
-                Our Services
+                Private Bartender Hire
               </span>
               <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight'>
-                Premium Mobile Bar
+                Mobile Cocktail Bar
                 <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
-                  Services for Every Occasion
+                  Services for Events That Matter
                 </span>
               </h1>
               <p className='text-xl text-gray-400 max-w-2xl mx-auto mb-10'>
-                From intimate gatherings to grand celebrations, we bring the bar
-                to you with style, professionalism, and exceptional cocktails.
+                From weddings and luxury house parties to launches and staff events, we bring a polished mobile cocktail
+                bar experience with bartenders, mixologists and menus tailored to your crowd.
               </p>
               <div className='flex flex-col sm:flex-row gap-4 justify-center'>
                 <a
@@ -465,6 +529,89 @@ const Services = () => {
                   </h3>
                   <p className='text-gray-400 text-sm'>{service.description}</p>
                 </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className='relative py-20 lg:py-28 bg-white overflow-hidden'>
+          <div className='absolute inset-0 bg-gradient-to-b from-white via-pink-50/20 to-white' />
+          <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className='text-center max-w-3xl mx-auto mb-14'
+            >
+              <span className='inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-sm font-medium rounded-full mb-6'>
+                Why Clients Book Us
+              </span>
+              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6'>
+                A mobile bar service built to
+                <span className='text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-amber-500'>
+                  {' '}
+                  look good and run smoothly
+                </span>
+              </h2>
+              <p className='text-xl text-gray-600'>
+                The right private bartender hire service should make the event easier for you, more enjoyable for your
+                guests, and stronger in every photo.
+              </p>
+            </motion.div>
+
+            <div className='grid md:grid-cols-3 gap-6 max-w-6xl mx-auto'>
+              {serviceReasons.map((reason, index) => (
+                <motion.article
+                  key={reason.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                  className='bg-white rounded-3xl border border-gray-100 shadow-lg shadow-pink-100/30 p-8'
+                >
+                  <h3 className='text-xl font-semibold text-gray-900 mb-3'>{reason.title}</h3>
+                  <p className='text-gray-600 leading-relaxed'>{reason.description}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className='relative py-20 lg:py-28 bg-gray-50 overflow-hidden'>
+          <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className='text-center max-w-3xl mx-auto mb-14'
+            >
+              <span className='inline-block px-4 py-1.5 bg-white border border-pink-100 text-pink-600 text-sm font-medium rounded-full mb-6'>
+                Booking Questions
+              </span>
+              <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-6'>
+                Helpful answers before you enquire
+              </h2>
+              <p className='text-xl text-gray-600'>
+                These are the things clients usually want to know before booking a mobile cocktail bar for a private or
+                corporate event.
+              </p>
+            </motion.div>
+
+            <div className='max-w-5xl mx-auto grid md:grid-cols-3 gap-6'>
+              {bookingQuestions.map((item, index) => (
+                <motion.article
+                  key={item.question}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                  className='bg-white rounded-3xl border border-gray-100 p-8 shadow-sm'
+                >
+                  <h3 className='text-lg font-semibold text-gray-900 mb-3'>{item.question}</h3>
+                  <p className='text-gray-600 leading-relaxed'>{item.answer}</p>
+                </motion.article>
               ))}
             </div>
           </div>

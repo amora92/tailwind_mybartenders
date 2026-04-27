@@ -38,7 +38,7 @@ const Pricing = () => {
                 from £ Get a Quote
               </span>
               <a
-                href='https://www.mybartenders.co.uk/contact_us'
+                href='https://mybartenders.co.uk/contact_us'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='bg-main_buttons_1 hover:bg-lime-600 text-white py-2 px-4 rounded ml-4 inline-block'
@@ -62,7 +62,7 @@ const Pricing = () => {
                 from £ Get a Quote
               </span>
               <a
-                href='https://www.mybartenders.co.uk/contact_us'
+                href='https://mybartenders.co.uk/contact_us'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
@@ -83,7 +83,7 @@ const Pricing = () => {
             <div className='flex justify-center items-center mt-4'>
               <span className='text-gray-700 font-semibold'>Get a Quote</span>
               <a
-                href='https://www.mybartenders.co.uk/contact_us'
+                href='https://mybartenders.co.uk/contact_us'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 rounded ml-4 inline-block'
@@ -113,7 +113,7 @@ const Pricing = () => {
               tailored to your needs.
             </p>
             <a
-              href='https://www.mybartenders.co.uk/contact_us'
+              href='https://mybartenders.co.uk/contact_us'
               target='_blank'
               rel='noopener noreferrer'
               className='bg-main_buttons_1 hover:bg-lime-500 text-white py-2 px-4 mt-4 rounded inline-block'

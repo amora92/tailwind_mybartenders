@@ -19,10 +19,10 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Luxury Mobile Bar Hire Northampton | Weddings & Events | MyBartenders',
+  title: 'Private Bartender Hire & Mobile Cocktail Bar | MyBartenders',
   description:
-    'Award-winning mobile bar hire and cocktail service in Northampton. Expert mixologists, premium drinks and stress-free events for weddings, parties and corporate functions. Book now!',
-  keywords: ['mobile bar hire', 'cocktail bar', 'wedding bar', 'Northampton', 'event bar', 'mixologist', 'bartender hire'],
+    'Private bartender hire, mixologist hire and mobile cocktail bar services for weddings, private parties and corporate events in Northampton and across the UK.',
+  keywords: ['private bartender hire', 'mixologist hire', 'mobile cocktail bar', 'wedding bar hire', 'private party bartender', 'corporate event bartender', 'Northampton'],
   authors: [{ name: 'MyBartenders' }],
   creator: 'MyBartenders',
   publisher: 'MyBartenders',
@@ -36,11 +36,13 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/branding/logo-icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/branding/logo-icon-512.png', sizes: '512x512', type: 'image/png' }
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+      { url: '/branding/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
     ]
   },
   alternates: {
@@ -51,11 +53,11 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     url: 'https://mybartenders.co.uk',
     siteName: 'MyBartenders',
-    title: 'Luxury Mobile Bar Hire Northampton | Weddings & Events',
-    description: 'Award-winning mobile bar hire and cocktail service in Northampton. Expert mixologists, premium drinks and stress-free events for weddings, parties and corporate functions.',
+    title: 'Private Bartender Hire & Mobile Cocktail Bar | MyBartenders',
+    description: 'Private bartender hire, mixologist hire and mobile cocktail bar services for weddings, private parties and corporate events.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/corporate.jpg',
         width: 1200,
         height: 630,
         alt: 'MyBartenders - Mobile Bar Hire Northampton'
@@ -64,9 +66,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Luxury Mobile Bar Hire Northampton | MyBartenders',
-    description: 'Award-winning mobile bar hire and cocktail service in Northampton. Expert mixologists for weddings, parties and events.',
-    images: ['/og-image.jpg']
+    title: 'Private Bartender Hire & Mobile Cocktail Bar | MyBartenders',
+    description: 'Private bartender hire, mixologist hire and mobile cocktail bar services for weddings, private parties and corporate events.',
+    images: ['/corporate.jpg']
   },
   robots: {
     index: true,
@@ -86,10 +88,10 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'MyBartenders',
-  description: 'Award-winning mobile bar hire and cocktail service in Northampton. Expert mixologists for weddings, parties and corporate events.',
+  description: 'Private bartender hire, mixologist hire and mobile cocktail bar services for weddings, private parties and corporate events.',
   url: 'https://mybartenders.co.uk',
-  logo: 'https://mybartenders.co.uk/mybartenders.co.uk_logo_svg.svg',
-  image: 'https://mybartenders.co.uk/og-image.jpg',
+  logo: 'https://mybartenders.co.uk/branding/logo-icon-512.png',
+  image: 'https://mybartenders.co.uk/corporate.jpg',
   telephone: '+447482612532',
   email: 'contact@mybartenders.co.uk',
   address: {
@@ -112,7 +114,7 @@ const jsonLd = {
     },
     geoRadius: '50000'
   },
-  priceRange: '££',
+  priceRange: 'GBP',
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -131,7 +133,7 @@ export default function RootLayout ({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' className={`${inter.variable} font-sans`}>
+    <html lang='en-GB' className={`${inter.variable} font-sans`}>
       <head>
         {/* Preconnect to critical origins */}
         <link rel='preconnect' href='https://fonts.googleapis.com' />
@@ -140,6 +142,7 @@ export default function RootLayout ({
         {/* DNS prefetch for external resources */}
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
         <link rel='dns-prefetch' href='https://www.google-analytics.com' />
+        <link rel='dns-prefetch' href='https://region1.google-analytics.com' />
 
         {/* Preload hero poster image for fast LCP */}
         <link rel='preload' as='image' href='/corporate.webp' type='image/webp' />

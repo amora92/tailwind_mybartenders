@@ -152,12 +152,18 @@ const TestimonialsSection = () => {
                   <button
                     key={index}
                     onClick={() => setActiveIndex(index)}
-                    className={`h-2.5 sm:h-3 min-w-[10px] sm:min-w-[12px] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
-                      index === activeIndex ? 'w-6 sm:w-8 bg-pink-500' : 'w-2.5 sm:w-3 bg-gray-300 hover:bg-gray-400'
-                    }`}
+                    className='flex h-10 w-10 items-center justify-center rounded-full touch-manipulation transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2'
                     aria-label={`Go to testimonial ${index + 1}`}
                     aria-current={index === activeIndex ? 'true' : undefined}
-                  />
+                  >
+                    <span
+                      className={`block h-2.5 rounded-full transition-all duration-300 sm:h-3 ${
+                        index === activeIndex
+                          ? 'w-6 bg-pink-500 sm:w-8'
+                          : 'w-2.5 bg-gray-300 hover:bg-gray-400 sm:w-3'
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
             </div>

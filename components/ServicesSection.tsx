@@ -63,16 +63,18 @@ const ServicesSection = () => {
           className='text-center mb-16 lg:mb-20'
         >
           <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
-            Our Services
+            Private Bartender Hire Services
           </span>
           <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6'>
-            Tailored to Your
+            Tailored Bartending for
             <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400'>
               Perfect Event
             </span>
           </h2>
           <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
-            Every celebration deserves exceptional service. Choose your experience.
+            Choose from flexible mobile bar hire, private bartender hire and
+            mixologist hire packages designed around your venue, guest list and
+            style of celebration.
           </p>
         </motion.div>
 
@@ -87,7 +89,9 @@ const ServicesSection = () => {
           {services.map((s, index) => (
             <button
               key={s.id}
+              type='button'
               onClick={() => setActiveService(index)}
+              aria-pressed={activeService === index}
               className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeService === index
                   ? 'text-white'

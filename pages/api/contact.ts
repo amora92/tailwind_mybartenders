@@ -2,6 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Resend } from 'resend'
 import nodemailer from 'nodemailer'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
+import { logger } from '@/lib/logger'
+import {
+  escapeHtml,
+  sanitizeMultilineText,
+  sanitizePlainText
+} from '@/lib/contentValidation'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -51,11 +57,11 @@ const formatEventDetails = (eventDetails: {
   return `
     ${
       eventDetails.eventType
-        ? `<tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Event Type:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${eventDetails.eventType}</td></tr>`
+        ? `<tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Event Type:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${escapeHtml(eventDetails.eventType)}</td></tr>`
         : ''
     }
     <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Guests:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
-      eventDetails.attendees || 'Not specified'
+      escapeHtml(eventDetails.attendees || 'Not specified')
     }</td></tr>
     <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Event Date:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${formatDate(
       eventDetails.eventDate || ''
@@ -67,14 +73,14 @@ const formatEventDetails = (eventDetails: {
       eventDetails.finishTime || ''
     )}</td></tr>
     <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Location:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
-      eventDetails.location || 'Not specified'
+      escapeHtml(eventDetails.location || 'Not specified')
     }</td></tr>
     <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Budget:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
-      eventDetails.budget || 'Not specified'
+      escapeHtml(eventDetails.budget || 'Not specified')
     }</td></tr>
     ${
       eventDetails.requirements
-        ? `<tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Special Requirements:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${eventDetails.requirements}</td></tr>`
+        ? `<tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Special Requirements:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${escapeHtml(eventDetails.requirements)}</td></tr>`
         : ''
     }
   `
@@ -116,7 +122,7 @@ const generateEmailHTML = (data: {
         ? `
     <div style="background: #fdf2f8; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;">
       <span style="color: #be185d; font-weight: bold; font-size: 16px;">
-        Event Type: ${data.eventDetails.eventType}
+        Event Type: ${escapeHtml(data.eventDetails.eventType)}
       </span>
     </div>
     `
@@ -128,16 +134,16 @@ const generateEmailHTML = (data: {
     </h2>
     <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse;">
       <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666; width: 140px;">Name:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
-        data.name
+        escapeHtml(data.name)
       }</td></tr>
       <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Email:</td><td style="padding: 8px; border-bottom: 1px solid #eee;"><a href="mailto:${
-        data.email
-      }" style="color: #ec4899;">${data.email}</a></td></tr>
+        escapeHtml(data.email)
+      }" style="color: #ec4899;">${escapeHtml(data.email)}</a></td></tr>
       <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Phone:</td><td style="padding: 8px; border-bottom: 1px solid #eee;"><a href="tel:${
-        data.phone
-      }" style="color: #ec4899;">${data.phone}</a></td></tr>
+        escapeHtml(data.phone)
+      }" style="color: #ec4899;">${escapeHtml(data.phone)}</a></td></tr>
       <tr><td style="padding: 8px; border-bottom: 1px solid #eee; color: #666;">Preferred Contact:</td><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: 500;">${
-        data.contactPreference
+        escapeHtml(data.contactPreference)
       }</td></tr>
     </table>
 
@@ -153,7 +159,7 @@ const generateEmailHTML = (data: {
     </h2>
     <div style="background: #f9fafb; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
       <p style="margin: 0; color: #374151; line-height: 1.6; white-space: pre-wrap;">${
-        data.message
+        escapeHtml(data.message)
       }</p>
     </div>
   </div>
@@ -166,6 +172,10 @@ const generateEmailHTML = (data: {
 </body>
 </html>
   `
+}
+
+const isValidEmail = (value: string) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
 export default async function handler (
@@ -197,25 +207,42 @@ export default async function handler (
   try {
     const { name, email, phone, contactPreference, message, eventDetails } =
       req.body
+    const normalizedName = sanitizePlainText(name, 120)
+    const normalizedEmail = sanitizePlainText(email, 254).toLowerCase()
+    const normalizedPhone = sanitizePlainText(phone, 40)
+    const normalizedContactPreference = sanitizePlainText(contactPreference, 40)
+    const normalizedMessage = sanitizeMultilineText(message, 3000)
+    const normalizedEventDetails = {
+      attendees: sanitizePlainText(eventDetails?.attendees, 40),
+      eventDate: sanitizePlainText(eventDetails?.eventDate, 40),
+      location: sanitizePlainText(eventDetails?.location, 160),
+      startTime: sanitizePlainText(eventDetails?.startTime, 10),
+      finishTime: sanitizePlainText(eventDetails?.finishTime, 10),
+      budget: sanitizePlainText(eventDetails?.budget, 40),
+      requirements: sanitizeMultilineText(eventDetails?.requirements, 1200),
+      eventType: sanitizePlainText(eventDetails?.eventType, 80)
+    }
 
     // Validation
-    if (!name || !email || !message) {
+    if (!normalizedName || !normalizedEmail || !normalizedMessage) {
       return res
         .status(400)
         .json({ error: 'Name, email, and message are required' })
     }
 
-    console.log('=== Contact Form Submission ===')
-    console.log('Name:', name)
-    console.log('Email:', email)
+    if (!isValidEmail(normalizedEmail)) {
+      return res
+        .status(400)
+        .json({ error: 'Please provide a valid email address.' })
+    }
 
     const htmlContent = generateEmailHTML({
-      name,
-      email,
-      phone,
-      contactPreference,
-      message,
-      eventDetails
+      name: normalizedName,
+      email: normalizedEmail,
+      phone: normalizedPhone,
+      contactPreference: normalizedContactPreference || 'email',
+      message: normalizedMessage,
+      eventDetails: normalizedEventDetails
     })
 
     // Email configuration - all values from environment variables
@@ -225,14 +252,7 @@ export default async function handler (
     const toEmail = recipientEmail as string
     const bccEmail = process.env.CONTACT_FORM_BCC || ''
 
-    console.log('=== Sending Email via Resend ===')
-    console.log('From:', fromEmail)
-    console.log('To:', toEmail)
-    console.log('BCC:', bccEmail ? '[configured]' : '[none]')
-    console.log('Reply-To:', email)
-
     let emailSent = false
-    let emailId: string | undefined
     let usedProvider = 'resend'
 
     // Try Resend first
@@ -247,8 +267,8 @@ export default async function handler (
       } = {
         from: fromEmail,
         to: [toEmail],
-        replyTo: email,
-        subject: `New Enquiry from ${name} - MyBartenders`,
+        replyTo: normalizedEmail,
+        subject: `New Enquiry from ${normalizedName} - MyBartenders`,
         html: htmlContent
       }
 
@@ -259,18 +279,15 @@ export default async function handler (
 
       const { data, error } = await resend.emails.send(emailOptions)
 
-      console.log('=== Resend Response ===')
       if (data) {
-        console.log('Success! ID:', data.id)
+        logger.info('Contact email sent via Resend')
         emailSent = true
-        emailId = data.id
       }
       if (error) {
-        console.log('Resend Error:', JSON.stringify(error, null, 2))
         throw new Error(error.message || 'Resend failed')
       }
     } catch (resendError) {
-      console.log('=== Resend failed, trying Zoho SMTP fallback ===')
+      logger.warn('Resend failed, trying Zoho SMTP fallback')
 
       // Fallback to Zoho SMTP
       if (process.env.ZOHO_SMTP_USER && process.env.ZOHO_SMTP_PASSWORD) {
@@ -279,57 +296,43 @@ export default async function handler (
             from: `MyBartenders <${process.env.ZOHO_SMTP_USER}>`,
             to: toEmail,
             bcc: bccEmail,
-            replyTo: email,
-            subject: `New Enquiry from ${name} - MyBartenders`,
+            replyTo: normalizedEmail,
+            subject: `New Enquiry from ${normalizedName} - MyBartenders`,
             html: htmlContent
           })
 
-          console.log('=== Zoho SMTP Response ===')
-          console.log('Success! Message ID:', zohoResult.messageId)
+          logger.info('Contact email sent via Zoho SMTP')
           emailSent = true
-          emailId = zohoResult.messageId
           usedProvider = 'zoho'
         } catch (zohoError) {
-          console.error('Zoho SMTP Error:', zohoError)
+          logger.error('Zoho SMTP fallback failed', zohoError)
           return res.status(400).json({
-            error: 'Failed to send email via both providers',
-            details:
-              zohoError instanceof Error ? zohoError.message : 'Unknown error'
+            error: 'Failed to send enquiry email. Please try again later.'
           })
         }
       } else {
-        console.error('Zoho SMTP not configured, cannot fallback')
+        logger.error('Zoho SMTP fallback unavailable')
         return res.status(400).json({
-          error: 'Failed to send email',
-          details:
-            resendError instanceof Error ? resendError.message : 'Unknown error'
+          error: 'Failed to send enquiry email. Please try again later.'
         })
       }
     }
 
     if (!emailSent) {
       return res.status(400).json({
-        error: 'Failed to send email',
-        details: 'No email provider succeeded'
+        error: 'Failed to send enquiry email. Please try again later.'
       })
     }
 
-    console.log(`Email sent successfully via ${usedProvider}!`)
+    logger.info(`Contact email sent successfully via ${usedProvider}`)
     return res.status(200).json({
       success: true,
-      message: 'Email sent successfully',
-      id: emailId,
-      provider: usedProvider
+      message: 'Email sent successfully'
     })
   } catch (error: unknown) {
-    console.error('=== Email Error ===')
-    console.error('Error:', error)
-
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error'
+    logger.error('Contact email handler failed', error)
     return res.status(500).json({
-      error: 'Failed to send email',
-      details: errorMessage
+      error: 'Failed to send enquiry email. Please try again later.'
     })
   }
 }

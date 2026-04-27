@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import path from 'path'
 import fs from 'fs/promises'
+import { requireAdminApiAuth } from '@/lib/apiAuth'
+import { logger } from '@/lib/logger'
 
 export const config = {
   api: {
@@ -10,6 +12,13 @@ export const config = {
 }
 
 const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'articles')
+const ALLOWED_IMAGE_TYPES = new Set([
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/avif',
+  'image/gif'
+])
 
 async function ensureUploadDir() {
   try {
@@ -27,6 +36,10 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  if (!requireAdminApiAuth(req, res)) {
+    return
+  }
+
   try {
     await ensureUploadDir()
 
@@ -35,8 +48,7 @@ export default async function handler(
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10MB max
       filter: ({ mimetype }) => {
-        // Allow only images
-        return mimetype ? mimetype.includes('image') : false
+        return mimetype ? ALLOWED_IMAGE_TYPES.has(mimetype) : false
       },
       filename: (name, ext, part) => {
         // Generate unique filename
@@ -69,7 +81,7 @@ export default async function handler(
       type: uploadedFile.mimetype
     })
   } catch (error) {
-    console.error('Upload error:', error)
+    logger.error('Upload error:', error)
     return res.status(500).json({ error: 'Upload failed' })
   }
 }

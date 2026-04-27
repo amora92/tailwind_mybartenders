@@ -1,5 +1,3 @@
-'use client'
-
 import Head from 'next/head'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -8,6 +6,7 @@ import { motion } from 'framer-motion'
 import { CONTACT_INFO } from '@/constants/contact'
 import { SEO_DEFAULTS } from '@/constants/brandStyles'
 import { getBookingYear, TRUST_INDICATORS } from '@/constants/siteConfig'
+import { buildBreadcrumbSchema, toAbsoluteUrl } from '@/lib/seo'
 import '../app/globals.css'
 
 interface FormData {
@@ -49,6 +48,42 @@ const EVENT_TYPES = [
   { value: 'Engagement', label: 'Engagement', icon: '💍' },
   { value: 'Anniversary', label: 'Anniversary', icon: '🥂' },
   { value: 'Other', label: 'Other', icon: '🎉' },
+]
+
+const NEXT_STEPS = [
+  {
+    title: 'We review the event brief',
+    description:
+      'We look at your guest count, timings, location and event style so the quote matches the reality of the booking.'
+  },
+  {
+    title: 'We shape the bar experience',
+    description:
+      'We recommend the right level of private bartender hire, bar setup and cocktail menu for the room and the occasion.'
+  },
+  {
+    title: 'You get a clear quote back',
+    description:
+      'No vague package language, just a practical quote and next-step plan you can actually make decisions from.'
+  }
+]
+
+const CONTACT_FAQS = [
+  {
+    question: 'How quickly do you reply to enquiries?',
+    answer:
+      'We aim to reply quickly with a practical next step, and most booking enquiries receive a response within 24 hours.'
+  },
+  {
+    question: 'Can we hire private bartenders without a full mobile bar setup?',
+    answer:
+      'Yes. Some events need the full mobile cocktail bar presence and others only need skilled bartenders and menu support.'
+  },
+  {
+    question: 'What details help you quote accurately?',
+    answer:
+      'Guest numbers, event type, location, timings, drink style and any special requirements all help us build a better quote faster.'
+  }
 ]
 
 const ContactUs: React.FC = () => {
@@ -163,20 +198,74 @@ const ContactUs: React.FC = () => {
   }
 
   const inputClasses = 'w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200'
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact_us' }
+  ])
+  const contactPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact MyBartenders',
+    url: `${SEO_DEFAULTS.siteUrl}/contact_us`,
+    description:
+      'Get a quote for private bartender hire, mixologist hire and mobile cocktail bar service from MyBartenders.',
+    mainEntity: {
+      '@type': 'Organization',
+      name: SEO_DEFAULTS.siteName,
+      url: SEO_DEFAULTS.siteUrl,
+      logo: toAbsoluteUrl('/branding/logo-icon-512.png'),
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: CONTACT_INFO.phone,
+          email: CONTACT_INFO.email,
+          contactType: 'customer service',
+          areaServed: 'GB',
+          availableLanguage: ['en-GB', 'en']
+        }
+      ]
+    }
+  }
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: CONTACT_FAQS.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer
+      }
+    }))
+  }
 
   return (
     <>
       <Head>
-        <title>Contact Us | Get a Free Quote | MyBartenders UK</title>
+        <title>Get a Quote for Private Bartender Hire | MyBartenders</title>
         <meta
           name='description'
-          content='Contact MyBartenders for mobile bar hire and professional bartending services. Get a free quote for your wedding, corporate event, or private party.'
+          content='Get a quote for private bartender hire, mixologist hire and mobile cocktail bar service for weddings, private parties and corporate events across Northampton and the UK.'
         />
         <link rel='canonical' href={`${SEO_DEFAULTS.siteUrl}/contact_us`} />
-        <meta property='og:title' content='Contact MyBartenders | Get a Free Quote' />
-        <meta property='og:description' content='Get in touch for premium mobile bar services. Free consultation, customized packages, UK nationwide service.' />
+        <meta property='og:title' content='Get a Quote for Private Bartender Hire | MyBartenders' />
+        <meta property='og:description' content='Tell us about your event and get a quote for a mobile cocktail bar, private bartenders or mixologist hire.' />
         <meta property='og:type' content='website' />
         <meta property='og:url' content={`${SEO_DEFAULTS.siteUrl}/contact_us`} />
+        <meta property='og:image' content={toAbsoluteUrl('/corporate.jpg')} />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content='Get a Quote for Private Bartender Hire | MyBartenders' />
+        <meta name='twitter:description' content='Tell us about your event and get a quote for a mobile cocktail bar, private bartenders or mixologist hire.' />
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              breadcrumbSchema,
+              contactPageSchema,
+              faqSchema
+            ])
+          }}
+        />
       </Head>
 
       <Navbar />
@@ -204,14 +293,15 @@ const ContactUs: React.FC = () => {
               </div>
 
               <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight'>
-                Let's Create{' '}
+                Get a Quote for{' '}
                 <span className='text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
-                  Something Amazing
+                  Your Mobile Cocktail Bar
                 </span>
               </h1>
 
               <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
-                Ready to elevate your event? Fill out the form below for a free, no-obligation quote.
+                Tell us about your wedding, private party or corporate event and we’ll come back with a practical quote
+                for private bartender hire, mixologist support or a full mobile bar setup.
               </p>
             </motion.div>
           </div>
@@ -334,6 +424,7 @@ const ContactUs: React.FC = () => {
                           key={type.value}
                           type='button'
                           onClick={() => setFormData(prev => ({ ...prev, eventType: type.value }))}
+                          aria-pressed={formData.eventType === type.value}
                           className={`p-4 rounded-xl border-2 transition-all text-left ${
                             formData.eventType === type.value
                               ? 'border-pink-500 bg-pink-50 ring-2 ring-pink-500/20'
@@ -371,6 +462,7 @@ const ContactUs: React.FC = () => {
                               key={preset.value}
                               type='button'
                               onClick={() => setFormData(prev => ({ ...prev, attendees: preset.value }))}
+                              aria-pressed={formData.attendees === preset.value}
                               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                                 formData.attendees === preset.value
                                   ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
@@ -456,6 +548,7 @@ const ContactUs: React.FC = () => {
                               key={preset.value}
                               type='button'
                               onClick={() => setFormData(prev => ({ ...prev, budget: preset.value }))}
+                              aria-pressed={formData.budget === preset.value}
                               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                                 formData.budget === preset.value
                                   ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
@@ -543,6 +636,8 @@ const ContactUs: React.FC = () => {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
+                      role='status'
+                      aria-live='polite'
                       className={`p-4 rounded-xl text-center ${
                         statusMessage.includes('Thanks')
                           ? 'bg-green-50 text-green-700 border border-green-200'
@@ -554,6 +649,50 @@ const ContactUs: React.FC = () => {
                   )}
                 </form>
               </motion.div>
+
+              <div className='grid md:grid-cols-3 gap-6 mt-8'>
+                {NEXT_STEPS.map((step, index) => (
+                  <motion.article
+                    key={step.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.08 }}
+                    className='bg-white rounded-3xl border border-gray-100 p-6 shadow-sm'
+                  >
+                    <div className='w-10 h-10 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center font-semibold mb-4'>
+                      {index + 1}
+                    </div>
+                    <h2 className='text-lg font-semibold text-gray-900 mb-3'>{step.title}</h2>
+                    <p className='text-gray-600 leading-relaxed'>{step.description}</p>
+                  </motion.article>
+                ))}
+              </div>
+
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className='mt-8 bg-white rounded-3xl border border-gray-100 p-8 shadow-sm'
+              >
+                <div className='max-w-3xl'>
+                  <span className='inline-flex px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-sm font-medium mb-5'>
+                    Booking Questions
+                  </span>
+                  <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mb-6'>
+                    A few quick answers before you enquire
+                  </h2>
+                </div>
+                <div className='grid md:grid-cols-3 gap-6'>
+                  {CONTACT_FAQS.map(item => (
+                    <article key={item.question} className='rounded-2xl bg-gray-50 border border-gray-100 p-6'>
+                      <h3 className='text-lg font-semibold text-gray-900 mb-3'>{item.question}</h3>
+                      <p className='text-gray-600 leading-relaxed'>{item.answer}</p>
+                    </article>
+                  ))}
+                </div>
+              </motion.section>
 
               {/* Contact Info Cards */}
               <motion.div

@@ -212,10 +212,13 @@ export const IMAGE_STYLES = {
 
 export const SEO_DEFAULTS = {
   siteName: 'MyBartenders',
-  siteUrl: 'https://www.mybartenders.co.uk',
-  defaultTitle: 'Premium Mobile Bar Hire | MyBartenders',
-  defaultDescription: 'Premium mobile bar hire services in Northampton and across the UK. Professional bartenders for weddings, corporate events, and private parties.',
+  siteUrl: 'https://mybartenders.co.uk',
+  defaultTitle: 'Private Bartender Hire & Mobile Cocktail Bar | MyBartenders',
+  defaultDescription: 'Private bartender hire, mixologist hire and mobile cocktail bar services in Northampton and across the UK for weddings, private parties and corporate events.',
   keywords: [
+    'private bartender hire',
+    'mixologist hire',
+    'mobile cocktail bar',
     'mobile bar hire',
     'cocktail bar hire',
     'wedding bar hire',

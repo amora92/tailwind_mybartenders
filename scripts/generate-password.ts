@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 const password = process.argv[2]
 if (!password) {
