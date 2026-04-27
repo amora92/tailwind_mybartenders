@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from '@/lib/mongodb'
 import { logger } from '@/lib/logger'
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export default async function handler (
   req: NextApiRequest,

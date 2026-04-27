@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 import { serialize } from 'cookie'
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { connectToDatabase } from '@/lib/mongodb'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
 import { logger } from '@/lib/logger'
@@ -40,21 +40,17 @@ export default async function handler (
         .json({ error: 'Username and password are required' })
     }
 
-    logger.log('Attempting login for username:', username)
-
     const { db } = await connectToDatabase()
 
     // Find user
     const user = await db.collection('users').findOne({ username })
 
     if (!user) {
-      logger.log('User not found')
       return res.status(401).json({ error: 'Invalid credentials' })
     }
 
     // Verify password
     const passwordMatch = await bcrypt.compare(password, user.passwordHash)
-    logger.log('Password match:', passwordMatch)
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Invalid credentials' })
@@ -88,10 +84,9 @@ export default async function handler (
       })
     )
 
-    // Return success with token
+    // Return success without exposing the token to client-side storage.
     return res.status(200).json({
       success: true,
-      token,
       user: {
         username: user.username,
         role: user.role

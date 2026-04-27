@@ -14,8 +14,7 @@ const stats = [
 
 const AboutSection = () => {
   return (
-    <section className='relative py-24 lg:py-32 bg-gray-50 overflow-hidden'>
-      {/* Subtle background pattern */}
+    <section className='relative overflow-hidden bg-gray-50 py-24 lg:py-32'>
       <div className='absolute inset-0 opacity-[0.02]'>
         <div
           className='absolute inset-0'
@@ -26,8 +25,7 @@ const AboutSection = () => {
       </div>
 
       <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='grid lg:grid-cols-2 gap-16 lg:gap-24 items-center'>
-          {/* Image Side */}
+        <div className='grid items-center gap-16 lg:grid-cols-2 lg:gap-24'>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -35,9 +33,8 @@ const AboutSection = () => {
             transition={{ duration: 0.8 }}
             className='relative'
           >
-            {/* Main Image */}
             <div className='relative z-10'>
-              <div className='relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl'>
+              <div className='relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl'>
                 <Image
                   src={SITE_IMAGES.aboutHero}
                   alt='Expert mixologist crafting a cocktail'
@@ -47,18 +44,17 @@ const AboutSection = () => {
                 />
               </div>
 
-              {/* Floating accent card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className='absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 max-w-[200px]'
+                className='absolute -bottom-8 -right-8 max-w-[200px] rounded-2xl border border-gray-100 bg-white p-6 shadow-xl'
               >
-                <div className='flex items-center gap-3 mb-2'>
-                  <div className='w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center'>
+                <div className='mb-2 flex items-center gap-3'>
+                  <div className='flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-600'>
                     <svg
-                      className='w-5 h-5 text-white'
+                      className='h-5 w-5 text-white'
                       fill='currentColor'
                       viewBox='0 0 20 20'
                     >
@@ -79,12 +75,10 @@ const AboutSection = () => {
               </motion.div>
             </div>
 
-            {/* Decorative elements */}
-            <div className='absolute top-12 -left-12 w-32 h-32 bg-pink-100 rounded-full blur-3xl opacity-60' />
-            <div className='absolute bottom-24 -right-12 w-40 h-40 bg-amber-100 rounded-full blur-3xl opacity-60' />
+            <div className='absolute top-12 -left-12 h-32 w-32 rounded-full bg-pink-100 opacity-60 blur-3xl' />
+            <div className='absolute bottom-24 -right-12 h-40 w-40 rounded-full bg-amber-100 opacity-60 blur-3xl' />
           </motion.div>
 
-          {/* Content Side */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -93,30 +87,31 @@ const AboutSection = () => {
             className='space-y-8'
           >
             <div>
-              <span className='inline-block px-4 py-1.5 bg-pink-100 text-pink-600 text-sm font-medium rounded-full mb-6'>
+              <span className='mb-6 inline-block rounded-full bg-pink-100 px-4 py-1.5 text-sm font-medium text-pink-600'>
                 Our Story
               </span>
-              <h2 className='text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight'>
+              <h2 className='mb-6 text-4xl font-bold leading-tight text-gray-900 md:text-5xl'>
                 Crafting Memories,
-                <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-amber-500'>
+                <span className='block bg-gradient-to-r from-pink-500 to-amber-500 bg-clip-text text-transparent'>
                   One Cocktail at a Time
                 </span>
               </h2>
-              <p className='text-lg text-gray-600 leading-relaxed mb-6'>
-                What began as a passion for mixology has evolved into
-                Northampton's most trusted mobile bar service. For over 15
-                years, we've been transforming ordinary events into
+              <p className='mb-6 text-lg leading-relaxed text-gray-600'>
+                What began as a passion for mixology has evolved into one of
+                Northampton&apos;s most trusted names for mobile bar hire,
+                private bartender hire and event mixologist services. For over
+                15 years, we&apos;ve been transforming ordinary events into
                 extraordinary experiences.
               </p>
-              <p className='text-lg text-gray-600 leading-relaxed'>
-                Our team of expert mixologists brings creativity, precision, and
-                genuine warmth to every occasion. We believe that the perfect
-                cocktail is more than just a drink—it's the catalyst for
-                connection, celebration, and unforgettable moments.
+              <p className='text-lg leading-relaxed text-gray-600'>
+                Our team of expert mixologists brings creativity, precision and
+                genuine warmth to weddings, private parties and corporate
+                events. We believe that the perfect cocktail is more than just
+                a drink; it&apos;s the catalyst for connection, celebration and
+                unforgettable moments.
               </p>
             </div>
 
-            {/* Values */}
             <div className='grid grid-cols-2 gap-4'>
               {[
                 {
@@ -139,25 +134,24 @@ const AboutSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className='p-4 bg-gray-50 rounded-xl'
+                  className='rounded-xl bg-gray-50 p-4'
                 >
-                  <h4 className='font-semibold text-gray-900 mb-1'>
+                  <h3 className='mb-1 font-semibold text-gray-900'>
                     {item.title}
-                  </h4>
+                  </h3>
                   <p className='text-sm text-gray-600'>{item.desc}</p>
                 </motion.div>
               ))}
             </div>
 
-            {/* CTA */}
-            <div className='flex flex-col sm:flex-row gap-4 pt-4'>
+            <div className='flex flex-col gap-4 pt-4 sm:flex-row'>
               <a
                 href='/aboutus'
-                className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 transition-colors'
+                className='inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-8 py-4 font-semibold text-white transition-colors hover:bg-gray-800'
               >
                 Learn Our Story
                 <svg
-                  className='w-5 h-5'
+                  className='h-5 w-5'
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
@@ -172,7 +166,7 @@ const AboutSection = () => {
               </a>
               <a
                 href='/contact_us'
-                className='inline-flex items-center justify-center gap-2 px-8 py-4 text-gray-700 font-semibold rounded-full border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-colors'
+                className='inline-flex items-center justify-center gap-2 rounded-full border-2 border-gray-200 px-8 py-4 font-semibold text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50'
               >
                 Get in Touch
               </a>
@@ -180,20 +174,19 @@ const AboutSection = () => {
           </motion.div>
         </div>
 
-        {/* Stats Bar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className='mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12'
+          className='mt-24 grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12'
         >
-          {stats.map((stat, index) => (
+          {stats.map(stat => (
             <div key={stat.label} className='text-center'>
-              <div className='text-4xl lg:text-5xl font-bold text-gray-900 mb-2'>
+              <div className='mb-2 text-4xl font-bold text-gray-900 lg:text-5xl'>
                 {stat.value}
               </div>
-              <div className='text-gray-600 font-medium'>{stat.label}</div>
+              <div className='font-medium text-gray-600'>{stat.label}</div>
             </div>
           ))}
         </motion.div>

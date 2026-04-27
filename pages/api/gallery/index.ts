@@ -1,5 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from '../../../lib/mongodb'
+import { requireAdminApiAuth } from '@/lib/apiAuth'
+import {
+  normalizeGalleryCategory,
+  normalizeGallerySpan,
+  normalizeSafeImageUrl,
+  sanitizePlainText
+} from '@/lib/contentValidation'
+import { logger } from '@/lib/logger'
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,44 +25,56 @@ export default async function handler(
 
       return res.status(200).json(images)
     } catch (error) {
-      console.error('Error fetching gallery:', error)
+      logger.error('Error fetching gallery:', error)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }
 
   if (req.method === 'POST') {
+    if (!requireAdminApiAuth(req, res)) {
+      return
+    }
+
     try {
       const { db } = await connectToDatabase()
 
       const { src, alt, category, span } = req.body
+      const normalizedSrc = normalizeSafeImageUrl(src)
+      const normalizedAlt = sanitizePlainText(alt, 180)
+      const normalizedCategory = normalizeGalleryCategory(category)
+      const normalizedSpan = normalizeGallerySpan(span)
 
-      if (!src || !alt || !category) {
+      if (!normalizedSrc || !normalizedAlt || !normalizedCategory) {
         return res.status(400).json({ error: 'Missing required fields' })
       }
 
       const result = await db.collection('gallery').insertOne({
-        src,
-        alt,
-        category,
-        span: span || null,
+        src: normalizedSrc,
+        alt: normalizedAlt,
+        category: normalizedCategory,
+        span: normalizedSpan || null,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       })
 
       return res.status(201).json({
         _id: result.insertedId,
-        src,
-        alt,
-        category,
-        span
+        src: normalizedSrc,
+        alt: normalizedAlt,
+        category: normalizedCategory,
+        span: normalizedSpan
       })
     } catch (error) {
-      console.error('Error adding gallery image:', error)
+      logger.error('Error adding gallery image:', error)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }
 
   if (req.method === 'DELETE') {
+    if (!requireAdminApiAuth(req, res)) {
+      return
+    }
+
     try {
       const { db } = await connectToDatabase()
       const { id } = req.query
@@ -74,7 +94,7 @@ export default async function handler(
 
       return res.status(200).json({ message: 'Image deleted successfully' })
     } catch (error) {
-      console.error('Error deleting gallery image:', error)
+      logger.error('Error deleting gallery image:', error)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }

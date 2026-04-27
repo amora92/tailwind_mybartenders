@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { NAV_LINKS } from '@/constants'
-import Logo from './Logo'
+import BrandLockup from './BrandLockup'
 import { getBookingYear } from '@/constants/siteConfig'
 
 const Navbar = () => {
@@ -110,14 +110,9 @@ const Navbar = () => {
         <Link
           href='/'
           className='flex items-center gap-3 group'
-          aria-label='Return to homepage'
+          aria-label='MyBartenders home'
         >
-          <Logo width={32} height={44} />
-          <span
-            className='font-bold text-xl tracking-wide transition-colors duration-300 text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300'
-          >
-            MyBartenders
-          </span>
+          <BrandLockup compact />
         </Link>
 
         {/* Desktop Navigation */}

@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { connectToDatabase } from '../lib/mongodb'
 
 async function createAdminUser () {

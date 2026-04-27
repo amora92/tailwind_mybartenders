@@ -255,7 +255,7 @@ const AdminGallery = () => {
               <input
                 ref={fileInputRef}
                 type='file'
-                accept='image/*'
+                accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                 multiple
                 onChange={handleFileUpload}
                 className='hidden'

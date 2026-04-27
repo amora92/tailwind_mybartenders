@@ -7,6 +7,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import ArticlePreview from '@/components/article/ArticlePreview'
+import {
+  calculateReadTime,
+  evaluateArticleSeo,
+  slugify
+} from '@/lib/articleSeo'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
@@ -63,13 +68,6 @@ const CATEGORY_OPTIONS = [
   'Behind the Scenes',
 ]
 
-const generateSlug = (title: string) => {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
-}
-
 const getYouTubeVideoId = (url: string) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
   const match = url.match(regExp)
@@ -99,6 +97,16 @@ const NewArticlePage = () => {
   const [pendingUploads, setPendingUploads] = useState(0) // Track number of pending gallery uploads
   const [showPreview, setShowPreview] = useState(false)
   const featuredImageInputRef = useRef<HTMLInputElement>(null)
+  const seoAssessment = evaluateArticleSeo({
+    title,
+    description,
+    imageUrl,
+    contentSections,
+    slug,
+    category,
+    tags,
+    status
+  })
 
   // Upload image file
   const uploadImage = async (file: File): Promise<string | null> => {
@@ -172,7 +180,7 @@ const NewArticlePage = () => {
   // Auto-generate slug from title
   useEffect(() => {
     if (!slugManuallyEdited && title) {
-      setSlug(generateSlug(title))
+      setSlug(slugify(title))
     }
   }, [title, slugManuallyEdited])
 
@@ -185,7 +193,7 @@ const NewArticlePage = () => {
 
   const handleSlugChange = (value: string) => {
     setSlugManuallyEdited(true)
-    setSlug(generateSlug(value))
+    setSlug(slugify(value))
   }
 
   const addSection = (type: ContentSection['type']) => {
@@ -450,24 +458,17 @@ const NewArticlePage = () => {
     setSaving(true)
 
     try {
-      if (!imageUrl) {
-        setError('Please add a main image URL')
-        setSaving(false)
-        return
-      }
-
       if (!slug) {
         setError('Please add a slug')
         setSaving(false)
         return
       }
 
-      const textContent = contentSections
-        .filter(section => section.type === 'text')
-        .map(section => section.content)
-        .join(' ')
-      const wordCount = textContent.split(/\s+/).length
-      const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200))
+      if (seoAssessment.publishBlockers.length > 0) {
+        setError(seoAssessment.publishBlockers[0])
+        setSaving(false)
+        return
+      }
 
       const newArticle = {
         title,
@@ -475,15 +476,15 @@ const NewArticlePage = () => {
         imageUrl,
         slug,
         publishedAt: new Date(publishedAt).toISOString(),
-        category: category || 'General',
+        category,
         contentSections,
         tags,
         status,
         author: {
           name: 'MyBartenders',
-          avatar: '/mybartenders.co.uk_logo_svg.svg'
+          avatar: '/branding/logo-icon-192.png'
         },
-        readTime: readTimeMinutes
+        readTime: calculateReadTime(contentSections)
       }
 
       const res = await fetch('/api/articles', {
@@ -596,6 +597,9 @@ const NewArticlePage = () => {
                       placeholder='Enter article title'
                       required
                     />
+                    <p className='mt-2 text-xs text-gray-500'>
+                      {seoAssessment.titleLength}/65 characters. Aim for 30 to 65 for cleaner title links.
+                    </p>
                   </div>
 
                   <div>
@@ -624,8 +628,11 @@ const NewArticlePage = () => {
                       rows={3}
                       className='w-full px-4 py-3 bg-gray-800 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none'
                       placeholder='Brief description for SEO and article previews'
-                      required
+                      required={status === 'published'}
                     />
+                    <p className='mt-2 text-xs text-gray-500'>
+                      {seoAssessment.descriptionLength}/160 characters. Strong snippets usually land around 120 to 160.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -762,7 +769,7 @@ const NewArticlePage = () => {
                           <div className='flex gap-2'>
                             <input
                               type='file'
-                              accept='image/*'
+                              accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                               onChange={e => {
                                 const file = e.target.files?.[0]
                                 if (file) handleSectionImageUpload(section.id, file)
@@ -966,7 +973,7 @@ const NewArticlePage = () => {
                           <div className='flex flex-wrap gap-2 items-center'>
                             <input
                               type='file'
-                              accept='image/*'
+                              accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                               multiple
                               onChange={e => {
                                 const files = e.target.files
@@ -1486,7 +1493,7 @@ const NewArticlePage = () => {
                       value={category}
                       onChange={e => setCategory(e.target.value)}
                       className='w-full px-4 py-3 bg-gray-800 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
-                      required
+                      required={status === 'published'}
                     >
                       <option value='' className='bg-gray-800'>Select a category</option>
                       {CATEGORY_OPTIONS.map(cat => (
@@ -1519,7 +1526,7 @@ const NewArticlePage = () => {
                           <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
                           <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z' />
                         </svg>
-                        Publishing...
+                        {status === 'draft' ? 'Saving draft...' : 'Publishing...'}
                       </>
                     ) : pendingUploads > 0 ? (
                       <>
@@ -1534,10 +1541,61 @@ const NewArticlePage = () => {
                         <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
                         </svg>
-                        Publish Article
+                        {status === 'draft' ? 'Save Draft' : 'Publish Article'}
                       </>
                     )}
                   </button>
+                </div>
+              </div>
+
+              <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
+                <h2 className='text-lg font-semibold text-white mb-6'>SEO Check</h2>
+
+                <div className='grid grid-cols-2 gap-3 mb-5'>
+                  <div className='rounded-xl bg-gray-800 p-4'>
+                    <p className='text-xs uppercase tracking-wide text-gray-500 mb-1'>Words</p>
+                    <p className='text-2xl font-semibold text-white'>{seoAssessment.wordCount}</p>
+                  </div>
+                  <div className='rounded-xl bg-gray-800 p-4'>
+                    <p className='text-xs uppercase tracking-wide text-gray-500 mb-1'>Slug</p>
+                    <p className='text-2xl font-semibold text-white'>{seoAssessment.slugLength}</p>
+                  </div>
+                </div>
+
+                <div className='space-y-4'>
+                  <div>
+                    <p className='text-sm font-medium text-gray-300 mb-2'>Publish blockers</p>
+                    {seoAssessment.publishBlockers.length > 0 ? (
+                      <ul className='space-y-2'>
+                        {seoAssessment.publishBlockers.map(blocker => (
+                          <li key={blocker} className='rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-300'>
+                            {blocker}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className='rounded-xl border border-green-500/20 bg-green-500/10 px-3 py-2 text-sm text-green-300'>
+                        No publish blockers right now.
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <p className='text-sm font-medium text-gray-300 mb-2'>Recommendations</p>
+                    {seoAssessment.recommendations.length > 0 ? (
+                      <ul className='space-y-2'>
+                        {seoAssessment.recommendations.map(recommendation => (
+                          <li key={recommendation} className='rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-sm text-amber-200'>
+                            {recommendation}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className='rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300'>
+                        This draft already looks healthy from an on-page SEO perspective.
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -1550,7 +1608,7 @@ const NewArticlePage = () => {
                   <input
                     ref={featuredImageInputRef}
                     type='file'
-                    accept='image/*'
+                    accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                     onChange={handleFeaturedImageUpload}
                     className='hidden'
                   />

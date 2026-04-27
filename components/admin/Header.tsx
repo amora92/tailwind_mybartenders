@@ -7,7 +7,6 @@ export const AdminHeader = () => {
 
   const handleLogout = async () => {
     try {
-      localStorage.removeItem('token')
       await fetch('/api/auth/logout', { method: 'POST' })
       router.push('/admin/login')
     } catch (error) {

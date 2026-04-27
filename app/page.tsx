@@ -2,10 +2,10 @@ import dynamic from 'next/dynamic'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
-// Lazy load heavy components with loading skeletons to reduce initial JS bundle
-// VideoSection is SSR'd for good LCP, all below-fold sections are client-only
+// Lazy load heavy components with loading skeletons to reduce initial JS bundle.
+// Keep homepage content server-rendered so search engines receive the full landing page HTML.
 const VideoSection = dynamic(
-  () => import('@/components/VideoSection/VideoSection'),
+  () => import('@/components/VideoSection/VideoSection.replacement'),
   {
     loading: () => (
       <div className='w-full h-screen bg-gray-900 flex items-center justify-center'>
@@ -16,14 +16,13 @@ const VideoSection = dynamic(
   }
 )
 
-// Below-fold sections - load lazily to reduce initial bundle size
+// Below-fold sections stay code-split, but can still render on the server for SEO.
 const ServicesSection = dynamic(
   () => import('@/components/ServicesSection'),
   {
     loading: () => (
       <div className='w-full h-[600px] bg-gray-950 animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 
@@ -32,8 +31,7 @@ const AboutSection = dynamic(
   {
     loading: () => (
       <div className='w-full h-[500px] bg-gray-900 animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 
@@ -42,8 +40,7 @@ const GalleryPreview = dynamic(
   {
     loading: () => (
       <div className='w-full h-96 bg-gray-950 animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 
@@ -52,8 +49,7 @@ const TestimonialsSection = dynamic(
   {
     loading: () => (
       <div className='w-full h-96 bg-white animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 
@@ -62,8 +58,7 @@ const HowItWorksSection = dynamic(
   {
     loading: () => (
       <div className='w-full h-[400px] bg-gray-900 animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 
@@ -72,8 +67,7 @@ const FreqQ = dynamic(
   {
     loading: () => (
       <div className='w-full h-[500px] bg-gray-950 animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 
@@ -82,8 +76,7 @@ const FinalCtaSection = dynamic(
   {
     loading: () => (
       <div className='w-full h-96 bg-gray-900 animate-pulse' />
-    ),
-    ssr: false
+    )
   }
 )
 

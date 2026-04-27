@@ -1,6 +1,5 @@
-'use client'
-
 import React, { useState, useEffect, useCallback } from 'react'
+import type { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Dialog, Transition } from '@headlessui/react'
@@ -10,6 +9,8 @@ import Footer from '@/components/Footer'
 import Head from 'next/head'
 import { SEO_DEFAULTS } from '@/constants/brandStyles'
 import { GALLERY_IMAGES, getBookingYear, COMPANY_STATS, TRUST_INDICATORS } from '@/constants/siteConfig'
+import { connectToDatabase } from '@/lib/mongodb'
+import { buildBreadcrumbSchema, toAbsoluteUrl } from '@/lib/seo'
 
 // ===========================================
 // TYPES
@@ -21,6 +22,10 @@ interface GalleryImage {
   category: 'cocktails' | 'events' | 'setup'
   span?: string
   _id?: string
+}
+
+interface GalleryPageProps {
+  initialDbImages: GalleryImage[]
 }
 
 const categories = [
@@ -71,7 +76,7 @@ const getStructuredData = (images: GalleryImage[]) => ({
   },
   image: images.map(img => ({
     '@type': 'ImageObject',
-    contentUrl: `${SEO_DEFAULTS.siteUrl}${img.src}`,
+    contentUrl: toAbsoluteUrl(img.src),
     description: img.alt
   }))
 })
@@ -80,30 +85,37 @@ const getStructuredData = (images: GalleryImage[]) => ({
 // COMPONENT
 // ===========================================
 
-const Gallery = () => {
+export const getServerSideProps: GetServerSideProps<GalleryPageProps> = async () => {
+  try {
+    const { db } = await connectToDatabase()
+    const dbImages = await db
+      .collection('gallery')
+      .find({})
+      .sort({ createdAt: -1 })
+      .toArray()
+
+    return {
+      props: {
+        initialDbImages: JSON.parse(JSON.stringify(dbImages))
+      }
+    }
+  } catch (error) {
+    console.error('Error server-rendering gallery:', error)
+    return {
+      props: {
+        initialDbImages: []
+      }
+    }
+  }
+}
+
+const Gallery = ({ initialDbImages }: GalleryPageProps) => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [activeCategory, setActiveCategory] = useState('all')
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [dbImages, setDbImages] = useState<GalleryImage[]>([])
-
-  // Fetch database images on mount
-  useEffect(() => {
-    const fetchGalleryImages = async () => {
-      try {
-        const res = await fetch('/api/gallery')
-        const data = await res.json()
-        if (Array.isArray(data)) {
-          setDbImages(data)
-        }
-      } catch (error) {
-        console.error('Error fetching gallery images:', error)
-      }
-    }
-    fetchGalleryImages()
-  }, [])
 
   // Combine static and database images
-  const galleryImages: GalleryImage[] = [...GALLERY_IMAGES, ...dbImages]
+  const galleryImages: GalleryImage[] = [...GALLERY_IMAGES, ...initialDbImages]
 
   const filteredImages =
     activeCategory === 'all'
@@ -146,62 +158,69 @@ const Gallery = () => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedImage, navigateImage])
 
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Gallery', path: '/gallery' }
+  ])
+  const socialImage = toAbsoluteUrl(
+    galleryImages[0]?.src || '/IMG-20240224-WA0027.webp'
+  )
+
   return (
     <>
       <Head>
         <title>
-          Mobile Bar Gallery | Cocktails & Events | MyBartenders UK
+          Mobile Cocktail Bar Gallery | Private Bartender Events | MyBartenders
         </title>
         <meta
           name='description'
-          content='Browse our stunning gallery of mobile bar services, signature cocktails, and professional event bartending. See our work at weddings, corporate events, and private parties across Northampton and the UK.'
+          content='Browse our mobile cocktail bar gallery to see private bartender hire setups, signature cocktails, weddings, private parties and corporate events served by MyBartenders across the UK.'
         />
         <meta
           name='keywords'
-          content='mobile bar gallery, cocktail photos, event bartending, bar hire portfolio, wedding bar, corporate events, Northampton mobile bar, UK bartender hire'
+          content='mobile cocktail bar gallery, private bartender hire photos, mixologist hire portfolio, wedding bar gallery, event bartender gallery, mobile bar hire UK'
         />
         <link rel='canonical' href={`${SEO_DEFAULTS.siteUrl}/gallery`} />
 
-        {/* Open Graph */}
         <meta
           property='og:title'
-          content='Mobile Bar Gallery | MyBartenders UK'
+          content='Mobile Cocktail Bar Gallery | MyBartenders'
         />
         <meta
           property='og:description'
-          content='Explore our portfolio of premium mobile bar services and signature cocktails.'
+          content='See private bartender hire setups, cocktails and event styling from real weddings, parties and corporate events.'
         />
         <meta property='og:type' content='website' />
         <meta property='og:url' content={`${SEO_DEFAULTS.siteUrl}/gallery`} />
-        <meta
-          property='og:image'
-          content={`${SEO_DEFAULTS.siteUrl}/IMG-20240224-WA0027.webp`}
-        />
+        <meta property='og:image' content={socialImage} />
 
-        {/* Twitter Card */}
         <meta name='twitter:card' content='summary_large_image' />
         <meta
           name='twitter:title'
-          content='Mobile Bar Gallery | MyBartenders UK'
+          content='Mobile Cocktail Bar Gallery | MyBartenders'
         />
         <meta
           name='twitter:description'
-          content='Explore our portfolio of premium mobile bar services and signature cocktails.'
+          content='See private bartender hire setups, cocktails and event styling from real events.'
         />
+        <meta name='twitter:image' content={socialImage} />
 
-        {/* Structured Data */}
         <script
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(getStructuredData(galleryImages)) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              breadcrumbSchema,
+              getStructuredData(galleryImages)
+            ])
+          }}
         />
 
-        {/* Preload first image */}
         {galleryImages.length > 0 && (
           <link
             rel='preload'
             href={galleryImages[0].src}
             as='image'
-            type='image/webp'
+            type={galleryImages[0].src.endsWith('.png') ? 'image/png' : galleryImages[0].src.endsWith('.jpg') || galleryImages[0].src.endsWith('.jpeg') ? 'image/jpeg' : 'image/webp'}
           />
         )}
       </Head>
@@ -225,22 +244,21 @@ const Gallery = () => {
             >
               {/* Badge */}
               <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
-                Our Portfolio
+                Private Hire Portfolio
               </span>
 
               {/* Title */}
               <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6'>
-                Crafted Moments,
+                Mobile Cocktail Bar Moments,
                 <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
-                  Captured Forever
+                  Styled for Real Events
                 </span>
               </h1>
 
               {/* Description */}
-              <p className='text-xl text-gray-400 max-w-2xl mx-auto mb-8'>
-                Explore our collection of signature cocktails, stunning bar
-                setups, and unforgettable events. Every image tells a story of
-                craftsmanship and celebration.
+              <p className='text-xl text-gray-400 max-w-3xl mx-auto mb-8'>
+                Explore our collection of private bartender hire setups, signature cocktails, mobile bar styling, and
+                live event atmosphere from weddings, house parties and corporate celebrations.
               </p>
 
               {/* Stats */}
@@ -284,7 +302,9 @@ const Gallery = () => {
               {categories.map(category => (
                 <button
                   key={category.id}
+                  type='button'
                   onClick={() => setActiveCategory(category.id)}
+                  aria-pressed={activeCategory === category.id}
                   className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                     activeCategory === category.id
                       ? 'text-white'

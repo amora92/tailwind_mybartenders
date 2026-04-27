@@ -6,6 +6,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import ArticlePreview from '@/components/article/ArticlePreview'
+import {
+  calculateReadTime,
+  evaluateArticleSeo
+} from '@/lib/articleSeo'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 import 'react-quill/dist/quill.snow.css'
 
@@ -94,6 +98,16 @@ const EditArticle = () => {
   const [showPreview, setShowPreview] = useState(false)
   const [copying, setCopying] = useState(false)
   const featuredImageInputRef = useRef<HTMLInputElement>(null)
+  const seoAssessment = evaluateArticleSeo({
+    title: article.title,
+    description: article.description,
+    imageUrl: article.imageUrl,
+    contentSections,
+    slug: typeof slug === 'string' ? slug : '',
+    category: article.category,
+    tags: article.tags,
+    status: article.status
+  })
 
   useEffect(() => {
     if (slug) {
@@ -450,13 +464,6 @@ const EditArticle = () => {
       const timestamp = Date.now()
       const newSlug = `${slug}-copy-${timestamp}`
 
-      const textContent = contentSections
-        .filter(section => section.type === 'text')
-        .map(section => section.content)
-        .join(' ')
-      const wordCount = textContent.split(/\s+/).length
-      const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200))
-
       const newArticle = {
         title: `${article.title} (Copy)`,
         description: article.description,
@@ -469,9 +476,9 @@ const EditArticle = () => {
         status: 'draft' as const, // New copies start as drafts
         author: {
           name: 'MyBartenders',
-          avatar: '/mybartenders.co.uk_logo_svg.svg'
+          avatar: '/branding/logo-icon-192.png'
         },
-        readTime: readTimeMinutes
+        readTime: calculateReadTime(contentSections)
       }
 
       const res = await fetch('/api/articles', {
@@ -511,12 +518,11 @@ const EditArticle = () => {
     setSaving(true)
 
     try {
-      const textContent = contentSections
-        .filter(section => section.type === 'text')
-        .map(section => section.content)
-        .join(' ')
-      const wordCount = textContent.split(/\s+/).length
-      const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200))
+      if (seoAssessment.publishBlockers.length > 0) {
+        setError(seoAssessment.publishBlockers[0])
+        setSaving(false)
+        return
+      }
 
       const response = await fetch(`/api/articles/${slug}`, {
         method: 'PUT',
@@ -526,22 +532,26 @@ const EditArticle = () => {
         body: JSON.stringify({
           ...article,
           contentSections,
-          readTime: readTimeMinutes,
+          readTime: calculateReadTime(contentSections),
           author: {
             name: 'MyBartenders',
-            avatar: '/mybartenders.co.uk_logo_svg.svg'
+            avatar: '/branding/logo-icon-192.png'
           }
         })
       })
 
-      if (!response.ok) throw new Error('Failed to update article')
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to update article')
+      }
 
       setSuccess('Article updated successfully!')
       setTimeout(() => {
         router.push('/admin')
       }, 1000)
     } catch (error) {
-      setError('Failed to update article')
+      setError(error instanceof Error ? error.message : 'Failed to update article')
     } finally {
       setSaving(false)
     }
@@ -703,6 +713,9 @@ const EditArticle = () => {
                       placeholder='Enter article title'
                       required
                     />
+                    <p className='mt-2 text-xs text-gray-500'>
+                      {seoAssessment.titleLength}/65 characters. Aim for 30 to 65 for cleaner title links.
+                    </p>
                   </div>
 
                   <div>
@@ -715,8 +728,11 @@ const EditArticle = () => {
                       rows={3}
                       className='w-full px-4 py-3 bg-gray-800 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none'
                       placeholder='Brief description for SEO and article previews'
-                      required
+                      required={article.status === 'published'}
                     />
+                    <p className='mt-2 text-xs text-gray-500'>
+                      {seoAssessment.descriptionLength}/160 characters. Strong snippets usually land around 120 to 160.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -853,7 +869,7 @@ const EditArticle = () => {
                           <div className='flex gap-2'>
                             <input
                               type='file'
-                              accept='image/*'
+                              accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                               onChange={e => {
                                 const file = e.target.files?.[0]
                                 if (file) handleSectionImageUpload(section.id, file)
@@ -1057,7 +1073,7 @@ const EditArticle = () => {
                           <div className='flex flex-wrap gap-2 items-center'>
                             <input
                               type='file'
-                              accept='image/*'
+                              accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                               multiple
                               onChange={e => {
                                 const files = e.target.files
@@ -1577,7 +1593,7 @@ const EditArticle = () => {
                       value={article.category}
                       onChange={e => setArticle(prev => ({ ...prev, category: e.target.value }))}
                       className='w-full px-4 py-3 bg-gray-800 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
-                      required
+                      required={article.status === 'published'}
                     >
                       <option value='' className='bg-gray-800'>Select a category</option>
                       {CATEGORY_OPTIONS.map(cat => (
@@ -1610,7 +1626,7 @@ const EditArticle = () => {
                           <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
                           <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z' />
                         </svg>
-                        Saving...
+                        {article.status === 'draft' ? 'Saving draft...' : 'Saving...'}
                       </>
                     ) : pendingUploads > 0 ? (
                       <>
@@ -1625,10 +1641,61 @@ const EditArticle = () => {
                         <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
                         </svg>
-                        Save Changes
+                        {article.status === 'draft' ? 'Save Draft' : 'Save Changes'}
                       </>
                     )}
                   </button>
+                </div>
+              </div>
+
+              <div className='bg-gray-900 border border-white/10 rounded-2xl p-6'>
+                <h2 className='text-lg font-semibold text-white mb-6'>SEO Check</h2>
+
+                <div className='grid grid-cols-2 gap-3 mb-5'>
+                  <div className='rounded-xl bg-gray-800 p-4'>
+                    <p className='text-xs uppercase tracking-wide text-gray-500 mb-1'>Words</p>
+                    <p className='text-2xl font-semibold text-white'>{seoAssessment.wordCount}</p>
+                  </div>
+                  <div className='rounded-xl bg-gray-800 p-4'>
+                    <p className='text-xs uppercase tracking-wide text-gray-500 mb-1'>Slug</p>
+                    <p className='text-2xl font-semibold text-white'>{seoAssessment.slugLength}</p>
+                  </div>
+                </div>
+
+                <div className='space-y-4'>
+                  <div>
+                    <p className='text-sm font-medium text-gray-300 mb-2'>Publish blockers</p>
+                    {seoAssessment.publishBlockers.length > 0 ? (
+                      <ul className='space-y-2'>
+                        {seoAssessment.publishBlockers.map(blocker => (
+                          <li key={blocker} className='rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-300'>
+                            {blocker}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className='rounded-xl border border-green-500/20 bg-green-500/10 px-3 py-2 text-sm text-green-300'>
+                        No publish blockers right now.
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <p className='text-sm font-medium text-gray-300 mb-2'>Recommendations</p>
+                    {seoAssessment.recommendations.length > 0 ? (
+                      <ul className='space-y-2'>
+                        {seoAssessment.recommendations.map(recommendation => (
+                          <li key={recommendation} className='rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-sm text-amber-200'>
+                            {recommendation}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className='rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-gray-300'>
+                        This article already looks healthy from an on-page SEO perspective.
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -1641,7 +1708,7 @@ const EditArticle = () => {
                   <input
                     ref={featuredImageInputRef}
                     type='file'
-                    accept='image/*'
+                    accept='.jpg,.jpeg,.png,.webp,.avif,.gif'
                     onChange={handleFeaturedImageUpload}
                     className='hidden'
                   />
