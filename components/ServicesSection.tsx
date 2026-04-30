@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+
+import { useId, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const services = [
   {
@@ -45,6 +46,8 @@ const services = [
 const ServicesSection = () => {
   const [activeService, setActiveService] = useState(0)
   const service = services[activeService]
+  const sectionLabelId = useId()
+  const tabPanelId = `service-panel-${service.id}`
 
   return (
     <section id='next-section' className='relative py-24 lg:py-32 bg-gray-950 overflow-hidden'>
@@ -55,13 +58,7 @@ const ServicesSection = () => {
 
       <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className='text-center mb-16 lg:mb-20'
-        >
+        <div className='text-center mb-16 lg:mb-20'>
           <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
             Private Bartender Hire Services
           </span>
@@ -76,126 +73,119 @@ const ServicesSection = () => {
             mixologist hire packages designed around your venue, guest list and
             style of celebration.
           </p>
-        </motion.div>
+        </div>
 
         {/* Service Selector Pills */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <div
+          role='tablist'
+          aria-labelledby={sectionLabelId}
           className='flex flex-wrap justify-center gap-3 mb-16'
         >
+          <span id={sectionLabelId} className='sr-only'>
+            Choose a mobile bar hire service category
+          </span>
           {services.map((s, index) => (
             <button
               key={s.id}
               type='button'
               onClick={() => setActiveService(index)}
+              role='tab'
+              id={`service-tab-${s.id}`}
+              aria-selected={activeService === index}
+              aria-controls={`service-panel-${s.id}`}
+              tabIndex={activeService === index ? 0 : -1}
               aria-pressed={activeService === index}
               className={`relative px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeService === index
-                  ? 'text-white'
+                  ? `text-white bg-gradient-to-r ${s.color} shadow-lg shadow-black/20`
                   : 'text-gray-400 hover:text-white bg-white/5 hover:bg-white/10'
               }`}
             >
-              {activeService === index && (
-                <motion.div
-                  layoutId='activeService'
-                  className={`absolute inset-0 rounded-full bg-gradient-to-r ${s.color}`}
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
-              )}
               <span className='relative z-10'>{s.title}</span>
             </button>
           ))}
-        </motion.div>
+        </div>
 
         {/* Service Content */}
         <div className='max-w-7xl mx-auto'>
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={activeService}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.4 }}
-              className='grid lg:grid-cols-2 gap-12 lg:gap-20 items-center'
-            >
-              {/* Image */}
-              <div className='relative'>
-                <div className={`absolute -inset-4 bg-gradient-to-r ${service.color} rounded-3xl blur-2xl opacity-20`} />
-                <div className='relative aspect-[4/3] rounded-2xl overflow-hidden'>
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className='object-cover'
-                    sizes='(max-width: 768px) 100vw, 50vw'
-                  />
-                  <div className='absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent' />
+          <div
+            key={service.id}
+            role='tabpanel'
+            id={tabPanelId}
+            aria-labelledby={`service-tab-${service.id}`}
+            className='grid lg:grid-cols-2 gap-12 lg:gap-20 items-center'
+          >
+            {/* Image */}
+            <div className='relative'>
+              <div className={`absolute -inset-4 bg-gradient-to-r ${service.color} rounded-3xl blur-2xl opacity-20`} />
+              <div className='relative aspect-[4/3] rounded-2xl overflow-hidden'>
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className='object-cover'
+                  sizes='(max-width: 768px) 100vw, 50vw'
+                />
+                <div className='absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent' />
 
-                  {/* Floating Badge */}
-                  <div className='absolute bottom-6 left-6 right-6'>
-                    <div className='inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20'>
-                      <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`} />
-                      <span className='text-white text-sm font-medium'>{service.subtitle}</span>
-                    </div>
+                {/* Floating Badge */}
+                <div className='absolute bottom-6 left-6 right-6'>
+                  <div className='inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20'>
+                    <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`} />
+                    <span className='text-white text-sm font-medium'>{service.subtitle}</span>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Content */}
-              <div className='space-y-8'>
-                <div>
-                  <h3 className='text-3xl lg:text-4xl font-bold text-white mb-4'>
-                    {service.title}
-                  </h3>
-                  <p className='text-lg text-gray-400 leading-relaxed'>
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Features */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-                  {service.features.map((feature, index) => (
-                    <motion.div
-                      key={feature}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className='flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5'
-                    >
-                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${service.color} flex items-center justify-center flex-shrink-0`}>
-                        <svg className='w-4 h-4 text-white' fill='currentColor' viewBox='0 0 20 20'>
-                          <path fillRule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clipRule='evenodd' />
-                        </svg>
-                      </div>
-                      <span className='text-gray-300 text-sm'>{feature}</span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* CTA */}
-                <div className='flex flex-col sm:flex-row gap-4 pt-4'>
-                  <a
-                    href='/contact_us'
-                    className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r ${service.color} text-white font-semibold rounded-full hover:opacity-90 transition-opacity shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950`}
-                  >
-                    Book This Service
-                    <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                    </svg>
-                  </a>
-                  <a
-                    href='/services'
-                    className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 text-white font-semibold rounded-full border border-white/10 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950'
-                  >
-                    View All Services
-                  </a>
-                </div>
+            {/* Content */}
+            <div className='space-y-8'>
+              <div>
+                <h3 className='text-3xl lg:text-4xl font-bold text-white mb-4'>
+                  {service.title}
+                </h3>
+                <p className='text-lg text-gray-400 leading-relaxed'>
+                  {service.description}
+                </p>
               </div>
-            </motion.div>
-          </AnimatePresence>
+
+              {/* Features */}
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                {service.features.map(feature => (
+                  <div
+                    key={feature}
+                    className='flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/5'
+                  >
+                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${service.color} flex items-center justify-center flex-shrink-0`}>
+                      <svg className='w-4 h-4 text-white' fill='currentColor' viewBox='0 0 20 20'>
+                        <path fillRule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clipRule='evenodd' />
+                      </svg>
+                    </div>
+                    <span className='text-gray-300 text-sm'>{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className='flex flex-col sm:flex-row gap-4 pt-4'>
+                <Link
+                  href='/contact_us'
+                  className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r ${service.color} text-white font-semibold rounded-full hover:opacity-90 transition-opacity shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950`}
+                >
+                  Book This Service
+                  <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  </svg>
+                </Link>
+                <Link
+                  href='/services'
+                  className='inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 text-white font-semibold rounded-full border border-white/10 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950'
+                >
+                  View All Services
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

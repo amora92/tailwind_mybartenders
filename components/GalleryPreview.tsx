@@ -1,7 +1,3 @@
-'use client'
-
-import React from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 const galleryImages = [
@@ -39,47 +35,34 @@ const galleryImages = [
 
 const GalleryPreview = () => {
   return (
-    <section className='relative py-24 lg:py-32 bg-gray-950 overflow-hidden'>
-      {/* Background gradient */}
+    <section className='relative overflow-hidden bg-gray-950 py-24 lg:py-32'>
       <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black' />
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-pink-500/5 rounded-full blur-3xl' />
+      <div className='absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-500/5 blur-3xl' />
 
       <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className='text-center mb-16 lg:mb-20'
-        >
-          <span className='inline-block px-4 py-1.5 bg-white/5 border border-white/10 text-pink-400 text-sm font-medium rounded-full mb-6'>
+        <div className='mb-16 text-center lg:mb-20'>
+          <span className='mb-6 inline-block rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-pink-400'>
             Our Portfolio
           </span>
-          <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6'>
-            Moments We've
-            <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400'>
+          <h2 className='mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl'>
+            Moments We&apos;ve
+            <span className='block bg-gradient-to-r from-pink-400 to-amber-400 bg-clip-text text-transparent'>
               Crafted Together
             </span>
           </h2>
-          <p className='text-xl text-gray-400 max-w-2xl mx-auto'>
+          <p className='mx-auto max-w-2xl text-xl text-gray-400'>
             From intimate gatherings to grand celebrations, see how we bring
             your vision to life.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Masonry Grid */}
-        <div className='grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 max-w-6xl mx-auto'>
-          {galleryImages.map((image, index) => (
-            <motion.div
+        <div className='mx-auto grid max-w-6xl grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6'>
+          {galleryImages.map(image => (
+            <div
               key={image.src}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`relative group cursor-pointer ${image.span}`}
             >
-              <div className='relative w-full h-full min-h-[200px] md:min-h-[250px] rounded-2xl overflow-hidden'>
+              <div className='relative h-full min-h-[200px] w-full overflow-hidden rounded-2xl md:min-h-[250px]'>
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -88,37 +71,27 @@ const GalleryPreview = () => {
                   className='object-cover transition-transform duration-700 group-hover:scale-110'
                   sizes='(max-width: 768px) 50vw, 25vw'
                 />
-                {/* Overlay */}
-                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 
-                {/* Hover content */}
-                <div className='absolute inset-0 flex items-end p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                <div className='absolute inset-0 flex items-end p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:p-6'>
                   <div>
-                    <p className='text-white font-medium text-sm md:text-base'>
+                    <p className='text-sm font-medium text-white md:text-base'>
                       {image.alt}
                     </p>
                   </div>
                 </div>
 
-                {/* Corner accent */}
-                <div className='absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white/30 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-                <div className='absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-white/30 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                <div className='absolute top-4 right-4 h-8 w-8 rounded-tr-lg border-t-2 border-r-2 border-white/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+                <div className='absolute bottom-4 left-4 h-8 w-8 rounded-bl-lg border-b-2 border-l-2 border-white/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className='text-center mt-12 lg:mt-16'
-        >
+        <div className='mt-12 text-center lg:mt-16'>
           <a
             href='/gallery'
-            className='inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-100 transition-colors group'
+            className='group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 font-semibold text-gray-900 transition-colors hover:bg-gray-100'
           >
             View Full Gallery
             <svg
@@ -135,7 +108,7 @@ const GalleryPreview = () => {
               />
             </svg>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

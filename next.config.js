@@ -17,7 +17,7 @@ const contentSecurityPolicy = [
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https: blob:",
   "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com",
-  "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
+  "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://app.netlify.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

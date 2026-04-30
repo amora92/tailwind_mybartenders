@@ -1,7 +1,3 @@
-'use client'
-
-import React from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 
@@ -12,6 +8,22 @@ const stats = [
   { value: COMPANY_STATS.googleRating, label: 'Client Rating' }
 ]
 
+const values = [
+  {
+    title: 'Quality First',
+    desc: 'Premium spirits and fresh ingredients'
+  },
+  {
+    title: 'Personal Touch',
+    desc: 'Tailored to your unique vision'
+  },
+  {
+    title: 'Experienced Team',
+    desc: 'Skilled and professional bartenders'
+  },
+  { title: 'Full Service', desc: 'From setup to cleanup' }
+]
+
 const AboutSection = () => {
   return (
     <section className='relative overflow-hidden bg-gray-50 py-24 lg:py-32'>
@@ -19,20 +31,15 @@ const AboutSection = () => {
         <div
           className='absolute inset-0'
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+            backgroundImage:
+              `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
           }}
         />
       </div>
 
       <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='grid items-center gap-16 lg:grid-cols-2 lg:gap-24'>
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className='relative'
-          >
+          <div className='relative'>
             <div className='relative z-10'>
               <div className='relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl'>
                 <Image
@@ -44,13 +51,7 @@ const AboutSection = () => {
                 />
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className='absolute -bottom-8 -right-8 max-w-[200px] rounded-2xl border border-gray-100 bg-white p-6 shadow-xl'
-              >
+              <div className='absolute -bottom-8 -right-8 max-w-[200px] rounded-2xl border border-gray-100 bg-white p-6 shadow-xl'>
                 <div className='mb-2 flex items-center gap-3'>
                   <div className='flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-600'>
                     <svg
@@ -72,20 +73,14 @@ const AboutSection = () => {
                 <p className='text-sm text-gray-600'>
                   Recognized for excellence in mobile bar services
                 </p>
-              </motion.div>
+              </div>
             </div>
 
             <div className='absolute top-12 -left-12 h-32 w-32 rounded-full bg-pink-100 opacity-60 blur-3xl' />
             <div className='absolute bottom-24 -right-12 h-40 w-40 rounded-full bg-amber-100 opacity-60 blur-3xl' />
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className='space-y-8'
-          >
+          <div className='space-y-8'>
             <div>
               <span className='mb-6 inline-block rounded-full bg-pink-100 px-4 py-1.5 text-sm font-medium text-pink-600'>
                 Our Story
@@ -113,34 +108,13 @@ const AboutSection = () => {
             </div>
 
             <div className='grid grid-cols-2 gap-4'>
-              {[
-                {
-                  title: 'Quality First',
-                  desc: 'Premium spirits and fresh ingredients'
-                },
-                {
-                  title: 'Personal Touch',
-                  desc: 'Tailored to your unique vision'
-                },
-                {
-                  title: 'Experienced Team',
-                  desc: 'Skilled and professional bartenders'
-                },
-                { title: 'Full Service', desc: 'From setup to cleanup' }
-              ].map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className='rounded-xl bg-gray-50 p-4'
-                >
+              {values.map(item => (
+                <div key={item.title} className='rounded-xl bg-gray-50 p-4'>
                   <h3 className='mb-1 font-semibold text-gray-900'>
                     {item.title}
                   </h3>
                   <p className='text-sm text-gray-600'>{item.desc}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -171,16 +145,10 @@ const AboutSection = () => {
                 Get in Touch
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className='mt-24 grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12'
-        >
+        <div className='mt-24 grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12'>
           {stats.map(stat => (
             <div key={stat.label} className='text-center'>
               <div className='mb-2 text-4xl font-bold text-gray-900 lg:text-5xl'>
@@ -189,7 +157,7 @@ const AboutSection = () => {
               <div className='font-medium text-gray-600'>{stat.label}</div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -1,15 +1,14 @@
-'use client'
-
-import React from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { CONTACT_INFO } from '@/constants/contact'
-import { getBookingYear, SITE_IMAGES, TRUST_INDICATORS } from '@/constants/siteConfig'
+import {
+  getBookingYear,
+  SITE_IMAGES,
+  TRUST_INDICATORS
+} from '@/constants/siteConfig'
 
 const FinalCtaSection = () => {
   return (
-    <section className='relative py-24 lg:py-32 overflow-hidden'>
-      {/* Background Image */}
+    <section className='relative overflow-hidden py-24 lg:py-32'>
       <div className='absolute inset-0'>
         <Image
           src={SITE_IMAGES.ctaBackground}
@@ -21,67 +20,37 @@ const FinalCtaSection = () => {
         <div className='absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/90 to-gray-900/80' />
       </div>
 
-      {/* Decorative elements */}
-      <div className='absolute top-20 right-20 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl' />
-      <div className='absolute bottom-20 left-20 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl' />
+      <div className='absolute top-20 right-20 h-64 w-64 rounded-full bg-pink-500/20 blur-3xl' />
+      <div className='absolute bottom-20 left-20 h-64 w-64 rounded-full bg-amber-500/20 blur-3xl' />
 
       <div className='relative container mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='max-w-4xl mx-auto text-center'>
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className='inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8'
-          >
+        <div className='mx-auto max-w-4xl text-center'>
+          <div className='mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm'>
             <span className='relative flex h-2 w-2'>
-              <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
-              <span className='relative inline-flex rounded-full h-2 w-2 bg-green-500'></span>
+              <span className='relative inline-flex h-2 w-2 rounded-full bg-green-500' />
             </span>
-            <span className='text-white/90 text-sm font-medium'>
+            <span className='text-sm font-medium text-white/90'>
               Now Booking for {getBookingYear()}
             </span>
-          </motion.div>
+          </div>
 
-          {/* Headline */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight'
-          >
+          <h2 className='mb-6 text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl'>
             Ready to Create Something
-            <span className='block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400'>
+            <span className='block bg-gradient-to-r from-pink-400 via-rose-400 to-amber-400 bg-clip-text text-transparent'>
               Extraordinary?
             </span>
-          </motion.h2>
+          </h2>
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className='text-xl text-white/70 mb-10 max-w-2xl mx-auto'
-          >
-            Let's discuss your vision and craft an unforgettable cocktail
+          <p className='mx-auto mb-10 max-w-2xl text-xl text-white/70'>
+            Let&apos;s discuss your vision and craft an unforgettable cocktail
             experience for your next event. No obligation, just great
             conversation.
-          </motion.p>
+          </p>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className='flex flex-col sm:flex-row gap-4 justify-center mb-12'
-          >
+          <div className='mb-12 flex flex-col justify-center gap-4 sm:flex-row'>
             <a
               href='/contact_us'
-              className='inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-semibold rounded-full shadow-2xl shadow-pink-500/30 hover:shadow-pink-500/50 transition-all text-lg group'
+              className='group inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 px-10 py-5 text-lg font-semibold text-white shadow-2xl shadow-pink-500/30 transition-all hover:shadow-pink-500/50'
             >
               Get Your Free Quote
               <svg
@@ -100,7 +69,7 @@ const FinalCtaSection = () => {
             </a>
             <a
               href={CONTACT_INFO.phoneHref}
-              className='inline-flex items-center justify-center gap-3 px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-all text-lg'
+              className='inline-flex items-center justify-center gap-3 rounded-full border border-white/20 bg-white/10 px-10 py-5 text-lg font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20'
             >
               <svg
                 className='w-5 h-5'
@@ -117,16 +86,9 @@ const FinalCtaSection = () => {
               </svg>
               Call Us Today
             </a>
-          </motion.div>
+          </div>
 
-          {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className='flex flex-wrap items-center justify-center gap-6 lg:gap-10 text-white/50 text-sm'
-          >
+          <div className='flex flex-wrap items-center justify-center gap-6 text-sm text-white/50 lg:gap-10'>
             {TRUST_INDICATORS.map(item => (
               <div key={item} className='flex items-center gap-2'>
                 <svg
@@ -143,7 +105,7 @@ const FinalCtaSection = () => {
                 <span>{item}</span>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

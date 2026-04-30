@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { COMPANY_STATS, SITE_IMAGES } from '@/constants/siteConfig'
 
@@ -32,115 +30,39 @@ const trustPoints = [
 ]
 
 const VideoSection = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  const [shouldUseVideo, setShouldUseVideo] = useState(false)
-  const videoRef = useRef(null)
-
-  useEffect(() => {
-    const reducedMotionQuery = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    )
-    const coarsePointerQuery = window.matchMedia('(pointer: coarse)')
-    const mobileQuery = window.matchMedia('(max-width: 767px)')
-
-    const syncPlaybackMode = () => {
-      const reducedMotion = reducedMotionQuery.matches
-      const useVideo =
-        !reducedMotion &&
-        !coarsePointerQuery.matches &&
-        !mobileQuery.matches
-
-      setPrefersReducedMotion(reducedMotion)
-      setShouldUseVideo(useVideo)
-
-      if (!useVideo) {
-        setIsVideoLoaded(false)
-      }
-    }
-
-    syncPlaybackMode()
-
-    reducedMotionQuery.addEventListener('change', syncPlaybackMode)
-    coarsePointerQuery.addEventListener('change', syncPlaybackMode)
-    mobileQuery.addEventListener('change', syncPlaybackMode)
-
-    return () => {
-      reducedMotionQuery.removeEventListener('change', syncPlaybackMode)
-      coarsePointerQuery.removeEventListener('change', syncPlaybackMode)
-      mobileQuery.removeEventListener('change', syncPlaybackMode)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!shouldUseVideo || !videoRef.current) return
-
-    let idleId = null
-    let timeoutId = null
-
-    const startVideo = () => {
-      const playPromise = videoRef.current?.play()
-      if (playPromise?.catch) {
-        playPromise.catch(() => {
-          setIsVideoLoaded(false)
-        })
-      }
-    }
-
-    if ('requestIdleCallback' in window) {
-      idleId = window.requestIdleCallback(startVideo, { timeout: 1500 })
-    } else {
-      timeoutId = window.setTimeout(startVideo, 150)
-    }
-
-    return () => {
-      if (idleId !== null && 'cancelIdleCallback' in window) {
-        window.cancelIdleCallback(idleId)
-      }
-
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId)
-      }
-    }
-  }, [shouldUseVideo])
-
-  const scrollToNextSection = useCallback(() => {
-    const nextSection = document.getElementById('next-section')
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
-
   return (
     <section className='relative flex min-h-screen items-center overflow-hidden bg-gray-950'>
       <div className='absolute inset-0 bg-black'>
-        <img
+        <Image
           src={VIDEO_POSTER}
           alt=''
+          fill
+          priority
+          quality={68}
+          sizes='100vw'
           aria-hidden='true'
-          fetchPriority='high'
-          className={`absolute inset-0 h-full w-full object-cover brightness-[0.38] saturate-125 transition-opacity duration-700 ${
-            shouldUseVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
-          }`}
+          className='absolute inset-0 h-full w-full object-cover brightness-[0.38] saturate-125'
         />
 
-        {shouldUseVideo && (
+        <div className='absolute inset-0 hidden lg:block motion-reduce:hidden'>
           <video
-            ref={videoRef}
-            src={SITE_IMAGES.heroVideo}
             poster={VIDEO_POSTER}
             autoPlay
             muted
             loop
             playsInline
-            preload='metadata'
-            onLoadedData={() => setIsVideoLoaded(true)}
-            onCanPlayThrough={() => setIsVideoLoaded(true)}
-            className={`absolute inset-0 h-full w-full object-cover brightness-[0.38] saturate-125 transition-opacity duration-700 ${
-              isVideoLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        )}
+            preload='none'
+            aria-hidden='true'
+            tabIndex={-1}
+            className='absolute inset-0 h-full w-full object-cover brightness-[0.38] saturate-125'
+          >
+            <source
+              src={SITE_IMAGES.heroVideo}
+              type='video/mp4'
+              media='(min-width: 768px) and (prefers-reduced-motion: no-preference)'
+            />
+          </video>
+        </div>
 
         <div className='absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(236,72,153,0.18),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(251,191,36,0.2),transparent_30%)]' />
         <div className='absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90' />
@@ -262,26 +184,16 @@ const VideoSection = () => {
         </div>
       </div>
 
-      <button
-        type='button'
-        onClick={scrollToNextSection}
-        onTouchEnd={event => {
-          event.preventDefault()
-          scrollToNextSection()
-        }}
+      <a
+        href='#next-section'
         className='group absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-white/70 transition-colors hover:text-white'
         aria-label='Discover More and scroll to the next section'
-        style={{ WebkitTapHighlightColor: 'transparent' }}
       >
         <span className='flex flex-col items-center gap-2'>
           <span className='text-xs font-medium uppercase tracking-[0.3em] text-white/70'>
             Discover More
           </span>
-          <span
-            className={`flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm ${
-              prefersReducedMotion ? '' : 'animate-bounce'
-            }`}
-          >
+          <span className='flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm motion-safe:animate-bounce'>
             <svg
               className='h-5 w-5'
               fill='none'
@@ -297,7 +209,7 @@ const VideoSection = () => {
             </svg>
           </span>
         </span>
-      </button>
+      </a>
     </section>
   )
 }
