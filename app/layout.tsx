@@ -4,7 +4,10 @@ import { inter } from './fonts'
 import './globals.css'
 import { Metadata, Viewport } from 'next'
 import dynamic from 'next/dynamic'
-import GoogleAnalytics from './GoogleAnalytics'
+
+const GoogleAnalytics = dynamic(() => import('./GoogleAnalytics'), {
+  ssr: false
+})
 
 const CookieConsent = dynamic(() => import('@/components/CookieConsent'), {
   ssr: false
@@ -135,18 +138,6 @@ export default function RootLayout ({
   return (
     <html lang='en-GB' className={`${inter.variable} font-sans`}>
       <head>
-        {/* Preconnect to critical origins */}
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
-
-        {/* DNS prefetch for external resources */}
-        <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
-        <link rel='dns-prefetch' href='https://www.google-analytics.com' />
-        <link rel='dns-prefetch' href='https://region1.google-analytics.com' />
-
-        {/* Preload hero poster image for fast LCP */}
-        <link rel='preload' as='image' href='/corporate.webp' type='image/webp' />
-
         {/* Structured data */}
         <script
           type='application/ld+json'

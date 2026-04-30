@@ -308,3 +308,16 @@ html {
   min-width: 120px; /* Adjust based on your text width */
   display: inline-block;
 }
+
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+html > div[data-netlify-deploy-id],
+html > div[data-netlify-deploy-id] iframe {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
