@@ -10,7 +10,8 @@ const linkClassName =
 export default function Navbar () {
   return (
     <nav
-      className='fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-gray-950/78 py-3 shadow-lg shadow-black/10 backdrop-blur-lg supports-[backdrop-filter]:bg-gray-950/58'
+      data-site-navbar='true'
+      className='fixed left-0 right-0 top-0 z-[10000] border-b border-white/10 bg-gray-950/96 py-3 shadow-lg shadow-black/20 backdrop-blur-lg supports-[backdrop-filter]:bg-gray-950/82'
       role='navigation'
       aria-label='Main navigation'
     >
