@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { createPortal } from 'react-dom'
 import { NAV_LINKS } from '@/constants'
 import { getBookingYear } from '@/constants/siteConfig'
 
@@ -11,10 +12,15 @@ const DESKTOP_BREAKPOINT = '(min-width: 1024px)'
 
 export default function MobileNav () {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const [navOffset, setNavOffset] = useState(72)
   const menuRef = useRef<HTMLDivElement>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   useEffect(() => {
     setIsMenuOpen(false)
@@ -116,46 +122,16 @@ export default function MobileNav () {
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : ''
-    document.body.style.touchAction = isMenuOpen ? 'none' : ''
 
     return () => {
       document.body.style.overflow = ''
-      document.body.style.touchAction = ''
     }
   }, [isMenuOpen])
 
-  return (
+  const mobileMenuSheet = (
     <>
-      <button
-        ref={menuButtonRef}
-        type='button'
-        className='relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white transition-colors hover:bg-white/20 lg:hidden'
-        onClick={() => setIsMenuOpen(current => !current)}
-        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={isMenuOpen}
-        aria-controls={MOBILE_MENU_ID}
-      >
-        <div className='flex h-4 w-5 flex-col justify-between'>
-          <span
-            className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
-              isMenuOpen ? 'translate-y-1.5 rotate-45' : ''
-            }`}
-          />
-          <span
-            className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
-              isMenuOpen ? 'opacity-0' : ''
-            }`}
-          />
-          <span
-            className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
-              isMenuOpen ? '-translate-y-1.5 -rotate-45' : ''
-            }`}
-          />
-        </div>
-      </button>
-
       <div
-        className={`fixed inset-x-0 bottom-0 bg-black/72 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-x-0 bottom-0 z-[10001] bg-black/72 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
           isMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         style={{ top: `${navOffset}px` }}
@@ -169,7 +145,7 @@ export default function MobileNav () {
         role='dialog'
         aria-modal='true'
         aria-label='Mobile navigation menu'
-        className={`fixed inset-x-0 bottom-0 overflow-y-auto overscroll-contain border-t border-white/10 bg-[#070507] shadow-[0_-20px_40px_rgba(0,0,0,0.45)] transition-all duration-300 lg:hidden ${
+        className={`fixed inset-x-0 bottom-0 z-[10002] overflow-y-auto overscroll-contain border-t border-white/10 bg-[#070507] shadow-[0_-20px_40px_rgba(0,0,0,0.45)] transition-all duration-300 lg:hidden ${
           isMenuOpen
             ? 'translate-y-0 opacity-100'
             : 'pointer-events-none translate-y-6 opacity-0'
@@ -262,6 +238,39 @@ export default function MobileNav () {
           </div>
         </nav>
       </div>
+    </>
+  )
+
+  return (
+    <>
+      <button
+        ref={menuButtonRef}
+        type='button'
+        className='relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white transition-colors hover:bg-white/20 lg:hidden'
+        onClick={() => setIsMenuOpen(current => !current)}
+        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isMenuOpen}
+        aria-controls={MOBILE_MENU_ID}
+        >
+          <div className='flex h-4 w-5 flex-col justify-between'>
+          <span
+            className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
+              isMenuOpen ? 'translate-y-1.5 rotate-45' : ''
+            }`}
+          />
+          <span
+            className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
+              isMenuOpen ? 'opacity-0' : ''
+            }`}
+          />
+          <span
+            className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
+              isMenuOpen ? '-translate-y-1.5 -rotate-45' : ''
+            }`}
+          />
+        </div>
+      </button>
+      {isMounted ? createPortal(mobileMenuSheet, document.body) : null}
     </>
   )
 }
