@@ -145,11 +145,11 @@ const VideoSection = () => {
 
         <div className='border-t border-white/10 pt-6'>
           <div className='flex flex-col gap-4 text-sm text-white/70 lg:flex-row lg:items-center lg:justify-between'>
-            <div className='flex flex-wrap items-center gap-3'>
+            <div className='flex flex-wrap items-center justify-center gap-3 lg:justify-start'>
               {trustPoints.map(point => (
                 <span
                   key={point}
-                  className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5'
+                  className='inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-center'
                 >
                   <svg
                     className='h-4 w-4 flex-shrink-0 text-emerald-400'
@@ -160,14 +160,14 @@ const VideoSection = () => {
                       fillRule='evenodd'
                       d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
                       clipRule='evenodd'
-                    />
-                  </svg>
-                  <span>{point}</span>
+                  />
+                </svg>
+                  <span className='min-w-0 break-words'>{point}</span>
                 </span>
               ))}
             </div>
 
-            <div className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5'>
+            <div className='flex w-full max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center sm:w-auto sm:flex-nowrap sm:justify-start sm:py-1.5'>
               {[0, 1, 2, 3, 4].map(index => (
                 <svg
                   key={index}
@@ -178,7 +178,9 @@ const VideoSection = () => {
                   <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
                 </svg>
               ))}
-              <span>{COMPANY_STATS.googleRating} Google Review Rating</span>
+              <span className='min-w-0 break-words'>
+                {COMPANY_STATS.googleRating} Google Review Rating
+              </span>
             </div>
           </div>
         </div>
